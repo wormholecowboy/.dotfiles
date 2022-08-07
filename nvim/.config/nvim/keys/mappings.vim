@@ -42,3 +42,9 @@ nnoremap <C-l> <C-w>l
 
 nnoremap <Leader>o o<Esc>^Da
 nnoremap <Leader>O O<Esc>^Da
+
+" nmap oo o<Esc>k 
+nmap OO O<Esc>j
+
+
+

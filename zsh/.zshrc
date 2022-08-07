@@ -123,4 +123,20 @@ if [ -f '/Users/briangildea/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/bri
 if [ -f '/Users/briangildea/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/briangildea/google-cloud-sdk/completion.zsh.inc'; fi
 export PATH="/usr/local/opt/mongodb-community@4.4/bin:$PATH"
 
+
+# FZF configuration
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+/usr/share/fzf/completion.zsh
+/usr/share/fzf/key-bindings.zsh
+
+
+
+
+
+
+
+
+
+
+#
+#

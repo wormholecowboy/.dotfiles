@@ -9,5 +9,10 @@ source $HOME/.config/nvim/plug-config/coc.vim
 source $HOME/.config/nvim/plug-config/quickscope.vim
 source $HOME/.config/nvim/keys/which-key.vim
 source $HOME/.config/nvim/plug-config/fzf.vim
+source $HOME/.config/nvim/plug-config/sneak.vim
+" source $HOME/.config/nvim/plug-config/lsp.vim
+
+
+
 
 colorscheme gruvbox
