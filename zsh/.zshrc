@@ -122,3 +122,5 @@ if [ -f '/Users/briangildea/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/bri
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/briangildea/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/briangildea/google-cloud-sdk/completion.zsh.inc'; fi
 export PATH="/usr/local/opt/mongodb-community@4.4/bin:$PATH"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
