@@ -110,6 +110,7 @@ alias ga="git add ."
 alias gc="git commit"
 alias gp="git push"
 alias ls="ls -al"
+alias nrd="npm run dev"
 
 prompt_context() {}
 export NVM_DIR="$HOME/.nvm"
