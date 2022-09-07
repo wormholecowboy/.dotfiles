@@ -127,17 +127,6 @@ export PATH="/usr/local/opt/mongodb-community@4.4/bin:$PATH"
 
 # FZF configuration
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-/usr/share/fzf/completion.zsh
-/usr/share/fzf/key-bindings.zsh
-
-
-
-
-
-
-
-
-
-
+export FZF_DEFAULT_OPS="--extended"
 #
 #
