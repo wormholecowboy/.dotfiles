@@ -111,6 +111,7 @@ alias gc="git commit"
 alias gp="git push"
 alias ls="ls -al"
 alias nrd="npm run dev"
+alias lv="lvim"
 
 prompt_context() {}
 export NVM_DIR="$HOME/.nvm"
@@ -123,7 +124,7 @@ if [ -f '/Users/briangildea/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/bri
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/briangildea/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/briangildea/google-cloud-sdk/completion.zsh.inc'; fi
 export PATH="/usr/local/opt/mongodb-community@4.4/bin:$PATH"
-
+export PATH="$HOME/.local/bin:$PATH"
 
 # FZF configuration
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
