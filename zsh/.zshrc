@@ -109,7 +109,7 @@ alias nv="nvim"
 alias ga="git add ."
 alias gc="git commit"
 alias gp="git push"
-alias ls="ls -al"
+alias ls="ls -a"
 alias nrd="npm run dev"
 alias lv="lvim"
 
