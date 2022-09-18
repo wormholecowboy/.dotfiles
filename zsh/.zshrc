@@ -24,10 +24,12 @@ plugins=(git
 alias ga="git add ."
 alias gc="git commit"
 alias gp="git push"
-alias ls="ls -a"
 alias nrd="npm run dev"
 alias lv="lvim"
 alias nv='nvim'
+alias cat="bat"
+alias ls="lsd -al --group-dirs first"
+alias ll="ls | less"
 
 # MISC
 # prompt_context() {}
