@@ -22,16 +22,16 @@ scrolling:
   multiplier: 3
 font:
   normal:
-    family: "Space Mono"
+    family: "Hack Nerd Font Mono"
     style: Regular
   bold:
-    family: "Hack"
+    family: "Hack Nerd Font Mono"
     style: Regular
   italic:
-    family: "Hack"
+    family: "Hack Nerd Font Mono"
     style: Regular
   bold_italic:
-    family: "Hack"
+    family: "Hack Nerd Font Mono"
     style: Regular
   size: 17.0
 draw_bold_text_with_bright_colors: true

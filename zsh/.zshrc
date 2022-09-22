@@ -1,7 +1,7 @@
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 source $ZSH/oh-my-zsh.sh
-PROMPT='%B%F{green}%4~> %f%b'
+PROMPT='%B%F{green}%4~ >> %f%b'
 #
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
@@ -45,6 +45,7 @@ if [ -f '/Users/briangildea/google-cloud-sdk/completion.zsh.inc' ]; then . '/Use
 # PATH
 export PATH="/usr/local/opt/mongodb-community@4.4/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+. ~/z.sh
 
 # FZF configuration
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

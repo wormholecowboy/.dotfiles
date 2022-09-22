@@ -81,8 +81,6 @@ keymap("n", "<leader>dt", "<cmd>lua require'dap'.terminate()<cr>", opts)
 
 -- My Additions
 
-keymap("n", "oo", "o<ESC>k", opts)
-keymap("n", "OO", "O<ESC>j", opts)
 
 
 
