@@ -60,6 +60,12 @@ return packer.startup(function(use)
   -- Colorschemes
   use { "folke/tokyonight.nvim", commit = "8223c970677e4d88c9b6b6d81bda23daf11062bb" }
   use { "lunarvim/darkplus.nvim", commit = "2584cdeefc078351a79073322eb7f14d7fbb1835" }
+use {"perfectspr/dracula-vim"}
+use { "lisposter/vim-blackboard"}
+use { "kyazdani42/blue-moon"}
+  use { "lifepillar/vim-solarized8"}
+  use { "sainnhe/everforest"}
+  use { "morhetz/gruvbox"}
 
   -- cmp plugins
   use { "hrsh7th/nvim-cmp", commit = "df6734aa018d6feb4d76ba6bda94b1aeac2b378a" } -- The completion plugin
@@ -95,6 +101,18 @@ return packer.startup(function(use)
   use { "mfussenegger/nvim-dap", commit = "014ebd53612cfd42ac8c131e6cec7c194572f21d" }
   use { "rcarriga/nvim-dap-ui", commit = "d76d6594374fb54abf2d94d6a320f3fd6e9bb2f7" }
   use { "ravenxrz/DAPInstall.nvim", commit = "8798b4c36d33723e7bba6ed6e2c202f84bb300de" }
+
+ -- MISC
+use { "phaazon/hop.nvim", commit = "2a1b686aad85a3c241f8cd8fd42eb09c7de5ed79"}
+  use { "liuchengxu/vim-which-key", commit = "4d64b2261aff3b9dc1863ebc1ea9ec410965a5de" }
+ use {"karb94/neoscroll.nvim", commit = "54c5c419f6ee2b35557b3a6a7d631724234ba97a"}
+  use "NvChad/nvim-colorizer.lua"
+-- https://github.com/folke/trouble.nvim
+  -- https://github.com/ahmedkhalf/project.nvim
+  -- https://github.com/tversteeg/registers.nvim
+  -- https://github.com/mbbill/undotree
+  -- https://github.com/lervag/wiki.vim
+  -- https://github.com/junegunn/goyo.vim
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

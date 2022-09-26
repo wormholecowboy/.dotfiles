@@ -11,7 +11,7 @@ telescope.setup {
     prompt_prefix = " ",
     selection_caret = " ",
     path_display = { "smart" },
-    file_ignore_patterns = { ".git/", "node_modules" },
+    file_ignore_patterns = {},
 
     mappings = {
       i = {
@@ -19,6 +19,7 @@ telescope.setup {
         ["<Up>"] = actions.cycle_history_prev,
         ["<C-j>"] = actions.move_selection_next,
         ["<C-k>"] = actions.move_selection_previous,
+        ["<C-f>"] = "which_key"
       },
     },
   },

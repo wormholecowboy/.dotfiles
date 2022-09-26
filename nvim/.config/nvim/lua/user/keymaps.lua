@@ -22,7 +22,7 @@ keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
--- Resize with arrows * YOU COULD CHANGE THIS TO ALT WITH HJKL
+-- Resize with arrows 
 keymap("n", "<C-Up>", ":resize -2<CR>", opts)
 keymap("n", "<C-Down>", ":resize +2<CR>", opts)
 keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
@@ -31,9 +31,6 @@ keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 -- Navigate buffers
 keymap("n", "<S-l>", ":bnext<CR>", opts)
 keymap("n", "<S-h>", ":bprevious<CR>", opts)
-
--- Clear highlights
-keymap("n", "<leader>h", "<cmd>nohlsearch<CR>", opts)
 
 -- Close buffers
 keymap("n", "<S-q>", "<cmd>Bdelete!<CR>", opts)
@@ -50,7 +47,18 @@ keymap("i", "kj", "<ESC>", opts)
 keymap("v", "<", "<gv", opts)
 keymap("v", ">", ">gv", opts)
 
--- Plugins --
+-- Move text up and down
+keymap("n", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
+keymap("n", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
+
+-- Visual Block --
+-- Move text up and down
+keymap("x", "J", ":move '>+1<CR>gv-gv", opts)
+keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
+keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
+keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
+
+-- PLUGINS --
 
 -- NvimTree
 keymap("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
@@ -78,12 +86,5 @@ keymap("n", "<leader>dr", "<cmd>lua require'dap'.repl.toggle()<cr>", opts)
 keymap("n", "<leader>dl", "<cmd>lua require'dap'.run_last()<cr>", opts)
 keymap("n", "<leader>du", "<cmd>lua require'dapui'.toggle()<cr>", opts)
 keymap("n", "<leader>dt", "<cmd>lua require'dap'.terminate()<cr>", opts)
-
--- My Additions
-
-
-
-
-
 
 -- END
