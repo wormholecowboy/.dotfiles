@@ -23,3 +23,5 @@ require "user.dap"
 require "user.whichkey"
 require "user.hop"
 require "user.surround"
+require "user.neoscroll"
+require 'colorizer'.setup()

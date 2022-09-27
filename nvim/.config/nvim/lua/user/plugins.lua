@@ -56,13 +56,17 @@ return packer.startup(function(use)
   use { "lewis6991/impatient.nvim", commit = "969f2c5c90457612c09cf2a13fee1adaa986d350" }
   use { "lukas-reineke/indent-blankline.nvim", commit = "6177a59552e35dfb69e1493fd68194e673dc3ee2" }
   use { "goolord/alpha-nvim", commit = "ef27a59e5b4d7b1c2fe1950da3fe5b1c5f3b4c94" }
+  use { "liuchengxu/vim-which-key", commit = "4d64b2261aff3b9dc1863ebc1ea9ec410965a5de" }
+  use { "phaazon/hop.nvim", commit = "2a1b686aad85a3c241f8cd8fd42eb09c7de5ed79"}
+  use {"karb94/neoscroll.nvim", commit = "54c5c419f6ee2b35557b3a6a7d631724234ba97a"}
+  use {"norcalli/nvim-colorizer.lua" , commit = "35f1aad99c4d03217bcc80a2e16efe3ba74379a4"}
 
   -- Colorschemes
   use { "folke/tokyonight.nvim", commit = "8223c970677e4d88c9b6b6d81bda23daf11062bb" }
   use { "lunarvim/darkplus.nvim", commit = "2584cdeefc078351a79073322eb7f14d7fbb1835" }
-use {"perfectspr/dracula-vim"}
-use { "lisposter/vim-blackboard"}
-use { "kyazdani42/blue-moon"}
+  use {"perfectspr/dracula-vim"}
+  use { "lisposter/vim-blackboard"}
+  use { "kyazdani42/blue-moon"}
   use { "lifepillar/vim-solarized8"}
   use { "sainnhe/everforest"}
   use { "morhetz/gruvbox"}
@@ -103,11 +107,7 @@ use { "kyazdani42/blue-moon"}
   use { "ravenxrz/DAPInstall.nvim", commit = "8798b4c36d33723e7bba6ed6e2c202f84bb300de" }
 
  -- MISC
-use { "phaazon/hop.nvim", commit = "2a1b686aad85a3c241f8cd8fd42eb09c7de5ed79"}
-  use { "liuchengxu/vim-which-key", commit = "4d64b2261aff3b9dc1863ebc1ea9ec410965a5de" }
- use {"karb94/neoscroll.nvim", commit = "54c5c419f6ee2b35557b3a6a7d631724234ba97a"}
-  use "NvChad/nvim-colorizer.lua"
--- https://github.com/folke/trouble.nvim
+  -- https://github.com/folke/trouble.nvim
   -- https://github.com/ahmedkhalf/project.nvim
   -- https://github.com/tversteeg/registers.nvim
   -- https://github.com/mbbill/undotree
