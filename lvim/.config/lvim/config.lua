@@ -1,10 +1,11 @@
 require "brian.keys"
--- require "brian.icons"
 require "brian.options"
 require "brian.plugins"
+require "brian.whichkey"
+require "brian.telescope"
+-- require "brian.icons"
 -- require "brian.spectre"
 -- require "brian.todo-comments"
-require "brian.whichkey"
 -- require "brian.zen-mode"
 
 --[[
