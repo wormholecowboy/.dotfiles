@@ -3,10 +3,10 @@ require "brian.options"
 require "brian.plugins"
 require "brian.whichkey"
 require "brian.telescope"
+require "brian.hop"
 -- require "brian.icons"
 -- require "brian.spectre"
 -- require "brian.todo-comments"
--- require "brian.zen-mode"
 
 --[[
 

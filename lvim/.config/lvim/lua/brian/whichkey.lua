@@ -7,8 +7,14 @@ lvim.builtin.which_key.mappings["q"] = { '<cmd>lua require("user.functions").sma
 lvim.builtin.which_key.mappings["/"] = { '<cmd>lua require("Comment.api").toggle.linewise.current()<CR>', "Comment" }
 lvim.builtin.which_key.mappings["c"] = { "<cmd>bdelete!<CR>", "Close Buffer" }
 -- lvim.builtin.which_key.mappings["gy"] = "Link"
-lvim.builtin.which_key.mappings["s"] = nil
--- lvim.builtin.which_key.mappings["z"] = { "<cmd>"}
+-- lvim.builtin.which_key.mappings["s"] = nil
+lvim.builtin.which_key.mappings["<leader>"] = {
+  name = "Hop",
+  f = { "<cmd>HopWord<CR>", "All Words" },
+  a = { "<cmd>HopAnywhere<CR>", "Anywhere" },
+  l = { "<cmd>HopLine<CR>", "Line" },
+  p = { "<cmd>HopPattern<CR>", "Pattern" },
+}
 lvim.builtin.which_key.mappings["t"] = {
   name = "+Trouble",
   r = { "<cmd>Trouble lsp_references<cr>", "References" },
