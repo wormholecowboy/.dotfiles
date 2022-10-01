@@ -68,7 +68,8 @@ lvim.builtin.alpha.dashboard.section.buttons.entries["5"]["2"] = "  Find Word
 lvim.builtin.alpha.dashboard.section.buttons.entries["5"]["3"] = "<CMD>Telescope live_grep<CR>"
 lvim.builtin.alpha.dashboard.section.buttons.entries["6"]["1"] = "SPC L c"
 lvim.builtin.alpha.dashboard.section.buttons.entries["6"]["2"] = "  Configuration"
-lvim.builtin.alpha.dashboard.section.buttons.entries["6"]["3"] = "<CMD>edit /Users/briangildea/.config/lvim/config.lua <CR>"
+lvim.builtin.alpha.dashboard.section.buttons.entries["6"]["3"] =
+	"<CMD>edit /Users/briangildea/.config/lvim/config.lua <CR>"
 lvim.builtin.alpha.dashboard.section.footer.opts.hl = "Number"
 lvim.builtin.alpha.dashboard.section.footer.opts.position = "center"
 lvim.builtin.alpha.dashboard.section.footer.type = "text"
@@ -78,28 +79,50 @@ lvim.builtin.alpha.dashboard.section.footer.val["3"] = "master-824b2d1"
 lvim.builtin.alpha.dashboard.section.header.opts.hl = "Label"
 lvim.builtin.alpha.dashboard.section.header.opts.position = "center"
 lvim.builtin.alpha.dashboard.section.header.type = "text"
-lvim.builtin.alpha.dashboard.section.header.val["1"] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
-lvim.builtin.alpha.dashboard.section.header.val["10"] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠑⢄⡀⠀⣿⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
-lvim.builtin.alpha.dashboard.section.header.val["11"] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢺⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
-lvim.builtin.alpha.dashboard.section.header.val["12"] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⠉⠑⠢⢄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
-lvim.builtin.alpha.dashboard.section.header.val["13"] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⡇⠀⠀⠀⠈⠑⠢⠄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⠢⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
-lvim.builtin.alpha.dashboard.section.header.val["14"] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⣇⠀⠀⠀⠀⠀⠀⠀⠀⠉⠐⠢⠄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⡟⠀⠈⠑⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
-lvim.builtin.alpha.dashboard.section.header.val["15"] = "⠀⠀⠀⠀⠀⠀⢀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠁⠒⠠⠤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⣿⠁⠀⠀⢀⣼⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
-lvim.builtin.alpha.dashboard.section.header.val["16"] = "⠀⠀⠀⠀⠀⠀⢸⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠁⠒⠂⠤⠤⠀⣀⡀⠀⠀⠀⣼⣿⠇⠀⠀⢀⣸⣿⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
-lvim.builtin.alpha.dashboard.section.header.val["17"] = "⠀⠀⠀⠀⠀⠀⣿⡟⠀⠀⠀⠀⠀⠀⣤⡄⠀⠀⠀⣠⣤⠀⠀⢠⣭⣀⣤⣤⣤⡀⠀⠀⠀⢀⣤⣤⣤⣤⡀⠀⠀⠀⢠⣤⢀⣤⣤⣄⠀⠀⣿⣿⠀⠉⣹⣿⠏⠉⠉⢱⣶⣶⣶⡦⠀⠀⠀⢠⣶⣦⣴⣦⣠⣴⣦⡀⠀⠀⠀⠀"
-lvim.builtin.alpha.dashboard.section.header.val["18"] = "⠀⠀⠀⠀⠀⢠⣿⡇⠀⠀⠀⠀⠀⢠⣿⠇⠀⠀⠀⣿⡇⠀⠀⣿⡿⠉⠀⠈⣿⣧⠀⠀⠰⠿⠋⠀⠀⢹⣿⠀⠀⠀⣿⡿⠋⠀⠹⠿⠀⠀⢻⣿⡇⢠⣿⡟⠀⠀⠀⠈⠉⢹⣿⡇⠀⠀⠀⢸⣿⡏⢹⣿⡏⢹⣿⡇⠀⠀⠀⠀"
-lvim.builtin.alpha.dashboard.section.header.val["19"] = "⠀⠀⠀⠀⠀⢸⣿⠀⠀⠀⠀⠀⠀⢸⣿⠀⠀⠀⢰⣿⠃⠀⢠⣿⡇⠀⠀⠀⣿⡇⠀⠀⣠⣴⡶⠶⠶⣿⣿⠀⠀⢠⣿⡇⠀⠀⠀⠀⠀⠀⢸⣿⣇⣿⡿⠀⠀⠀⠀⠀⠀⣿⣿⠁⠀⠀⠀⣿⣿⠀⣾⣿⠀⣾⣿⠁⠀⠀⠀⠀"
-lvim.builtin.alpha.dashboard.section.header.val["2"] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
-lvim.builtin.alpha.dashboard.section.header.val["20"] = "⠀⠀⠀⠀⠀⣿⣟⠀⠀⠀⠀⠀⠀⢻⣿⡀⠀⢀⣼⣿⠀⠀⢸⣿⠀⠀⠀⢰⣿⠇⠀⢰⣿⣇⠀⠀⣠⣿⡏⠀⠀⢸⣿⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⠁⠀⠀⠀⣀⣀⣠⣿⣿⣀⡀⠀⢠⣿⡟⢠⣿⡟⢀⣿⡿⠀⠀⠀⠀⠀"
-lvim.builtin.alpha.dashboard.section.header.val["21"] = "⠀⠀⠀⠀⠀⠛⠛⠛⠛⠛⠛⠁⠀⠈⠛⠿⠟⠋⠛⠃⠀⠀⠛⠛⠀⠀⠀⠘⠛⠀⠀⠀⠙⠿⠿⠛⠙⠛⠃⠀⠀⠚⠛⠀⠀⠀⠀⠀⠀⠀⠘⠿⠿⠃⠀⠀⠀⠀⠿⠿⠿⠿⠿⠿⠿⠀⠸⠿⠇⠸⠿⠇⠸⠿⠇⠀⠀⠀⠀⠀"
-lvim.builtin.alpha.dashboard.section.header.val["22"] = "                                                                                "
-lvim.builtin.alpha.dashboard.section.header.val["3"] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣤⣤⣶⣶⣶⣶⣶⣶⣶⣦⣤⣄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
-lvim.builtin.alpha.dashboard.section.header.val["4"] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣴⣾⣿⠿⠛⠛⠉⠉⠉⠉⠉⠉⠉⠙⠛⠻⢿⣿⣶⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
-lvim.builtin.alpha.dashboard.section.header.val["5"] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⠿⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠻⢿⣷⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
-lvim.builtin.alpha.dashboard.section.header.val["6"] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢿⣿⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
-lvim.builtin.alpha.dashboard.section.header.val["7"] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⠒⠈⠉⠉⠉⠉⠉⣹⣿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢿⣷⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
-lvim.builtin.alpha.dashboard.section.header.val["8"] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⡀⠀⠀⠀⠀⠀⠀⣰⣿⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
-lvim.builtin.alpha.dashboard.section.header.val["9"] = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠑⢄⠀⠀⠀⠀⢰⣿⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+lvim.builtin.alpha.dashboard.section.header.val["1"] =
+	"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+lvim.builtin.alpha.dashboard.section.header.val["10"] =
+	"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠑⢄⡀⠀⣿⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+lvim.builtin.alpha.dashboard.section.header.val["11"] =
+	"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢺⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+lvim.builtin.alpha.dashboard.section.header.val["12"] =
+	"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⠉⠑⠢⢄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+lvim.builtin.alpha.dashboard.section.header.val["13"] =
+	"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⡇⠀⠀⠀⠈⠑⠢⠄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⠢⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+lvim.builtin.alpha.dashboard.section.header.val["14"] =
+	"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⣇⠀⠀⠀⠀⠀⠀⠀⠀⠉⠐⠢⠄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⡟⠀⠈⠑⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+lvim.builtin.alpha.dashboard.section.header.val["15"] =
+	"⠀⠀⠀⠀⠀⠀⢀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠁⠒⠠⠤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⣿⠁⠀⠀⢀⣼⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+lvim.builtin.alpha.dashboard.section.header.val["16"] =
+	"⠀⠀⠀⠀⠀⠀⢸⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠁⠒⠂⠤⠤⠀⣀⡀⠀⠀⠀⣼⣿⠇⠀⠀⢀⣸⣿⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+lvim.builtin.alpha.dashboard.section.header.val["17"] =
+	"⠀⠀⠀⠀⠀⠀⣿⡟⠀⠀⠀⠀⠀⠀⣤⡄⠀⠀⠀⣠⣤⠀⠀⢠⣭⣀⣤⣤⣤⡀⠀⠀⠀⢀⣤⣤⣤⣤⡀⠀⠀⠀⢠⣤⢀⣤⣤⣄⠀⠀⣿⣿⠀⠉⣹⣿⠏⠉⠉⢱⣶⣶⣶⡦⠀⠀⠀⢠⣶⣦⣴⣦⣠⣴⣦⡀⠀⠀⠀⠀"
+lvim.builtin.alpha.dashboard.section.header.val["18"] =
+	"⠀⠀⠀⠀⠀⢠⣿⡇⠀⠀⠀⠀⠀⢠⣿⠇⠀⠀⠀⣿⡇⠀⠀⣿⡿⠉⠀⠈⣿⣧⠀⠀⠰⠿⠋⠀⠀⢹⣿⠀⠀⠀⣿⡿⠋⠀⠹⠿⠀⠀⢻⣿⡇⢠⣿⡟⠀⠀⠀⠈⠉⢹⣿⡇⠀⠀⠀⢸⣿⡏⢹⣿⡏⢹⣿⡇⠀⠀⠀⠀"
+lvim.builtin.alpha.dashboard.section.header.val["19"] =
+	"⠀⠀⠀⠀⠀⢸⣿⠀⠀⠀⠀⠀⠀⢸⣿⠀⠀⠀⢰⣿⠃⠀⢠⣿⡇⠀⠀⠀⣿⡇⠀⠀⣠⣴⡶⠶⠶⣿⣿⠀⠀⢠⣿⡇⠀⠀⠀⠀⠀⠀⢸⣿⣇⣿⡿⠀⠀⠀⠀⠀⠀⣿⣿⠁⠀⠀⠀⣿⣿⠀⣾⣿⠀⣾⣿⠁⠀⠀⠀⠀"
+lvim.builtin.alpha.dashboard.section.header.val["2"] =
+	"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+lvim.builtin.alpha.dashboard.section.header.val["20"] =
+	"⠀⠀⠀⠀⠀⣿⣟⠀⠀⠀⠀⠀⠀⢻⣿⡀⠀⢀⣼⣿⠀⠀⢸⣿⠀⠀⠀⢰⣿⠇⠀⢰⣿⣇⠀⠀⣠⣿⡏⠀⠀⢸⣿⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⠁⠀⠀⠀⣀⣀⣠⣿⣿⣀⡀⠀⢠⣿⡟⢠⣿⡟⢀⣿⡿⠀⠀⠀⠀⠀"
+lvim.builtin.alpha.dashboard.section.header.val["21"] =
+	"⠀⠀⠀⠀⠀⠛⠛⠛⠛⠛⠛⠁⠀⠈⠛⠿⠟⠋⠛⠃⠀⠀⠛⠛⠀⠀⠀⠘⠛⠀⠀⠀⠙⠿⠿⠛⠙⠛⠃⠀⠀⠚⠛⠀⠀⠀⠀⠀⠀⠀⠘⠿⠿⠃⠀⠀⠀⠀⠿⠿⠿⠿⠿⠿⠿⠀⠸⠿⠇⠸⠿⠇⠸⠿⠇⠀⠀⠀⠀⠀"
+lvim.builtin.alpha.dashboard.section.header.val["22"] =
+	"                                                                                "
+lvim.builtin.alpha.dashboard.section.header.val["3"] =
+	"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣤⣤⣶⣶⣶⣶⣶⣶⣶⣦⣤⣄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+lvim.builtin.alpha.dashboard.section.header.val["4"] =
+	"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣴⣾⣿⠿⠛⠛⠉⠉⠉⠉⠉⠉⠉⠙⠛⠻⢿⣿⣶⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+lvim.builtin.alpha.dashboard.section.header.val["5"] =
+	"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⠿⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠻⢿⣷⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+lvim.builtin.alpha.dashboard.section.header.val["6"] =
+	"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢿⣿⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+lvim.builtin.alpha.dashboard.section.header.val["7"] =
+	"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⠒⠈⠉⠉⠉⠉⠉⣹⣿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢿⣷⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+lvim.builtin.alpha.dashboard.section.header.val["8"] =
+	"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⡀⠀⠀⠀⠀⠀⠀⣰⣿⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+lvim.builtin.alpha.dashboard.section.header.val["9"] =
+	"⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠑⢄⠀⠀⠀⠀⢰⣿⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
 lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.alpha.startify.section.bottom_buttons.entries["1"]["1"] = "q"
 lvim.builtin.alpha.startify.section.bottom_buttons.entries["1"]["2"] = "Quit"
@@ -128,7 +151,7 @@ lvim.builtin.autopairs.enable_moveright = true
 lvim.builtin.autopairs.fast_wrap.chars["1"] = "{"
 lvim.builtin.autopairs.fast_wrap.chars["2"] = "["
 lvim.builtin.autopairs.fast_wrap.chars["3"] = "("
-lvim.builtin.autopairs.fast_wrap.chars["4"] = "\""
+lvim.builtin.autopairs.fast_wrap.chars["4"] = '"'
 lvim.builtin.autopairs.fast_wrap.chars["5"] = "'"
 lvim.builtin.autopairs.fast_wrap.check_comma = true
 lvim.builtin.autopairs.fast_wrap.end_key = "$"
@@ -287,10 +310,10 @@ lvim.builtin.dap.stopped.linehl = "DiagnosticUnderlineInfo"
 lvim.builtin.dap.stopped.numhl = "LspDiagnosticsSignInformation"
 lvim.builtin.dap.stopped.text = ""
 lvim.builtin.dap.stopped.texthl = "LspDiagnosticsSignInformation"
-lvim.builtin.dashboard.active = false
-lvim.builtin.dashboard.disable_at_vim_enter = 0
-lvim.builtin.dashboard.search_handler = ""
-lvim.builtin.dashboard.session_directory = ""
+-- lvim.builtin.dashboard.active = false
+-- lvim.builtin.dashboard.disable_at_vim_enter = 0
+-- lvim.builtin.dashboard.search_handler = ""
+-- lvim.builtin.dashboard.session_directory = ""
 lvim.builtin.gitsigns.active = true
 lvim.builtin.gitsigns.opts.attach_to_untracked = true
 lvim.builtin.gitsigns.opts.current_line_blame = false
@@ -624,19 +647,23 @@ lvim.builtin.treesitter.textsubjects.enable = false
 lvim.builtin.treesitter.textsubjects.keymaps["."] = "textsubjects-smart"
 lvim.builtin.treesitter.textsubjects.keymaps[";"] = "textsubjects-big"
 lvim.builtin.which_key.active = true
-lvim.builtin.which_key.mappings.L.I["1"] = "<cmd>lua require('lvim.core.telescope.custom-finders').view_lunarvim_changelog()<cr>"
+lvim.builtin.which_key.mappings.L.I["1"] =
+	"<cmd>lua require('lvim.core.telescope.custom-finders').view_lunarvim_changelog()<cr>"
 lvim.builtin.which_key.mappings.L.I["2"] = "View LunarVim's changelog"
 lvim.builtin.which_key.mappings.L.c["1"] = "<cmd>edit /Users/briangildea/.config/lvim/config.lua<cr>"
 lvim.builtin.which_key.mappings.L.c["2"] = "Edit config.lua"
-lvim.builtin.which_key.mappings.L.f["1"] = "<cmd>lua require('lvim.core.telescope.custom-finders').find_lunarvim_files()<cr>"
+lvim.builtin.which_key.mappings.L.f["1"] =
+	"<cmd>lua require('lvim.core.telescope.custom-finders').find_lunarvim_files()<cr>"
 lvim.builtin.which_key.mappings.L.f["2"] = "Find LunarVim files"
-lvim.builtin.which_key.mappings.L.g["1"] = "<cmd>lua require('lvim.core.telescope.custom-finders').grep_lunarvim_files()<cr>"
+lvim.builtin.which_key.mappings.L.g["1"] =
+	"<cmd>lua require('lvim.core.telescope.custom-finders').grep_lunarvim_files()<cr>"
 lvim.builtin.which_key.mappings.L.g["2"] = "Grep LunarVim files"
 lvim.builtin.which_key.mappings.L.i["1"] = "<cmd>lua require('lvim.core.info').toggle_popup(vim.bo.filetype)<cr>"
 lvim.builtin.which_key.mappings.L.i["2"] = "Toggle LunarVim Info"
 lvim.builtin.which_key.mappings.L.k["1"] = "<cmd>Telescope keymaps<cr>"
 lvim.builtin.which_key.mappings.L.k["2"] = "View LunarVim's keymappings"
-lvim.builtin.which_key.mappings.L.l.D["1"] = "<cmd>lua vim.fn.execute('edit ' .. require('lvim.core.log').get_path())<cr>"
+lvim.builtin.which_key.mappings.L.l.D["1"] =
+	"<cmd>lua vim.fn.execute('edit ' .. require('lvim.core.log').get_path())<cr>"
 lvim.builtin.which_key.mappings.L.l.D["2"] = "Open the default logfile"
 lvim.builtin.which_key.mappings.L.l.L["1"] = "<cmd>lua vim.fn.execute('edit ' .. vim.lsp.get_log_path())<cr>"
 lvim.builtin.which_key.mappings.L.l.L["2"] = "Open the LSP logfile"
@@ -644,14 +671,18 @@ lvim.builtin.which_key.mappings.L.l.N["1"] = "<cmd>edit $NVIM_LOG_FILE<cr>"
 lvim.builtin.which_key.mappings.L.l.N["2"] = "Open the Neovim logfile"
 lvim.builtin.which_key.mappings.L.l.P["1"] = "<cmd>edit $LUNARVIM_CACHE_DIR/packer.nvim.log<cr>"
 lvim.builtin.which_key.mappings.L.l.P["2"] = "Open the Packer logfile"
-lvim.builtin.which_key.mappings.L.l.d["1"] = "<cmd>lua require('lvim.core.terminal').toggle_log_view(require('lvim.core.log').get_path())<cr>"
+lvim.builtin.which_key.mappings.L.l.d["1"] =
+	"<cmd>lua require('lvim.core.terminal').toggle_log_view(require('lvim.core.log').get_path())<cr>"
 lvim.builtin.which_key.mappings.L.l.d["2"] = "view default log"
-lvim.builtin.which_key.mappings.L.l.l["1"] = "<cmd>lua require('lvim.core.terminal').toggle_log_view(vim.lsp.get_log_path())<cr>"
+lvim.builtin.which_key.mappings.L.l.l["1"] =
+	"<cmd>lua require('lvim.core.terminal').toggle_log_view(vim.lsp.get_log_path())<cr>"
 lvim.builtin.which_key.mappings.L.l.l["2"] = "view lsp log"
-lvim.builtin.which_key.mappings.L.l.n["1"] = "<cmd>lua require('lvim.core.terminal').toggle_log_view(os.getenv('NVIM_LOG_FILE'))<cr>"
+lvim.builtin.which_key.mappings.L.l.n["1"] =
+	"<cmd>lua require('lvim.core.terminal').toggle_log_view(os.getenv('NVIM_LOG_FILE'))<cr>"
 lvim.builtin.which_key.mappings.L.l.n["2"] = "view neovim log"
 lvim.builtin.which_key.mappings.L.l.name = "+logs"
-lvim.builtin.which_key.mappings.L.l.p["1"] = "<cmd>lua require('lvim.core.terminal').toggle_log_view(get_cache_dir() .. '/packer.nvim.log')<cr>"
+lvim.builtin.which_key.mappings.L.l.p["1"] =
+	"<cmd>lua require('lvim.core.terminal').toggle_log_view(get_cache_dir() .. '/packer.nvim.log')<cr>"
 lvim.builtin.which_key.mappings.L.l.p["2"] = "view packer log"
 lvim.builtin.which_key.mappings.L.n["1"] = "<cmd>Telescope notify<cr>"
 lvim.builtin.which_key.mappings.L.n["2"] = "View Notifications"
@@ -782,7 +813,8 @@ lvim.builtin.which_key.mappings.s.h["2"] = "Find Help"
 lvim.builtin.which_key.mappings.s.k["1"] = "<cmd>Telescope keymaps<cr>"
 lvim.builtin.which_key.mappings.s.k["2"] = "Keymaps"
 lvim.builtin.which_key.mappings.s.name = "Search"
-lvim.builtin.which_key.mappings.s.p["1"] = "<cmd>lua require('telescope.builtin').colorscheme({enable_preview = true})<cr>"
+lvim.builtin.which_key.mappings.s.p["1"] =
+	"<cmd>lua require('telescope.builtin').colorscheme({enable_preview = true})<cr>"
 lvim.builtin.which_key.mappings.s.p["2"] = "Colorscheme with Preview"
 lvim.builtin.which_key.mappings.s.r["1"] = "<cmd>Telescope oldfiles<cr>"
 lvim.builtin.which_key.mappings.s.r["2"] = "Open Recent File"
