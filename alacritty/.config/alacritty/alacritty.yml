@@ -32,7 +32,7 @@ font:
     style: Italic
   bold_italic:
     family: "Space Mono"
-    style: Bold_Italic
+    style: Bold Italic
   size: 17.0
 draw_bold_text_with_bright_colors: true
 

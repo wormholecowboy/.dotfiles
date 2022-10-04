@@ -9,6 +9,7 @@ require("brian.treesitter")
 require("brian.neoscroll")
 require("brian.null-ls")
 require("brian.wiki")
+require("brian.snippets")
 -- require "brian.icons"
 -- require "brian.spectre"
 -- require "brian.todo-comments"

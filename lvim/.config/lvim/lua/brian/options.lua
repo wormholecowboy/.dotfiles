@@ -11,4 +11,5 @@ lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 lvim.builtin.dap.active = true
+vim.opt.hlsearch = false
 -- lvim.builtin.breadcrumbs.active = true
