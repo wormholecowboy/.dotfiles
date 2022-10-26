@@ -2,6 +2,8 @@ export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
 source $ZSH/oh-my-zsh.sh
 PROMPT='%B%F{green}%4~ >> %f%b'
+ICLOUD="$HOME/Library/Mobile\ Documents/com~apple~CloudDocs/mysync"
+NOTES="$HOME/mynotes"
 #
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
@@ -17,7 +19,7 @@ plugins=(git
  if [[ -n $SSH_CONNECTION ]]; then
    export EDITOR='vim'
  else
-   export EDITOR='nvim'
+   export EDITOR='lvim'
  fi
 
 # Aliases

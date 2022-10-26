@@ -12,4 +12,5 @@ lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 lvim.builtin.dap.active = true
 vim.opt.hlsearch = false
+vim.cmd("let g:wiki_root = '~/wiki'")
 -- lvim.builtin.breadcrumbs.active = true
