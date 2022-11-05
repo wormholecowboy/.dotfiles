@@ -43,6 +43,14 @@ lvim.builtin.which_key.mappings["d"] = {
 	u = { "<cmd>lua require'dapui'.toggle()<cr>", "UI" },
 	x = { "<cmd>lua require'dap'.terminate()<cr>", "Exit" },
 }
+lvim.builtin.which_key.mappings["u"] = {
+	name = "User",
+	z = { "<cmd>Goyo<cr>", "Zen Mode" },
+}
+lvim.builtin.which_key.mappings["U"] = {
+	name = "User",
+	z = { "<cmd>edit $HOME/.dotfiles/zsh/.zshrc<cr>", "Zsh Config" },
+}
 lvim.builtin.which_key.mappings["f"] = {
 	name = "Find",
 	b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
