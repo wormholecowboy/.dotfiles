@@ -46,10 +46,13 @@ lvim.builtin.which_key.mappings["d"] = {
 lvim.builtin.which_key.mappings["u"] = {
 	name = "User",
 	z = { "<cmd>Goyo<cr>", "Zen Mode" },
+	r = { "<cmd>viw" },
 }
 lvim.builtin.which_key.mappings["U"] = {
-	name = "User",
+	name = "User Paths",
 	z = { "<cmd>edit $HOME/.dotfiles/zsh/.zshrc<cr>", "Zsh Config" },
+	v = { "<cmd>edit $HOME/.dotfiles/lvim/.config/lvim/lua/brian/<cr>", "Vim Config" },
+	-- n = { "<cmd>lua require('telescope.builtin').find_files({ "~/mynotes"})" },
 }
 lvim.builtin.which_key.mappings["f"] = {
 	name = "Find",

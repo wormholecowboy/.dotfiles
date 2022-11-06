@@ -32,6 +32,8 @@ alias nv='nvim'
 alias cat="bat"
 alias ls="lsd -al --group-dirs first"
 alias ll="ls | less"
+alias evim="lvim $HOME/.dotfiles/lvim/.config/lvim/"
+alias ezsh="lvim $HOME/.dotfiles/zsh/.zshrc"
 
 # MISC
 # prompt_context() {}
