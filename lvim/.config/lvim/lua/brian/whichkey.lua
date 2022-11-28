@@ -1,3 +1,9 @@
+local function write()
+	vim.opt.wrap = true
+	vim.opt.linebreak = true
+	require("cmp").setup.buffer({ enabled = false })
+end
+
 lvim.builtin.which_key.mappings[";"] = { "<cmd>ToggleTerm<cr>", "Terminal" }
 lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
 lvim.builtin.which_key.mappings["b"] = { "<cmd>Telescope buffers<cr>", "Buffers" }
@@ -46,7 +52,11 @@ lvim.builtin.which_key.mappings["d"] = {
 lvim.builtin.which_key.mappings["u"] = {
 	name = "User",
 	z = { "<cmd>Goyo<cr>", "Zen Mode" },
-	r = { "<cmd>viw" },
+	w = {
+		-- "<cmd>require('cmp').setup.buffer({ enabled = false })",
+		write(),
+		"Writing Mode",
+	},
 }
 lvim.builtin.which_key.mappings["U"] = {
 	name = "User Paths",
