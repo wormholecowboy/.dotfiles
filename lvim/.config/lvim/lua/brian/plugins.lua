@@ -8,7 +8,6 @@ lvim.plugins = {
 	{ "mbbill/undotree", commit = "bf76bf2d1a097cda024699738286fa81fb6529ac" },
 	{ "junegunn/goyo.vim", commit = "3e129198bba7d6b50406902002ad7d213a6cccaa" },
 	{ "phaazon/hop.nvim", branch = "v2", commit = "2a1b686aad85a3c241f8cd8fd42eb09c7de5ed79" },
-	{ "lervag/wiki.vim", commit = "0153baf07bc0dae04334353cb044768aa122c650" },
 	{ "windwp/nvim-ts-autotag", commit = "fdefe46c6807441460f11f11a167a2baf8e4534b" },
 	{
 		"folke/todo-comments.nvim",
