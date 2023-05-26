@@ -39,7 +39,6 @@ keymap("n", "<S-q>", "<cmd>Bdelete!<CR>", opts)
 keymap("v", "p", '"_dP', opts)
 
 -- Insert --
--- Press jk fast to enter
 keymap("i", "kj", "<ESC>", opts)
 
 -- Visual --
