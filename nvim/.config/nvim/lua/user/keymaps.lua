@@ -18,6 +18,8 @@ keymap("n", "<leader>t", ":ToggleTerm<Cr>", opts)
 keymap("n", "<leader>e", ":NvimTreeToggle<cr>", opts)
 keymap("n", "<leader>w", ":w<cr>", opts)
 keymap("n", "J", "mzJ`z") -- nicer join
+keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts) --rename vars
+
 
 -- Normal --
 -- Better window navigation
