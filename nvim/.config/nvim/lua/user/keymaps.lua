@@ -4,8 +4,7 @@ local keymap = vim.keymap.set
 local opts = { silent = true }
 
 --Remap space as leader key
-keymap("", "<Space>", "<Nop>", opts)
-vim.g.mapleader = " "
+vim.g.mapleader = " ";
 
 -- Modes
 --   normal_mode = "n",
@@ -14,6 +13,11 @@ vim.g.mapleader = " "
 --   visual_block_mode = "x",
 --   term_mode = "t",
 --   command_mode = "c",
+
+keymap("n", "<leader>t", ":ToggleTerm<Cr>", opts)
+keymap("n", "<leader>e", ":NvimTreeToggle<cr>", opts)
+keymap("n", "<leader>w", ":w<cr>", opts)
+keymap("n", "J", "mzJ`z") -- nicer join
 
 -- Normal --
 -- Better window navigation
