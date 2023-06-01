@@ -2,7 +2,6 @@ window:
   padding:
     x: 5
     y: 5
-  background_opacity: 0.7 
   # Values for `startup_mode`:
   #   - Windowed
   #   - Maximized
@@ -17,7 +16,7 @@ window:
   # Allow terminal applications to change Alacritty's window title.
   #dynamic_title: true
   
-  opacity: 0.8
+  opacity: 0.9
 
 scrolling:
   history: 10000

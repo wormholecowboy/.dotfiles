@@ -6,8 +6,9 @@ local opts = { silent = true }
 keymap("n", "<TAB>", ":bnext<CR>", opts)
 keymap("n", "<S-TAB>", ":bprevious<CR>", opts)
 keymap("n", "<leader><leader>z", ":Goyo<CR>", opts)
-keymap("n", "<S-j>", "<C-d>", opts)
-keymap("n", "<S-k>", "<C-u>", opts)
+keymap("i", "kj", "<ESC>", opts)
+-- keymap("n", "<S-j>", "<C-d>", opts)
+-- keymap("n", "<S-k>", "<C-u>", opts)
 -- unmap a default keymapping
 -- vim.keymap.del("n", "<C-Up>")
 -- override a default keymapping
