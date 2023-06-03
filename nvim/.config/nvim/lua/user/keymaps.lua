@@ -6,6 +6,10 @@ local opts = { silent = true }
 --Remap space as leader key
 keymap("", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
+keymap("n", "<leader>w", ":w<cr>", opts)
+keymap("n", "<leader>c", ":bd<cr>", opts)
+vim.keymap.set("n", "Q", "<nop>")
+vim.keymap.set("x", "<leader>p", [["_dP]])
 
 -- Modes
 --   normal_mode = "n",
@@ -60,11 +64,11 @@ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 -- PLUGINS --
 
 -- NvimTree
--- keymap("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
+keymap("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
 
 
 -- Git
--- keymap("n", "<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", opts)
+keymap("n", "<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", opts)
 
 -- Comment
 keymap("n", "<leader>/", "<cmd>lua require('Comment.api').toggle_current_linewise()<CR>", opts)
