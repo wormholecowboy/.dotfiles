@@ -84,11 +84,6 @@ _G.packer_plugins = {
     path = "/Users/briangildea/.local/share/nvim/site/pack/packer/start/LuaSnip",
     url = "https://github.com/L3MON4D3/LuaSnip"
   },
-  ["alpha-nvim"] = {
-    loaded = true,
-    path = "/Users/briangildea/.local/share/nvim/site/pack/packer/start/alpha-nvim",
-    url = "https://github.com/goolord/alpha-nvim"
-  },
   ["blue-moon"] = {
     loaded = true,
     path = "/Users/briangildea/.local/share/nvim/site/pack/packer/start/blue-moon",
@@ -149,25 +144,15 @@ _G.packer_plugins = {
     path = "/Users/briangildea/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
     url = "https://github.com/lewis6991/gitsigns.nvim"
   },
+  ["goyo.vim"] = {
+    loaded = true,
+    path = "/Users/briangildea/.local/share/nvim/site/pack/packer/start/goyo.vim",
+    url = "https://github.com/junegunn/goyo.vim"
+  },
   gruvbox = {
     loaded = true,
     path = "/Users/briangildea/.local/share/nvim/site/pack/packer/start/gruvbox",
     url = "https://github.com/morhetz/gruvbox"
-  },
-  ["hop.nvim"] = {
-    loaded = true,
-    path = "/Users/briangildea/.local/share/nvim/site/pack/packer/start/hop.nvim",
-    url = "https://github.com/phaazon/hop.nvim"
-  },
-  ["impatient.nvim"] = {
-    loaded = true,
-    path = "/Users/briangildea/.local/share/nvim/site/pack/packer/start/impatient.nvim",
-    url = "https://github.com/lewis6991/impatient.nvim"
-  },
-  ["indent-blankline.nvim"] = {
-    loaded = true,
-    path = "/Users/briangildea/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim",
-    url = "https://github.com/lukas-reineke/indent-blankline.nvim"
   },
   ["lualine.nvim"] = {
     loaded = true,
@@ -193,11 +178,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/briangildea/.local/share/nvim/site/pack/packer/start/nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
-  },
-  ["nvim-colorizer.lua"] = {
-    loaded = true,
-    path = "/Users/briangildea/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua",
-    url = "https://github.com/norcalli/nvim-colorizer.lua"
   },
   ["nvim-dap"] = {
     loaded = true,
@@ -229,10 +209,10 @@ _G.packer_plugins = {
     path = "/Users/briangildea/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
   },
-  ["nvim-ts-context-commentstring"] = {
+  ["nvim-ts-autotag"] = {
     loaded = true,
-    path = "/Users/briangildea/.local/share/nvim/site/pack/packer/start/nvim-ts-context-commentstring",
-    url = "https://github.com/JoosepAlviste/nvim-ts-context-commentstring"
+    path = "/Users/briangildea/.local/share/nvim/site/pack/packer/start/nvim-ts-autotag",
+    url = "https://github.com/windwp/nvim-ts-autotag"
   },
   ["nvim-web-devicons"] = {
     loaded = true,
@@ -269,11 +249,6 @@ _G.packer_plugins = {
     path = "/Users/briangildea/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
     url = "https://github.com/folke/tokyonight.nvim"
   },
-  ["vim-bbye"] = {
-    loaded = true,
-    path = "/Users/briangildea/.local/share/nvim/site/pack/packer/start/vim-bbye",
-    url = "https://github.com/moll/vim-bbye"
-  },
   ["vim-blackboard"] = {
     loaded = true,
     path = "/Users/briangildea/.local/share/nvim/site/pack/packer/start/vim-blackboard",
@@ -288,11 +263,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/briangildea/.local/share/nvim/site/pack/packer/start/vim-solarized8",
     url = "https://github.com/lifepillar/vim-solarized8"
-  },
-  ["vim-which-key"] = {
-    loaded = true,
-    path = "/Users/briangildea/.local/share/nvim/site/pack/packer/start/vim-which-key",
-    url = "https://github.com/liuchengxu/vim-which-key"
   }
 }
 
