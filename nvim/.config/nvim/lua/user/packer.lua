@@ -7,7 +7,23 @@ return require("packer").startup(function(use)
 	-- Packer can manage itself
 	use("wbthomason/packer.nvim")
 	use("mbbill/undotree")
+    use { "kyazdani42/nvim-tree.lua", commit = "bdb6d4a25410da35bbf7ce0dbdaa8d60432bc243" }
 	-- use("windwp/nvim-ts-autotag")
+use {
+  'nvim-telescope/telescope.nvim', tag = '0.1.1',
+-- or                            , branch = '0.1.x',
+  requires = { {'nvim-lua/plenary.nvim'} }
+}
+
+-- Colors
+  use { "folke/tokyonight.nvim", commit = "8223c970677e4d88c9b6b6d81bda23daf11062bb" }
+  use { "lunarvim/darkplus.nvim", commit = "2584cdeefc078351a79073322eb7f14d7fbb1835" }
+  use { "perfectspr/dracula-vim" }
+  use { "lisposter/vim-blackboard" }
+  use { "kyazdani42/blue-moon" }
+  use { "lifepillar/vim-solarized8" }
+  use { "sainnhe/everforest" }
+  use { "morhetz/gruvbox" }
 
 	-- LSP
 	use({
