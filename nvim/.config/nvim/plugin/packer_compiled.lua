@@ -84,30 +84,10 @@ _G.packer_plugins = {
     path = "/Users/briangildea/.local/share/nvim/site/pack/packer/start/blue-moon",
     url = "https://github.com/kyazdani42/blue-moon"
   },
-  ["cmp-buffer"] = {
-    loaded = true,
-    path = "/Users/briangildea/.local/share/nvim/site/pack/packer/start/cmp-buffer",
-    url = "https://github.com/hrsh7th/cmp-buffer"
-  },
   ["cmp-nvim-lsp"] = {
     loaded = true,
     path = "/Users/briangildea/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
     url = "https://github.com/hrsh7th/cmp-nvim-lsp"
-  },
-  ["cmp-nvim-lua"] = {
-    loaded = true,
-    path = "/Users/briangildea/.local/share/nvim/site/pack/packer/start/cmp-nvim-lua",
-    url = "https://github.com/hrsh7th/cmp-nvim-lua"
-  },
-  ["cmp-path"] = {
-    loaded = true,
-    path = "/Users/briangildea/.local/share/nvim/site/pack/packer/start/cmp-path",
-    url = "https://github.com/hrsh7th/cmp-path"
-  },
-  cmp_luasnip = {
-    loaded = true,
-    path = "/Users/briangildea/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
-    url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
   ["darkplus.nvim"] = {
     loaded = true,
@@ -123,11 +103,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/briangildea/.local/share/nvim/site/pack/packer/start/everforest",
     url = "https://github.com/sainnhe/everforest"
-  },
-  ["friendly-snippets"] = {
-    loaded = true,
-    path = "/Users/briangildea/.local/share/nvim/site/pack/packer/start/friendly-snippets",
-    url = "https://github.com/rafamadriz/friendly-snippets"
   },
   gruvbox = {
     loaded = true,
@@ -164,6 +139,11 @@ _G.packer_plugins = {
     path = "/Users/briangildea/.local/share/nvim/site/pack/packer/start/nvim-tree.lua",
     url = "https://github.com/kyazdani42/nvim-tree.lua"
   },
+  ["nvim-treesitter"] = {
+    loaded = true,
+    path = "/Users/briangildea/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
+    url = "https://github.com/nvim-treesitter/nvim-treesitter"
+  },
   ["packer.nvim"] = {
     loaded = true,
     path = "/Users/briangildea/.local/share/nvim/site/pack/packer/start/packer.nvim",
@@ -193,6 +173,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/briangildea/.local/share/nvim/site/pack/packer/start/vim-blackboard",
     url = "https://github.com/lisposter/vim-blackboard"
+  },
+  ["vim-fugitive"] = {
+    loaded = true,
+    path = "/Users/briangildea/.local/share/nvim/site/pack/packer/start/vim-fugitive",
+    url = "https://github.com/tpope/vim-fugitive"
   },
   ["vim-solarized8"] = {
     loaded = true,

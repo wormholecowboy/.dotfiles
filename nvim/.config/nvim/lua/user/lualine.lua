@@ -11,7 +11,7 @@ local diagnostics = {
   "diagnostics",
   sources = { "nvim_diagnostic" },
   sections = { "error", "warn" },
-  symbols = { error = " ", warn = " " },
+  symbols = { error = "error", warn = "warn" },
   colored = false,
   always_visible = true,
 }
@@ -19,7 +19,7 @@ local diagnostics = {
 local diff = {
   "diff",
   colored = false,
-  symbols = { added = "", modified = "", removed = "" }, -- changes diff symbols
+  symbols = { added = "+", modified = "m", removed = "-" }, -- changes diff symbols
   cond = hide_in_width,
 }
 
