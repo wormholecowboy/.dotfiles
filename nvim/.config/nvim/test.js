@@ -1,3 +1,3 @@
-function something() {
+function whatever() {
     let a = [];
 }
