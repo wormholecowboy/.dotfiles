@@ -17,7 +17,11 @@ use {
   requires = { {'nvim-lua/plenary.nvim'} }
 }
 use ( 'tpope/vim-fugitive')
--- need prettier, comment, 
+-- need prettier, comment, autotag, autopairs, trouble?, friendly snippets, webdev icons?, project? (might not need this, check primes thing) , neoscroll, goyo, 
+-- customize lualine
+-- go over custom kepmaps
+-- highlight on yank
+
 
 -- Colors
   use { "folke/tokyonight.nvim", commit = "8223c970677e4d88c9b6b6d81bda23daf11062bb" }

@@ -11,6 +11,13 @@ keymap("n", "<leader>c", ":bd<cr>", opts)
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("x", "<leader>p", [["_dP]])
 
+keymap("n", "<leader>z",  "<cmd>Goyo<cr>", opts)
+keymap("n", "<leader>uz", "<cmd>edit $HOME/.dotfiles/zsh/.zshrc<cr>", opts)
+keymap("n", "<leader>uv",  "<cmd>edit $HOME/.dotfiles/nvim/.config/nvim/<cr>", opts)
+keymap("n", "<leader>un", "<cmd>edit $HOME/Dropbox/sync/mynotes<cr>", opts)
+
+-- "<cmd>require('cmp').setup.buffer({ enabled = false })", write(),
+
 -- Modes
 --   normal_mode = "n",
 --   insert_mode = "i",
