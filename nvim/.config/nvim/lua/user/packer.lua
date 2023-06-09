@@ -34,10 +34,10 @@ return require("packer").startup(function(use)
         "ahmedkhalf/project.nvim",
 
     }
+    use { 'folke/todo-comments.nvim' }
     -- project? (might not need this, check primes thing) , neoscroll, goyo,
     -- go over custom kepmaps
     -- highlight on yank
-
 
     -- Colors
     use { "folke/tokyonight.nvim", commit = "8223c970677e4d88c9b6b6d81bda23daf11062bb" }
