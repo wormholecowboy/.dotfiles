@@ -26,10 +26,15 @@ return require("packer").startup(function(use)
         end
     }
     use('tpope/vim-fugitive')
+    use('tpope/vim-surround')
     use('windwp/nvim-ts-autotag')
+    use('karb94/neoscroll.nvim')
+    use('junegunn/goyo.vim')
+    use {
+        "ahmedkhalf/project.nvim",
 
-    -- need prettier, comment, autotag, autopairs, trouble?, friendly snippets, webdev icons?, project? (might not need this, check primes thing) , neoscroll, goyo,
-    -- customize lualine
+    }
+    -- project? (might not need this, check primes thing) , neoscroll, goyo,
     -- go over custom kepmaps
     -- highlight on yank
 
@@ -37,7 +42,7 @@ return require("packer").startup(function(use)
     -- Colors
     use { "folke/tokyonight.nvim", commit = "8223c970677e4d88c9b6b6d81bda23daf11062bb" }
     use { "lunarvim/darkplus.nvim", commit = "2584cdeefc078351a79073322eb7f14d7fbb1835" }
-    use { "perfectspr/dracula-vim" }
+    use { "dracula/vim" }
     use { "lisposter/vim-blackboard" }
     use { "kyazdani42/blue-moon" }
     use { "lifepillar/vim-solarized8" }

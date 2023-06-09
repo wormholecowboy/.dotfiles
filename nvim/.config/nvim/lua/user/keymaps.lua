@@ -11,9 +11,9 @@ keymap("n", "<leader>c", ":bd<cr>", opts)
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("x", "<leader>p", [["_dP]])
 
-keymap("n", "<leader>z",  "<cmd>Goyo<cr>", opts)
+keymap("n", "<leader>z", "<cmd>Goyo<cr>", opts)
 keymap("n", "<leader>uz", "<cmd>edit $HOME/.dotfiles/zsh/.zshrc<cr>", opts)
-keymap("n", "<leader>uv",  "<cmd>edit $HOME/.dotfiles/nvim/.config/nvim/<cr>", opts)
+keymap("n", "<leader>uv", "<cmd>edit $HOME/.dotfiles/nvim/.config/nvim/<cr>", opts)
 keymap("n", "<leader>un", "<cmd>edit $HOME/Dropbox/sync/mynotes<cr>", opts)
 
 -- "<cmd>require('cmp').setup.buffer({ enabled = false })", write(),
@@ -33,7 +33,7 @@ keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
--- Resize with arrows 
+-- Resize with arrows
 keymap("n", "<C-Up>", ":resize -2<CR>", opts)
 keymap("n", "<C-Down>", ":resize +2<CR>", opts)
 keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
@@ -68,17 +68,20 @@ keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
 keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
+
+
+
 -- vim.keymap.set("n", "J", "mzJ`z") This keeps the cursor in the same spot for "J"
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
-vim.keymap.set("n", "n", "nzzzv")  -- These 2 keep your cursor in the middle on search
+vim.keymap.set("n", "n", "nzzzv") -- These 2 keep your cursor in the middle on search
 vim.keymap.set("n", "N", "Nzzzv")
 
 -- greatest remap ever - this deletes to the void register, so it doesn't copy the delete into your current register
 vim.keymap.set("x", "<leader>p", [["_dP]])
 
 -- this is for switching projects with tmux?
-vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
+-- vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 
 -- This is for the quickfix list
 -- vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
@@ -87,11 +90,10 @@ vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 -- vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 -- replace the word you are hovered on
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set("n", "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- make a file executable
 -- vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
-
 
 
 
@@ -100,11 +102,9 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 -- NvimTree
 keymap("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
 
-
 -- Git
-keymap("n", "<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", opts)
+-- keymap("n", "<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", opts)
 
 -- Comment
 keymap("n", "<leader>/", "<cmd>lua require('Comment.api').toggle_current_linewise()<CR>", opts)
 keymap("x", "<leader>/", '<ESC><CMD>lua require("Comment.api").toggle_linewise_op(vim.fn.visualmode())<CR>')
-
