@@ -32,8 +32,8 @@ return require("packer").startup(function(use)
     use('junegunn/goyo.vim')
     use {
         "ahmedkhalf/project.nvim",
-
     }
+    use { 'nvim-tree/nvim-web-devicons' }
     use { 'folke/todo-comments.nvim' }
     -- project? (might not need this, check primes thing) , neoscroll, goyo,
     -- go over custom kepmaps

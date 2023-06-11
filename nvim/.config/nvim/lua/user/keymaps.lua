@@ -10,6 +10,8 @@ keymap("n", "<leader>w", ":w<cr>", opts)
 keymap("n", "<leader>c", ":bd<cr>", opts)
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("x", "<leader>p", [["_dP]])
+vim.keymap.set("n", "<leader>a", ":%y+<cr>", opts)
+
 
 keymap("n", "<leader>z", "<cmd>Goyo<cr>", opts)
 keymap("n", "<leader>uz", "<cmd>edit $HOME/.dotfiles/zsh/.zshrc<cr>", opts)
