@@ -1,7 +1,1 @@
-require "user.packer"
-require "user.options"
-require "user.keymaps"
-require "user.nvim-tree"
-require "user.lualine"
--- require "user.surround"
-require "user.neoscroll"
+require("brian")

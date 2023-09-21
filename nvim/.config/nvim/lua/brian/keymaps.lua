@@ -1,24 +1,20 @@
--- Shorten function name
 local keymap = vim.keymap.set
--- Silent keymap option
 local opts = { silent = true }
 
---Remap space as leader key
-keymap("", "<Space>", "<Nop>", opts)
+keymap("", "<space>", "<nop>", opts)
 vim.g.mapleader = " "
 keymap("n", "<leader>w", ":w<cr>", opts)
 keymap("n", "<leader>c", ":bd<cr>", opts)
-vim.keymap.set("n", "Q", "<nop>")
-vim.keymap.set("x", "<leader>p", [["_dP]])
-vim.keymap.set("n", "<leader>a", ":%y+<cr>", opts)
+keymap("n", "Q", "<nop>")
+keymap("x", "p", [["_dP]])                 -- better paste
+keymap("n", "<leader>a", ":%y+<cr>", opts) --select all
 
-
-keymap("n", "<leader>z", "<cmd>Goyo<cr>", opts)
-keymap("n", "<leader>uz", "<cmd>edit $HOME/.dotfiles/zsh/.zshrc<cr>", opts)
-keymap("n", "<leader>uv", "<cmd>edit $HOME/.dotfiles/nvim/.config/nvim/<cr>", opts)
-keymap("n", "<leader>un", "<cmd>edit $HOME/Dropbox/sync/mynotes<cr>", opts)
-
--- "<cmd>require('cmp').setup.buffer({ enabled = false })", write(),
+-- replace the word you are hovered on
+keymap("n", "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+keymap("i", "kj", "<ESC>", opts)
+keymap("n", "<leader>uz", "<cmd>edit $HOME/.zshrc<cr>", opts)
+keymap("n", "<leader>uv", "<cmd>edit $HOME/.config/nvim/<cr>", opts)
+keymap("n", "<leader>un", "<cmd>edit $HOME/pnotes<cr>", opts)
 
 -- Modes
 --   normal_mode = "n",
@@ -44,15 +40,6 @@ keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 -- Navigate buffers
 keymap("n", "<TAB>", ":bnext<CR>", opts)
 keymap("n", "<S-TAB>", ":bprevious<CR>", opts)
-
--- Close buffers
-keymap("n", "<S-q>", "<cmd>Bdelete!<CR>", opts)
-
--- Better paste
-keymap("v", "p", '"_dP', opts)
-
--- Insert --
-keymap("i", "kj", "<ESC>", opts)
 
 -- Visual --
 -- Stay in indent mode
@@ -80,7 +67,7 @@ vim.keymap.set("n", "n", "nzzzv") -- These 2 keep your cursor in the middle on s
 vim.keymap.set("n", "N", "Nzzzv")
 
 -- greatest remap ever - this deletes to the void register, so it doesn't copy the delete into your current register
-vim.keymap.set("x", "<leader>p", [["_dP]])
+-- vim.keymap.set("x", "<leader>p", [["_dP]])
 
 -- this is for switching projects with tmux?
 -- vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
@@ -91,8 +78,6 @@ vim.keymap.set("x", "<leader>p", [["_dP]])
 -- vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 -- vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
--- replace the word you are hovered on
-vim.keymap.set("n", "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- make a file executable
 -- vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
@@ -100,9 +85,7 @@ vim.keymap.set("n", "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 
 
 -- PLUGINS --
-
--- NvimTree
 keymap("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
-
+keymap("n", "<leader>z", "<cmd>Goyo<cr>", opts)
 -- Git
 -- keymap("n", "<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", opts)

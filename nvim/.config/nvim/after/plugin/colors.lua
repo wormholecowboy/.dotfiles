@@ -1,17 +1,10 @@
-local colorscheme = "darkplus"
+function ColorMyPencils(color) 
+	color = color or "darkplus"
+	vim.cmd.colorscheme(color)
 
-local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
-if not status_ok then
-  return
+	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+
 end
 
-function colorme(color) 
-     color = color or "darkplus"
-     vim.cmd.colorscheme(color)
-    
-     vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-     vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
- 
- end
- 
-colorme()
+ColorMyPencils()

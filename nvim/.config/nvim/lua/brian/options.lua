@@ -1,3 +1,14 @@
+vim.api.nvim_create_autocmd('TextYankPost', {
+    group = vim.api.nvim_create_augroup('highlight_yank', { clear = true }),
+    desc = 'Hightlight selection on yank',
+    pattern = '*',
+    callback = function()
+        vim.highlight.on_yank { higroup = 'IncSearch', timeout = 150 }
+    end,
+})
+
+
+-- vim.cmd[[colorscheme darkplus]]
 -- :help options
 vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
 vim.opt.fileencoding = "utf-8"    -- the encoding written to a file
@@ -33,5 +44,4 @@ vim.opt.relativenumber = true
 vim.opt.wrap = false      -- display lines as one long line
 
 vim.opt.updatetime = 50
-
 vim.opt.colorcolumn = "80"
