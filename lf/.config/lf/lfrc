@@ -89,6 +89,7 @@ map ad select-dirs
 map gb cd /usr/local/bin
 map gc cd ~/.config
 map gdb cd ~/Dropbox
+map gdf cd ~/.dotfiles
 map gdt cd ~/Desktop
 map gdl cd ~/Downloads
 map gm cd ~/myc
