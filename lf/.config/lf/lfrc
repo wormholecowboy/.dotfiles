@@ -1,0 +1,109 @@
+# Basic Settings
+set hidden true
+set ignorecase true
+set icons true
+set relativenumber
+set drawbox
+
+# Syntax Highlighting
+set previewer ~/scripts/source-highlight/src-hilite-lesspipe.sh
+map i $~/scripts/source-highlight/src-hilite-lesspipe.sh $f | less -R
+
+# Custom Functions
+
+cmd move-parent &{{
+    dironly="setlocal '$(dirname "$PWD")' dironly"
+    lf -remote "send $id :updir; $dironly true; $1; $dironly false; open"
+}}
+map J move-parent down
+map K move-parent up
+
+cmd mkdir ${{
+  printf "Directory Name: "
+  read ans
+  mkdir $ans
+}}
+
+cmd mkfile ${{
+  printf "File Name: "
+  read ans
+  touch $ans
+  # $EDITOR $ans
+}}
+
+# Archive bindings
+cmd unarchive ${{
+  case "$f" in
+      *.zip) unzip "$f" ;;
+      *.tar.gz) tar -xzvf "$f" ;;
+      *.tar.bz2) tar -xjvf "$f" ;;
+      *.tar) tar -xvf "$f" ;;
+      *) echo "Unsupported format" ;;
+  esac
+}}
+
+# Zoxide
+cmd z %{{
+  result="$(zoxide query --exclude $PWD $@ | sed 's/\\/\\\\/g;s/"/\\"/g')"
+    lf -remote "send $id cd \"$result\""
+    }}
+
+cmd zi ${{
+  result="$(zoxide query -i | sed 's/\\/\\\\/g;s/"/\\"/g')"
+    lf -remote "send $id cd \"$result\""
+    }}
+
+map zi zi
+
+
+# Windows open
+cmd wopen ${{
+  explorer.exe %f%
+}} 
+map w wopen
+
+
+# Bindings
+map d
+map m
+
+map . set hidden!
+map p paste
+map ddd delete
+map a select-all
+map x cut
+map y copy
+map C clear
+map R reload
+map <esc> quit
+map <enter> open
+map mf mkfile
+map md mkdir
+map mm mark-save
+map au unarchive
+map af select-files
+map ad select-dirs
+
+
+# Movement
+map gb cd /usr/local/bin
+map gc cd ~/.config
+map gdb cd ~/Dropbox
+map gdt cd ~/Desktop
+map gdl cd ~/Downloads
+map gm cd ~/myc
+map gpn cd ~/pnotes
+map gte cd ~/temp
+map gtr cd ~/.Trash
+map gwdl cd /mnt/c/Users/brian.gildea/Downloads
+map gwdt cd /mnt/c/Users/brian.gildea/OneDrive\ -\ LeadVenture/Desktop
+
+
+
+
+
+
+
+
+
+

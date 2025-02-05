@@ -1,0 +1,74 @@
+exa git tmux btop fzf yadm npm neofetch shellcheck gh ripgrep lf zoxide
+apt plocate
+fd-find OR fd
+
+
+
+CHSH
+sudo apt install zsh
+chsh -s $(which zsh)
+
+
+
+NEOVIM
+- instal dependencies(https://github.com/neovim/neovim/wiki/Building-Neovim#build-prerequisites)
+- cd neovim  
+- git checkout stable
+- make CMAKE_BUILD_TYPE=RelWithDebInfo
+- sudo make install
+
+
+
+PACKER / LAZY
+git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+
+
+
+ZAP
+zsh <(curl -s https://raw.githubusercontent.com/zap-zsh/zap/master/install.zsh) --branch release-v1
+
+
+
+PYTHON
+sudo apt install python3
+sudo apt install python3-pip
+pip3 install black
+pip3 install pyright
+
+
+
+NPM
+npm install -g prettier
+npm install -g @fsouza/prettierd
+npm install -g sql-formatter
+npm install -g typescript-language-server typescript
+?npm install -g eslint
+
+
+
+NVM
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+source .zshrc
+nvm install 18.18.0 
+
+
+
+Z
+https://github.com/rupa/z/blob/master/z.sh
+copy script into ~/z/z.sh
+
+
+
+STYLUA
+install pre-built bins
+https://github.com/JohnnyMorganz/StyLua/releases
+
+
+
+GITHUB
+gh auth login
+
+
+
+
+
