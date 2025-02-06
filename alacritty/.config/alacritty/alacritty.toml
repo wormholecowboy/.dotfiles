@@ -1,0 +1,73 @@
+[window]
+padding = { x = 1, y = 5 }
+startup_mode = "Maximized"
+opacity = 0.9
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[font]
+size = 17.0
+
+[font.normal]
+family = "SpaceMono Nerd Font"
+style = "Regular"
+
+[font.bold]
+family = "SpaceMono Nerd Font"
+style = "Bold"
+
+[font.italic]
+family = "SpaceMono Nerd Font"
+style = "Italic"
+
+[font.bold_italic]
+family = "SpaceMono Nerd Font"
+style = "Bold Italic"
+
+# draw_bold_text_with_bright_colors = true
+
+[colors.primary]
+background = "#2C2C2C"
+foreground = "#DCDCCC"
+
+[colors.normal]
+black = "#3F3F3F"
+red = "#705050"
+green = "#60B48A"
+yellow = "#DFAF8F"
+blue = "#9AB8D7"
+magenta = "#DC8CC3"
+cyan = "#8CD0D3"
+white = "#DCDCCC"
+
+[colors.bright]
+black = "#709080"
+red = "#DCA3A3"
+green = "#72D5A3"
+yellow = "#F0DFAF"
+blue = "#94BFF3"
+magenta = "#EC93D3"
+cyan = "#93E0E3"
+white = "#FFFFFF"
+
+[[keyboard.bindings]]
+key = "J"
+mods = "Alt"
+chars = "\u001bj"
+
+[[keyboard.bindings]]
+key = "K"
+mods = "Alt"
+chars = "\u001bk"
+
+[[keyboard.bindings]]
+key = "H"
+mods = "Alt"
+chars = "\u001bh"
+
+[[keyboard.bindings]]
+key = "L"
+mods = "Alt"
+chars = "\u001bl"
