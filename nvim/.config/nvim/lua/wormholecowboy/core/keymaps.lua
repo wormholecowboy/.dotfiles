@@ -84,7 +84,7 @@ vim.g.mapleader = " "
 --<control key|
 --    e: insert icon in insert mode
 
--- keymap("i", "kj", "<ESC>", opts)
+keymap("i", "kj", "<ESC>", opts)
 vim.api.nvim_set_keymap("n", "QQ", ":q!<enter>", { noremap = false })
 
 keymap("n", "Q", "<nop>")
