@@ -6,7 +6,7 @@ else
   alias cat="bat"
   bat_command="bat"
 fi
-alias nvs='nvim $(fzf -m --preview="$bat_command --color=always {}")' # tab for multi select
+alias nvs='nvim $(find . -type f | fzf -m --preview="$bat_command --color=always {}")' # tab for multi select
 alias cds='cd $(find . -type d | fzf)'
 
 alias ga="git add -A"
@@ -23,7 +23,8 @@ alias glo="git log --oneline"
 gls() {
   git log --oneline --grep="$1"
 }
-alias gw="git worktree"
+alias gwa="git worktree add"
+alias gwr="git worktree remove"
 # alias gwf="git fetch origin '*:*' --update-head-ok"
 alias gcb="~/scripts/git-bare.sh"
 
