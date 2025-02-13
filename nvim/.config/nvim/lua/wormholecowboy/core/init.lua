@@ -1,5 +1,6 @@
 require('wormholecowboy.core.keymaps')
 require('wormholecowboy.core.options')
+require('wormholecowboy.core.autocommands')
 
 vim.cmd([[silent! autocmd! filetypedetect BufRead,BufNewFile *.tf]])
 vim.cmd([[autocmd BufRead,BufNewFile *.hcl set filetype=hcl]])
