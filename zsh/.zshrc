@@ -45,6 +45,7 @@ setopt pushdminus
 . ~/scripts/dirchanger.sh
 . ~/.config/lf/lfcd.sh
 . ~/.config/zsh/vi-mode/zsh-vi-mode.plugin.zsh
+. ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
 . ~/.config/zsh/aliases.sh
@@ -59,6 +60,7 @@ export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:/home/brian/bin"
 export PATH="$PATH:/snap/bin"
 export PATH="$PATH:/home/brian/.local/bin"
+export PATH="$PATH:$HOME/.local/bin"
 
 
 
