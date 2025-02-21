@@ -4,9 +4,7 @@ return {
 	event = { "BufReadPre", "BufNewFile" },
 	build = ":TSUpdate",
 	config = function()
-		local actions = require("telescope.actions")
 		require("nvim-treesitter.configs").setup({
-			-- A list of parser names, or "all" (the five listed parsers should always be installed)
 			ensure_installed = {
 				"javascript",
 				"typescript",
@@ -15,12 +13,7 @@ return {
 				"vim",
 				"vimdoc",
 				"query",
-				-- "elixir",
-				-- "erlang",
-				-- "heex",
-				-- "eex",
 				"java",
-				-- "kotlin",
 				"jq",
 				"dockerfile",
 				"json",
@@ -121,28 +114,6 @@ return {
 					-- * selection_mode: eg 'v'
 					-- and should return true of false
 					include_surrounding_whitespace = true,
-				},
-			},
-			mappings = {
-				i = {
-					["<C-n>"] = actions.cycle_history_next,
-					["<C-p>"] = actions.cycle_history_prev,
-
-					["<C-j>"] = actions.move_selection_next,
-					["<C-k>"] = actions.move_selection_previous,
-
-					["<C-b>"] = actions.results_scrolling_up,
-					["<C-f>"] = actions.results_scrolling_down,
-
-					["<C-c>"] = actions.close,
-
-					["<Down>"] = actions.move_selection_next,
-					["<Up>"] = actions.move_selection_previous,
-
-					["<CR>"] = actions.select_default,
-					["<C-s>"] = actions.select_horizontal,
-					["<C-v>"] = actions.select_vertical,
-					["<C-t>"] = actions.select_tab,
 				},
 			},
 		})
