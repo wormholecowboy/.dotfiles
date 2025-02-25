@@ -1,3 +1,4 @@
 model: sonnet
 auto-commits: false
 dark-mode: true
+vim: true
