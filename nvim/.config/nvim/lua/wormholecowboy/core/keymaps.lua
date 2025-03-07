@@ -37,7 +37,8 @@ vim.g.mapleader = " "
 --    a: see avente settings
 --    e:
 -- c: close
--- d: debug
+-- de: debug
+-- db: dadbod
 -- D: diagnostic
 -- e: file tree
 -- f: hop

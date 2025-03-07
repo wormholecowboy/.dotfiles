@@ -21,6 +21,6 @@ return {
 			prodGeneral = os.getenv("DBUI_PRODGENERAL"),
 		}
 
-    vim.keymap.set("n", "<leader>ddb", ":DBUIToggle<cr>", {})
+    vim.keymap.set("n", "<leader>db", ":DBUIToggle<cr>", {})
 	end,
 }
