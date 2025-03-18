@@ -16,9 +16,9 @@ return {
 
 		vim.g.dbs = {
 			stagePublic = os.getenv("DBUI_STAGEPUBLIC"),
-			prodPublic = os.getenv("DBUI_PRODPUBLIC"),
-			stageGeneral = os.getenv("DBUI_STAGEGENERAL"),
-			prodGeneral = os.getenv("DBUI_PRODGENERAL"),
+			-- prodPublic = os.getenv("DBUI_PRODPUBLIC"),
+			-- stageGeneral = os.getenv("DBUI_STAGEGENERAL"),
+			-- prodGeneral = os.getenv("DBUI_PRODGENERAL"),
 		}
 
     vim.keymap.set("n", "<leader>db", ":DBUIToggle<cr>", {})

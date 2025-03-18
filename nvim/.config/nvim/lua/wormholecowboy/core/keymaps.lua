@@ -59,7 +59,7 @@ vim.g.mapleader = " "
 -- u: user
 --      b: buffer path
 --      c: code actions
---      d: Noice dismiss
+--      d: date
 --      f: format
 --      n: notes
 --      p: prog notes
@@ -99,6 +99,7 @@ keymap("n", "<leader>up", "<cmd>edit $HOME/pnotes<cr>", opts) --prog notes
 keymap("n", "<leader>uc", ":lua vim.lsp.buf.code_action()<CR>", opts) --code action
 keymap("n", "<leader>uw", "`[v`]:lua removeReturnCharacters()<cr>", opts) --remove windows return carriage
 keymap("n", "<leader>ux", "<cmd>bp|bd #<cr>", opts) --split buf delete
+keymap("n", "<leader>ud", "<cmd>r !date '+\\%Y-\\%m-\\%d'<CR>", opts)  -- date
 
 keymap("n", "<leader>w", ":w<cr>", opts) --save
 keymap("n", "<leader>c", ":bp|bd#<cr>", opts) --close split buffer
