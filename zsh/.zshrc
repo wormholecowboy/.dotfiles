@@ -1,4 +1,7 @@
 
+# debug
+# set -x
+
 # Editor
 export EDITOR=nvim
 export XDG_CONFIG_HOME=~/.config
@@ -30,9 +33,9 @@ export NVM_DIR="$HOME/.nvm"
 
 
 # FZF configuration
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_OPS="--extended"
-
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# export FZF_DEFAULT_OPS="--extended"
+source <(fzf --zsh)
 
 # SET OPTIONS
 setopt auto_cd
