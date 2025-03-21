@@ -11,7 +11,7 @@ export XDG_CONFIG_HOME=~/.config
 # export LESS=' -R '
 
 # Key Bindings
-# bindkey -e  # emacs
+bindkey -e  # emacs
 
 # History in cache directory:
 HISTSIZE=10000
@@ -34,7 +34,7 @@ export NVM_DIR="$HOME/.nvm"
 
 # FZF configuration
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# export FZF_DEFAULT_OPS="--extended"
+export FZF_DEFAULT_OPS="--extended"
 source <(fzf --zsh)
 
 # SET OPTIONS
