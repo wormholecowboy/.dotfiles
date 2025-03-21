@@ -42,13 +42,11 @@ vim.g.mapleader = " "
 -- D: diagnostic
 -- e: file tree
 -- f: hop
--- gg: fugitive
+-- gg: neogit
 --      ,.: diffget
---      a: add all
---      m: add all modified -u
---      p: push
---      v: Gvdiffsplit!
+--      v: diffview
 --      w: worktree
+--      cw: create worktree
 -- h and t: git hunks
 --      check git signs for keymaps
 -- m: markdown
