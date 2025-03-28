@@ -43,10 +43,10 @@ vim.g.mapleader = " "
 -- e: file tree
 -- f: hop
 -- gg: neogit
---      ,.: diffget
 --      v: diffview
 --      w: worktree
 --      cw: create worktree
+--      x: close diffview
 -- h and t: git hunks
 --      check git signs for keymaps
 -- m: markdown

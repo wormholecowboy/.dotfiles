@@ -7,9 +7,7 @@ return {
 	},
 	config = function()
 		vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>")
-
-		vim.keymap.set("n", "<leader>g,", "<cmd>diffget //2<cr>")
-		vim.keymap.set("n", "<leader>g.", "<cmd>diffget //3<cr>")
 		vim.keymap.set("n", "<leader>gv", "<cmd>DiffviewOpen<cr>")
+		vim.keymap.set("n", "<leader>gx", "<cmd>DiffviewClose<cr>")
 	end,
 }
