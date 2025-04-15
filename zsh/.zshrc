@@ -1,4 +1,7 @@
 
+# debug
+# set -x
+
 # Editor
 export EDITOR=nvim
 export XDG_CONFIG_HOME=~/.config
@@ -8,7 +11,7 @@ export XDG_CONFIG_HOME=~/.config
 # export LESS=' -R '
 
 # Key Bindings
-# bindkey -e  # emacs
+bindkey -e  # emacs
 
 # History in cache directory:
 HISTSIZE=10000
@@ -32,7 +35,7 @@ export NVM_DIR="$HOME/.nvm"
 # FZF configuration
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_OPS="--extended"
-
+source <(fzf --zsh)
 
 # SET OPTIONS
 setopt auto_cd
@@ -44,12 +47,12 @@ setopt pushdminus
 . ~/.config/zsh/fzf-tab/fzf-tab.plugin.zsh  # make sure to source this first
 . ~/scripts/dirchanger.sh
 . ~/.config/lf/lfcd.sh
-. ~/.config/zsh/vi-mode/zsh-vi-mode.plugin.zsh
 . ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
 . ~/.config/zsh/aliases.sh
 . ~/.config/zsh/syntax-hl/zsh-syntax-highlighting.zsh
+. ~/.keys.sh
 
 
 # PATH
