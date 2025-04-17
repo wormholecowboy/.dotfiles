@@ -9,6 +9,8 @@ fi
 alias nvs='nvim $(find . -type f | fzf -m --preview="$bat_command --color=always {}")' # tab for multi select
 alias cds='cd $(find . -type d | fzf)'
 
+alias aidg='aider --model gemini-exp'
+
 alias ga="git add -A"
 alias gb="git branch -a"
 alias gc="git commit"
