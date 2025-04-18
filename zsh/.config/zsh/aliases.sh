@@ -1,11 +1,14 @@
-# CAT
+# Enviroment-based aliases
 if [[ $(uname) == "Linux" ]]; then
   alias cat="batcat"
   bat_command="batcat"
+  alias aider="aider --read ~/.dotfiles/misc/ai-coding-rules-work.md"
 else 
   alias cat="bat"
   bat_command="bat"
+  alias aider="aider --model gemini-exp --read ~/.dotfiles/misc/ai-coding-rules-home.md"
 fi
+
 alias nvs='nvim $(find . -type f | fzf -m --preview="$bat_command --color=always {}")' # tab for multi select
 alias cds='cd $(find . -type d | fzf)'
 
