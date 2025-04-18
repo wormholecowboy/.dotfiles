@@ -17,21 +17,22 @@ alias aidg='aider --model gemini-exp'
 alias ga="git add -A"
 alias gb="git branch -a"
 alias gc="git commit"
-alias gd="git diff"
+alias gcb="~/scripts/git-bare.sh"
 alias gco="git checkout"
-alias gp="git push"
-alias gs="git status -s"
-alias gst="git status"
+alias gd="git diff"
+alias gf="git fetch"
 alias gl="git log"
 alias glg="git log --oneline --decorate --graph --all"
 alias glo="git log --oneline"
 gls() {
   git log --oneline --grep="$1"
 }
+alias gp="git push"
+alias gs="git status -s"
+alias gst="git status"
 alias gwa="git worktree add"
 alias gwr="git worktree remove"
 # alias gwf="git fetch origin '*:*' --update-head-ok"
-alias gcb="~/scripts/git-bare.sh"
 
 alias nrd="npm run dev"
 alias nv='nvim'
