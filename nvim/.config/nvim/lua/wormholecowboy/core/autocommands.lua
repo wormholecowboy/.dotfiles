@@ -53,7 +53,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
   desc = "Log variable under cursor based on filetype",
   pattern = "*",
   callback = function(args)
-    vim.keymap.set("n", "<leader>l", function()
+    vim.keymap.set("n", "<leader>lv", function()
       local bufnr = args.buf
       local ft = vim.bo[bufnr].filetype
       local lnum = vim.fn.line(".")

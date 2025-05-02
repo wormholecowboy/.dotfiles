@@ -4,28 +4,26 @@ return {
 	opts = {},
 	config = function()
 		local wk = require("which-key")
-		wk.register({
-			s = {
-				a = { "<cmd>FzfLua autocmds<cr>", "autocommands" },
-				b = { "<cmd>FzfLua buffers<cr>", "buffer" },
-				cc = { "<cmd>FzfLua commands<cr>", "nv commands" },
-				ch = { "<cmd>FzfLua command_history<cr>", "command_history" },
-				cs = { "<cmd>FzfLua colorschemes<cr>", "color scheme" },
-				e = { "<cmd>FzfLua changes<cr>", "changes" },
-				x = { "<cmd>FzfLua files<cr>", "files" },
-				f = { "<cmd>FzfLua git_files<cr>", "git files" },
-				gb = { "<cmd>FzfLua git_branches<cr>", "git branches" },
-				gc = { "<cmd>FzfLua git_commits<cr>", "git commits" },
-				gh = { "<cmd>FzfLua git_stash<cr>", "git stash" },
-				gs = { "<cmd>FzfLua git_status<cr>", "git status" },
-				h = { "<cmd>FzfLua helptags<cr>", "help" },
-				k = { "<cmd>FzfLua keymaps<cr>", "keymaps" },
-				m = { "<cmd>FzfLua marks<cr>", "marks" },
-				n = { "<cmd>FzfLua manpages<cr>", "man pages" },
-				s = { "<cmd>FzfLua grep<cr>", "string" },
-				w = { "<cmd>FzfLua grep_cword<cr>", "word" },
-			},
-		}, { prefix = "<leader>" })
+		wk.add({
+			{ "<leader>sa", "<cmd>FzfLua autocmds<cr>", desc = "autocommands" },
+			{ "<leader>sb", "<cmd>FzfLua buffers<cr>", desc = "buffer" },
+			{ "<leader>scc", "<cmd>FzfLua commands<cr>", desc = "nv commands" },
+			{ "<leader>sch", "<cmd>FzfLua command_history<cr>", desc = "command_history" },
+			{ "<leader>scs", "<cmd>FzfLua colorschemes<cr>", desc = "color scheme" },
+			{ "<leader>se", "<cmd>FzfLua changes<cr>", desc = "changes" },
+			{ "<leader>sx", "<cmd>FzfLua files<cr>", desc = "files" },
+			{ "<leader>sf", "<cmd>FzfLua git_files<cr>", desc = "git files" },
+			{ "<leader>sgb", "<cmd>FzfLua git_branches<cr>", desc = "git branches" },
+			{ "<leader>sgc", "<cmd>FzfLua git_commits<cr>", desc = "git commits" },
+			{ "<leader>sgh", "<cmd>FzfLua git_stash<cr>", desc = "git stash" },
+			{ "<leader>sgs", "<cmd>FzfLua git_status<cr>", desc = "git status" },
+			{ "<leader>sh", "<cmd>FzfLua helptags<cr>", desc = "help" },
+			{ "<leader>sk", "<cmd>FzfLua keymaps<cr>", desc = "keymaps" },
+			{ "<leader>sm", "<cmd>FzfLua marks<cr>", desc = "marks" },
+			{ "<leader>sn", "<cmd>FzfLua manpages<cr>", desc = "man pages" },
+			{ "<leader>ss", "<cmd>FzfLua grep<cr>", desc = "string" },
+			{ "<leader>sw", "<cmd>FzfLua grep_cword<cr>", desc = "word" },
+		})
 
 		local actions = require("fzf-lua").actions
 		require("fzf-lua").setup({
@@ -33,7 +31,7 @@ return {
 				-- Below are the default actions, setting any value in these tables will override
 				-- the defaults, to inherit from the defaults change [1] from `false` to `true`
 				files = {
-					true,        -- uncomment to inherit all the below in your custom config
+					true, -- uncomment to inherit all the below in your custom config
 					-- Pickers inheriting these actions:
 					--   files, git_files, git_status, grep, lsp, oldfiles, quickfix, loclist,
 					--   tags, btags, args, buffers, tabs, lines, blines
