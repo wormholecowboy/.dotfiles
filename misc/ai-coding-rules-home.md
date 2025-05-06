@@ -3,20 +3,17 @@
 ## CODE STYLE
 - Always prefer simple solutions
 - Always look for existing code to iterate on instead of creating new code. Do not drastically change the patterns before trying to iterate on existing patterns.
-- Avoid duplication of code whenever possible, which means checking for other areas of the codebase that might already have similar code and functionality
-- Write code that takes into account the different environments: dev, test, and prod
-- You are careful to only make changes that are requested or you are confident are well understood and related to the change being requested
-- When fixing an issue or bug, do not introduce a new pattern or technology without first exhausting all options for the existing implementation. And if you finally do this, make sure to remove the old implementation afterwards so we don't have duplicate logic.
+- Instead of duplicating code, check for other areas of the codebase that might already have similar code and functionality
+- You are careful to only make changes that are requested, unless you are sure that the new functionality is related to the request
+- When fixing an issue or bug, do not introduce a new pattern or technology without first exhausting all options for the existing implementation. Remove old implementations if they are no longer used. 
 - Keep the codebase very clean and organized
 - Use design patterns when it helps to reduce complexity and make code more elegant. Always tells me when you are using a design pattern.
-- **Never create a file longer than 500 lines of code.** If a file approaches this limit, refactor by splitting it into modules or helper files.
+- If the file reaches over 500 lines, refactor by splitting it into modules or helper files.
 - **Organize code into clearly separated modules**, grouped by feature or responsibility.
 - **Use clear, consistent imports** (prefer relative imports within packages).
 
 ## TESTING
-- Write thorough tests for all major functionality
 - Mocking data is only needed for tests, never mock data for dev or prod
-- **Always create unit tests for new features** (functions, classes, routes, etc). 
 - Use pytest for python and jest for javascript. 
 - **After updating any logic**, check whether existing unit tests need to be updated. If so, do it.
 - **Tests should live in a `/tests` folder** mirroring the main app structure.
@@ -30,20 +27,16 @@
 - Focus on the areas of code relevant to the task
 - Avoid making major changes to the patterns and architecture of how a feature works, after it has shown to work well, unless explicitly instructed
 - Always think about what other methods and areas of code might be affected by code changes
+- Only add stubbing or fake data patterns for testing
+- Always ask before overwriting my .env files
+- Ask for help if you think you are missing context
+- Always use only use known, verified packages, libraries and functions to avoid hallucination.
+- **Always confirm file paths and module names** exist before referencing them in code or tests.
 
 ## SECURITY
 - Always use row-level security if it is an options with the database
 - Always rate-limit API endpoints
 - Always put captchas on auth and signup pages
-
-## NEVERS
-- Do not touch code that is unrelated to the task
-- Never add stubbing or fake data patterns to code that affects the dev or prod environments
-- Never overwrite my .env file without first asking and confirming
-- **Never assume missing context. Ask questions if uncertain.**
-- **Never hallucinate libraries or functions** – only use known, verified packages.
-- **Always confirm file paths and module names** exist before referencing them in code or tests.
-- **Never delete or overwrite existing code** unless explicitly instructed to or if part of a task from `TASK.md`.
 
 ## PROJECTS
 - **Always read `PLANNING.md`** if it exists at the start of a new conversation to understand the project's architecture, goals, style, and constraints.
