@@ -45,7 +45,7 @@ setopt pushdminus
 
 # SOURCE THESE
 . ~/.config/zsh/fzf-tab/fzf-tab.plugin.zsh  # make sure to source this first
-. ~/scripts/dirchanger.sh
+. ~/things/scripts/dirchanger.sh
 . ~/.config/lf/lfcd.sh
 . ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 eval "$(zoxide init zsh)"
@@ -73,3 +73,9 @@ eval "$(pyenv init -)"
 
 # Added by Windsurf
 export PATH="/Users/briangildea/.codeium/windsurf/bin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/briangildea/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/briangildea/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/briangildea/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/briangildea/google-cloud-sdk/completion.zsh.inc'; fi

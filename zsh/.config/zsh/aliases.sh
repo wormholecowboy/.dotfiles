@@ -6,7 +6,7 @@ if [[ $(uname) == "Linux" ]]; then
 else 
   alias cat="bat"
   bat_command="bat"
-  alias aider="aider --model gemini-exp --read ~/.dotfiles/misc/ai-coding-rules-home.md"
+  alias aider="aider --model vertex_ai-language-models/gemini-2.5-flash-preview-05-20 --read ~/.dotfiles/misc/ai-coding-rules-home.md"
 fi
 
 alias nvs='nvim $(find . -type f | fzf -m --preview="$bat_command --color=always {}")' # tab for multi select
