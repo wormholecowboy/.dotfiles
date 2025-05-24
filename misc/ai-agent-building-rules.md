@@ -1,3 +1,5 @@
+# RULES FOR CODING AGENTS THAT ARE BUILDING AI AGENTS
+
 ### 📎 Style & Conventions
 - **Use Python** as the primary language.
 - **Follow PEP8**, use type hints, and format with `black`.

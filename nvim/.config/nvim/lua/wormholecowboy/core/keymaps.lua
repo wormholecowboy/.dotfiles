@@ -49,6 +49,9 @@ vim.g.mapleader = " "
 --      x: close diffview
 -- h and t: git hunks
 --      check git signs for keymaps
+-- l: 
+--      l: lint
+--      v: log var
 -- m: markdown
 -- q: kill cmp
 -- r: rename
