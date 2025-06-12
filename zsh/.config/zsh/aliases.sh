@@ -12,7 +12,7 @@ fi
 alias nvs='nvim $(find . -type f | fzf -m --preview="$bat_command --color=always {}")' # tab for multi select
 alias cds='cd $(find . -type d | fzf)'
 
-alias aidg='aider --model gemini-2.5-flash-preview-04-17 --read ~/.dotfiles/misc/ai-coding-rules-home.md'
+alias aidg='aider --model vertex_ai-language-models/gemini-2.5-flash-preview-05-20 --read ~/.dotfiles/misc/ai-coding-rules-home.md'
 
 alias ga="git add -A"
 alias gb="git branch -a"

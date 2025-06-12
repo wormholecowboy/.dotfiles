@@ -40,10 +40,10 @@
 
 ## PROJECTS
 - **Always read `PLANNING.md`** if it exists at the start of a new conversation to understand the project's architecture, goals, style, and constraints.
-- **Check `TASK.md`** if it exists before starting a new task. If the task isn’t listed, add it with a brief description and today's date.
+- **Check `TASKS.md`** if it exists before starting a new task. If the task isn’t listed, add it with a brief description and today's date.
 - **Use consistent naming conventions, file structure, and architecture patterns** as described in `PLANNING.md`.
-- **Mark completed tasks in `TASK.md`** immediately after finishing them.
-- Add new sub-tasks or TODOs discovered during development to `TASK.md` under a “Discovered During Work” section.
+- **Mark completed tasks in `TASKS.md`** immediately after finishing them.
+- Add new sub-tasks or TODOs discovered during development to `TASKS.md` under a “Discovered During Work” section.
 
 ### 📚 Documentation & Explainability
 - **Update `README.md`** when new features are added, dependencies change, or setup steps are modified.
