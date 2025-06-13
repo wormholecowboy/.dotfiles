@@ -1,0 +1,211 @@
+{
+  "zenMode.hideLineNumbers": false,
+  "editor.lineNumbers": "relative",
+  "vim.leader": "<Space>",
+  "vim.hlsearch": false,
+  "vim.useCtrlKeys": true,
+  "vim.useSystemClipboard": true,
+  "vim.easymotion": true,
+  "telemetry.telemetryLevel": "off",
+  "breadcrumbs.enabled": false,
+  "vim.highlightedyank.enable": true,
+
+  // Terminal
+  "terminal.integrated.fontFamily": "'SpaceMono Nerd Font', 'monospace', monospace",
+  "terminal.integrated.fontSize": 14,
+  "terminal.integrated.tabs.enabled": false,
+
+  //Explorer
+  "explorer.confirmDelete": false,
+  "explorer.compactFolders": false,
+  "explorer.confirmDragAndDrop": false,
+
+  //Editor
+  "editor.tabSize": 2,
+  "editor.fontSize": 16,
+  "editor.lineHeight": 24,
+  "editor.fontLigatures": false,
+  "editor.fontFamily": "'SpaceMono Nerd Font', 'monospace', monospace",
+  "editor.wordWrap": "bounded",
+  "editor.wrappingIndent": "same",
+  "editor.lineNumbers": "relative",
+  "editor.wordWrapColumn": 80,
+  "editor.folding": false,
+  "editor.insertSpaces": false,
+  "editor.smoothScrolling": false,
+  "editor.minimap.enabled": false,
+  "editor.detectIndentation": true,
+  "editor.suggestSelection": "first",
+  "editor.scrollBeyondLastLine": false,
+  "editor.renderControlCharacters": true,
+  "editor.unicodeHighlight.ambiguousCharacters": false,
+  "editor.quickSuggestionsDelay": 0,
+  "editor.cursorBlinking": "solid",
+  "editor.bracketPairColorization.enabled": true,
+
+  // Java/Typescript
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "typescript.preferences.quoteStyle": "double",
+  "javascript.preferences.quoteStyle": "double",
+  "javascript.format.semicolons": "insert",
+  "typescript.format.semicolons": "insert",
+  "typescript.suggest.paths": false,
+  "javascript.suggest.paths": false,
+
+  // Formatters
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  // Shortcuts
+  "vim.handleKeys": {
+    // Select all
+    "<C-a>": false,
+    // VS Code search in file
+    // "<C-f>": false,
+    // VS Code new marker @ next occurence
+    // "<C-d>": false,
+    // Copy
+    "<C-e>": true,
+    "<C-y>": true,
+    "<C-c>": false,
+    // Cut
+    "<C-x>": false,
+    // Paste
+    "<C-v>": false
+  },
+  // fix paste
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      // Rename symbol with leader+r+e
+      "before": ["<F2>"],
+      "commands": ["editor.action.rename"]
+    },
+    {
+      "before": ["p"],
+      "after": ["p", "g", "v", "y"]
+    },
+    { "before": ["leader", "w"], "commands": [":w!"] },
+    { "before": ["QQ"], "commands": [":q!"] },
+    {
+      "before": ["leader", "u", "f"],
+      "commands": ["editor.action.formatDocument"]
+    },
+    {
+      "before": ["<leader>", "s", "f"],
+      "commands": ["workbench.action.findInFiles"]
+    },
+    {
+      "before": ["<leader>", "e"],
+      "commands": ["workbench.action.toggleSidebarVisibility"]
+    },
+    {
+      "before": ["<S-k>"],
+      "commands": ["editor.action.showHover"]
+    },
+    {
+      "before": ["<leader>", "c"],
+      "commands": [":tabclose"]
+    },
+    {
+      "before": ["<S-h>"],
+      "commands": [":tabp"]
+    },
+    {
+      "before": ["<S-l>"],
+      "commands": [":tabnext"]
+    },
+    {
+      "before": ["<leader>", "f", "f"],
+      "commands": ["workbench.action.quickOpen"]
+    },
+
+    {
+      "before": ["<leader>", "s", "s"],
+      "commands": ["workbench.action.findInFiles"]
+    },
+    {
+      "before": ["<leader>", "o"],
+      "after": ["o", "<Esc>", "k"]
+    },
+    {
+      "before": ["<leader>", "O"],
+      "after": ["o", "<Esc>", "j"]
+    },
+    { "before": ["g", "d"], "commands": ["editor.action.goToDefinition"] },
+    // Peek Definition
+    { "before": ["g", "p", "d"], "commands": ["editor.action.peekDefinition"] },
+    // Show Hover
+    {
+      "before": ["g", "h"],
+      "commands": ["editor.action.showDefinitionPreviewHover"]
+    },
+    // Go to Implementations
+    { "before": ["g", "i"], "commands": ["editor.action.goToImplementation"] },
+    // Peek Implementations
+    {
+      "before": ["g", "p", "i"],
+      "commands": ["editor.action.peekImplementation"]
+    },
+    // Go to References
+    {
+      "before": ["g", "r"],
+      "commands": ["editor.action.referenceSearch.trigger"]
+    },
+    // Go to Type Definition
+    { "before": ["g", "t"], "commands": ["editor.action.goToTypeDefinition"] },
+    // Peek Type Definition
+    {
+      "before": ["g", "p", "t"],
+      "commands": ["editor.action.peekTypeDefinition"]
+    }
+  ],
+  "vim.visualModeKeyBindings": [
+    // Stay in visual mode while indenting
+    { "before": ["<"], "commands": ["editor.action.outdentLines"] },
+    { "before": [">"], "commands": ["editor.action.indentLines"] },
+    // Move selected lines while staying in visual mode
+    { "before": ["J"], "commands": ["editor.action.moveLinesDownAction"] },
+    { "before": ["K"], "commands": ["editor.action.moveLinesUpAction"] },
+    // toggle comment selection
+    { "before": ["leader", "/"], "commands": ["editor.action.commentLine"] }
+  ],
+  // To improve performance
+  "extensions.experimental.affinity": {
+    "vscodevim.vim": 1
+  },
+  "editor.minimap.enabled": false,
+  "terminal.integrated.profiles.windows": {
+    "PowerShell": {
+      "source": "PowerShell",
+      "icon": "terminal-powershell"
+    },
+    "Command Prompt": {
+      "path": [
+        "${env:windir}\\Sysnative\\cmd.exe",
+        "${env:windir}\\System32\\cmd.exe"
+      ],
+      "args": [],
+      "icon": "terminal-cmd"
+    },
+    "Git Bash": {
+      "source": "Git Bash"
+    },
+    "Ubuntu (WSL)": {
+      "path": "C:\\WINDOWS\\System32\\wsl.exe",
+      "args": ["-d", "Ubuntu"]
+    }
+  },
+  "terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)"
+}
