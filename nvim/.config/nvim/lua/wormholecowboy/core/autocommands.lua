@@ -30,6 +30,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
       require("cmp").setup.buffer({ enabled = false })
       vim.wo.wrap = true
       vim.wo.linebreak = true
+      vim.cmd("CodeiumDisable")
     end, { buffer = 0, desc = "Writing mode engaged" })
   end,
 })
