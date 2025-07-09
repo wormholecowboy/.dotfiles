@@ -47,8 +47,9 @@ vim.g.mapleader = " "
 --      w: worktree
 --      cw: create worktree
 --      x: close diffview
--- h and t: git hunks
+-- h: git hunks
 --      check git signs for keymaps
+-- i: toggle indent lines
 -- l: 
 --      l: lint
 --      v: log var
