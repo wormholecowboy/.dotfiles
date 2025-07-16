@@ -52,6 +52,7 @@ eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
 . ~/.config/zsh/aliases.sh
 . ~/.config/zsh/syntax-hl/zsh-syntax-highlighting.zsh
+. ~/.config/zsh/zsh-vi-mode/zsh-vi-mode.zsh
 . ~/.keys.sh
 
 
