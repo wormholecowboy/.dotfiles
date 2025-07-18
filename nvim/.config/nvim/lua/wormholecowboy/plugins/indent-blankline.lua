@@ -35,6 +35,6 @@ return {
       enabled = false }
 		require("ibl").setup(configuration)
 
-    vim.keymap.set("n", "<leader>i", ":IBLToggle<CR>")
+    vim.keymap.set("n", "<leader>i", ":IBLToggle<CR>", { desc = "Toggle Indent Blankline" })
 	end,
 }
