@@ -45,4 +45,3 @@
 ## GIT
 - Use all blank settings when creating a repo (no .gitignore, no readme, mit license). Name the main branch "main". 
 - Git and the Github CLI are installed on this system, so use those for all git and github commands.
-
