@@ -31,6 +31,7 @@
 - Ask for help if you think you are missing context
 - Always use only use known, verified packages, libraries and functions to avoid hallucination.
 - **Always confirm file paths and module names** exist before referencing them in code or tests.
+- Always shutdown servers after you start them
 
 ## SECURITY
 - Always use row-level security if it is an options with the database
