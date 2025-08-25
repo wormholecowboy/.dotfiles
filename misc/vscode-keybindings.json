@@ -1,190 +1,301 @@
 [
-  // NAVIGATION
+  // =============================================================================
+  // AI & COMPOSER MODE
+  // =============================================================================
   {
-    "key": "ctrl+shift+a",
+    // Ctrl+I → Activate Cursor Composer AI mode
+    "key": "ctrl+i",
+    "command": "composerMode.agent"
+  },
+
+  // =============================================================================
+  // VIM MODE ENHANCEMENTS
+  // =============================================================================
+  {
+    // Shift+K → Show hover information in vim normal mode
+    "key": "shift+k",
+    "command": "editor.action.showHover",
+    "when": "editorTextFocus && vim.mode == 'Normal'"
+  },
+
+  // =============================================================================
+  // EDITOR & TAB MANAGEMENT (MIGRATED FROM VIM SETTINGS)
+  // =============================================================================
+  {
+    // Space+C → Close current editor/tab
+    "key": "space c",
+    "command": "workbench.action.closeActiveEditor",
+    "when": "editorTextFocus && vim.mode == 'Normal'"
+  },
+  {
+    // Space+W → Save current file
+    "key": "space w",
+    "command": "workbench.action.files.save",
+    "when": "editorTextFocus && vim.mode == 'Normal'"
+  },
+  {
+    // Shift+L → Switch to next editor tab (vim mode)
+    "key": "shift+l",
+    "command": "workbench.action.nextEditor",
+    "when": "editorTextFocus && vim.mode == 'Normal'"
+  },
+  {
+    // Shift+H → Switch to previous editor tab (vim mode)
+    "key": "shift+h",
+    "command": "workbench.action.previousEditor",
+    "when": "editorTextFocus && vim.mode == 'Normal'"
+  },
+
+  // =============================================================================
+  // WINDOW & PANE NAVIGATION (MIGRATED FROM VIM SETTINGS)
+  // =============================================================================
+  {
+    // Space+E → Toggle sidebar visibility
+    "key": "space e",
+    "command": "workbench.action.toggleSidebarVisibility",
+    "when": "editorTextFocus && vim.mode == 'Normal'"
+  },
+
+  // =============================================================================
+  // SEARCH & FILE OPERATIONS (MIGRATED FROM VIM SETTINGS)
+  // =============================================================================
+  {
+    // Space+S+F → Find in files (global search)
+    "key": "space s f",
+    "command": "workbench.action.findInFiles",
+    "when": "editorTextFocus && vim.mode == 'Normal'"
+  },
+  {
+    // Space+U+F → Format current document
+    "key": "space u f",
+    "command": "editor.action.formatDocument",
+    "when": "editorTextFocus && vim.mode == 'Normal'"
+  },
+
+  // =============================================================================
+  // CODE SYMBOLS & REFACTORING
+  // =============================================================================
+  {
+    // F2 → Rename symbol under cursor
+    "key": "F2",
+    "command": "editor.action.rename",
+    "when": "editorTextFocus && vim.mode == 'Normal'"
+  },
+
+  // =============================================================================
+  // TERMINAL NAVIGATION & MANAGEMENT
+  // =============================================================================
+  {
+    // Shift+L → Focus next terminal tab
+    "key": "shift+l",
     "command": "workbench.action.terminal.focusNext",
     "when": "terminalFocus"
   },
   {
-    "key": "ctrl+shift+b",
+    // Shift+H → Focus previous terminal tab
+    "key": "shift+h",
     "command": "workbench.action.terminal.focusPrevious",
     "when": "terminalFocus"
   },
   {
+    // Ctrl+Shift+J → Toggle bottom panel (terminal/problems/output)
     "key": "ctrl+shift+j",
     "command": "workbench.action.togglePanel"
   },
   {
-    "key": "ctrl+shift+n",
+    // Ctrl+Shift+N → Create new terminal (when in terminal)
+    "key": "ctrl+n",
     "command": "workbench.action.terminal.new",
     "when": "terminalFocus"
   },
   {
-    "key": "ctrl+shift+w",
+    // Ctrl+Shift+W → Kill current terminal (when in terminal)
+    "key": "ctrl+w",
     "command": "workbench.action.terminal.kill",
     "when": "terminalFocus"
   },
+
+  // =============================================================================
+  // SUGGESTION & AUTOCOMPLETE NAVIGATION
+  // =============================================================================
   {
+    // Ctrl+N → Navigate to next suggestion
     "key": "ctrl+n",
     "command": "selectNextSuggestion",
     "when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
   },
   {
+    // Ctrl+P → Navigate to previous suggestion
     "key": "ctrl+p",
     "command": "selectPrevSuggestion",
     "when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
   },
   {
+    // Ctrl+N → Navigate to next code action
     "key": "ctrl+n",
     "command": "selectNextCodeAction",
     "when": "codeActionMenuVisible"
   },
   {
+    // Ctrl+P → Navigate to previous code action
     "key": "ctrl+p",
     "command": "selectPrevCodeAction",
     "when": "codeActionMenuVisible"
   },
   {
+    // Ctrl+N → Navigate down in quick open menu
     "key": "ctrl+n",
     "command": "workbench.action.quickOpenSelectNext",
     "when": "inQuickOpen"
   },
   {
+    // Ctrl+P → Navigate up in quick open menu
     "key": "ctrl+p",
     "command": "workbench.action.quickOpenSelectPrevious",
     "when": "inQuickOpen"
   },
 
-  // POPUS
+  // =============================================================================
+  // HOVER POPUP NAVIGATION
+  // =============================================================================
   {
+    // H → Scroll left in hover popup (vim-style navigation)
     "key": "h",
     "command": "editor.action.scrollLeftHover",
     "when": "editorHoverFocused"
   },
   {
+    // J → Scroll down in hover popup (vim-style navigation)
     "key": "j",
     "command": "editor.action.scrollDownHover",
     "when": "editorHoverFocused"
   },
   {
+    // K → Scroll up in hover popup (vim-style navigation)
     "key": "k",
     "command": "editor.action.scrollUpHover",
     "when": "editorHoveredFocused"
   },
   {
+    // L → Scroll right in hover popup (vim-style navigation)
     "key": "l",
     "command": "editor.action.scrollRightHover",
     "when": "editorHoverFocused"
   },
-  // FILE TREE
+
+  // =============================================================================
+  // FILE EXPLORER OPERATIONS
+  // =============================================================================
   {
-    "command": "workbench.action.toggleSidebarVisibility",
-    "key": "ctrl+e"
-  },
-  {
+    // N → Create new file (when focused on file explorer)
     "key": "n",
     "command": "explorer.newFile",
     "when": "filesExplorerFocus && !inputFocus"
   },
   {
+    // R → Rename file/folder (when focused on file explorer)
     "command": "renameFile",
     "key": "r",
     "when": "filesExplorerFocus && !inputFocus"
   },
   {
+    // Shift+N → Create new folder (when focused on file explorer)
     "key": "shift+n",
     "command": "explorer.newFolder",
     "when": "explorerViewletFocus"
   },
   {
-    "key": "shift+n",
-    "command": "workbench.action.newWindow",
-    "when": "!explorerViewletFocus"
-  },
-  {
+    // D → Delete file/folder (when focused on file explorer)
     "command": "deleteFile",
     "key": "d",
     "when": "filesExplorerFocus && !inputFocus"
   },
   {
+    // X → Cut file/folder (when focused on file explorer)
     "key": "x",
     "command": "filesExplorer.cut",
     "when": "filesExplorerFocus && !inputFocus"
   },
   {
+    // P → Paste file/folder (when focused on file explorer)
     "key": "p",
     "command": "filesExplorer.paste",
     "when": "filesExplorerFocus && !inputFocus"
   },
-  // GIT
+
+  // =============================================================================
+  // GIT SOURCE CONTROL
+  // =============================================================================
   {
+    // Ctrl+Shift+G → Open Source Control panel
     "command": "workbench.view.scm",
     "key": "ctrl+shift+g"
   },
   {
+    // Ctrl+S → Stage changes (when in Source Control panel)
     "key": "ctrl+s",
     "command": "git.stage",
     "when": "activeViewlet == 'workbench.view.scm' && sideBarFocus"
   },
   {
+    // Ctrl+U → Unstage changes (when in Source Control panel)
     "key": "ctrl+u",
     "command": "git.unstage",
     "when": "activeViewlet == 'workbench.view.scm' && sideBarFocus"
   },
   {
+    // Ctrl+C → Commit all staged changes with signature (when in Source Control panel)
     "key": "ctrl+c",
     "command": "git.commitAllSigned",
     "when": "activeViewlet == 'workbench.view.scm' && sideBarFocus"
   },
   {
+    // Ctrl+P → Push changes to remote (when in Source Control panel)
     "key": "ctrl+p",
     "command": "git.push",
     "when": "activeViewlet == 'workbench.view.scm' && sideBarFocus"
   },
-  //
-  // PROBLEM NAVIGATION
-  //
+
+  // =============================================================================
+  // PROBLEM & ERROR NAVIGATION
+  // =============================================================================
   {
-    // "F8": Goes to next problem (error, warning) in the editor
+    // F8 → Go to next problem/error in files
     "key": "F8",
     "command": "editor.action.marker.nextInFiles",
     "when": "editorFocus"
   },
   {
-    // "shift+F8": Goes to previous problem in the editor
+    // Shift+F8 → Go to previous problem/error in files
     "key": "shift+F8",
     "command": "editor.action.marker.prevInFiles",
     "when": "editorFocus"
   },
-  //
+
+  // =============================================================================
   // WORKSPACE MANAGEMENT
-  //
+  // =============================================================================
   {
-    // "ctrl+shift+w": Closes current workspace
+    // Ctrl+Shift+W → Close current workspace
     "key": "ctrl+shift+w",
     "command": "workbench.action.closeFolder",
     "when": "emptyWorkspaceSupport"
   },
   {
-    // "ctrl+k p": Copies the path of the active file
+    // Ctrl+K P → Copy path of active file to clipboard
     "key": "ctrl+k p",
     "command": "workbench.action.files.copyPathOfActiveFile"
   },
 
-
-  // EXTRA
+  // =============================================================================
+  // UI & FOCUS MANAGEMENT
+  // =============================================================================
   {
-    "key": "ctrl+z",
-    "command": "workbench.action.toggleZenMode"
-  },
-  {
-    "key": "ctrl+j",
-    "command": "workbench.action.quickOpenSelectNext",
-    "when": "inQuickOpen"
-  },
-  {
-    "key": "ctrl+k",
-    "command": "workbench.action.quickOpenSelectPrevious",
-    "when": "inQuickOpen"
+    // Space+Z → Toggle Zen Mode (distraction-free editing)
+    "key": "space z",
+    "command": "workbench.action.toggleZenMode",
+    "when": "editorTextFocus && vim.mode == 'Normal'"
   }
+  // Note: Quick open navigation handled by Ctrl+N/P in SUGGESTION & AUTOCOMPLETE NAVIGATION section
 ]
+
