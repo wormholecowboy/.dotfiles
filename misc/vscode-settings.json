@@ -1,28 +1,29 @@
 {
-  "zenMode.hideLineNumbers": false,
-  "editor.lineNumbers": "relative",
-  "vim.leader": "<Space>",
-  "vim.hlsearch": false,
-  "vim.useCtrlKeys": true,
-  "vim.useSystemClipboard": true,
-  "vim.easymotion": true,
+  // =============================================================================
+  // GENERAL FILES & WORKSPACE SETTINGS
+  // =============================================================================
+  "files.autoSave": "onFocusChange",
+  "scm.diffDecorations": "all",
+  "window.zoomLevel": 1,
   "telemetry.telemetryLevel": "off",
-  "breadcrumbs.enabled": false,
-  "vim.highlightedyank.enable": true,
+  "gitlens.telemetry.enabled": false,
+  "security.allowedUNCHosts": ["wsl$", "wsl.localhost"],
+  "security.workspace.trust.untrustedFiles": "open",
+  "workbench.settings.applyToAllProfiles": [],
+  "workspaceSidebar.rootFolders": [
+    {
+      "path": "\\\\wsl.localhost\\Ubuntu\\home\\brian\\myc\\draconian\\CDIT-2257-ai-insights-table-google-searc"
+    },
+    {
+      "path": "\\\\wsl.localhost\\Ubuntu\\home\\brian\\myc\\aws\\CDIT-2257-ai-insights-table-google-searc\\draconian-data-dungeon\\data_ingest\\glue_jobs\\gsc"
+    }
+  ],
 
-  // Terminal
-  "terminal.integrated.fontFamily": "'SpaceMono Nerd Font', 'monospace', monospace",
-  "terminal.integrated.fontSize": 14,
-  "terminal.integrated.tabs.enabled": false,
-
-  //Explorer
-  "explorer.confirmDelete": false,
-  "explorer.compactFolders": false,
-  "explorer.confirmDragAndDrop": false,
-
-  //Editor
+  // =============================================================================
+  // EDITOR CONFIGURATION
+  // =============================================================================
   "editor.tabSize": 2,
-  "editor.fontSize": 16,
+  "editor.fontSize": 14,
   "editor.lineHeight": 24,
   "editor.fontLigatures": false,
   "editor.fontFamily": "'SpaceMono Nerd Font', 'monospace', monospace",
@@ -42,150 +43,159 @@
   "editor.quickSuggestionsDelay": 0,
   "editor.cursorBlinking": "solid",
   "editor.bracketPairColorization.enabled": true,
-
-  // Java/Typescript
-  "javascript.updateImportsOnFileMove.enabled": "always",
-  "typescript.updateImportsOnFileMove.enabled": "always",
-  "typescript.preferences.quoteStyle": "double",
-  "javascript.preferences.quoteStyle": "double",
-  "javascript.format.semicolons": "insert",
-  "typescript.format.semicolons": "insert",
-  "typescript.suggest.paths": false,
-  "javascript.suggest.paths": false,
-
-  // Formatters
+  "editor.guides.bracketPairs": "active",
+  "editor.accessibilitySupport": "off",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "editor.occurrencesHighlight": "off",
+  "editor.selectionHighlight": false,
+
+  // =============================================================================
+  // VIM CONFIGURATION
+  // =============================================================================
+  "vim.easymotion": true,
+  "vim.incsearch": true,
+  "vim.useSystemClipboard": true,
+  "vim.smartRelativeLine": true,
+  "vim.useCtrlKeys": true,
+  "vim.hlsearch": false,
+  "vim.easymotionMarkerooundColor": "#020202",
+  "vim.surround": true,
+  "vim.highlightedyank.enable": true,
+  "vim.leader": "<space>",
+  "vim.commandLineModeKeyBindings": [],
+
+  // Vim Key Handling
+  "vim.handleKeys": {
+    "<C-a>": false,
+    "<C-f>": false,
+    "<C-c>": false,
+    "<C-x>": false,
+    "<C-v>": false,
+    "<C-z>": false,
+    "<C-y>": true,
+    "<C-e>": true,
+    "<C-p>": false
   },
 
-  // Shortcuts
-  "vim.handleKeys": {
-    // Select all
-    "<C-a>": false,
-    // VS Code search in file
-    // "<C-f>": false,
-    // VS Code new marker @ next occurence
-    // "<C-d>": false,
-    // Copy
-    "<C-e>": true,
-    "<C-y>": true,
-    "<C-c>": false,
-    // Cut
-    "<C-x>": false,
-    // Paste
-    "<C-v>": false
-  },
-  // fix paste
+  // Vim Normal Mode Keybindings (migrated to keybindings.json)
+  "vim.normalModeKeyBindings": [],
+
+  // Vim Insert Mode Keybindings
+  "vim.insertModeKeyBindings": [
+    {
+      // kj → Exit insert mode (alternative to Esc)
+      "before": ["k", "j"],
+      "after": ["<Esc>"]
+    }
+  ],
+
+  // Vim Visual Mode Keybindings
+  "vim.visualModeKeyBindings": [
+    {
+      // > → Indent selection and keep visual mode active
+      "before": [">"],
+      "after": [">", "g", "v"]
+    },
+    {
+      // < → Unindent selection and keep visual mode active
+      "before": ["<"],
+      "after": ["<", "g", "v"]
+    },
+    {
+      // J → Move selected lines down
+      "before": ["J"],
+      "commands": ["editor.action.moveLinesDownAction"]
+    },
+    {
+      // K → Move selected lines up
+      "before": ["K"],
+      "commands": ["editor.action.moveLinesUpAction"]
+    },
+    {
+      // <leader>/ → Toggle comment on selected lines
+      "before": ["leader", "/"],
+      "commands": ["editor.action.commentLine"]
+    }
+  ],
+
+  // Vim Non-Recursive Keybindings (window movements kept, commands migrated to keybindings.json)
   "vim.normalModeKeyBindingsNonRecursive": [
     {
-      // Rename symbol with leader+r+e
-      "before": ["<F2>"],
-      "commands": ["editor.action.rename"]
+      // <leader>f → EasyMotion word jump forward
+      "before": ["<leader>", "f"],
+      "after": ["<leader>", "<leader>", "<leader>", "b", "d", "w"]
     },
     {
-      "before": ["p"],
-      "after": ["p", "g", "v", "y"]
-    },
-    { "before": ["leader", "w"], "commands": [":w!"] },
-    { "before": ["QQ"], "commands": [":q!"] },
-    {
-      "before": ["leader", "u", "f"],
-      "commands": ["editor.action.formatDocument"]
-    },
-    {
-      "before": ["<leader>", "s", "f"],
-      "commands": ["workbench.action.findInFiles"]
-    },
-    {
-      "before": ["<leader>", "e"],
-      "commands": ["workbench.action.toggleSidebarVisibility"]
-    },
-    {
-      "before": ["<S-k>"],
-      "commands": ["editor.action.showHover"]
-    },
-    {
-      "before": ["<leader>", "c"],
-      "commands": [":tabclose"]
-    },
-    {
-      "before": ["<S-h>"],
-      "commands": [":tabp"]
-    },
-    {
-      "before": ["<S-l>"],
-      "commands": [":tabnext"]
-    },
-    {
-      "before": ["<leader>", "f", "f"],
-      "commands": ["workbench.action.quickOpen"]
-    },
-
-    {
-      "before": ["<leader>", "s", "s"],
-      "commands": ["workbench.action.findInFiles"]
-    },
-    {
+      // <leader>o → Insert line below and stay in normal mode
       "before": ["<leader>", "o"],
       "after": ["o", "<Esc>", "k"]
     },
     {
+      // <leader>O → Insert line above and stay in normal mode
       "before": ["<leader>", "O"],
       "after": ["o", "<Esc>", "j"]
     },
-    { "before": ["g", "d"], "commands": ["editor.action.goToDefinition"] },
-    // Peek Definition
-    { "before": ["g", "p", "d"], "commands": ["editor.action.peekDefinition"] },
-    // Show Hover
     {
+      // gd → Go to definition
+      "before": ["g", "d"],
+      "commands": ["editor.action.goToDefinition"]
+    },
+    {
+      // gpd → Peek definition (inline preview)
+      "before": ["g", "p", "d"],
+      "commands": ["editor.action.peekDefinition"]
+    },
+    {
+      // gh → Show hover information
       "before": ["g", "h"],
       "commands": ["editor.action.showDefinitionPreviewHover"]
     },
-    // Go to Implementations
-    { "before": ["g", "i"], "commands": ["editor.action.goToImplementation"] },
-    // Peek Implementations
     {
+      // gi → Go to implementation
+      "before": ["g", "i"],
+      "commands": ["editor.action.goToImplementation"]
+    },
+    {
+      // gpi → Peek implementation (inline preview)
       "before": ["g", "p", "i"],
       "commands": ["editor.action.peekImplementation"]
     },
-    // Go to References
     {
+      // gr → Find all references
       "before": ["g", "r"],
       "commands": ["editor.action.referenceSearch.trigger"]
     },
-    // Go to Type Definition
-    { "before": ["g", "t"], "commands": ["editor.action.goToTypeDefinition"] },
-    // Peek Type Definition
     {
+      // gt → Go to type definition
+      "before": ["g", "t"],
+      "commands": ["editor.action.goToTypeDefinition"]
+    },
+    {
+      // gpt → Peek type definition (inline preview)
       "before": ["g", "p", "t"],
       "commands": ["editor.action.peekTypeDefinition"]
     }
   ],
-  "vim.visualModeKeyBindings": [
-    // Stay in visual mode while indenting
-    { "before": ["<"], "commands": ["editor.action.outdentLines"] },
-    { "before": [">"], "commands": ["editor.action.indentLines"] },
-    // Move selected lines while staying in visual mode
-    { "before": ["J"], "commands": ["editor.action.moveLinesDownAction"] },
-    { "before": ["K"], "commands": ["editor.action.moveLinesUpAction"] },
-    // toggle comment selection
-    { "before": ["leader", "/"], "commands": ["editor.action.commentLine"] }
-  ],
-  // To improve performance
+
+  // Vim Performance Optimization
   "extensions.experimental.affinity": {
     "vscodevim.vim": 1
   },
-  "editor.minimap.enabled": false,
+
+  // =============================================================================
+  // TERMINAL CONFIGURATION
+  // =============================================================================
+  "terminal.integrated.fontFamily": "'SpaceMono Nerd Font', 'monospace', monospace",
+  "terminal.integrated.fontSize": 14,
+  "terminal.integrated.tabs.enabled": false,
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.env.osx": {
+    "FIG_NEW_SESSION": "1"
+  },
+
+  // Terminal Profiles - Windows
   "terminal.integrated.profiles.windows": {
     "PowerShell": {
       "source": "PowerShell",
@@ -207,5 +217,116 @@
       "args": ["-d", "Ubuntu"]
     }
   },
-  "terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)"
+  "terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)",
+
+  // =============================================================================
+  // EXPLORER & FILE MANAGEMENT
+  // =============================================================================
+  "explorer.confirmDelete": false,
+  "explorer.compactFolders": false,
+  "explorer.confirmDragAndDrop": false,
+  "breadcrumbs.enabled": false,
+
+  // =============================================================================
+  // JAVASCRIPT/TYPESCRIPT CONFIGURATION
+  // =============================================================================
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "typescript.preferences.quoteStyle": "double",
+  "javascript.preferences.quoteStyle": "double",
+  "javascript.format.semicolons": "insert",
+  "typescript.format.semicolons": "insert",
+  "typescript.suggest.paths": false,
+  "javascript.suggest.paths": false,
+  "reactSnippets.settings.importReactOnTop": false,
+
+  // =============================================================================
+  // FORMATTERS & LANGUAGE SETTINGS
+  // =============================================================================
+  "prettier.singleQuote": true,
+  "prettier.bracketSpacing": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  // =============================================================================
+  // THEME & UI CUSTOMIZATION
+  // =============================================================================
+  "workbench.iconTheme": "vscode-icons",
+  "materialTheme.accent": "Cyan",
+  "zenMode.hideLineNumbers": false,
+  "debug.console.fontSize": 16,
+  "vsicons.dontShowNewVersionMessage": true,
+
+  // Color Theme Customizations
+  "workbench.colorCustomizations": {
+    "terminal.background": "#313632",
+    "terminal.foreground": "#C0C5CE",
+    "terminal.integrated.fontFamily": "Source Code Pro for Powerline",
+    "terminal.integrated.shell.osx": "/bin/zsh",
+    "terminalCursor.background": "#C0C5CE",
+    "terminalCursor.foreground": "#C0C5CE",
+    "terminal.ansiBlack": "#2B303B",
+    "terminal.ansiBlue": "#8FA1B3",
+    "terminal.ansiBrightBlack": "#65737E",
+    "terminal.ansiBrightBlue": "#8FA1B3",
+    "terminal.ansiBrightCyan": "#96B5B4",
+    "terminal.ansiBrightGreen": "#A3BE8C",
+    "terminal.ansiBrightMagenta": "#B48EAD",
+    "terminal.ansiBrightRed": "#BF616A",
+    "terminal.ansiBrightWhite": "#EFF1F5",
+    "terminal.ansiBrightYellow": "#EBCB8B",
+    "terminal.ansiCyan": "#96B5B4",
+    "terminal.ansiGreen": "#A3BE8C",
+    "terminal.ansiMagenta": "#B48EAD",
+    "terminal.ansiRed": "#BF616A",
+    "terminal.ansiWhite": "#C0C5CE",
+    "terminal.ansiYellow": "#EBCB8B",
+    "[Material Theme Darker High Contrast]": {
+      "activityBarBadge.background": "#00BCD4",
+      "activityBar.activeBorder": "#00BCD4",
+      "list.activeSelectionForeground": "#00BCD4",
+      "list.inactiveSelectionForeground": "#00BCD4",
+      "list.highlightForeground": "#00BCD4",
+      "scrollbarSlider.activeBackground": "#00BCD450",
+      "editorSuggestWidget.highlightForeground": "#00BCD4",
+      "textLink.foreground": "#00BCD4",
+      "progressBar.background": "#00BCD4",
+      "pickerGroup.foreground": "#00BCD4",
+      "tab.activeBorder": "#00BCD4",
+      "notificationLink.foreground": "#00BCD4",
+      "editorWidget.resizeBorder": "#00BCD4",
+      "editorWidget.border": "#00BCD4",
+      "settings.modifiedItemIndicator": "#00BCD4",
+      "settings.headerForeground": "#00BCD4",
+      "panelTitle.activeBorder": "#00BCD4",
+      "breadcrumb.activeSelectionForeground": "#00BCD4",
+      "menu.selectionForeground": "#00BCD4",
+      "menubar.selectionForeground": "#00BCD4",
+      "editor.findMatchBorder": "#00BCD4",
+      "selection.background": "#00BCD440",
+      "statusBarItem.remoteBackground": "#00BCD4"
+    }
+  },
+
+  // =============================================================================
+  // REMOTE/SSH CONFIGURATION
+  // =============================================================================
+  "remote.SSH.defaultExtensions": ["gitpod.gitpod-remote-ssh"],
+  "remote.SSH.configFile": "/var/folders/v5/vh4vjl617jvdf57942rlp1mh0000gn/T/gitpod_ssh_config-99434-W7KNMIRYQNgR",
+
+  // =============================================================================
+  // MISCELLANEOUS SETTINGS
+  // =============================================================================
+  "liveServer.settings.donotShowInfoMsg": true
 }
+
