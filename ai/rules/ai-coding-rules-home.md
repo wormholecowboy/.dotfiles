@@ -13,7 +13,7 @@
 - **Use clear, consistent imports** (prefer relative imports within packages).
 
 ## TESTING
-- Mocking data is only needed for tests, never mock data for dev or prod
+- ONLY use mock data for testing
 - Use pytest for python and jest for javascript. 
 - **After updating any logic**, check whether existing unit tests need to be updated. If so, do it.
 - **Tests should live in a `/tests` folder** mirroring the main app structure.
