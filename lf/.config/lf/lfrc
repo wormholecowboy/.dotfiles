@@ -92,9 +92,10 @@ map gdb cd ~/Dropbox
 map gdf cd ~/.dotfiles
 map gdt cd ~/Desktop
 map gdl cd ~/Downloads
-map gm cd ~/myc
+map gm cd ~/things/myc
 map gpn cd ~/pnotes
 map gte cd ~/temp
+map gth cd ~/things
 map gtr cd ~/.Trash
 map gwdl cd /mnt/c/Users/brian.gildea/Downloads
 map gwdt cd /mnt/c/Users/brian.gildea/OneDrive\ -\ LeadVenture/Desktop

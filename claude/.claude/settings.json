@@ -5,6 +5,7 @@
       "Bash(npm run lint)",
       "Bash(npm run test:*)",
       "Read(~/.zshrc)",
+      "Read(*)",
       "Bash(grep:*)",
       "Bash(ls:*)",
       "Bash(source:*)",
@@ -17,15 +18,14 @@
       "Bash(cat:*)",
       "Bash(ruff check:*)",
       "Bash(pytest:*)",
-      "Bash(python:*)",
-      "Bash(python3:*)",
       "Bash(python -m pytest:*)",
       "Bash(python3 -m pytest:*)",
       "WebFetch(domain:*)",
       "Bash(gh issue view:*)",
       "mcp__puppeteer__puppeteer_navigate",
       "mcp__puppeteer__puppeteer_screenshot",
-      "mcp__puppeteer__puppeteer_evaluate"
+      "mcp__puppeteer__puppeteer_evaluate",
+      "mcp__archon"
     ],
     "deny": []
   },
