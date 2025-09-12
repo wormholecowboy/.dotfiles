@@ -1,4 +1,4 @@
-# 🧑‍💻 Coding Assistant Guidelines
+# 💻 Coding Assistant Guidelines
 
 ## 1. Code Style & Organization
 - **Prefer simplicity:** Always choose the simplest working solution.  
@@ -46,3 +46,7 @@
 - New repos: use **blank settings** (no `.gitignore`, no README, MIT license).  
 - Default branch: `main`.  
 - Use **git** and **GitHub CLI** for all repo commands.  
+
+## 7. ANTI-Patterns
+- **Magic strings, numbers, etc:** Use named constants instead.  
+- **Random reformatting**: Don’t reformat code.
