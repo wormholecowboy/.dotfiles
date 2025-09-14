@@ -76,7 +76,7 @@ eval "$(pyenv init -)"
 export PATH="/Users/briangildea/.codeium/windsurf/bin:$PATH"
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/briangildea/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/briangildea/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/Users/briangildea/things/myc/temp/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/briangildea/things/myc/temp/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/briangildea/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/briangildea/google-cloud-sdk/completion.zsh.inc'; fi

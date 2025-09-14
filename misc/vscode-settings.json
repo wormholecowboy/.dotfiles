@@ -45,8 +45,8 @@
   "editor.bracketPairColorization.enabled": true,
   "editor.guides.bracketPairs": "active",
   "editor.accessibilitySupport": "off",
-  "editor.formatOnSave": true,
-  "editor.formatOnPaste": true,
+  "editor.formatOnSave": false,
+  "editor.formatOnPaste": false,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.occurrencesHighlight": "off",
   "editor.selectionHighlight": false,
@@ -317,12 +317,6 @@
       "statusBarItem.remoteBackground": "#00BCD4"
     }
   },
-
-  // =============================================================================
-  // REMOTE/SSH CONFIGURATION
-  // =============================================================================
-  "remote.SSH.defaultExtensions": ["gitpod.gitpod-remote-ssh"],
-  "remote.SSH.configFile": "/var/folders/v5/vh4vjl617jvdf57942rlp1mh0000gn/T/gitpod_ssh_config-99434-W7KNMIRYQNgR",
 
   // =============================================================================
   // MISCELLANEOUS SETTINGS

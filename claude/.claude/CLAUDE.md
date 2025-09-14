@@ -1,49 +1,52 @@
-# RULES FOR ANY AI ASSISTANTS THAT ARE READING THIS DOCUMENT. FOLLOW THESE RULES.
+# 💻 Coding Assistant Guidelines
 
-## CODE STYLE
-- Always prefer simple solutions
-- Always look for existing code to iterate on instead of creating new code. Do not drastically change the patterns before trying to iterate on existing patterns.
-- Instead of duplicating code, check for other areas of the codebase that might already have similar code and functionality
-- You are careful to only make changes that are requested, unless you are sure that the new functionality is related to the request
-- When fixing an issue or bug, do not introduce a new pattern or technology without first exhausting all options for the existing implementation. Remove old implementations if they are no longer used. 
-- Keep the codebase very clean and organized
-- Use design patterns when it helps to reduce complexity and make code more elegant. Always tells me when you are using a design pattern.
-- If the file reaches over 500 lines, refactor by splitting it into modules or helper files.
-- **Organize code into clearly separated modules**, grouped by feature or responsibility.
-- **Use clear, consistent imports** (prefer relative imports within packages).
+## 1. Code Style & Organization
+- **Prefer simplicity:** Always choose the simplest working solution.  
+- **Reuse before adding:** Check for existing implementations before duplicating logic.  
+- **Stick to the stack:** When fixing issues, exhaust current tech and patterns before introducing new ones.  
+- **Scoped changes:** Only modify code directly relevant to the request unless closely related functionality is impacted.  
+- **Clean up:** Remove unused code and obsolete implementations.  
+- **Structure matters:**  
+  - Keep files under **500 lines** → refactor into modules/helpers when larger.  
+  - Organize code by **feature or responsibility**.  
+  - Use **clear, consistent imports** (prefer relative imports inside packages).  
+- **Design patterns:** Apply when they reduce complexity. Always state which pattern is used.  
 
-## TESTING
-- Mocking data is only needed for tests, never mock data for dev or prod
-- Use pytest for python and jest for javascript. 
-- **After updating any logic**, check whether existing unit tests need to be updated. If so, do it.
-- **Tests should live in a `/tests` folder** mirroring the main app structure.
-  - Include at least:
-    - 1 test for expected use
-    - 1 edge case
-    - 1 failure case
+## 2. Testing
+- **Frameworks:** Use `pytest` (Python) and `jest` (JavaScript).  
+- **Mocking/stubbing:** Only for tests. Never in dev/prod code.  
+- **Coverage:** For each new/updated function, include:  
+  - 1 expected use case  
+  - 1 edge case  
+  - 1 failure case  
+- **Maintenance:** Update existing tests whenever logic changes.  
 
-## MISC
-- Focus on the areas of code relevant to the task
-- Avoid making major changes to the patterns and architecture of how a feature works, after it has shown to work well, unless explicitly instructed
-- Always think about what other methods and areas of code might be affected by code changes
-- Only add stubbing or fake data patterns for testing
-- Always ask before overwriting my .env files
-- Ask for help if you think you are missing context
-- Always use only use known, verified packages, libraries and functions to avoid hallucination.
-- **Always confirm file paths and module names** exist before referencing them in code or tests.
-- Always shutdown servers after you start them
+## 3. Documentation & Explainability
+- **README.md:** Update when adding features, changing dependencies, or modifying setup steps.  
+- **Comments:**  
+  - Only comment non-obvious code.  
+  - For complex logic, add an inline `# Reason:` comment explaining *why*, not just *what*.  
 
-## SECURITY
-- Always use row-level security if it is an options with the database
-- Always rate-limit API endpoints
-- Always put captchas on auth and signup pages
+## 4. Security
+- Always enable **row-level security** if supported by the database.  
+- **Rate-limit** all API endpoints.  
+- Require **CAPTCHAs** on authentication and signup flows.  
 
-### 📚 Documentation & Explainability
-- **Update `README.md`** when new features are added, dependencies change, or setup steps are modified.
-- **Only comment non-obvious code** and ensure everything is understandable to a mid-level developer.
-- When writing complex logic, **add an inline `# Reason:` comment** explaining the why, not just the what.
+## 5. Workflow & Safety
+- Focus only on code relevant to the current task.  
+- Don’t change stable architecture/patterns unless explicitly told.  
+- Think through impacts on related code before making changes.  
+- Confirm file paths and module names exist before using them.  
+- Ask before overwriting `.env` files.  
+- Only use **known, verified** packages/libraries/functions.  
+- Shut down any servers you start.  
+- Ask for help when missing context.  
 
-## GIT
-- Use all blank settings when creating a repo (no .gitignore, no readme, mit license). Name the main branch "main". 
-- Git and the Github CLI are installed on this system, so use those for all git and github commands.
+## 6. Git & Repo Setup
+- New repos: use **blank settings** (no `.gitignore`, no README, MIT license).  
+- Default branch: `main`.  
+- Use **git** and **GitHub CLI** for all repo commands.  
 
+## 7. ANTI-Patterns
+- **Magic strings, numbers, etc:** Use named constants instead.  
+- **Random reformatting**: Don’t reformat code.
