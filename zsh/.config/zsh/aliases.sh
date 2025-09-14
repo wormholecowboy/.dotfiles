@@ -11,6 +11,7 @@ fi
 
 alias nvs='nvim $(find . -type f | fzf -m --preview="$bat_command --color=always {}")' # tab for multi select
 alias cds='cd $(find . -type d | fzf)'
+alias scp='nvim ~/things/misc/scratchpad.md'
 
 alias aidg='aider --model vertex_ai-language-models/gemini-2.5-flash-preview-05-20 --read ~/.dotfiles/misc/ai-coding-rules-home.md'
 
