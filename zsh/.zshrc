@@ -69,11 +69,17 @@ export PATH="$PATH:$HOME/.local/bin"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/briangildea/things/myc/temp/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/briangildea/things/myc/temp/google-cloud-sdk/path.zsh.inc'; fi
-
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/briangildea/things/myc/temp/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/briangildea/things/myc/temp/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '/Users/briangildea/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/briangildea/google-cloud-sdk/completion.zsh.inc'; fi
 
 
 export NVM_DIR="$HOME/.nvm"
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/briangildea/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
