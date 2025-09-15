@@ -1,7 +1,11 @@
-exa git tmux btop fzf yadm npm neofetch shellcheck gh ripgrep lf zoxide
-apt plocate
-fd-find OR fd
-
+lsd 
+git 
+tmux 
+fzf 
+nvm
+gh 
+ripgrep lf zoxide
+https://github.com/tmux-plugins/tpm
 
 
 CHSH
@@ -17,15 +21,9 @@ NEOVIM
 - make CMAKE_BUILD_TYPE=RelWithDebInfo
 - sudo make install
 
-
-
-PACKER / LAZY
+LAZY
 git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
-
-
-ZAP
-zsh <(curl -s https://raw.githubusercontent.com/zap-zsh/zap/master/install.zsh) --branch release-v1
 
 
 

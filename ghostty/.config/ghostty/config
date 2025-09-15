@@ -19,7 +19,7 @@
 # ==========================
 # # The config file consists of simple key-value pairs,
 # # separated by equals signs.
-font-family = Space Mono 
+font-family = SpaceMono Nerd Font
 font-size = 16
 window-padding-x = 2
 #

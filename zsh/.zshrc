@@ -67,16 +67,13 @@ export PATH="$PATH:$HOME/.local/bin"
 
 
 
-# PYENV
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-
-# Added by Windsurf
-export PATH="/Users/briangildea/.codeium/windsurf/bin:$PATH"
-
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/briangildea/things/myc/temp/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/briangildea/things/myc/temp/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/briangildea/things/myc/temp/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/briangildea/things/myc/temp/google-cloud-sdk/completion.zsh.inc'; fi
+
+
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
