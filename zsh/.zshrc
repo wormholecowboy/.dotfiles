@@ -64,7 +64,7 @@ export PATH="$PATH:/home/brian/bin"
 export PATH="$PATH:/snap/bin"
 export PATH="$PATH:/home/brian/.local/bin"
 export PATH="$PATH:$HOME/.local/bin"
-
+export PATH="$PATH:$HOME/bin
 
 
 # The next line updates PATH for the Google Cloud SDK.
