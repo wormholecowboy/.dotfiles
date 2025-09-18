@@ -50,6 +50,11 @@ return {
 				},
 			},
 
+			files = {
+				fd_opts = [[--color=never --hidden --type f --type l --exclude .git]],
+				rg_opts = [[--color=never --hidden --files -g "!.git"]]
+			},
+
 			keymap = {
 				fzf = {
 					["ctrl-q"] = "select-all+accept",
