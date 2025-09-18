@@ -74,11 +74,12 @@ vim.g.mapleader = " "
 -- w: write
 -- z: zen mode
 --
--- <leader>
---    y: yank for icons
---    i: insert icon in normal mode
 --<control key|
---    e: insert icon in insert mode
+--    e: insert emoji in insert mode
+--<alt/option key|
+--    c: ccc picker
+--
+--
 
 keymap("i", "kj", "<ESC>", opts)
 vim.api.nvim_set_keymap("n", "QQ", ":q!<enter>", { noremap = false })
