@@ -21,6 +21,7 @@
 # # separated by equals signs.
 font-family = SpaceMono Nerd Font
 font-size = 16
+font-feature = -calt
 window-padding-x = 2
 #
 # # Spacing around the equals sign does not matter.
