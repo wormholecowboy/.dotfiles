@@ -6,3 +6,8 @@ claude/.claude/projects/
 claude/.claude/shell-snapshots/
 claude/.claude/statsig/
 claude/.claude/todos/
+gemini/.gemini/tmp*
+gemini/.gemini/installation_id
+gemini/.gemini/oauth_creds.json
+gemini/.gemini/settings.json
+gemini/.gemini/google_accounts.json

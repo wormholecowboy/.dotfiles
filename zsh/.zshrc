@@ -18,11 +18,6 @@ HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.cache/zsh/history
 
-# Created by Zap installer
-# plug "zap-zsh/supercharge"
-# plug "zap-zsh/fzf"
-# plug "Aloxaf/fzf-tab"
-
 # Load and initialise completion system
 autoload -Uz compinit
 compinit
