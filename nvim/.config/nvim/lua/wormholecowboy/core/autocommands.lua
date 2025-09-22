@@ -1,4 +1,3 @@
-
 vim.api.nvim_create_autocmd("VimEnter", {
   group = vim.api.nvim_create_augroup("ShowFullPath", { clear = true }),
   desc = "Show full path of current buffer",
@@ -105,5 +104,19 @@ vim.api.nvim_create_autocmd("VimEnter", {
         print("Could not determine variable/expression to log or unsupported filetype: " .. ft)
       end
     end, { buffer = args.buf, noremap = true, silent = true, desc = "Log variable/expression under cursor" })
+  end,
+})
+
+vim.api.nvim_create_autocmd("VimEnter", {
+  group = vim.api.nvim_create_augroup("OpenCwdInCursor", { clear = true }),
+  desc = "Open current working directory in Cursor editor",
+  pattern = "*",
+  callback = function()
+    vim.keymap.set("n", "<leader>ui", function()
+      local cwd = vim.fn.getcwd()
+      -- The command assumes 'cursor' is an executable in the system's PATH
+      local command = "cursor " .. cwd
+      vim.fn.jobstart(command)
+    end, { buffer = 0, desc = "Open CWD in Cursor" })
   end,
 })

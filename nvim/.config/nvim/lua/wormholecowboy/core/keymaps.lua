@@ -63,6 +63,7 @@ vim.g.mapleader = " "
 --      c: code actions
 --      d: date
 --      f: format
+--      i: ide (open vs code forks)
 --      n: notes
 --      p: prog notes
 --      t: twilight
