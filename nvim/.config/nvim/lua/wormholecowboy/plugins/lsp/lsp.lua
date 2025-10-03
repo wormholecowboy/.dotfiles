@@ -13,7 +13,14 @@ return {
 
     vim.diagnostic.config({
       virtual_text = false,
-      signs = true,
+      signs = {
+        text = {
+          [vim.diagnostic.severity.ERROR] = " ",
+          [vim.diagnostic.severity.WARN] = " ",
+          [vim.diagnostic.severity.HINT] = "󰠠 ",
+          [vim.diagnostic.severity.INFO] = " ",
+        },
+      },
       underline = true,
       update_in_insert = false,
       severity_sort = false,
@@ -45,10 +52,16 @@ return {
       keymap.set("n", "gl", vim.diagnostic.open_float, opts)
 
       opts.desc = "Go to previous diagnostic"
-      keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+      keymap.set("n", "[d", function()
+        vim.diagnostic.jump({ count = -1 })
+        vim.diagnostic.open_float()
+      end, opts)
 
       opts.desc = "Go to next diagnostic"
-      keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+      keymap.set("n", "]d", function()
+        vim.diagnostic.jump({ count = 1 })
+        vim.diagnostic.open_float()
+      end, opts)
 
       opts.desc = "Show documentation for what is under cursor"
       keymap.set("n", "K", vim.lsp.buf.hover, opts)
@@ -58,23 +71,6 @@ return {
     -- used to enable autocompletion (assign to every lsp server config)
     local capabilities = cmp_nvim_lsp.default_capabilities()
 
-    local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
-    for type, icon in pairs(signs) do
-      local hl = "DiagnosticSign" .. type
-      vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-    end
-
-    --[[ lsp.format_on_save({
-    format_opts = {
-        async = false,
-        timeout_ms = 10000,
-    },
-    servers = {
-        ["lua_ls"] = { "lua" },
-        ["rust_analyzer"] = { "rust" },
-    },
-}) ]]
-    -- configure html server
     lspconfig["html"].setup({
       capabilities = capabilities,
       on_attach = on_attach,
@@ -91,7 +87,7 @@ return {
     })
 
     -- configure typescript server with plugin
-    lspconfig["tsserver"].setup({
+    lspconfig["ts_ls"].setup({
       capabilities = capabilities,
       on_attach = on_attach,
       root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
