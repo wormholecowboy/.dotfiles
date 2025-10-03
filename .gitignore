@@ -11,3 +11,5 @@ gemini/.gemini/installation_id
 gemini/.gemini/oauth_creds.json
 gemini/.gemini/settings.json
 gemini/.gemini/google_accounts.json
+claude/.claude/history.jsonl
+claude/.claude/file-history*
