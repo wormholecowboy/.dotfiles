@@ -7,6 +7,8 @@ gh
 ripgrep lf zoxide
 https://github.com/tmux-plugins/tpm
 
+brew install lesspipe
+brew install source-highlight
 
 CHSH
 sudo apt install zsh
