@@ -75,8 +75,11 @@ vim.g.mapleader = " "
 -- w: write
 -- z: zen mode
 --
+-- , for harpoon commands
+--
 --<control key|
 --    e: insert emoji in insert mode
+--    h: harpoon list
 --<alt/option key|
 --    c: ccc picker
 --
