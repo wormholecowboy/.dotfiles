@@ -1,0 +1,51 @@
+pane	5__ai_assistant	1	1	:*	1	bmm.local	:/Users/briangildea/things/myc/ai-assistant-server/main	1	nvim	:nvim .
+pane	5__ai_assistant	2	0	:-	1	✳ Agent Running Methods	:/Users/briangildea/things/myc/ai-assistant-server/main	1	zsh	:
+pane	5__ai_assistant	3	0	:	1	bmm.local	:/Users/briangildea/things/myc/ai-assistant-server/main	1	zsh	:
+pane	5__ai_assistant	4	0	:	1	bmm.local	:/Users/briangildea	1	zsh	:
+pane	7__codsworth	1	1	:*	1	bmm.local	:/Users/briangildea/things	0	zsh	:
+pane	7__codsworth	1	1	:*	2	bmm.local	:/Users/briangildea/things	1	zsh	:
+pane	7__codsworth	2	0	:	1	✳ Auth Redirect Issue	:/Users/briangildea/things/myc/codsworth/main	1	zsh	:
+pane	7__codsworth	3	0	:	1	:/Users/briangildea/things/myc/codsworth/main	:/Users/briangildea/things/myc/codsworth/main	1	zsh	:
+pane	7__codsworth	4	0	:-	1	Gemini - main	:/Users/briangildea/things/myc/codsworth/main	1	zsh	:
+pane	ash	1	1	:*	1	bmm.local	:/Users/briangildea/things/myc/ash	1	zsh	:
+pane	bmad-fabric	1	1	:*	1	bmm.local	:/Users/briangildea/things/myc/bmad/bmad-core	1	zsh	:
+pane	dotfiles	1	1	:*	1	bmm.local	:/Users/briangildea/.dotfiles	1	nvim	:nvim ./zsh/.config/zsh/aliases.sh
+pane	dotfiles	2	0	:	1	bmm.local	:/Users/briangildea/things/misc	1	nvim	:nvim /Users/briangildea/.zshrc
+pane	dotfiles	3	0	:	1	bmm.local	:/Users/briangildea/.dotfiles/ai/prompts/assistants	1	nvim	:nvim .
+pane	dotfiles	4	0	:	1	bmm.local	:/Users/briangildea/.dotfiles/nvim/.config/nvim	1	nvim	:nvim .
+pane	dotfiles	5	0	:-	1	bmm.local	:/Users/briangildea/.dotfiles	1	nvim	:nvim /Users/briangildea/.tmux.conf
+pane	misc	1	0	:-	1	✳ Lyric Book	:/Users/briangildea/things/myc/ash	1	node	:claude 
+pane	misc	2	0	:	1	bmm.local	:/Users/briangildea/things/myc/ash	1	zsh	:
+pane	misc	3	1	:*	1	bmm.local	:/Users/briangildea/Applications	1	ollama	:ollama run llama3.1:latest
+pane	notes	1	0	:-	1	bmm.local	:/Users/briangildea/.dotfiles	1	zsh	:
+pane	notes	2	1	:*	1	bmm.local	:/Users/briangildea	1	zsh	:
+pane	pnotes	1	1	:*	1	bmm.local	:/Users/briangildea/Library/CloudStorage/Dropbox/sync/pnotes	1	zsh	:
+pane	pnotes	1	1	:*	2	bmm.local	:/Users/briangildea/Sync/joplin	0	zsh	:
+pane	scratchpad	1	1	:*	1	bmm.local	:/Users/briangildea/temp	1	nvim	:nvim scratchpad.md
+pane	servers	1	1	:*	1	bmm.local	:/Users/briangildea/Applications	1	zsh	:
+pane	supabase	1	1	:*	1	bmm.local	:/Users/briangildea/things/myc/supabase/supabase	1	zsh	:
+window	5__ai_assistant	1	:nv	1	:*	be9e,284x44,0,0,1	off
+window	5__ai_assistant	2	:cc	0	:-	be9f,284x44,0,0,2	off
+window	5__ai_assistant	3	:serv	0	:	bea0,284x44,0,0,3	off
+window	5__ai_assistant	4	:curl	0	:	bea1,284x44,0,0,4	off
+window	7__codsworth	1	:nv	1	:*	81a5,284x44,0,0{142x44,0,0,5,141x44,143,0,6}	off
+window	7__codsworth	2	:cc	0	:	bea4,284x44,0,0,7	off
+window	7__codsworth	3	:server	0	:	bea5,284x44,0,0,8	off
+window	7__codsworth	4	:gemini	0	:-	bea6,284x44,0,0,9	off
+window	ash	1	:/Users/briangildea/things/myc/ash	1	:*	df83,284x44,0,0,24	off
+window	bmad-fabric	1	:	1	:*	5f7f,284x44,0,0,10	off
+window	dotfiles	1	:alias	1	:*	5f80,284x44,0,0,11	off
+window	dotfiles	2	:zsh	0	:	5f81,284x44,0,0,12	off
+window	dotfiles	3	:prompts	0	:	5f82,284x44,0,0,13	off
+window	dotfiles	4	:nvim	0	:	5f83,284x44,0,0,14	off
+window	dotfiles	5	:tmux	0	:-	5f84,284x44,0,0,15	off
+window	misc	1	:	0	:-	5f85,284x44,0,0,16	off
+window	misc	2	:nv	0	:	df87,284x44,0,0,28	off
+window	misc	3	:temp	1	:*	df88,284x44,0,0,29	off
+window	notes	1	:nvim	0	:-	5f86,284x44,0,0,17	off
+window	notes	2	:temp	1	:*	5f87,284x44,0,0,18	off
+window	pnotes	1	:temp	1	:*	9d7a,284x44,0,0{142x44,0,0,19,141x44,143,0,23}	off
+window	scratchpad	1	:	1	:*	df7f,284x44,0,0,20	off
+window	servers	1	:	1	:*	df86,284x44,0,0,27	off
+window	supabase	1	:/Users/briangildea/things/myc/supabase	1	:*	df80,284x44,0,0,21	off
+state	dotfiles	misc

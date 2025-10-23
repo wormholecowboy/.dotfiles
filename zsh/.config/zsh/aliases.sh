@@ -68,3 +68,6 @@ alias tfa="terraform apply"
 alias tfi="terraform init"
 alias tfv="terraform -v"
 alias tfp="terraform plan"
+
+alias push-ash="rsync -azhv --delete /Users/briangildea/things/myc/ash/ vultr:/home/brian/sync/ash/"
+alias pull-ash="rsync -azhv --delete vultr:/home/brian/sync/ash/ /Users/briangildea/things/myc/ash/"

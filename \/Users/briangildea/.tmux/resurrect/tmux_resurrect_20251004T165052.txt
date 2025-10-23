@@ -1,0 +1,57 @@
+pane	5__ai_assistant	1	1	:*	1	bmm.local	:/Users/briangildea/things/myc/ai-assistant-server/main	1	nvim	:nvim .
+pane	5__ai_assistant	2	0	:-	1	✳ Agent Running Methods	:/Users/briangildea/things/myc/ai-assistant-server/main	1	node	:claude 
+pane	5__ai_assistant	3	0	:	1	bmm.local	:/Users/briangildea/things/myc/ai-assistant-server/main	1	zsh	:
+pane	5__ai_assistant	4	0	:	1	bmm.local	:/Users/briangildea	1	zsh	:
+pane	7__codsworth	1	1	:*	1	bmm.local	:/Users/briangildea/things	0	script	:script
+pane	7__codsworth	1	1	:*	2	bmm.local	:/Users/briangildea/things	1	zsh	:
+pane	7__codsworth	2	0	:	1	✳ Auth Redirect Issue	:/Users/briangildea/things/myc/codsworth/main	1	node	:claude 
+pane	7__codsworth	3	0	:	1	:/Users/briangildea/things/myc/codsworth/main	:/Users/briangildea/things/myc/codsworth/main	1	node	:npm run dev   
+pane	7__codsworth	4	0	:-	1	Gemini - main	:/Users/briangildea/things/myc/codsworth/main	1	node	:/opt/homebrew/opt/node/bin/node /opt/homebrew/bin/gemini
+pane	ash	1	1	:*	1	bmm.local	:/Users/briangildea/things/myc/ash	1	nvim	:nvim .
+pane	ash	2	0	:-	1	bmm.local	:/Users/briangildea/things/myc/ash	1	node	:claude 
+pane	bmad-fabric	1	1	:*	1	bmm.local	:/Users/briangildea/things/myc/bmad/bmad-core	1	zsh	:
+pane	dotfiles	1	0	:	1	bmm.local	:/Users/briangildea/.dotfiles	1	nvim	:nvim ./zsh/.config/zsh/aliases.sh
+pane	dotfiles	2	0	:	1	bmm.local	:/Users/briangildea/things/misc	1	nvim	:nvim /Users/briangildea/.zshrc
+pane	dotfiles	3	0	:	1	bmm.local	:/Users/briangildea/.dotfiles/ai/prompts/assistants	1	nvim	:nvim .
+pane	dotfiles	4	0	:	1	bmm.local	:/Users/briangildea/.dotfiles/nvim/.config/nvim	1	nvim	:nvim .
+pane	dotfiles	5	0	:-	1	bmm.local	:/Users/briangildea/.dotfiles	1	nvim	:nvim /Users/briangildea/.tmux.conf
+pane	dotfiles	6	0	:	1	bmm.local	:/Users/briangildea/.dotfiles/claude	1	lf	:lf -last-dir-path=/var/folders/v5/vh4vjl617jvdf57942rlp1mh0000gn/T/tmp.WXFdemGQdg
+pane	dotfiles	7	1	:*	1	bmm.local	:/Users/briangildea/.dotfiles/lf	1	lf	:lf -last-dir-path=/var/folders/v5/vh4vjl617jvdf57942rlp1mh0000gn/T/tmp.gypx2HGIPz
+pane	misc	1	1	:*	1	bmm.local	:/Users/briangildea/Applications	1	zsh	:
+pane	notes	1	0	:-	1	bmm.local	:/Users/briangildea/.dotfiles	1	zsh	:
+pane	notes	2	1	:*	1	bmm.local	:/Users/briangildea	1	zsh	:
+pane	pnotes	1	1	:*	1	bmm.local	:/Users/briangildea/Library/CloudStorage/Dropbox/sync/pnotes	1	nvim	:nvim .
+pane	scratchpad	1	1	:*	1	bmm.local	:/Users/briangildea/temp	1	nvim	:nvim scratchpad.md
+pane	ssh	1	0	:-	1	bmm.local	:/Users/briangildea/.ssh	1	zsh	:
+pane	ssh	2	1	:*	1	bmm.local	:/Users/briangildea/.ssh	1	ssh	:ssh vultr
+pane	supabase	1	1	:*	1	bmm.local	:/Users/briangildea/things/myc/supabase/supabase	1	zsh	:
+pane	supabase	1	1	:*	2	bmm.local	:/Users/briangildea/things/myc/supabase/supabase	0	nvim	:nvim .en
+pane	sync	1	1	:*	1	bmm.local	:/Users/briangildea/things/myc/ash	1	zsh	:
+window	5__ai_assistant	1	:nv	1	:*	c665,255x46,0,0,8	off
+window	5__ai_assistant	2	:cc	0	:-	6369,255x46,0,0,58	off
+window	5__ai_assistant	3	:serv	0	:	636a,255x46,0,0,59	off
+window	5__ai_assistant	4	:curl	0	:	e361,255x46,0,0,60	off
+window	7__codsworth	1	:nv	1	:*	12d1,255x46,0,0{127x46,0,0,1,127x46,128,0,53}	off
+window	7__codsworth	2	:cc	0	:	e362,255x46,0,0,23	off
+window	7__codsworth	3	:server	0	:	e363,255x46,0,0,24	off
+window	7__codsworth	4	:gemini	0	:-	6360,255x46,0,0,30	off
+window	ash	1	:nv	1	:*	6682,284x57,0,0,70	off
+window	ash	2	:cc	0	:-	6684,284x57,0,0,72	off
+window	bmad-fabric	1	:	1	:*	e67f,284x57,0,0,20	off
+window	dotfiles	1	:alias	0	:	bea2,284x44,0,0,5	off
+window	dotfiles	2	:zsh	0	:	df84,284x44,0,0,25	off
+window	dotfiles	3	:prompts	0	:	df85,284x44,0,0,26	off
+window	dotfiles	4	:nvim	0	:	df88,284x44,0,0,29	off
+window	dotfiles	5	:tmux	0	:-	5f86,284x44,0,0,36	off
+window	dotfiles	6	:claude	0	:	5f85,284x44,0,0,73	off
+window	dotfiles	7	:misc	1	:*	5f87,284x44,0,0,75	off
+window	misc	1	:	1	:*	b663,255x42,0,0,6	off
+window	notes	1	:nvim	0	:-	b660,255x42,0,0,3	off
+window	notes	2	:temp	1	:*	cca1,284x57,0,0,4	off
+window	pnotes	1	:temp	1	:*	cca4,284x57,0,0,7	off
+window	scratchpad	1	:	1	:*	e367,255x46,0,0,28	off
+window	ssh	1	:config	0	:-	e688,284x57,0,0,67	off
+window	ssh	2	:ssh	1	:*	e689,284x57,0,0,68	off
+window	supabase	1	:/Users/briangildea/things/myc/supabase	1	:*	d1d8,284x57,0,0{142x57,0,0,40,141x57,143,0,45}	off
+window	sync	1	:ash	1	:*	e68a,284x57,0,0,69	off
+state	dotfiles	misc
