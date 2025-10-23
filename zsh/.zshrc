@@ -78,3 +78,4 @@ fpath=(/Users/briangildea/.docker/completions $fpath)
 autoload -Uz compinit
 compinit
 # End of Docker CLI completions
+export PATH=/Library/TeX/texbin:$PATH
