@@ -7,18 +7,17 @@ return {
     { "antosha417/nvim-lsp-file-operations", config = true },
   },
   config = function()
-    local lspconfig = require("lspconfig")
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
-    local keymap = vim.keymap
 
+    -- Configure diagnostics globally
     vim.diagnostic.config({
       virtual_text = false,
       signs = {
         text = {
-          [vim.diagnostic.severity.ERROR] = " ",
-          [vim.diagnostic.severity.WARN] = " ",
-          [vim.diagnostic.severity.HINT] = "󰠠 ",
-          [vim.diagnostic.severity.INFO] = " ",
+          [vim.diagnostic.severity.ERROR] = "⛔",
+          [vim.diagnostic.severity.WARN] = "⚠️",
+          [vim.diagnostic.severity.HINT] = "🔬",
+          [vim.diagnostic.severity.INFO] = "ℹ️",
         },
       },
       underline = true,
@@ -26,128 +25,102 @@ return {
       severity_sort = false,
     })
 
-    local opts = { noremap = true, silent = true }
-    local on_attach = function(_, bufnr)
-      opts.buffer = bufnr
+    -- Ensure diagnostic signs are defined (fallback for older Neovim versions)
+    vim.fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticSignError" })
+    vim.fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticSignWarn" })
+    vim.fn.sign_define("DiagnosticSignHint", { text = "󰠠 ", texthl = "DiagnosticSignHint" })
+    vim.fn.sign_define("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticSignInfo" })
 
-      opts.desc = "Show LSP references"
-      keymap.set("n", "gr", "<cmd>FzfLua lsp_references<CR>", opts)
-
-      opts.desc = "Go to declaration"
-      keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-
-      opts.desc = "Show LSP definitions"
-      keymap.set("n", "gd", "<cmd>FzfLua lsp_definitions<CR>", opts)
-
-      opts.desc = "Show LSP implementations"
-      keymap.set("n", "gi", "<cmd>FzfLua lsp_implementations<CR>", opts)
-
-      opts.desc = "Show LSP type definitions"
-      keymap.set("n", "gt", "<cmd>FzfLua lsp_typedefs<CR>", opts)
-
-      opts.desc = "Smart rename"
-      keymap.set("n", "<F2>", vim.lsp.buf.rename, opts)
-
-      opts.desc = "Show line diagnostics"
-      keymap.set("n", "gl", vim.diagnostic.open_float, opts)
-
-      opts.desc = "Go to previous diagnostic"
-      keymap.set("n", "[d", function()
-        vim.diagnostic.jump({ count = -1 })
-        vim.diagnostic.open_float()
-      end, opts)
-
-      opts.desc = "Go to next diagnostic"
-      keymap.set("n", "]d", function()
-        vim.diagnostic.jump({ count = 1 })
-        vim.diagnostic.open_float()
-      end, opts)
-
-      opts.desc = "Show documentation for what is under cursor"
-      keymap.set("n", "K", vim.lsp.buf.hover, opts)
-
-    end
-
-    -- used to enable autocompletion (assign to every lsp server config)
+    -- Get capabilities from cmp-nvim-lsp
     local capabilities = cmp_nvim_lsp.default_capabilities()
 
-    lspconfig["html"].setup({
+    -- Configure global LSP settings (applies to all servers)
+    vim.lsp.config("*", {
       capabilities = capabilities,
-      on_attach = on_attach,
+      root_markers = { ".git" },
     })
 
-    lspconfig["gopls"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
+    -- Set up LspAttach autocmd for keymaps (replaces on_attach)
+    vim.api.nvim_create_autocmd("LspAttach", {
+      group = vim.api.nvim_create_augroup("lsp_attach_keymaps", { clear = true }),
+      callback = function(args)
+        local opts = { noremap = true, silent = true, buffer = args.buf }
+
+        opts.desc = "Show LSP references"
+        vim.keymap.set("n", "gr", "<cmd>FzfLua lsp_references<CR>", opts)
+
+        opts.desc = "Go to declaration"
+        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+
+        opts.desc = "Show LSP definitions"
+        vim.keymap.set("n", "gd", "<cmd>FzfLua lsp_definitions<CR>", opts)
+
+        opts.desc = "Show LSP implementations"
+        vim.keymap.set("n", "gi", "<cmd>FzfLua lsp_implementations<CR>", opts)
+
+        opts.desc = "Show LSP type definitions"
+        vim.keymap.set("n", "gt", "<cmd>FzfLua lsp_typedefs<CR>", opts)
+
+        opts.desc = "Smart rename"
+        vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, opts)
+
+        opts.desc = "Show line diagnostics"
+        vim.keymap.set("n", "gl", vim.diagnostic.open_float, opts)
+
+        opts.desc = "Go to previous diagnostic"
+        vim.keymap.set("n", "[d", function()
+          vim.diagnostic.jump({ count = -1 })
+          vim.diagnostic.open_float()
+        end, opts)
+
+        opts.desc = "Go to next diagnostic"
+        vim.keymap.set("n", "]d", function()
+          vim.diagnostic.jump({ count = 1 })
+          vim.diagnostic.open_float()
+        end, opts)
+
+        opts.desc = "Show documentation for what is under cursor"
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+      end,
     })
 
-    lspconfig["bashls"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
+    -- Configure individual LSP servers using vim.lsp.config
+    vim.lsp.config("html", {})
+
+    vim.lsp.config("gopls", {})
+
+    vim.lsp.config("bashls", {})
+
+    vim.lsp.config("ts_ls", {
+      root_markers = { "package.json", "tsconfig.json", "jsconfig.json", ".git" },
     })
 
-    -- configure typescript server with plugin
-    lspconfig["ts_ls"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-      root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
-    })
+    vim.lsp.config("cssls", {})
 
-    -- configure css server
-    lspconfig["cssls"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-    })
+    vim.lsp.config("tailwindcss", {})
 
-    -- configure tailwindcss server
-    lspconfig["tailwindcss"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-    })
-
-    lspconfig["terraformls"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
+    vim.lsp.config("terraformls", {
       filetypes = { "terraform", "terraform-vars" },
     })
 
-    lspconfig["tflint"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
+    vim.lsp.config("tflint", {
       filetypes = { "terraform", "terraform-vars" },
     })
 
-    -- configure prisma orm server
-    lspconfig["prismals"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-    })
+    vim.lsp.config("prismals", {})
 
-    -- configure graphql language server
-    lspconfig["graphql"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
+    vim.lsp.config("graphql", {
       filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
     })
 
-    -- configure emmet language server
-    lspconfig["emmet_ls"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
+    vim.lsp.config("emmet_ls", {
       filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
     })
 
-    -- configure python server
-    lspconfig["pyright"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-    })
+    vim.lsp.config("pyright", {})
 
-    -- configure lua server (with special settings)
-    lspconfig["lua_ls"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-      settings = { -- custom settings for lua
+    vim.lsp.config("lua_ls", {
+      settings = {
         Lua = {
           -- make the language server recognize "vim" global
           diagnostics = {
@@ -162,6 +135,23 @@ return {
           },
         },
       },
+    })
+
+    -- Enable all configured LSP servers
+    vim.lsp.enable({
+      "html",
+      "gopls",
+      "bashls",
+      "ts_ls",
+      "cssls",
+      "tailwindcss",
+      "terraformls",
+      "tflint",
+      "prismals",
+      "graphql",
+      "emmet_ls",
+      "pyright",
+      "lua_ls",
     })
   end,
 }

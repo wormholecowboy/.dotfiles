@@ -1,0 +1,49 @@
+pane	11	1	1	:*	1	bmm.local	:/Users/briangildea	1	zsh	:
+pane	12	1	1	:*	1	bmm.local	:/Users/briangildea	1	zsh	:
+pane	1__notes	1	0	:-	1	bmm.local	:/Users/briangildea/.dotfiles	1	zsh	:
+pane	1__notes	2	1	:*	1	bmm.local	:/Users/briangildea	1	zsh	:
+pane	2__dotfiles	1	0	:	1	bmm.local	:/Users/briangildea/.dotfiles	1	nvim	:nvim ./zsh/.config/zsh/aliases.sh
+pane	2__dotfiles	2	0	:	1	bmm.local	:/Users/briangildea/things/misc	1	nvim	:nvim /Users/briangildea/things/misc/scratchpad.md
+pane	2__dotfiles	3	0	:	1	bmm.local	:/Users/briangildea/.dotfiles/ai/prompts/assistants	1	zsh	:
+pane	2__dotfiles	4	1	:*	1	bmm.local	:/Users/briangildea/.dotfiles/nvim/.config/nvim	1	nvim	:nvim .
+pane	2__dotfiles	5	0	:-	1	bmm.local	:/Users/briangildea/.dotfiles	1	nvim	:nvim /Users/briangildea/.tmux.conf
+pane	3__misc	1	1	:*	1	bmm.local	:/Users/briangildea/Applications	1	zsh	:
+pane	4__pnotes	1	1	:*	1	bmm.local	:/Users	1	zsh	:
+pane	5__ai_assistant	1	1	:*	1	bmm.local	:/Users/briangildea	1	zsh	:
+pane	5__yt-dlp	1	1	:*	1	bmm.local	:/Volumes/pillar-of-autumn/.ss/config/cache/logs/special-software/04-dl	1	zsh	:
+pane	6__ai-ui	1	0	:-	1	bmm.local	:/Users/briangildea/things/myc/ai-assistant-ui-eb9ab7bb/main	1	zsh	:
+pane	6__ai-ui	2	1	:*	1	bmm.local	:/Users/briangildea/things/myc/ai-assistant-ui-eb9ab7bb/main	1	nvim	:nvim
+pane	7__codsworth	1	1	:*	1	bmm.local	:/Users/briangildea/things	0	script	:script
+pane	7__codsworth	1	1	:*	2	bmm.local	:/Users/briangildea/things	1	zsh	:
+pane	7__codsworth	2	0	:-	1	✳ Render Loop	:/Users/briangildea/things/myc/codsworth/main	1	node	:claude 
+pane	7__codsworth	3	0	:	1	:/Users/briangildea/things/myc/codsworth/main	:/Users/briangildea/things/myc/codsworth/main	1	node	:npm run dev   
+pane	7__codsworth	4	0	:	1	:/Users/briangildea/things/myc/codsworth/main	1	zsh	92885	:
+pane	bmad-fabric	1	1	:*	1	bmm.local	:/Users/briangildea/things/myc	1	zsh	:
+pane	dbs	1	1	:*	1	bmm.local	:/Users/briangildea/things/myc/supabase/supabase	1	nvim	:nvim .env
+pane	dbs	1	1	:*	2	bmm.local	:/Users/briangildea/things/myc/codsworth/main	0	zsh	:
+pane	scratchpad	1	1	:*	1	bmm.local	:/Users/briangildea/temp	1	nvim	:nvim scratchpad.md
+pane	supabase	1	1	:*	1	bmm.local	:/Users/briangildea/things/myc/supabase/supabase	1	zsh	:
+window	11	1	:zsh	1	:*	b65f,255x42,0,0,2	:
+window	12	1	:zsh	1	:*	5b63,255x42,0,0,14	:
+window	1__notes	1	:nvim	0	:-	b660,255x42,0,0,3	off
+window	1__notes	2	:temp	1	:*	b661,255x42,0,0,4	off
+window	2__dotfiles	1	:alias	0	:	b662,255x42,0,0,5	off
+window	2__dotfiles	2	:term	0	:	db64,255x42,0,0,25	off
+window	2__dotfiles	3	:prompts	0	:	db65,255x42,0,0,26	off
+window	2__dotfiles	4	:nvim	1	:*	e368,255x46,0,0,29	off
+window	2__dotfiles	5	:tmux	0	:-	5b66,255x42,0,0,36	off
+window	3__misc	1	:	1	:*	b663,255x42,0,0,6	off
+window	4__pnotes	1	:temp	1	:*	b664,255x42,0,0,7	off
+window	5__ai_assistant	1	:temp	1	:*	b665,255x42,0,0,8	off
+window	5__yt-dlp	1	:	1	:*	b666,255x42,0,0,9	off
+window	6__ai-ui	1	:server	0	:-	5b5f,255x42,0,0,10	off
+window	6__ai-ui	2	:code	1	:*	5b60,255x42,0,0,11	off
+window	7__codsworth	1	:nv	1	:*	52d0,255x46,0,0{127x46,0,0,1,127x46,128,0,42}	off
+window	7__codsworth	2	:cc	0	:-	e362,255x46,0,0,23	off
+window	7__codsworth	3	:server	0	:	db63,255x42,0,0,24	off
+window	7__codsworth	4	:gemini	0	:	5b60,255x42,0,0,30	off
+window	bmad-fabric	1	:	1	:*	db5f,255x42,0,0,20	off
+window	dbs	1	:/Users/briangildea/dbs	1	:*	a9a5,255x42,0,0{127x42,0,0,38,127x42,128,0,39}	off
+window	scratchpad	1	:	1	:*	db67,255x42,0,0,28	off
+window	supabase	1	:/Users/briangildea/things/myc/supabase	1	:*	db60,255x42,0,0,40	off
+state	2__dotfiles	7__codsworth
