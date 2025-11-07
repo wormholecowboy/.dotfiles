@@ -17,3 +17,4 @@ claude/.claude/file-history*
 
 # tmux resurrect session files
 .tmux/
+claude/.claude/debug*
