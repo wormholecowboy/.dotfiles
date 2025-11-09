@@ -4,11 +4,11 @@
     "allow": [
       "Read(*)",
       "Find(*)",
-      "Bash(git log*)",
-      "Bash(git diff*)",
-      "Bash(git status*)",
-      "Bash(git branch*)",
-      "Bash(git checkout*)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(git status:*)",
+      "Bash(git branch:*)",
+      "Bash(git checkout:*)",
       "Bash(npm run lint)",
       "Bash(npm run test:*)",
       "Read(~/.zshrc)",
@@ -41,5 +41,9 @@
     ],
     "deny": []
   },
-  "alwaysThinkingEnabled": false
+  "alwaysThinkingEnabled": true,
+  "statusLine": {
+    "type": "command",
+    "command": "input=$(cat); model=$(echo \"$input\" | jq -r '.model.display_name'); workspace=$(echo \"$input\" | jq -r '.workspace.current_dir'); style=$(echo \"$input\" | jq -r '.output_style.name'); printf \"\\x1b[2m%s\\x1b[0m in \\x1b[2m%s\\x1b[0m [%s]\" \"$model\" \"${workspace##*/}\" \"$style\""
+  }
 }

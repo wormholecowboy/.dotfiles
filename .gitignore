@@ -14,3 +14,7 @@ gemini/.gemini/google_accounts.json
 claude/.claude/history.jsonl
 claude/.claude/file-history*
 .DS_Store
+
+# tmux resurrect session files
+.tmux/
+claude/.claude/debug*

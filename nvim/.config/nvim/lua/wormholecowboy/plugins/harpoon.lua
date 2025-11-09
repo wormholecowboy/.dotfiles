@@ -28,6 +28,9 @@ return {
 		vim.keymap.set("n", ",q", function()
 			harpoon:list():select(5)
 		end)
+		vim.keymap.set("n", ",w", function()
+			harpoon:list():select(6)
+		end)
 
 	end,
 }

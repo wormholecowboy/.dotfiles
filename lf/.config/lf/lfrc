@@ -6,8 +6,8 @@ set relativenumber
 set drawbox
 
 # Syntax Highlighting
-set previewer ~/scripts/source-highlight/src-hilite-lesspipe.sh
-map i $~/scripts/source-highlight/src-hilite-lesspipe.sh $f | less -R
+set previewer bat --color=always --style=numbers --paging=never
+map i $bat --color=always --style=full --paging=always $f
 
 # Custom Functions
 
