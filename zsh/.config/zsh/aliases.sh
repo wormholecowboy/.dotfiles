@@ -71,3 +71,23 @@ alias tfp="terraform plan"
 
 alias push-ash="rsync -azhv --delete /Users/briangildea/things/myc/ash/ vultr:/home/brian/sync/ash/"
 alias pull-ash="rsync -azhv --delete vultr:/home/brian/sync/ash/ /Users/briangildea/things/myc/ash/"
+
+claude() {
+  local choice=$(echo "personal\nrebar\nlead-venture" | fzf --prompt="Select Claude profile: ")
+  if [ -n "$choice" ]; then
+    case "$choice" in
+      "personal")
+        CLAUDE_CONFIG_DIR=~/.claude-personal command claude "$@"
+        ;;
+      "rebar")
+        CLAUDE_CONFIG_DIR=~/.claude-rebar command claude "$@"
+        ;;
+      "lead-venture")
+        CLAUDE_CONFIG_DIR=~/.claude-lead-venture command claude "$@"
+        ;;
+    esac
+  fi
+}
+alias claudep="CLAUDE_CONFIG_DIR=~/.claude-personal claude"
+alias clauder="CLAUDE_CONFIG_DIR=~/.claude-rebar claude"
+alias claudelv="CLAUDE_CONFIG_DIR=~/.claude-lead-venture claude"
