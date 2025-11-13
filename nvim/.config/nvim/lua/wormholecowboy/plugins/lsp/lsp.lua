@@ -9,6 +9,10 @@ return {
   config = function()
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
+    -- Add Mason bin directory to PATH for LSP servers
+    local mason_bin = vim.fn.stdpath("data") .. "/mason/bin"
+    vim.env.PATH = mason_bin .. ":" .. vim.env.PATH
+
     -- Configure diagnostics globally
     vim.diagnostic.config({
       virtual_text = false,
@@ -117,7 +121,9 @@ return {
       filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
     })
 
-    vim.lsp.config("pyright", {})
+    vim.lsp.config("pyright", {
+      filetypes = { "python" },
+    })
 
     vim.lsp.config("lua_ls", {
       settings = {
