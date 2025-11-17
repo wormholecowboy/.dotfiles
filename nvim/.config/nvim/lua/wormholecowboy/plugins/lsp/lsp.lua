@@ -97,7 +97,32 @@ return {
 
     vim.lsp.config("cssls", {})
 
-    vim.lsp.config("tailwindcss", {})
+    vim.lsp.config("tailwindcss", {
+      filetypes = {
+        "html",
+        "css",
+        "scss",
+        "sass",
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "vue",
+        "svelte",
+        "astro",
+      },
+      root_markers = {
+        "tailwind.config.js",
+        "tailwind.config.cjs",
+        "tailwind.config.mjs",
+        "tailwind.config.ts",
+        "postcss.config.js",
+        "postcss.config.cjs",
+        "postcss.config.mjs",
+        "postcss.config.ts",
+        ".git",
+      },
+    })
 
     vim.lsp.config("terraformls", {
       filetypes = { "terraform", "terraform-vars" },
