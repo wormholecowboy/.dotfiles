@@ -62,7 +62,7 @@ alias -g ......='../../../../..'
 alias specs="inxi -Fxxxc0z"
 alias grep="grep --color=auto"
 
-alias s2l="source ~/things/scripts/export-aws-creds.sh"
+alias awsl="source ~/things/scripts/export-aws-creds.sh"
 alias awh="source ~/things/scripts/aws-wormhole/aws-main.sh"
 alias tfa="terraform apply"
 alias tfi="terraform init"

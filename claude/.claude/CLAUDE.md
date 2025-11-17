@@ -22,7 +22,6 @@
 - **Maintenance:** Update existing tests whenever logic changes.  
 
 ## 3. Documentation & Explainability
-- **README.md:** Update when adding features, changing dependencies, or modifying setup steps.  
 - **Comments:**  
   - Only comment non-obvious code.  
   - For complex logic, add an inline `# Reason:` comment explaining *why*, not just *what*.  
@@ -47,6 +46,6 @@
 - Default branch: `main`.  
 - Use **git** and **GitHub CLI** for all repo commands.  
 
-## 7. ANTI-Patterns
+## 7. ANTI-Patterns (avoid these)
 - **Magic strings, numbers, etc:** Use named constants instead.  
 - **Random reformatting**: Don’t reformat code.
