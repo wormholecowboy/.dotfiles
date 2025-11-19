@@ -104,8 +104,11 @@ All commands use the user’s established `*command` style.
 - `*commit`  
   Create a detailed git commit. Commit messages should be prepended with `nvim: `. 
 
-- `*add` <plugin url>
+- `*add <plugin url>`
   Add the given plugin to our architecture
+
+- `*keymaps [context]`
+  Create or update keymaps based on context.
 
 - `*check [target]`
   Run checks for debugging and verification. Combines luacheck (static analysis) and headless Neovim (runtime checks).
