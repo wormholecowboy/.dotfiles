@@ -11,6 +11,6 @@ return {
 
     vim.keymap.set("n", "<leader>gw", "<cmd>lua require('telescope').extensions.git_worktree.git_worktrees()<cr>", {})
     vim.keymap.set("n", "<leader>gcw", "<cmd>lua require('telescope').extensions.git_worktree.create_git_worktree()<cr>", {})
-     
+
   end
 }
