@@ -5,6 +5,18 @@
 --   visual_block_mode = "x",
 --   term_mode = "t",
 --   command_mode = "c",
+--
+--      --   TO CONSIDER
+        --   Many people map F keys for frequent actions:
+        -- - F2 - Rename/save
+        -- - F3 - Toggle file tree
+        -- - F4 - Toggle terminal
+        -- - F5 - Run/compile
+        -- - F6 - Format code
+        -- - F7 - Toggle diagnostics
+        -- - F8 - Toggle linter
+
+
 
 local keymap = vim.keymap.set
 local opts = { silent = true }
@@ -13,6 +25,8 @@ local opts = { silent = true }
 -- or maybe an autocommand that hooks into when a txt file or md file is opened
 
 vim.g.mapleader = " "
+
+-- KEY BINDINGS MAP
 
 -- []:
 --    d: diagnostics
@@ -37,8 +51,7 @@ vim.g.mapleader = " "
 --    a: see avente settings
 --    e:
 -- c: close
--- de: debug
--- db: dadbod
+-- d: show diagnostic float
 -- D: diagnostic
 -- e: file tree
 -- f: hop
@@ -68,7 +81,10 @@ vim.g.mapleader = " "
 --      p: prog notes
 --      t: twilight
 --      v: edit vim config
---      w: format wsl paste
+--      w: LSP workspace commands
+--        - a: add workspace folder
+--        - l: list workspace folders
+--        - r: remove workspace folder
 --      x: close split buffer
 --      z: edit zsh
 -- U: Undotree
@@ -76,35 +92,39 @@ vim.g.mapleader = " "
 -- z: zen mode
 --
 -- , for harpoon commands
---
 --<control key|
 --    e: insert emoji in insert mode
 --    h: harpoon list
 --<alt/option key|
---    c: ccc picker
+--    c: Color (ccc) picker
 --
---
+-- F keys
+-- F1: help
+-- F2: rename
 
-keymap("i", "kj", "<ESC>", opts)
-vim.api.nvim_set_keymap("n", "QQ", ":q!<enter>", { noremap = false })
+keymap("i", "kj", "<ESC>", opts) -- alt escape
+vim.api.nvim_set_keymap("n", "QQ", ":q!<enter>", { noremap = false }) -- quit nv
 
+-- Kill these
 keymap("n", "Q", "<nop>")
 keymap("n", "<C-z>", "<nop>")
-keymap("x", "p", [["_dP]]) -- better paste
+-- Better pasting
+keymap("x", "p", [["_dP]])
 keymap("n", "r", [["_r]])
 keymap("n", "x", [["_x]])
 keymap("n", "s", [["_s]])
 keymap("n", "c", [["_c]])
 
-function removeReturnCharacters()
-  vim.cmd("%s/\r$//")
-end
+-- For WSL
+-- function removeReturnCharacters()
+--   vim.cmd("%s/\r$//")
+-- end
 
 keymap("n", "<leader>uz", "<cmd>edit $HOME/.zshrc<cr>", opts) --edit zsh
 keymap("n", "<leader>uv", "<cmd>edit $HOME/.config/nvim/<cr>", opts) --edit neovim
 keymap("n", "<leader>up", "<cmd>edit $HOME/pnotes<cr>", opts) --prog notes
 keymap("n", "<leader>uc", ":lua vim.lsp.buf.code_action()<CR>", opts) --code action
-keymap("n", "<leader>uw", "`[v`]:lua removeReturnCharacters()<cr>", opts) --remove windows return carriage
+-- keymap("n", "<leader>uw", "`[v`]:lua removeReturnCharacters()<cr>", opts) --remove windows return carriage for WSL
 keymap("n", "<leader>ux", "<cmd>bp|bd #<cr>", opts) --split buf delete
 keymap("n", "<leader>ud", "<cmd>r !date '+\\%Y-\\%m-\\%d'<CR>", opts)  -- date
 

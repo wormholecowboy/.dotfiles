@@ -14,7 +14,6 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	spec = {
 		{ import = "wormholecowboy.plugins" },
-		{ import = "wormholecowboy.plugins.lsp" },
 	},
   checker = {
     enabled = true,
