@@ -278,6 +278,21 @@ end, 10000) -- 10 seconds minimum
 
 Fast checks (1-2 seconds) will miss most or all diagnostics.
 
+### Keymap Management
+**CRITICAL:** When adding, removing, or replacing keymaps, ALWAYS update the legend in `lua/wormholecowboy/core/keymaps.lua` (lines 29-105) to reflect the changes.
+
+**Complete workflow when modifying keymaps:**
+1. Add/modify/remove the actual keymap in the appropriate plugin config file
+2. Update the legend in keymaps.lua to add/modify/remove the corresponding entry
+3. Verify both changes are staged together
+
+**Example:** When replacing `<leader>D` with `F7` for Trouble diagnostics:
+- Remove keymap from trouble.lua and add F7 keymap
+- Remove `-- D: diagnostic` from keymaps.lua legend
+- Add `-- F7: trouble diagnostics (trouble.lua)` to F-keys section
+
+**Why:** The legend is the SINGLE SOURCE OF TRUTH for all keymaps. Outdated legend entries cause confusion and potential conflicts.
+
 ---
 
 *This memory file will be updated via `*mem` command when new patterns emerge.*

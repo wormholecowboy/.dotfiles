@@ -36,14 +36,14 @@ return {
       -- 	lsp_fallback = true,
       -- },
     })
-    -- vim.keymap.set("n", "<leader>uf", "<cmd>lua require('conform').format()<cr>", {})
-    vim.keymap.set({ "n", "v", "x" }, "<leader>uf", function()
+
+    vim.keymap.set({ "n", "v", "x" }, "<F6>", function()
       conform.format({
         lsp_format = "fallback",
         stop_after_first = true,
         async = false,
         timeout_ms = 1000,
       })
-    end, { desc = "Format file or range" })
+    end, { desc = "Format code" })
   end,
 }

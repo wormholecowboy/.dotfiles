@@ -53,7 +53,6 @@ vim.g.mapleader = " "
 --    e:
 -- c: close
 -- d: show diagnostic float
--- D: diagnostic
 -- e: file tree
 -- f: hop
 -- gg: neogit
@@ -64,8 +63,7 @@ vim.g.mapleader = " "
 -- h: git hunks
 --      check git signs for keymaps
 -- i: toggle indent lines
--- l: 
---      l: lint
+-- l:
 --      v: log var
 -- m: markdown
 -- q: kill cmp
@@ -76,7 +74,6 @@ vim.g.mapleader = " "
 --      b: buffer path
 --      c: code actions
 --      d: date
---      f: format
 --      i: ide (open vs code forks)
 --      n: notes
 --      p: prog notes
@@ -102,6 +99,9 @@ vim.g.mapleader = " "
 -- F keys
 -- F1: help
 -- F2: rename
+-- F6: format code (conform.lua)
+-- F7: trouble diagnostics (trouble.lua)
+-- F8: lint (nvim-lint.lua)
 
 keymap("i", "kj", "<ESC>", opts) -- alt escape
 vim.api.nvim_set_keymap("n", "QQ", ":q!<enter>", { noremap = false }) -- quit nv

@@ -12,7 +12,7 @@ return {
 	-- },
 	config = function()
 		require("trouble").setup()
-		vim.keymap.set("n", "<leader>D", ":Trouble diagnostics toggle<cr>, {}")
+		vim.keymap.set("n", "<F7>", ":Trouble diagnostics toggle<cr>", { desc = "Toggle Trouble diagnostics" })
 	end,
 	opts = {
 		focus = true,
