@@ -33,10 +33,11 @@ vim.g.mapleader = " "
 --    c: git changes
 --    b: buffer moving
 --
--- g: lsp
+-- g: lsp and misc
 --      gd: def
 --      gD: declaration
 --      gi: implemntation
+--      gt: type
 --      go: def of type
 --      gr: ref
 --      gs: signature

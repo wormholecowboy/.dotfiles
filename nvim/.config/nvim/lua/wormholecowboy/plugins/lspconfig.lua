@@ -59,15 +59,15 @@ return {
 				-- Diagnostics navigation
 				vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
 				vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
-				vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
+				vim.keymap.set("n", "gl", vim.diagnostic.open_float, opts)
 
 				-- Workspace management
-        -- ⏺ The workspace folder commands I added are for managing LSP workspaces - they let you control which directories the LSP
-        --   server monitors:
-        --   - <leader>wa - Add workspace folder
-        -- - Adds a directory to the LSP server's workspace
-        -- - Useful for monorepos or when working with multiple related projects
-        -- - Example: If you're in ~/project/backend but need LSP to also see ~/project/shared, you can add it
+				-- ⏺ The workspace folder commands I added are for managing LSP workspaces - they let you control which directories the LSP
+				--   server monitors:
+				--   - <leader>wa - Add workspace folder
+				-- - Adds a directory to the LSP server's workspace
+				-- - Useful for monorepos or when working with multiple related projects
+				-- - Example: If you're in ~/project/backend but need LSP to also see ~/project/shared, you can add it
 				vim.keymap.set("n", "<leader>uwa", vim.lsp.buf.add_workspace_folder, opts)
 				vim.keymap.set("n", "<leader>uwr", vim.lsp.buf.remove_workspace_folder, opts)
 				vim.keymap.set("n", "<leader>uwl", function()

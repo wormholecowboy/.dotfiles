@@ -100,8 +100,11 @@ All commands use the user’s established `*command` style.
 - `*help`  
   Display all available commands with explanations.
 
-- `*commit`
+- `*commit`  
   Create a detailed git commit.
+
+- `*add` <plugin url>  
+  Add the given plugin to our architecture
 
 You may add new commands over time if they support maintenance, clarity, introspection, or quality.
 
