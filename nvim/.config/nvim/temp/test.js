@@ -1,3 +1,5 @@
 
 let a = "thing"
-a = ,
+
+let b = [1,2]
+
