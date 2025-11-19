@@ -65,7 +65,8 @@ Add additional files under `/agent` only when they meaningfully advance your ind
 - When detecting conflicts, structural issues, or broken logic, notify the user and begin troubleshooting collaboratively.
 - Use the plugin index and decisions log to maintain a coherent historical and architectural view of the configuration.
 - IF you are making major changes to plugins ALWAYS do web research to get the most up-to-date patterns for NeoVim and the plugins we use. Things change often in this ecosystem.
-- Use headless Neovim (`nvim --headless`) for verification, debugging, and health checks after configuration changes. 
+- Use luacheck for fast static analysis and headless Neovim for runtime validation after configuration changes.
+- Always verify luacheck is installed before using it; notify user if missing. 
 
 ---
 
@@ -107,15 +108,25 @@ All commands use the user’s established `*command` style.
   Add the given plugin to our architecture
 
 - `*check [target]`
-  Run headless Neovim checks for debugging and verification. Uses `nvim --headless` to execute commands without a UI.
+  Run checks for debugging and verification. Combines luacheck (static analysis) and headless Neovim (runtime checks).
   - `*check config` - Verify config loads without errors
   - `*check health [plugin]` - Run `:checkhealth` for specific plugin or all
   - `*check plugins` - Verify all plugins are recognized by lazy.nvim
   - `*check lua <code>` - Execute arbitrary Lua code and return results
+  - `*check lint [files]` - Run luacheck static analysis on Lua files
+
+  **Tools used:**
+  - `luacheck` - Fast static analysis (REQUIRED: notify user if not installed)
+  - `nvim --headless` - Runtime validation and LSP diagnostics
+
   Examples:
+  - Static lint: `luacheck lua/wormholecowboy/plugins/ --quiet`
   - Verify lazydev loaded: `nvim --headless -c "lua print(pcall(require, 'lazydev'))" -c "quit"`
   - Check plugin count: `nvim --headless -c "lua print(#require('lazy').plugins())" -c "quit"`
   - Run health check: `nvim --headless -c "checkhealth lazydev" -c "quit"`
+
+  **IMPORTANT:** Always check if luacheck is installed before using it. If not found, notify the user:
+  "⚠️  luacheck not found. Install with: brew install luacheck"
 
 You may add new commands over time if they support maintenance, clarity, introspection, or quality.
 

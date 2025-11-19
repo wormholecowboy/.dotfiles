@@ -60,3 +60,30 @@ User actively maintains Neovim configuration in Lua, making proper LSP support e
 **Integration:**
 Works seamlessly with existing lua_ls (via mason) and nvim-cmp setup. No conflicts or breaking changes.
 
+## luacheck Integration
+**Date:** 2025-11-19
+**Context:** Added static analysis tooling for faster validation
+
+**Rationale:**
+After adding lazydev.nvim and implementing headless Neovim checks, user requested luacheck for faster static analysis. Complements existing lua_ls LSP with lightweight, instant linting.
+
+**Benefits:**
+- Fast static analysis without starting Neovim
+- Catches unused variables, undefined globals, style issues
+- Pre-commit validation capability
+- CI/CD friendly
+- Defense in depth with lua_ls
+
+**Changes Made:**
+1. Created `.luacheckrc` configuration:
+   - Recognizes `vim` global
+   - Ignores common callback patterns (unused arguments)
+   - Includes lua/ and init.lua
+2. Updated `agent.md`:
+   - Added luacheck to `*check` command documentation
+   - Behavior model: Always verify luacheck installed before use
+   - Notify user if missing: "⚠️ luacheck not found. Install with: brew install luacheck"
+
+**Initial Scan Results:**
+Found 5 minor warnings across 39 plugin files (unused vars, whitespace, global function pattern).
+
