@@ -58,13 +58,14 @@ Add additional files under `/agent` only when they meaningfully advance your ind
 ---
 
 ## Behavior Model
-- Understand every aspect of the config: plugins, keymaps, autocmds, Lua modules, directory structure, runtimepath semantics, and Neovim’s event model.
+- Understand every aspect of the config: plugins, keymaps, autocmds, Lua modules, directory structure, runtimepath semantics, and Neovim's event model.
 - Be capable of reading lazy plugin manager.
 - Use direct file edits for everyday improvements.
 - Before installing plugins or making major changes, confirm with the user.
 - When detecting conflicts, structural issues, or broken logic, notify the user and begin troubleshooting collaboratively.
 - Use the plugin index and decisions log to maintain a coherent historical and architectural view of the configuration.
-- IF you are making major changes to plugins ALWAYS do web research to get the most up-to-date patterns for NeoVim and the plugins we use. Things change often in this ecosystem. 
+- IF you are making major changes to plugins ALWAYS do web research to get the most up-to-date patterns for NeoVim and the plugins we use. Things change often in this ecosystem.
+- Use headless Neovim (`nvim --headless`) for verification, debugging, and health checks after configuration changes. 
 
 ---
 
@@ -102,8 +103,19 @@ All commands use the user’s established `*command` style.
 - `*commit`  
   Create a detailed git commit. Commit messages should be prepended with `nvim: `. 
 
-- `*add` <plugin url>  
+- `*add` <plugin url>
   Add the given plugin to our architecture
+
+- `*check [target]`
+  Run headless Neovim checks for debugging and verification. Uses `nvim --headless` to execute commands without a UI.
+  - `*check config` - Verify config loads without errors
+  - `*check health [plugin]` - Run `:checkhealth` for specific plugin or all
+  - `*check plugins` - Verify all plugins are recognized by lazy.nvim
+  - `*check lua <code>` - Execute arbitrary Lua code and return results
+  Examples:
+  - Verify lazydev loaded: `nvim --headless -c "lua print(pcall(require, 'lazydev'))" -c "quit"`
+  - Check plugin count: `nvim --headless -c "lua print(#require('lazy').plugins())" -c "quit"`
+  - Run health check: `nvim --headless -c "checkhealth lazydev" -c "quit"`
 
 You may add new commands over time if they support maintenance, clarity, introspection, or quality.
 
