@@ -5,7 +5,7 @@
 --   visual_block_mode = "x",
 --   term_mode = "t",
 --   command_mode = "c",
---
+
 --      --   TO CONSIDER
         --   Many people map F keys for frequent actions:
         -- - F2 - Rename/save

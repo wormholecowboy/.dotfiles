@@ -19,6 +19,7 @@
 3. **Performance conscious** - Heavy lazy loading, indent guides off by default
 4. **Keyboard-driven** - Comprehensive keybindings, tmux integration
 5. **Git-centric** - Multiple git tools (neogit, gitsigns, diffview, worktrees)
+6. **Official docs first** - Always use official documentation when researching Neovim and plugins
 
 ### UI Preferences
 - **Theme:** focuspoint (chase/focuspoint-vim) - active

@@ -14,23 +14,24 @@ return {
 			severity_sort = true,
 			float = {
 				border = "rounded",
-				source = "always",
+				source = true, -- Show diagnostic source (fixed: was "always", now boolean)
 			},
 		})
 
-		-- Configure LSP handlers for nice borders
-		vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-			border = "rounded",
-		})
-
-		vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-			border = "rounded",
-		})
+		-- Configure LSP float window borders (Neovim 0.10+)
+		-- Replaces deprecated vim.lsp.with() pattern
+		-- Note: In 0.11+, can use vim.o.winborder = 'rounded' instead
+		local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+		function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+			opts = opts or {}
+			opts.border = opts.border or "rounded"
+			return orig_util_open_floating_preview(contents, syntax, opts, ...)
+		end
 
 		-- Set up diagnostic signs
 		local signs = { Error = "⛔", Warn = "⚠️", Hint = "🔬", Info = "ℹ️" }
-		for type, icon in pairs(signs) do
-			local hl = "DiagnosticSign" .. type
+		for sign_type, icon in pairs(signs) do
+			local hl = "DiagnosticSign" .. sign_type
 			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 		end
 
@@ -56,9 +57,13 @@ return {
 				vim.keymap.set({ "n", "v" }, "<leader>uc", vim.lsp.buf.code_action, opts)
 				vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, opts)
 
-				-- Diagnostics navigation
-				vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-				vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+				-- Diagnostics navigation (Neovim 0.10+ - uses vim.diagnostic.jump)
+				vim.keymap.set("n", "[d", function()
+					vim.diagnostic.jump({ count = -1 })
+				end, opts)
+				vim.keymap.set("n", "]d", function()
+					vim.diagnostic.jump({ count = 1 })
+				end, opts)
 				vim.keymap.set("n", "gl", vim.diagnostic.open_float, opts)
 
 				-- Workspace management
