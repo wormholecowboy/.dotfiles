@@ -30,7 +30,7 @@ return {
 					})
 				end,
 
-				-- Custom configuration for lua_ls
+				-- Custom configuration for lua_ls (lazydev.nvim handles workspace libraries)
 				["lua_ls"] = function()
 					require("lspconfig").lua_ls.setup({
 						capabilities = capabilities,
@@ -44,9 +44,7 @@ return {
 									globals = { "vim" },
 								},
 								workspace = {
-									-- Make server aware of Neovim runtime files
-									library = vim.api.nvim_get_runtime_file("", true),
-									-- Disable workspace diagnostics for faster performance
+									-- lazydev.nvim handles library loading dynamically
 									checkThirdParty = false,
 								},
 								telemetry = {

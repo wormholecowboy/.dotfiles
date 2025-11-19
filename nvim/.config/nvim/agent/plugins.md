@@ -1,6 +1,7 @@
 # Neovim Plugin Index
 *Last updated: 2025-11-19*
 *Consolidated keymaps: 2025-11-19 - All keymaps now referenced from keymaps.lua*
+*Plugin addition: 2025-11-19 - Added lazydev.nvim for Lua development*
 
 ## Configuration Architecture
 
@@ -81,6 +82,19 @@ nvim/
 - **Keymaps:** Buffer-local on LSP attach - `g*` prefix for navigation, `<leader>u*` for actions, `[d/]d` for diagnostics
 - **Dependencies:** cmp-nvim-lsp
 
+#### lazydev.nvim
+- **Repo:** folke/lazydev.nvim
+- **Purpose:** Faster LuaLS setup for Neovim Lua development
+- **Event:** ft = "lua" (filetype-based loading)
+- **Key Features:**
+  - Lazy loads workspace libraries (only modules you require)
+  - Dynamic workspace updates as you edit
+  - Third-party plugin library support
+  - Replaces neodev.nvim for Neovim >= 0.10
+- **Integration:** nvim-cmp completion source with group_index = 0
+- **Dependencies:** None (integrates with lua_ls and nvim-cmp)
+- **Note:** Handles lua_ls workspace configuration automatically
+
 #### mason.nvim
 - **Repo:** williamboman/mason.nvim
 - **Purpose:** LSP/DAP/linter/formatter installer
@@ -102,7 +116,7 @@ nvim/
 - **Repo:** hrsh7th/nvim-cmp
 - **Purpose:** Completion engine
 - **Event:** InsertEnter
-- **Sources:** nvim_lsp, luasnip, buffer, npm, path, vim-dadbod-completion
+- **Sources:** lazydev (priority), nvim_lsp, luasnip, buffer, npm, path, vim-dadbod-completion
 - **Key Features:**
   - Tailwind colorizer integration
   - Custom window styling
@@ -463,7 +477,7 @@ Located in `lua/wormholecowboy/lazy.lua` (lines 27-31):
 ---
 
 ## Plugin Statistics
-- **Total plugins:** 43+ (including dependencies)
+- **Total plugins:** 44+ (including dependencies)
 - **Primary categories:** 9
 - **LSP servers managed:** 5 (via mason-lspconfig)
 - **Colorschemes available:** 12+

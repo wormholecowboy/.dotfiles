@@ -1,4 +1,4 @@
-# Agent Memory  User Preferences & Patterns
+# Agent Memory User Preferences & Patterns
 *Updated: 2025-11-19 during initial scan*
 *Keymaps consolidated: 2025-11-19 - All keymaps now in keymaps.lua only*
 

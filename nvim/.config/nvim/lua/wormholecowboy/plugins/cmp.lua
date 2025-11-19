@@ -9,6 +9,7 @@ return {
 		"L3MON4D3/LuaSnip",
 		"onsails/lspkind.nvim",
 		{ "roobert/tailwindcss-colorizer-cmp.nvim", config = true },
+		"folke/lazydev.nvim",
 	},
 	config = function()
 		local cmp = require("cmp")
@@ -33,12 +34,13 @@ return {
 				end,
 			},
 			sources = cmp.config.sources({
+				{ name = "lazydev", group_index = 0 }, -- set group index to 0 to skip loading LuaLS completions
 				{ name = "nvim_lsp" },
 				{ name = "luasnip" },
 				{ name = "buffer", keyword_length = 3 },
 				{ name = "npm", keyword_length = 4 },
 				{ name = "path" },
-        { name = "vim-dadbod-completion"}
+				{ name = "vim-dadbod-completion" },
 			}),
 			completion = {
 				completeopt = "menu,menuone,preview,noinsert",

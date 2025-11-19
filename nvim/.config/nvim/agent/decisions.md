@@ -34,3 +34,29 @@ Initial agent scan completed via `*init` command. Built comprehensive plugin ind
 - Reduced cognitive load when scanning documentation
 - keymaps.lua legend is always accurate (it's the code)
 
+## lazydev.nvim Installation
+**Date:** 2025-11-19
+**Command:** `*add https://github.com/folke/lazydev.nvim`
+
+**Rationale:**
+User actively maintains Neovim configuration in Lua, making proper LSP support essential for development workflow. lazydev.nvim is the modern replacement for neodev.nvim (for Neovim >= 0.10) and provides significantly faster autocompletion by lazy-loading workspace libraries.
+
+**Key Benefits:**
+- Faster completion (only loads modules you actually require)
+- Dynamic workspace updates as files are edited
+- Third-party plugin library support via LLS-Addons
+- Modern architecture aligned with 2025 best practices
+
+**Changes Made:**
+1. Created `/lua/wormholecowboy/plugins/lazydev.lua` with ft-based loading
+2. Updated `/lua/wormholecowboy/plugins/cmp.lua`:
+   - Added lazydev.nvim as dependency
+   - Added lazydev completion source with `group_index = 0` for proper priority
+3. Updated `/lua/wormholecowboy/plugins/mason-lspconfig.lua`:
+   - Removed manual workspace library configuration from lua_ls
+   - Added comment noting lazydev handles library loading dynamically
+4. Updated `/agent/plugins.md` to document new plugin (44+ total plugins)
+
+**Integration:**
+Works seamlessly with existing lua_ls (via mason) and nvim-cmp setup. No conflicts or breaking changes.
+
