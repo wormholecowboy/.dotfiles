@@ -100,7 +100,7 @@ All commands use the user’s established `*command` style.
   Display all available commands with explanations.
 
 - `*commit`  
-  Create a detailed git commit.
+  Create a detailed git commit. Commit messages should be prepended with `nvim: `. 
 
 - `*add` <plugin url>  
   Add the given plugin to our architecture
