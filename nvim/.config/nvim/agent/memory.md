@@ -258,4 +258,26 @@ User has configured rich text objects via treesitter:
 
 ---
 
+## Technical Notes
+
+### LSP Diagnostic Checking
+**CRITICAL:** When checking LSP diagnostics using headless Neovim, ALWAYS wait at least 10 seconds after starting nvim for the LSP server to fully attach and analyze files. Shorter waits produce false negatives (showing 0 diagnostics when issues exist).
+
+**Proper method:**
+```lua
+vim.defer_fn(function()
+  -- Check diagnostics here
+end, 10000) -- 10 seconds minimum
+```
+
+**Why:** LSP servers need time to:
+1. Initialize and start up
+2. Index the workspace
+3. Analyze the current file
+4. Generate diagnostics
+
+Fast checks (1-2 seconds) will miss most or all diagnostics.
+
+---
+
 *This memory file will be updated via `*mem` command when new patterns emerge.*
