@@ -1,5 +1,6 @@
 # Agent Memory  User Preferences & Patterns
 *Updated: 2025-11-19 during initial scan*
+*Keymaps consolidated: 2025-11-19 - All keymaps now in keymaps.lua only*
 
 ## User Profile
 
@@ -38,41 +39,41 @@
 - **Better pasting:** Black hole register for x/c/s/r
 
 ### Keymap Philosophy
-- **Leader:** Space
-- **Secondary leader:** Comma (for harpoon)
-- **Organized prefixes:** Clear mental model documented in keymaps.lua
+**For all specific keymaps:** See `lua/wormholecowboy/core/keymaps.lua` (lines 29-105)
+
+- **Leader:** Space (primary), Comma (harpoon)
+- **Organized prefixes:** Clear mental model with logical groupings
 - **Disabled keys:** Q, <C-z>
-- **Escape alternatives:** `kj` in insert mode, `QQ` for quit
-- **Text manipulation:** Keep cursor centered (C-d, C-u, n, N, *, #)
+- **Text manipulation:** Keep cursor centered during navigation
 
 ---
 
 ## Workflow Patterns
 
 ### File Navigation
-1. **Primary:** fzf-lua (`<leader>sf`) - seems preferred over telescope
+1. **Primary:** fzf-lua for fuzzy finding - seems preferred over telescope
 2. **Quick access:** harpoon for 6 frequent files
-3. **Tree view:** aerial for code outline (`<leader>t`)
-4. **File explorer:** oil.nvim in float mode (`<leader>e`)
-5. **Quick motion:** hop.nvim for word jumping (`<leader>f`)
+3. **Tree view:** aerial for code outline
+4. **File explorer:** oil.nvim in float mode
+5. **Quick motion:** hop.nvim for word jumping
 
 ### Git Workflow
-1. **Primary interface:** neogit (`<leader>gg`)
-2. **Diff viewing:** diffview (`<leader>gv/gx`)
-3. **Hunk management:** gitsigns with extensive `<leader>h*` bindings
-4. **Worktrees:** Active user of git worktrees (`<leader>gw/gcw`)
+1. **Primary interface:** neogit for magit-style git operations
+2. **Diff viewing:** diffview for detailed diffs
+3. **Hunk management:** gitsigns for inline git decorations
+4. **Worktrees:** Active user of git worktrees
 5. **Search commits:** fzf-lua git integration
 
 ### Code Editing
 1. **Completion:** nvim-cmp with LSP + buffer + path + npm sources
 2. **Snippets:** LuaSnip with friendly-snippets
-3. **LSP navigation:** Standard `g*` prefix (gd, gr, etc.)
-4. **Diagnostics:** Trouble for list (`<leader>D`), inline with virtual text
-5. **Formatting:** Manual via conform (`<leader>uf`)
-6. **Linting:** Auto on save/enter, manual trigger (`<leader>ll`)
+3. **LSP navigation:** Standard `g*` prefix pattern
+4. **Diagnostics:** Trouble for list view, inline with virtual text
+5. **Formatting:** Manual via conform (no auto-save)
+6. **Linting:** Auto on save/enter, manual trigger available
 
 ### Special Modes
-1. **Writing Mode** (`<leader>q`):
+1. **Writing Mode:**
    - Activates ZenMode
    - Disables completion
    - Enables word wrap + linebreak
@@ -80,21 +81,21 @@
    - Minimal scroll offset
    - For markdown/prose editing
 
-2. **Zen Mode** (`<leader>z`):
+2. **Zen Mode:**
    - Distraction-free coding
    - Standalone toggle
 
 ### Development Tools
-1. **Logging:** Custom variable logger (`<leader>lv`)
+1. **Logging:** Custom variable logger
    - Detects variable/expression intelligently
    - Language-aware (JS/TS/Python)
    - Inserts console.log or print statement
 
 2. **Color tools:**
-   - CCC color picker (`<M-c>`)
+   - CCC color picker for visual color selection
    - Tailwind colors in completion
 
-3. **Icons/Emoji:** Icon picker in insert mode (`<C-e>`)
+3. **Icons/Emoji:** Icon picker in insert mode
 
 ---
 
@@ -107,11 +108,11 @@
 - **terraformls** - Terraform/HCL
 - **lua_ls** - Lua (configured for Neovim development)
 
-### LSP Keybindings Pattern
-- **Navigation:** `g*` prefix (definition, declaration, implementation, type, references)
-- **Actions:** `<leader>uc` (code actions), `<F2>` (rename)
-- **Diagnostics:** `[d/]d` (navigation), `gl` (float)
-- **Workspace:** `<leader>uw*` (add/remove/list folders)
+### LSP Usage Pattern
+- **Navigation:** `g*` prefix for all LSP navigation commands
+- **Actions:** Code actions and rename via leader namespace
+- **Diagnostics:** Navigate with bracket notation, view in float
+- **Workspace:** Workspace folder management available
 
 ### Formatting & Linting Strategy
 - **Formatter:** conform.nvim (no auto-save)
@@ -133,13 +134,13 @@
 - **Auto-tag** - For HTML/JSX
 
 ### Text Object Patterns
-User has configured rich text objects:
-- `af/if` - function outer/inner
-- `ac/ic` - class outer/inner
-- `ai/ii` - conditional outer/inner
-- `al/il` - loop outer/inner
-- `at` - comment outer
-- Movement: `]m/[m` for functions, `]]/[[` for classes
+User has configured rich text objects via treesitter:
+- Functions (outer/inner)
+- Classes (outer/inner)
+- Conditionals (outer/inner)
+- Loops (outer/inner)
+- Comments (outer)
+- Movement commands for functions and classes
 
 ---
 
@@ -180,30 +181,30 @@ User has configured rich text objects:
 
 ## Quick Access Patterns
 
-### Frequently Used Combos
-- `<leader>sf` ’ Find files
-- `<leader>ss` ’ Grep string
-- `<leader>e` ’ File explorer
-- `<leader>gg` ’ Git status
-- `<leader>f` ’ Hop to word
-- `,a/s/d/f` ’ Harpoon slots
+### Frequently Used Operations
+- Find files via fzf-lua
+- Grep strings in project
+- File explorer toggle
+- Git status interface
+- Hop to word navigation
+- Harpoon file slots
 
 ### Tmux Integration
-- `<C-h/j/k/l>` - Seamless vim/tmux navigation
+- Seamless vim/tmux pane navigation
 - Indicates heavy tmux use in workflow
 
 ### Buffer Management
-- `L/H` - Next/prev buffer
-- `<leader>c` - Close buffer (keep window)
-- `<leader>ux` - Close split buffer
-- `[b/]b` - Move buffer in bufferline
+- Next/prev buffer navigation
+- Close buffer (keep window)
+- Close split buffer
+- Move buffer order in bufferline
 
 ---
 
 ## Future Considerations
 
 ### Explicit Placeholders
-- **AI integration** - `<leader>a` reserved but unused
+- **AI integration** - Leader key reserved but unused
 - Codeium mentioned in Writing Mode (might be installed separately?)
 
 ### Workflow Gaps
@@ -214,10 +215,10 @@ User has configured rich text objects:
 5. **Note-taking** - References `pnotes` directory but no note plugin
 
 ### Config Maintenance
-- **Quick edits configured:**
-  - `<leader>uz` ’ Edit .zshrc
-  - `<leader>uv` ’ Edit nvim config
-  - `<leader>up` ’ Edit pnotes
+- **Quick edits configured for:**
+  - .zshrc
+  - nvim config
+  - pnotes
 - Indicates desire for fast config iteration
 
 ---
