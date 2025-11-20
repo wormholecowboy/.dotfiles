@@ -87,3 +87,62 @@ After adding lazydev.nvim and implementing headless Neovim checks, user requeste
 **Initial Scan Results:**
 Found 5 minor warnings across 39 plugin files (unused vars, whitespace, global function pattern).
 
+## Diffview + Which-Key Integration Fix
+**Date:** 2025-11-20
+**Issue:** Diffview keybindings not displaying in which-key popup
+
+**Problem:**
+User reported that while in diffview, which-key was showing default keybindings instead of diffview-specific ones. Keybindings still functioned correctly, but the which-key UI wasn't displaying proper descriptions.
+
+**Root Cause:**
+- Diffview uses buffer-local keymaps that are applied dynamically when buffers are created
+- Which-key doesn't automatically detect buffer-local mappings even with `desc` fields
+- Current config had no diffview.setup() - relied entirely on default keymaps with no descriptions
+- No built-in integration exists between diffview and which-key
+
+**Research Findings:**
+- Diffview.nvim has no native which-key integration
+- Buffer-local mapping detection is a known limitation in which-key (issues #476, #564 on respective repos)
+- Solution: Use FileType autocmd with explicit which-key registration (same pattern as fzf-lua)
+
+**Solution Implemented:**
+Added comprehensive diffview configuration in `/lua/wormholecowboy/plugins/neogit-diffview.lua`:
+1. **Configured diffview.setup()** with `desc` fields for all keymaps (for diffview's own help system)
+2. **Added FileType autocmd** that explicitly registers keymaps with which-key using `wk.add()`
+   - Pattern: Same as fzf-lua.lua (user's suggestion)
+   - Triggers on: `DiffviewFiles`, `DiffviewFileHistory` filetypes
+   - Uses `buffer = 0` for buffer-local registration
+3. **Context-aware registration** - Different keymaps for file panel vs history panel
+4. **Conflict resolution group** - `<leader>c` group with all conflict operations
+
+**Key Keybindings Now Documented:**
+- `<tab>/<s-tab>` - Next/previous file diff
+- `[x/]x` - Navigate conflicts
+- `<leader>co/ct/cb/ca` - Conflict resolution (ours/theirs/base/all)
+- `gf/<C-w>gf` - Open file in tab/split
+- `g<C-x>` - Cycle layout
+- `-/s/S/U` - Stage/unstage operations
+- `L` - Open commit log
+- `g?` - Context-sensitive help
+
+**Implementation Note:**
+Initial attempt used `desc` fields in diffview keymaps alone, but which-key still didn't detect buffer-local mappings. User suggested using the same `wk.add()` pattern from fzf-lua.lua, which worked perfectly.
+
+**Verification:**
+- Luacheck: 0 warnings, 0 errors
+- Config loads: true (headless verification)
+- File length: 241 lines (well within maintainability)
+
+**Benefits:**
+- Which-key now displays proper diffview keybindings when active
+- Uses proven pattern from fzf-lua (consistency across config)
+- Comprehensive documentation of all diffview keymaps
+- Better discoverability for conflict resolution and staging operations
+- Context-aware: different keymaps for file panel vs history panel
+- `<leader>c` conflict resolution group for clear organization
+
+**No Breaking Changes:**
+- All default diffview keybindings preserved
+- Only added explicit which-key registration
+- No changes to user workflow required
+
