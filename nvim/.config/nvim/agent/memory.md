@@ -293,6 +293,18 @@ Fast checks (1-2 seconds) will miss most or all diagnostics.
 
 **Why:** The legend is the SINGLE SOURCE OF TRUTH for all keymaps. Outdated legend entries cause confusion and potential conflicts.
 
+### Temporary and Troubleshooting Files
+**Location:** `/temp/` directory in the config root
+
+**Rule:** All temporary files, test files, and troubleshooting files created by the agent should be placed in `/temp/` directory, not in the config root or other locations.
+
+**Examples:**
+- Test files for debugging (test.js, test.py, etc.)
+- Temporary output from diagnostic commands
+- Scratch files for experimentation
+
+**Why:** Keeps the config directory clean and organized. Temporary files are isolated and easy to identify/clean up.
+
 ---
 
 *This memory file will be updated via `*mem` command when new patterns emerge.*
