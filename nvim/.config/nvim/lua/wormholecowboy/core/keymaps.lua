@@ -51,8 +51,6 @@ vim.g.mapleader = " "
   -- o&O: add lines
   -- A: copy all
   -- a: ai
-  --    a: see avente settings
-  --    e:
   -- c: close
   -- d: show diagnostic float
   -- e: file tree
