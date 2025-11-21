@@ -44,50 +44,50 @@ vim.g.mapleader = " "
 --      gl: show diagnostic
 --      gP: select last paste
 --      gb and gc : comment.nvim
+  -- s: leap forward motion (leap.nvim)
+  -- S: leap cross-window (leap.nvim)
 --
---  LEADER: my current leader remaps legend
--- o&O: add lines
--- A: copy all
--- a: ai
---    a: see avente settings
---    e:
--- c: close
--- d: show diagnostic float
--- e: file tree
--- f: hop
--- gg: neogit
---      v: diffview
---      w: worktree
---      cw: create worktree
---      x: close diffview
--- h: git hunks
---      check git signs for keymaps
--- i: toggle indent lines
--- l:
---      v: log var
--- m: markdown
--- q: kill cmp
--- r: rename
--- s: search files, git, string, help
--- t: aerial (tree)
--- u: user
---      b: buffer path
---      c: code actions
---      d: date
---      i: ide (open vs code forks)
---      n: notes
---      p: prog notes
---      t: twilight
---      v: edit vim config
---      w: LSP workspace commands
---        - a: add workspace folder
---        - l: list workspace folders
---        - r: remove workspace folder
---      x: close split buffer
---      z: edit zsh
--- U: Undotree
--- w: write
--- z: zen mode
+-- LEADER: my current leader prepended key bindings
+  -- o&O: add lines
+  -- A: copy all
+  -- a: ai
+  --    a: see avente settings
+  --    e:
+  -- c: close
+  -- d: show diagnostic float
+  -- e: file tree
+  -- gg: neogit
+  --      v: diffview
+  --      w: worktree
+  --      cw: create worktree
+  --      x: close diffview
+  -- h: git hunks
+  --      check git signs for keymaps
+  -- i: toggle indent lines
+  -- l:
+  --      v: log var
+  -- m: markdown
+  -- q: kill cmp
+  -- r: rename
+  -- t: aerial (tree)
+  -- u: user
+  --      b: buffer path
+  --      c: code actions
+  --      d: date
+  --      i: ide (open vs code forks)
+  --      n: notes
+  --      p: prog notes
+  --      t: twilight
+  --      v: edit vim config
+  --      w: LSP workspace commands
+  --        - a: add workspace folder
+  --        - l: list workspace folders
+  --        - r: remove workspace folder
+  --      x: close split buffer
+  --      z: edit zsh
+  -- U: Undotree
+  -- w: write
+  -- z: zen mode
 --
 -- , for harpoon commands
 --<control key|

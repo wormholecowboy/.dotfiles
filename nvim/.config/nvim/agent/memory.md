@@ -56,7 +56,7 @@
 2. **Quick access:** harpoon for 6 frequent files
 3. **Tree view:** aerial for code outline
 4. **File explorer:** oil.nvim in float mode
-5. **Quick motion:** hop.nvim for word jumping
+5. **Quick motion:** leap.nvim for precise word navigation (s/S keymaps)
 
 ### Git Workflow
 1. **Primary interface:** neogit for magit-style git operations

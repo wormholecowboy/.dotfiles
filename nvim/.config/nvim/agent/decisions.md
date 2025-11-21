@@ -146,3 +146,41 @@ Initial attempt used `desc` fields in diffview keymaps alone, but which-key stil
 - Only added explicit which-key registration
 - No changes to user workflow required
 
+## hop.nvim → leap.nvim Migration
+**Date:** 2025-11-21
+**Command:** User request to replace hop with leap.nvim
+
+**Rationale:**
+User chose to migrate from hop.nvim to leap.nvim for improved motion capabilities. Both are EasyMotion alternatives, but leap.nvim offers:
+- Better label generation and placement
+- Cross-window motion by default (S keymap)
+- More modern codebase and active maintenance
+- Standard keymaps via `create_default_mappings()`
+
+**Changes Made:**
+1. **Removed:** `/lua/wormholecowboy/plugins/hop.lua` (used `<leader>f` for HopWord)
+2. **Created:** `/lua/wormholecowboy/plugins/leap.lua` with standard mappings
+   - `s` - Forward leap motion (n, x, o modes)
+   - `S` - Cross-window leap
+3. **Updated keymaps.lua legend:**
+   - Removed `f: hop` entry
+   - Added `s: leap forward motion` and `S: leap cross-window`
+   - Updated `gs:` from "signature" to "leap cross-window" (gs now conflicts with LSP signature, but Leap S is recommended for cross-window)
+4. **Updated `/agent/plugins.md`:**
+   - Replaced hop.nvim section with leap.nvim documentation
+5. **Updated `/agent/memory.md`:**
+   - Changed workflow pattern to reference leap.nvim with s/S keymaps
+
+**Migration Details:**
+- **Old binding:** `<leader>f` → HopWord (word motion)
+- **New bindings:**
+  - `s` → Forward leap (more discoverable than `<leader>f`)
+  - `S` → Cross-window leap (new capability)
+- Uses leap's default mapping strategy via `create_default_mappings()`
+- No breaking changes to other keybindings
+
+**No Conflicts:**
+- `s` is standard vim replace char in normal mode, but leap preserves this in operator-pending context
+- `S` replaces current line - rarely used workflow in this config
+- Both keys are now navigation verbs, improving mental model consistency
+

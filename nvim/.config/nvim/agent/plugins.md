@@ -331,13 +331,14 @@ nvim/
 - **Purpose:** Smart commenting
 - **Keymaps:** `<leader>/` toggle, `gb/gc` operators
 
-#### hop.nvim
-- **Repo:** phaazon/hop.nvim
-- **Branch:** v2
+#### leap.nvim
+- **Repo:** ggandor/leap.nvim
 - **Event:** BufReadPre, BufNewFile
-- **Purpose:** EasyMotion alternative
-- **Keys:** etovxqpdygfblzhckisuran
-- **Keymaps:** `<leader>f`
+- **Purpose:** Fast motion plugin for precise navigation
+- **Keymaps:**
+  - `s` - Forward leap motion (normal, visual, operator-pending modes)
+  - `S` - Cross-window leap
+- **Setup:** Uses `create_default_mappings()` for standard Leap behavior
 
 ---
 
