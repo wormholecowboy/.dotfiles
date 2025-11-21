@@ -30,6 +30,28 @@ return {
 					})
 				end,
 
+				-- Custom configuration for basedpyright
+				["basedpyright"] = function()
+					require("lspconfig").basedpyright.setup({
+						capabilities = capabilities,
+						settings = {
+							basedpyright = {
+								analysis = {
+									diagnosticSeverityOverrides = {
+										reportMissingTypeStubs = "none",
+										reportOptionalMemberAccess = "none",
+										reportGeneralTypeIssues = "none",
+										reportAttributeAccessIssue = "none",
+										reportUnknownMemberType = "none",
+										reportUnknownVariableType = "none",
+										reportDeprecated = "none",
+									},
+								},
+							},
+						},
+					})
+				end,
+
 				-- Custom configuration for lua_ls (lazydev.nvim handles workspace libraries)
 				["lua_ls"] = function()
 					require("lspconfig").lua_ls.setup({
