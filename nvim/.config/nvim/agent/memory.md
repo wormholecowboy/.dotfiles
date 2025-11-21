@@ -240,7 +240,7 @@ User has configured rich text objects via treesitter:
 5. **Variable logger** - Custom implementation for debugging
 
 ### Maintenance Habits
-- Keeps decisions.md updated (3 entries found)
+- Keeps decisions.md updated with brief, essential entries only
 - Maintains colorscheme collection (12+)
 - Comments explain "why" not just "what"
 - Version pins where stability matters (telescope@0.1.8, LuaSnip@v2.*)
