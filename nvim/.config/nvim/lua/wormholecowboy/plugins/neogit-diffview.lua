@@ -14,6 +14,9 @@ return {
 				staged_diff_split_kind = "split",
 				spell_check = true,
 			},
+			prompt_force_push = false,
+			disable_line_numbers = false,
+			disable_relative_line_numbers = false,
 		})
 
 		-- Diffview setup with default keymaps (desc fields for diffview's help system)
