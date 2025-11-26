@@ -5,6 +5,39 @@ return {
 		"hrsh7th/cmp-nvim-lsp",
 	},
 	config = function()
+		-- Get capabilities from cmp_nvim_lsp for autocompletion
+		local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+		-- Server configurations (Neovim 0.11+ vim.lsp.config API)
+		-- These are merged with defaults when servers are enabled
+		vim.lsp.config("basedpyright", {
+			capabilities = capabilities,
+			settings = {
+				basedpyright = {
+					disableOrganizeImports = true,
+					analysis = {
+						typeCheckingMode = "off",
+					},
+				},
+			},
+		})
+
+		vim.lsp.config("lua_ls", {
+			capabilities = capabilities,
+			settings = {
+				Lua = {
+					runtime = { version = "LuaJIT" },
+					diagnostics = { globals = { "vim" } },
+					workspace = { checkThirdParty = false },
+					telemetry = { enable = false },
+				},
+			},
+		})
+
+		vim.lsp.config("ts_ls", { capabilities = capabilities })
+		vim.lsp.config("bashls", { capabilities = capabilities })
+		vim.lsp.config("terraformls", { capabilities = capabilities })
+
 		-- Configure diagnostic display
 		vim.diagnostic.config({
 			virtual_text = false,
