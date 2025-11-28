@@ -21,7 +21,42 @@ return {
 
 		-- Diffview setup with default keymaps (desc fields for diffview's help system)
 		local actions = require("diffview.actions")
+
+		-- Helper to register which-key descriptions for diff view buffers
+		local function register_diffview_whichkey(bufnr)
+			local ok, wk = pcall(require, "which-key")
+			if not ok then
+				return
+			end
+			wk.add({
+				{ "<tab>", desc = "Next file diff", buffer = bufnr },
+				{ "<s-tab>", desc = "Previous file diff", buffer = bufnr },
+				{ "gf", desc = "Open file in previous tab", buffer = bufnr },
+				{ "g<C-x>", desc = "Cycle layout", buffer = bufnr },
+				{ "[x", desc = "Previous conflict", buffer = bufnr },
+				{ "]x", desc = "Next conflict", buffer = bufnr },
+				{ "<leader>b", desc = "Toggle file panel", buffer = bufnr },
+				{ "<leader>e", desc = "Focus file panel", buffer = bufnr },
+				{ "<leader>c", group = "conflict resolution", buffer = bufnr },
+				{ "<leader>co", desc = "Choose OURS", buffer = bufnr },
+				{ "<leader>ct", desc = "Choose THEIRS", buffer = bufnr },
+				{ "<leader>cb", desc = "Choose BASE", buffer = bufnr },
+				{ "<leader>ca", desc = "Choose ALL", buffer = bufnr },
+				{ "<leader>cO", desc = "Choose OURS (all)", buffer = bufnr },
+				{ "<leader>cT", desc = "Choose THEIRS (all)", buffer = bufnr },
+				{ "<leader>cB", desc = "Choose BASE (all)", buffer = bufnr },
+				{ "<leader>cA", desc = "Choose ALL (all)", buffer = bufnr },
+				{ "dx", desc = "Delete conflict region", buffer = bufnr },
+				{ "dX", desc = "Delete all conflict regions", buffer = bufnr },
+			})
+		end
+
 		require("diffview").setup({
+			hooks = {
+				diff_buf_win_enter = function(bufnr)
+					register_diffview_whichkey(bufnr)
+				end,
+			},
 			keymaps = {
 				view = {
 					{ "n", "<tab>", actions.select_next_entry, { desc = "Next file diff" } },

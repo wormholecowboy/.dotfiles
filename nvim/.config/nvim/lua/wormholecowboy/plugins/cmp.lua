@@ -21,18 +21,14 @@ return {
 		-- require("luasnip").log.set_loglevel("info")
 		-- :lua require("luasnip").log.open()
 
-		require("cmp").config.formatting = {
-			format = require("tailwindcss-colorizer-cmp").formatter,
-		}
-
-		require("cmp-npm").setup({})
-
 		cmp.setup({
 			snippet = {
 				expand = function(args)
 					require("luasnip").lsp_expand(args.body)
 				end,
 			},
+			-- cmp.config is a valid nvim-cmp API (lua_ls may show false warning)
+			---@diagnostic disable-next-line: undefined-field
 			sources = cmp.config.sources({
 				{ name = "lazydev", group_index = 0 }, -- set group index to 0 to skip loading LuaLS completions
 				{ name = "nvim_lsp" },
@@ -40,7 +36,6 @@ return {
 				{ name = "buffer", keyword_length = 3 },
 				{ name = "npm", keyword_length = 4 },
 				{ name = "path" },
-				{ name = "vim-dadbod-completion" },
 			}),
 			completion = {
 				completeopt = "menu,menuone,preview,noinsert",
@@ -81,19 +76,12 @@ return {
 						path = "path",
 						buffer = "buf",
 						luasnip = "snip",
-						treesitter = "",
-						zsh = "",
+						treesitter = "",
+						zsh = "",
 						codieum = "󰚩",
 					},
 					before = tailwind_formatter,
 				}),
-			},
-		})
-
-		cmp.setup.filetype({ "sql" }, {
-			sources = {
-				{ name = "vim-dadbod-completion" },
-				{ name = "buffer" },
 			},
 		})
 	end,

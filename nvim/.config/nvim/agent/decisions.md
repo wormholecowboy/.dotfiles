@@ -27,3 +27,9 @@ Configured `neogit-diffview.lua` with explicit which-key registration via FileTy
 ## 2025-11-21: hop.nvim → leap.nvim
 Replaced hop with leap.nvim. Removed hop.lua, created leap.lua with preview filter, equivalence classes, repeat keys, and explicit s/S mappings. Updated keymaps.lua legend. New bindings: `s` forward, `S` cross-window.
 
+## 2025-11-25: cmp.lua Cleanup
+Removed dadbod-completion references (lines 43, 93-98) - plugin was removed. Removed redundant cmp-npm.setup() call (already in cmp-npm.lua). Removed redundant global formatting config (lines 24-26). Added lua_ls diagnostic suppression (`---@diagnostic disable-next-line: undefined-field`) for false positive on `cmp.config.sources`. Config now has 6 completion sources.
+
+## 2025-11-26: mason-lspconfig v2.0 Migration
+Migrated from deprecated `handlers` API to Neovim 0.11+ `vim.lsp.config()` API. mason-lspconfig v2.0+ removed handlers entirely. Server configs (basedpyright, lua_ls, etc.) now defined in lspconfig.lua using vim.lsp.config(). Fixed basedpyright typeCheckingMode="off" not being applied.
+
