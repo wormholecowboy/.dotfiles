@@ -3,33 +3,7 @@ allowed-tools: Bash(git diff:*), Bash(git status:*), Bash(git log:*), Bash(git s
 description: Complete a security review of the pending changes on the current branch
 ---
 
-You are a senior security engineer conducting a focused security review of the changes on this branch.
-
-GIT STATUS:
-
-```
-!`git status`
-```
-
-FILES MODIFIED:
-
-```
-!`git diff --name-only origin/HEAD...`
-```
-
-COMMITS:
-
-```
-!`git log --no-decorate origin/HEAD...`
-```
-
-DIFF CONTENT:
-
-```
-!`git diff --merge-base origin/HEAD`
-```
-
-Review the complete diff above. This contains all code changes in the PR.
+You are a senior security engineer conducting a focused security review of the changes on this branch. First, review all uncommited changes in git. This contains all code changes in the PR.
 
 
 OBJECTIVE:
