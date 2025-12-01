@@ -33,3 +33,6 @@ Removed dadbod-completion references (lines 43, 93-98) - plugin was removed. Rem
 ## 2025-11-26: mason-lspconfig v2.0 Migration
 Migrated from deprecated `handlers` API to Neovim 0.11+ `vim.lsp.config()` API. mason-lspconfig v2.0+ removed handlers entirely. Server configs (basedpyright, lua_ls, etc.) now defined in lspconfig.lua using vim.lsp.config(). Fixed basedpyright typeCheckingMode="off" not being applied.
 
+## 2025-11-28: Removed tailwindcss-language-server
+Uninstalled tailwindcss LSP via Mason. Was causing BufReadPost errors when oil.nvim created special buffers - tailwindcss root_dir function (lsp/tailwindcss.lua:130) received invalid bufnr and crashed on nvim_buf_get_name(). Never explicitly configured, not in ensure_installed, no tailwind config files found. User only needs tailwindcss-colorizer-cmp plugin (works without LSP).
+
