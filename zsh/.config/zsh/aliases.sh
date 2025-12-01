@@ -33,6 +33,7 @@ alias gs="git status -s"
 alias gst="git status"
 alias gwa="git worktree add"
 alias gwr="git worktree remove"
+alias gwm="~/.dotfiles/zsh/scripts/gwm"
 # alias gwf="git fetch origin '*:*' --update-head-ok"
 
 alias nrd="npm run dev"
