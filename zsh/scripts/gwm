@@ -1,0 +1,92 @@
+#!/bin/zsh
+
+# Git Worktree Manager (gwm)
+# Interactive worktree management using fzf
+
+# Main menu
+action=$(printf "Add worktree\nRemove worktree" | fzf --prompt="Select action: ")
+
+[[ -z "$action" ]] && exit 0
+
+if [[ "$action" == "Add worktree" ]]; then
+  # Add flow
+  branch_type=$(printf "Use existing branch\nCreate new branch" | fzf --prompt="Branch type: ")
+  [[ -z "$branch_type" ]] && exit 0
+
+  if [[ "$branch_type" == "Use existing branch" ]]; then
+    # List all branches (local and remote)
+    branch=$(git branch -a | sed 's/^[ *]*//' | sed 's/remotes\///' | grep -v 'HEAD ->' | sort -u | fzf --prompt="Select branch: ")
+    [[ -z "$branch" ]] && exit 0
+
+    # Extract branch name for worktree directory
+    worktree_name=$(basename "$branch")
+
+    # Check if worktree directory already exists
+    if [[ -e "$worktree_name" ]]; then
+      echo "Error: Directory '$worktree_name' already exists"
+      exit 1
+    fi
+
+    git worktree add "$worktree_name" "$branch"
+  else
+    # Create new branch
+    echo -n "Enter new branch name: "
+    read branch_name
+
+    [[ -z "$branch_name" ]] && echo "No branch name provided" && exit 1
+
+    # Pick base branch
+    base_branch=$(git branch -a | sed 's/^[ *]*//' | sed 's/remotes\///' | grep -v 'HEAD ->' | sort -u | fzf --prompt="Select base branch: ")
+    [[ -z "$base_branch" ]] && exit 0
+
+    # Check if directory already exists
+    if [[ -e "$branch_name" ]]; then
+      echo "Error: Directory '$branch_name' already exists"
+      exit 1
+    fi
+
+    # Create worktree with new branch
+    git worktree add -b "$branch_name" "$branch_name" "$base_branch"
+  fi
+
+elif [[ "$action" == "Remove worktree" ]]; then
+  # Remove flow
+  # List worktrees
+  worktree=$(git worktree list | fzf --prompt="Select worktree to remove: " | awk '{print $1}')
+  [[ -z "$worktree" ]] && exit 0
+
+  # Extract worktree name
+  worktree_name=$(basename "$worktree")
+
+  # Check for uncommitted changes
+  if [[ -n $(git -C "$worktree" status --porcelain 2>/dev/null) ]]; then
+    echo "⚠️  Warning: Worktree '$worktree_name' has uncommitted changes!"
+    force=$(printf "Cancel\nForce delete" | fzf --prompt="Uncommitted changes detected: ")
+
+    [[ "$force" != "Force delete" ]] && echo "Cancelled" && exit 0
+
+    git worktree remove --force "$worktree"
+  else
+    git worktree remove "$worktree"
+  fi
+
+  echo "Worktree removed successfully"
+
+  # Check if branch with same name exists
+  if git show-ref --verify --quiet "refs/heads/$worktree_name"; then
+    confirm=$(printf "No\nYes" | fzf --prompt="Delete branch '$worktree_name'? ")
+
+    if [[ "$confirm" == "Yes" ]]; then
+      if git branch -d "$worktree_name" 2>/dev/null; then
+        echo "Branch '$worktree_name' deleted"
+      else
+        echo "Branch has unmerged changes."
+        force_branch=$(printf "Cancel\nForce delete" | fzf --prompt="Force delete branch? ")
+        if [[ "$force_branch" == "Force delete" ]]; then
+          git branch -D "$worktree_name"
+          echo "Branch '$worktree_name' force deleted"
+        fi
+      fi
+    fi
+  fi
+fi

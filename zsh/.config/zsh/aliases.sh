@@ -33,6 +33,7 @@ alias gs="git status -s"
 alias gst="git status"
 alias gwa="git worktree add"
 alias gwr="git worktree remove"
+alias gwm="~/.dotfiles/zsh/scripts/gwm"
 # alias gwf="git fetch origin '*:*' --update-head-ok"
 
 alias nrd="npm run dev"
@@ -40,6 +41,7 @@ alias nv='nvim'
 alias py='python3'
 alias lf='lfcd'
 alias cl="clear"
+alias rst="exec zsh"
 
 alias ls="lsd -lha --group-dirs=first"
 alias ll="lsd -lha --color=always --group-dirs=first | less -r"
