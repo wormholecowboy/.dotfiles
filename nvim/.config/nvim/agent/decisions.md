@@ -36,3 +36,6 @@ Migrated from deprecated `handlers` API to Neovim 0.11+ `vim.lsp.config()` API. 
 ## 2025-11-28: Removed tailwindcss-language-server
 Uninstalled tailwindcss LSP via Mason. Was causing BufReadPost errors when oil.nvim created special buffers - tailwindcss root_dir function (lsp/tailwindcss.lua:130) received invalid bufnr and crashed on nvim_buf_get_name(). Never explicitly configured, not in ensure_installed, no tailwind config files found. User only needs tailwindcss-colorizer-cmp plugin (works without LSP).
 
+## 2025-12-03: which-key v3 + Keymap Legend Improvements
+Updated which.lua from v2 to v3 format. Added group labels (`ai`, `git`, `hunks`, `lint/log`, `search`, `user`, `workspace`, `harpoon`, `prev`, `next`) and descriptions for leader single keys so which-key shows readable names instead of raw commands. Reformatted keymaps.lua legend with box-drawing characters for cleaner visualization. Removed redundant `<leader>f` LSP format keymap from lspconfig.lua (F6/conform handles formatting).
+

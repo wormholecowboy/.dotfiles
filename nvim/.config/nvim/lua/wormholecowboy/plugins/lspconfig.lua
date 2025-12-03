@@ -112,13 +112,6 @@ return {
 					print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 				end, opts)
 
-				-- Formatting (if supported by the LSP)
-				local client = vim.lsp.get_client_by_id(ev.data.client_id)
-				if client and client.supports_method("textDocument/formatting") then
-					vim.keymap.set("n", "<leader>f", function()
-						vim.lsp.buf.format({ async = true })
-					end, opts)
-				end
 			end,
 		})
 	end,

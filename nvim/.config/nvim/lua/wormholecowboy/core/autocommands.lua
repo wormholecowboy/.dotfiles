@@ -22,7 +22,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
       vim.keymap.set("n", "<leader>ub", function()
         local full_path = vim.fn.expand("%:p")
         print(full_path)
-      end, { buffer = 0, desc = "Show full path of current buffer" })
+      end, { buffer = 0, desc = "CWD: current buffer" })
 
       -- Keymap to engage "Writing Mode"
       vim.keymap.set("n", "<leader>q", function()
@@ -33,7 +33,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
         vim.wo.linebreak = true
         vim.cmd("CodeiumDisable")
         vim.o.so = 1
-      end, { buffer = 0, desc = "Writing mode engaged" })
+      end, { buffer = 0, desc = "Writing Mode" })
 
       -- Keymap to log the variable under the cursor
       vim.keymap.set("n", "<leader>lv", function()
