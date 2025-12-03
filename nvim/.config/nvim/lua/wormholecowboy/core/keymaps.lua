@@ -34,13 +34,10 @@
 -- │ o / O        │ add blank line below / above                             │
 -- │ A            │ copy all (yank entire buffer)                            │
 -- │ c            │ close buffer                                             │
--- │ d            │ show diagnostic float                                    │
 -- │ e            │ file explorer (oil.nvim)                                 │
 -- │ i            │ toggle indent lines                                      │
 -- │ m            │ markdown preview                                         │
--- │ r            │ rename symbol                                            │
 -- │ t            │ toggle aerial (code outline)                             │
--- │ U            │ undotree                                                 │
 -- │ w            │ write (save)                                             │
 -- │ z            │ zen mode                                                 │
 -- ├──────────────┼──────────────────────────────────────────────────────────┤
@@ -125,7 +122,7 @@ keymap("n", "<C-z>", "<nop>")
 keymap("x", "p", [["_dP]])
 keymap("n", "r", [["_r]])
 keymap("n", "x", [["_x]])
-keymap("n", "s", [["_s]])
+-- keymap("n", "s", [["_s]]) -- disabled: leap.nvim uses 's' for forward motion
 keymap("n", "c", [["_c]])
 
 -- For WSL
@@ -136,9 +133,8 @@ keymap("n", "c", [["_c]])
 keymap("n", "<leader>uz", "<cmd>edit $HOME/.zshrc<cr>", opts) --edit zsh
 keymap("n", "<leader>uv", "<cmd>edit $HOME/.config/nvim/<cr>", opts) --edit neovim
 keymap("n", "<leader>up", "<cmd>edit $HOME/pnotes<cr>", opts) --prog notes
-keymap("n", "<leader>uc", ":lua vim.lsp.buf.code_action()<CR>", opts) --code action
+-- <leader>uc is set in lspconfig.lua on LspAttach (buffer-local)
 -- keymap("n", "<leader>uw", "`[v`]:lua removeReturnCharacters()<cr>", opts) --remove windows return carriage for WSL
-keymap("n", "<leader>ux", "<cmd>bp|bd #<cr>", opts) --split buf delete
 keymap("n", "<leader>ud", "<cmd>r !date '+\\%Y-\\%m-\\%d'<CR>", opts)  -- date
 
 keymap("n", "<leader>w", ":w<cr>", opts) --save
@@ -152,11 +148,7 @@ keymap("n", "<leader>o", "o<Esc>k", opts)
 keymap("n", "<leader>O", "O<Esc>j", opts)
 
 -- Normal --
--- Better window navigation
-keymap("n", "<C-h>", "<C-w>h", opts)
-keymap("n", "<C-j>", "<C-w>j", opts)
-keymap("n", "<C-k>", "<C-w>k", opts)
-keymap("n", "<C-l>", "<C-w>l", opts)
+-- Window navigation handled by vim-tmux-navigator (tmux-navigator.lua)
 
 -- Resize with arrows
 keymap("n", "<C-Up>", ":resize -2<CR>", opts)

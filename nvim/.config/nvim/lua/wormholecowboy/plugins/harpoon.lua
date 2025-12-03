@@ -61,7 +61,5 @@ return {
 			desc = "file 6",
 		},
 	},
-	config = function()
-		require("harpoon"):setup()
-	end,
+	-- harpoon:setup() is called in telescope.lua (needed for telescope integration)
 }

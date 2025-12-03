@@ -36,7 +36,7 @@ nvim/
 - **Repo:** stevearc/oil.nvim
 - **Purpose:** Buffer-style file explorer (like vim's :edit for directories)
 - **Key Features:**
-  - Not default explorer (set to false)
+  - Default file explorer (replaces netrw)
   - Trash instead of delete
   - LSP file methods enabled
   - Float window interface

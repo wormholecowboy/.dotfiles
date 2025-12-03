@@ -31,7 +31,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
         require("cmp").setup.buffer({ enabled = false })
         vim.wo.wrap = true
         vim.wo.linebreak = true
-        vim.cmd("CodeiumDisable")
+        vim.cmd("WindsurfDisable")
         vim.o.so = 1
       end, { buffer = 0, desc = "writing mode" })
 

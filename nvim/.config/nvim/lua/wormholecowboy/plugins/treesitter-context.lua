@@ -6,7 +6,7 @@ return {
 		require("treesitter-context").setup({
 			enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
 			multiwindow = false, -- Enable multiwindow support.
-			max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+			max_lines = 4, -- Limit context to 4 lines to prevent consuming screen in deeply nested code
 			min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
 			line_numbers = true,
 			multiline_threshold = 6, -- Maximum number of lines to show for a single context
