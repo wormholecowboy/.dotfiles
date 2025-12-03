@@ -48,3 +48,33 @@ Migrated 17 plugin files from `vim.keymap.set`/`wk.add()` in config to lazy.nvim
 
 **which.lua simplified:** Now contains only groups (for `+` prefix) and keymaps.lua items without desc. Added subgroups: `<leader>gc` (create), `<leader>sc` (commands), `<leader>sg` (git search).
 
+## 2025-12-03: Config Cleanup
+Fixed 12 issues from deep dive audit:
+- Removed duplicate terraform autocommands from lazy.lua (kept in core/init.lua)
+- Removed undotree, `<leader>r`, `<leader>d` from legend (not implemented)
+- Removed duplicate harpoon setup (kept in telescope.lua for integration)
+- Removed `<leader>ux` (duplicate of `<leader>c`)
+- Commented out `s` black hole keymap (leap.nvim uses it)
+- Fixed lualine globalstatus=true (matches laststatus=3)
+- Removed global `<leader>uc` (buffer-local in lspconfig is correct)
+- Updated plugins.md oil default_file_explorer status
+- Changed CodeiumDisable → WindsurfDisable in autocommands
+- Removed unused solarized config from colors.lua
+- Removed redundant `<C-h/j/k/l>` from keymaps.lua (tmux-navigator handles it)
+- Set treesitter-context max_lines=4
+- Added lazy loading event to gitsigns
+
+## 2025-12-03: neotest Integration
+Added test runner framework with adapters for pytest, jest, and Go. Bound to `<F3>` as which-key group.
+
+**New plugin:** `neotest.lua` with:
+- `neotest-python` (pytest)
+- `neotest-jest`
+- `neotest-golang`
+
+**Keymaps (F3 prefix):**
+- `n` nearest test, `f` file tests, `p` project tests
+- `l` last test, `s` summary, `o/O` output
+- `x` stop, `w` watch file
+- `[t/]t` jump to prev/next failed test
+

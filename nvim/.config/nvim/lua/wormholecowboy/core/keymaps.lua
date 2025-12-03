@@ -10,6 +10,7 @@
 -- │ [b / ]b      │ move buffer left / right                                 │
 -- │ [d / ]d      │ prev / next diagnostic                                   │
 -- │ [c / ]c      │ prev / next git change                                   │
+-- │ [t / ]t      │ prev / next failed test                                  │
 -- │ { / }        │ prev / next aerial symbol                                │
 -- └──────────────┴──────────────────────────────────────────────────────────┘
 --
@@ -87,6 +88,16 @@
 -- ├──────────────┬──────────────────────────────────────────────────────────┤
 -- │ F1           │ help                                                     │
 -- │ F2           │ rename                                                   │
+-- │ F3           │ +test (neotest.lua)                                      │
+-- │   n          │   nearest test                                           │
+-- │   f          │   file tests                                             │
+-- │   p          │   project tests                                          │
+-- │   l          │   last test                                              │
+-- │   s          │   toggle summary                                         │
+-- │   o          │   output window                                          │
+-- │   O          │   output panel                                           │
+-- │   x          │   stop tests                                             │
+-- │   w          │   watch file                                             │
 -- │ F6           │ format code (conform.lua)                                │
 -- │ F7           │ trouble diagnostics (trouble.lua)                        │
 -- │ F8           │ lint (nvim-lint.lua)                                     │

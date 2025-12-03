@@ -48,6 +48,7 @@ return {
       { "<leader>sg", group = "git search" },
       { "<leader>u", group = "user" },
       { "<leader>uw", group = "workspace" },
+      { "<F3>", group = "test" },
       { ",", group = "harpoon" },
       { "[", group = "prev" },
       { "]", group = "next" },
