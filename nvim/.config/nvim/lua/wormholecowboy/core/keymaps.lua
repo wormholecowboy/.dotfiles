@@ -1,107 +1,119 @@
--- Modes
---   normal_mode = "n",
---   insert_mode = "i",
---   visual_mode = "v",
---   visual_block_mode = "x",
---   term_mode = "t",
---   command_mode = "c",
-
---      --   TO CONSIDER
-        --   Many people map F keys for frequent actions:
-        -- - F2 - Rename/save
-        -- - F3 - Toggle file tree
-        -- - F4 - Toggle terminal
-        -- - F5 - Run/compile
-        -- - F6 - Format code
-        -- - F7 - Toggle diagnostics
-        -- - F8 - Toggle linter
-
-
+-- ╔══════════════════════════════════════════════════════════════════════════╗
+-- ║                            KEYMAP LEGEND                                 ║
+-- ╚══════════════════════════════════════════════════════════════════════════╝
+--
+-- ┌─────────────────────────────────────────────────────────────────────────┐
+-- │ NAVIGATION & MOTIONS                                                    │
+-- ├──────────────┬──────────────────────────────────────────────────────────┤
+-- │ s / S        │ leap forward / cross-window (leap.nvim)                  │
+-- │ H / L        │ prev / next buffer                                       │
+-- │ [b / ]b      │ move buffer left / right                                 │
+-- │ [d / ]d      │ prev / next diagnostic                                   │
+-- │ [c / ]c      │ prev / next git change                                   │
+-- │ { / }        │ prev / next aerial symbol                                │
+-- └──────────────┴──────────────────────────────────────────────────────────┘
+--
+-- ┌─────────────────────────────────────────────────────────────────────────┐
+-- │ g PREFIX — LSP & MISC                                                   │
+-- ├──────────────┬──────────────────────────────────────────────────────────┤
+-- │ gd           │ go to definition                                         │
+-- │ gD           │ go to declaration                                        │
+-- │ gi           │ go to implementation                                     │
+-- │ gt           │ go to type definition                                    │
+-- │ go           │ go to definition of type                                 │
+-- │ gr           │ go to references                                         │
+-- │ gs           │ signature help                                           │
+-- │ gl           │ show diagnostic float                                    │
+-- │ gP           │ select last paste                                        │
+-- │ gb / gc      │ comment operators (comment.nvim)                         │
+-- └──────────────┴──────────────────────────────────────────────────────────┘
+--
+-- ┌─────────────────────────────────────────────────────────────────────────┐
+-- │ <leader> PREFIX                                                         │
+-- ├──────────────┬──────────────────────────────────────────────────────────┤
+-- │ o / O        │ add blank line below / above                             │
+-- │ A            │ copy all (yank entire buffer)                            │
+-- │ c            │ close buffer                                             │
+-- │ d            │ show diagnostic float                                    │
+-- │ e            │ file explorer (oil.nvim)                                 │
+-- │ i            │ toggle indent lines                                      │
+-- │ m            │ markdown preview                                         │
+-- │ r            │ rename symbol                                            │
+-- │ t            │ toggle aerial (code outline)                             │
+-- │ U            │ undotree                                                 │
+-- │ w            │ write (save)                                             │
+-- │ z            │ zen mode                                                 │
+-- ├──────────────┼──────────────────────────────────────────────────────────┤
+-- │ a            │ Reserved for AI                                          │
+-- ├──────────────┼──────────────────────────────────────────────────────────┤
+-- │ g            │ +git                                                     │
+-- │   g          │   neogit status                                          │
+-- │   v          │   diffview                                               │
+-- │   w          │   worktree switch                                        │
+-- │   cw         │   worktree create                                        │
+-- │   x          │   close diffview                                         │
+-- ├──────────────┼──────────────────────────────────────────────────────────┤
+-- │ h            │ +hunks (gitsigns)                                        │
+-- ├──────────────┼──────────────────────────────────────────────────────────┤
+-- │ l            │ +lint/log                                                │
+-- │   l          │   lint file                                              │
+-- │   v          │   log variable                                           │
+-- ├──────────────┼──────────────────────────────────────────────────────────┤
+-- │ s            │ +search (fzf-lua)                                        │
+-- ├──────────────┼──────────────────────────────────────────────────────────┤
+-- │ u            │ +user                                                    │
+-- │   b          │   buffer path                                            │
+-- │   c          │   code actions                                           │
+-- │   d          │   insert date                                            │
+-- │   i          │   open IDE (vscode forks)                                │
+-- │   n          │   notes                                                  │
+-- │   p          │   prog notes                                             │
+-- │   t          │   twilight                                               │
+-- │   v          │   edit nvim config                                       │
+-- │   x          │   close split buffer                                     │
+-- │   z          │   edit zshrc                                             │
+-- │   w          │   +workspace (LSP)                                       │
+-- │     a        │     add folder                                           │
+-- │     l        │     list folders                                         │
+-- │     r        │     remove folder                                        │
+-- └──────────────┴──────────────────────────────────────────────────────────┘
+--
+-- ┌─────────────────────────────────────────────────────────────────────────┐
+-- │ HARPOON (comma prefix)                                                  │
+-- ├──────────────┬──────────────────────────────────────────────────────────┤
+-- │ ,            │ harpoon commands (see harpoon.lua)                       │
+-- │ <C-h>        │ harpoon list                                             │
+-- └──────────────┴──────────────────────────────────────────────────────────┘
+--
+-- ┌─────────────────────────────────────────────────────────────────────────┐
+-- │ FUNCTION KEYS                                                           │
+-- ├──────────────┬──────────────────────────────────────────────────────────┤
+-- │ F1           │ help                                                     │
+-- │ F2           │ rename                                                   │
+-- │ F6           │ format code (conform.lua)                                │
+-- │ F7           │ trouble diagnostics (trouble.lua)                        │
+-- │ F8           │ lint (nvim-lint.lua)                                     │
+-- └──────────────┴──────────────────────────────────────────────────────────┘
+--
+-- ┌─────────────────────────────────────────────────────────────────────────┐
+-- │ MODIFIER KEYS                                                           │
+-- ├──────────────┬──────────────────────────────────────────────────────────┤
+-- │ <C-e>        │ insert emoji (insert mode)                               │
+-- │ <M-c>        │ color picker (ccc.nvim)                                  │
+-- │ <C-h/j/k/l>  │ window navigation                                        │
+-- └──────────────┴──────────────────────────────────────────────────────────┘
+--
+-- ┌─────────────────────────────────────────────────────────────────────────┐
+-- │ DISABLED                                                                │
+-- ├──────────────┬──────────────────────────────────────────────────────────┤
+-- │ Q            │ disabled (nop)                                           │
+-- │ <C-z>        │ disabled (nop)                                           │
+-- └──────────────┴──────────────────────────────────────────────────────────┘
 
 local keymap = vim.keymap.set
 local opts = { silent = true }
 
--- add function: kill cmp, set wrap with not word breakage, turn off line hl, turn off line numbers
--- or maybe an autocommand that hooks into when a txt file or md file is opened
-
 vim.g.mapleader = " "
-
--- KEY BINDINGS MAP
-
--- []:
---    d: diagnostics
---    c: git changes
---    b: buffer moving
---
--- g: lsp and misc
---      gd: def
---      gD: declaration
---      gi: implemntation
---      gt: type
---      go: def of type
---      gr: ref
---      gs: signature
---      gl: show diagnostic
---      gP: select last paste
---      gb and gc : comment.nvim
-  -- s: leap forward motion (leap.nvim)
-  -- S: leap cross-window (leap.nvim)
---
--- LEADER: my current leader prepended key bindings
-  -- o&O: add lines
-  -- A: copy all
-  -- a: ai
-  --    a: see avente settings
-  --    e:
-  -- c: close
-  -- d: show diagnostic float
-  -- e: file tree
-  -- gg: neogit
-  --      v: diffview
-  --      w: worktree
-  --      cw: create worktree
-  --      x: close diffview
-  -- h: git hunks
-  --      check git signs for keymaps
-  -- i: toggle indent lines
-  -- l:
-  --      v: log var
-  -- m: markdown
-  -- q: kill cmp
-  -- r: rename
-  -- t: aerial (tree)
-  -- u: user
-  --      b: buffer path
-  --      c: code actions
-  --      d: date
-  --      i: ide (open vs code forks)
-  --      n: notes
-  --      p: prog notes
-  --      t: twilight
-  --      v: edit vim config
-  --      w: LSP workspace commands
-  --        - a: add workspace folder
-  --        - l: list workspace folders
-  --        - r: remove workspace folder
-  --      x: close split buffer
-  --      z: edit zsh
-  -- U: Undotree
-  -- w: write
-  -- z: zen mode
---
--- , for harpoon commands
---<control key|
---    e: insert emoji in insert mode
---    h: harpoon list
---<alt/option key|
---    c: Color (ccc) picker
---
--- F keys
--- F1: help
--- F2: rename
--- F6: format code (conform.lua)
--- F7: trouble diagnostics (trouble.lua)
--- F8: lint (nvim-lint.lua)
 
 keymap("i", "kj", "<ESC>", opts) -- alt escape
 vim.api.nvim_set_keymap("n", "QQ", ":q!<enter>", { noremap = false }) -- quit nv
