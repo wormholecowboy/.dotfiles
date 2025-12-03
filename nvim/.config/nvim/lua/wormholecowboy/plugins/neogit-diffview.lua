@@ -5,6 +5,11 @@ return {
 		"sindrets/diffview.nvim",
 		"ibhagwan/fzf-lua",
 	},
+	keys = {
+		{ "<leader>gg", "<cmd>Neogit<cr>", desc = "neogit" },
+		{ "<leader>gv", "<cmd>DiffviewOpen<cr>", desc = "diffview" },
+		{ "<leader>gx", "<cmd>DiffviewClose<cr>", desc = "close diffview" },
+	},
 	config = function()
 		-- Neogit setup
 		require("neogit").setup({
@@ -273,9 +278,5 @@ return {
 			end,
 		})
 
-		-- Global keymaps
-		vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Open Neogit" })
-		vim.keymap.set("n", "<leader>gv", "<cmd>DiffviewOpen<cr>", { desc = "Open Diffview" })
-		vim.keymap.set("n", "<leader>gx", "<cmd>DiffviewClose<cr>", { desc = "Close Diffview" })
 	end,
 }

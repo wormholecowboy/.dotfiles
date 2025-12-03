@@ -1,21 +1,12 @@
 return {
 	"folke/trouble.nvim",
-	event = { "BufReadPre", "BufNewFile" },
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	cmd = "Trouble",
-	-- keys = {
-	-- 	{
-	-- 		"<leader>D",
-	-- 		"<cmd>Trouble diagnostics toggle<cr>",
-	-- 		desc = "Diagnostics (Trouble)",
-	-- 	},
-	-- },
-	config = function()
-		require("trouble").setup()
-		vim.keymap.set("n", "<F7>", ":Trouble diagnostics toggle<cr>", { desc = "Toggle Trouble diagnostics" })
-	end,
+	keys = {
+		{ "<F7>", "<cmd>Trouble diagnostics toggle<cr>", desc = "diagnostics" },
+	},
 	opts = {
 		focus = true,
-    warn_no_results = false,
+		warn_no_results = false,
 	},
 }

@@ -33,7 +33,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
         vim.wo.linebreak = true
         vim.cmd("CodeiumDisable")
         vim.o.so = 1
-      end, { buffer = 0, desc = "Writing Mode" })
+      end, { buffer = 0, desc = "writing mode" })
 
       -- Keymap to log the variable under the cursor
       vim.keymap.set("n", "<leader>lv", function()

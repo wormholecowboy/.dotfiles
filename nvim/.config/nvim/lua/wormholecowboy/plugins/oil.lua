@@ -206,14 +206,13 @@ return {
   -- Optional dependencies
   dependencies = { { "echasnovski/mini.icons", opts = {} } },
   -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
-  config = function(_, opts)
-    local oil = require("oil")
-    -- vim.keymap.set("n", "<leader>e", ":Oil<cr>", {})
-    oil.setup(opts)
-
-    local openState = false
-    vim.keymap.set("n", "<leader>e", function()
-      oil.toggle_float()
-    end, { desc = "Toggle Oil" })
-  end,
+  keys = {
+    {
+      "<leader>e",
+      function()
+        require("oil").toggle_float()
+      end,
+      desc = "file explorer",
+    },
+  },
 }

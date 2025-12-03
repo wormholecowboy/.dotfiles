@@ -39,3 +39,12 @@ Uninstalled tailwindcss LSP via Mason. Was causing BufReadPost errors when oil.n
 ## 2025-12-03: which-key v3 + Keymap Legend Improvements
 Updated which.lua from v2 to v3 format. Added group labels (`ai`, `git`, `hunks`, `lint/log`, `search`, `user`, `workspace`, `harpoon`, `prev`, `next`) and descriptions for leader single keys so which-key shows readable names instead of raw commands. Reformatted keymaps.lua legend with box-drawing characters for cleaner visualization. Removed redundant `<leader>f` LSP format keymap from lspconfig.lua (F6/conform handles formatting).
 
+## 2025-12-03: Migration to lazy.nvim keys spec
+Migrated 17 plugin files from `vim.keymap.set`/`wk.add()` in config to lazy.nvim `keys` spec. Benefits: plugins lazy-load on keypress, no which-key dependency for keymaps, descriptions centralized with keymaps, cleaner declarative config.
+
+**Converted:** fzf-lua, markdown-preview, bufferline, indent-blankline, zenmode, ccc, trouble, conform, nvim-lint, harpoon, git-worktree, neogit-diffview, oil, telescope, leap, comment, iconpicker, aerial.
+
+**Kept as vim.keymap.set:** lspconfig (LspAttach), gitsigns (buffer-local), aerial on_attach (`{`/`}`), neogit-diffview (diffview buffer keymaps), luasnip (insert mode).
+
+**which.lua simplified:** Now contains only groups (for `+` prefix) and keymaps.lua items without desc. Added subgroups: `<leader>gc` (create), `<leader>sc` (commands), `<leader>sg` (git search).
+

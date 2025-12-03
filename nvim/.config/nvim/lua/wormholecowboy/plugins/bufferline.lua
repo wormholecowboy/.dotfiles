@@ -2,20 +2,19 @@ return {
   "akinsho/bufferline.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" },
   version = "*",
-  config = function()
-    require("bufferline").setup({
-      options = {
-        mode = "buffers",
-        diagnostics = "nvim_lsp",
-        indicator = {
-          -- icon = "▎", -- this should be omitted if indicator style is not 'icon'
-          style = "underline",
-        },
-        highlight = { underline = true, sp = "blue" }, -- Optional
-        buffer_close_icon = "",
+  keys = {
+    { "[b", "<cmd>BufferLineMovePrev<cr>", desc = "move buffer left" },
+    { "]b", "<cmd>BufferLineMoveNext<cr>", desc = "move buffer right" },
+  },
+  opts = {
+    options = {
+      mode = "buffers",
+      diagnostics = "nvim_lsp",
+      indicator = {
+        style = "underline",
       },
-    })
-    vim.keymap.set("n", "[b", ":BufferLineMovePrev<cr>")
-    vim.keymap.set("n", "]b", ":BufferLineMoveNext<cr>")
-  end,
+      highlight = { underline = true, sp = "blue" },
+      buffer_close_icon = "",
+    },
+  },
 }

@@ -37,37 +37,27 @@ return {
       },
     },
     spec = {
-      -- Leader groups
+      -- Groups only - individual keys get desc from their plugin keys spec
       { "<leader>a", group = "ai" },
       { "<leader>g", group = "git" },
+      { "<leader>gc", group = "create" },
       { "<leader>h", group = "hunks" },
       { "<leader>l", group = "lint/log" },
       { "<leader>s", group = "search" },
+      { "<leader>sc", group = "commands" },
+      { "<leader>sg", group = "git search" },
       { "<leader>u", group = "user" },
       { "<leader>uw", group = "workspace" },
-
-      -- Leader single keys
-      { "<leader>A", desc = "copy all" },
-      { "<leader>c", desc = "close buffer" },
-      { "<leader>d", desc = "diagnostic float" },
-      { "<leader>e", desc = "file explorer" },
-      { "<leader>i", desc = "indent lines" },
-      { "<leader>m", desc = "markdown preview" },
-      { "<leader>o", desc = "line below" },
-      { "<leader>O", desc = "line above" },
-      { "<leader>r", desc = "rename" },
-      { "<leader>t", desc = "code outline" },
-      { "<leader>U", desc = "undotree" },
-      { "<leader>w", desc = "save" },
-      { "<leader>z", desc = "zen mode" },
-      { "<leader>/", desc = "comment" },
-
-      -- Harpoon
       { ",", group = "harpoon" },
-
-      -- Brackets
       { "[", group = "prev" },
       { "]", group = "next" },
+
+      -- Keymaps from keymaps.lua (no desc in their definition)
+      { "<leader>A", desc = "copy all" },
+      { "<leader>c", desc = "close buffer" },
+      { "<leader>o", desc = "line below" },
+      { "<leader>O", desc = "line above" },
+      { "<leader>w", desc = "save" },
     },
   },
 }
