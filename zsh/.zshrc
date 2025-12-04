@@ -79,3 +79,6 @@ autoload -Uz compinit
 compinit
 # End of Docker CLI completions
 export PATH=/Library/TeX/texbin:$PATH
+
+# opencode
+export PATH=/Users/briangildea/.opencode/bin:$PATH
