@@ -10,7 +10,7 @@
       "cd": "allow",
       "echo": "allow",
       "docker-compose": "allow",
-      "docker": "allow"
+      "docker": "allow",
       "curl": "ask"
     },
     "doom_loop": "ask",
