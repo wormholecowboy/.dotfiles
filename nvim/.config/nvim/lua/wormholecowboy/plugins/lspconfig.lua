@@ -38,35 +38,28 @@ return {
 		vim.lsp.config("bashls", { capabilities = capabilities })
 		vim.lsp.config("terraformls", { capabilities = capabilities })
 
-		-- Configure diagnostic display
+		-- Configure diagnostic display (Neovim 0.11+ signs API)
 		vim.diagnostic.config({
 			virtual_text = false,
-			signs = true,
+			signs = {
+				text = {
+					[vim.diagnostic.severity.ERROR] = "⛔",
+					[vim.diagnostic.severity.WARN] = "⚠️",
+					[vim.diagnostic.severity.HINT] = "🔬",
+					[vim.diagnostic.severity.INFO] = "ℹ️",
+				},
+			},
 			update_in_insert = false,
 			underline = true,
 			severity_sort = true,
 			float = {
 				border = "rounded",
-				source = true, -- Show diagnostic source (fixed: was "always", now boolean)
+				source = true,
 			},
 		})
 
-		-- Configure LSP float window borders (Neovim 0.10+)
-		-- Replaces deprecated vim.lsp.with() pattern
-		-- Note: In 0.11+, can use vim.o.winborder = 'rounded' instead
-		local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
-		function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-			opts = opts or {}
-			opts.border = opts.border or "rounded"
-			return orig_util_open_floating_preview(contents, syntax, opts, ...)
-		end
-
-		-- Set up diagnostic signs
-		local signs = { Error = "⛔", Warn = "⚠️", Hint = "🔬", Info = "ℹ️" }
-		for sign_type, icon in pairs(signs) do
-			local hl = "DiagnosticSign" .. sign_type
-			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-		end
+		-- Configure LSP float window borders (Neovim 0.11+)
+		vim.o.winborder = "rounded"
 
 		-- Modern LspAttach autocmd for keybindings (2025 best practice)
 		vim.api.nvim_create_autocmd("LspAttach", {
