@@ -27,7 +27,23 @@ if [[ "$action" == "Add worktree" ]]; then
       exit 1
     fi
 
-    git worktree add "$worktree_name" "$branch"
+    # Check if this is a local branch by verifying refs/heads
+    if git show-ref --verify --quiet "refs/heads/$branch"; then
+      # Local branch - use directly
+      git worktree add "$worktree_name" "$branch"
+    else
+      # Remote branch - create local tracking branch
+      local_branch="$worktree_name"
+
+      # Check if local branch with this name already exists
+      if git show-ref --verify --quiet "refs/heads/$local_branch"; then
+        echo "Local branch '$local_branch' already exists, using existing branch"
+        git worktree add "$worktree_name" "$local_branch"
+      else
+        echo "Creating local branch '$local_branch' tracking '$branch'"
+        git worktree add --track -b "$local_branch" "$worktree_name" "$branch"
+      fi
+    fi
   else
     # Create new branch
     echo -n "Enter new branch name: "
@@ -58,6 +74,12 @@ elif [[ "$action" == "Remove worktree" ]]; then
   # Extract worktree name
   worktree_name=$(basename "$worktree")
 
+  # Get the branch that was associated with this worktree (before removing)
+  branch_name=$(git worktree list --porcelain | awk -v wt="$worktree" '
+    $1 == "worktree" && $2 == wt {found=1; next}
+    found && $1 == "branch" {sub(/^refs\/heads\//, "", $2); print $2; exit}
+  ')
+
   # Check for uncommitted changes
   if [[ -n $(git -C "$worktree" status --porcelain 2>/dev/null) ]]; then
     echo "⚠️  Warning: Worktree '$worktree_name' has uncommitted changes!"
@@ -72,19 +94,19 @@ elif [[ "$action" == "Remove worktree" ]]; then
 
   echo "Worktree removed successfully"
 
-  # Check if branch with same name exists
-  if git show-ref --verify --quiet "refs/heads/$worktree_name"; then
-    confirm=$(printf "No\nYes" | fzf --prompt="Delete branch '$worktree_name'? ")
+  # Ask about deleting the associated branch
+  if [[ -n "$branch_name" ]] && git show-ref --verify --quiet "refs/heads/$branch_name"; then
+    confirm=$(printf "No\nYes" | fzf --prompt="Delete branch '$branch_name' (was on this worktree)? ")
 
     if [[ "$confirm" == "Yes" ]]; then
-      if git branch -d "$worktree_name" 2>/dev/null; then
-        echo "Branch '$worktree_name' deleted"
+      if git branch -d "$branch_name" 2>/dev/null; then
+        echo "Branch '$branch_name' deleted"
       else
         echo "Branch has unmerged changes."
         force_branch=$(printf "Cancel\nForce delete" | fzf --prompt="Force delete branch? ")
         if [[ "$force_branch" == "Force delete" ]]; then
-          git branch -D "$worktree_name"
-          echo "Branch '$worktree_name' force deleted"
+          git branch -D "$branch_name"
+          echo "Branch '$branch_name' force deleted"
         fi
       fi
     fi
