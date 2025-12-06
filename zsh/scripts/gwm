@@ -10,12 +10,12 @@ action=$(printf "Add worktree\nRemove worktree" | fzf --prompt="Select action: "
 
 if [[ "$action" == "Add worktree" ]]; then
   # Add flow
-  branch_type=$(printf "Use existing branch\nCreate new branch" | fzf --prompt="Branch type: ")
+  branch_type=$(printf "existing\nnew" | fzf --prompt="Branch type: ")
   [[ -z "$branch_type" ]] && exit 0
 
-  if [[ "$branch_type" == "Use existing branch" ]]; then
+  if [[ "$branch_type" == "existing" ]]; then
     # List all branches (local and remote)
-    branch=$(git branch -a | sed 's/^[ *]*//' | sed 's/remotes\///' | grep -v 'HEAD ->' | sort -u | fzf --prompt="Select branch: ")
+    branch=$(git branch -a | sed 's/^[ *+]*//' | sed 's/remotes\///' | grep -v 'HEAD ->' | sort -u | fzf --prompt="Select branch: ")
     [[ -z "$branch" ]] && exit 0
 
     # Extract branch name for worktree directory
@@ -52,7 +52,7 @@ if [[ "$action" == "Add worktree" ]]; then
     [[ -z "$branch_name" ]] && echo "No branch name provided" && exit 1
 
     # Pick base branch
-    base_branch=$(git branch -a | sed 's/^[ *]*//' | sed 's/remotes\///' | grep -v 'HEAD ->' | sort -u | fzf --prompt="Select base branch: ")
+    base_branch=$(git branch -a | sed 's/^[ *+]*//' | sed 's/remotes\///' | grep -v 'HEAD ->' | sort -u | fzf --prompt="Select base branch: ")
     [[ -z "$base_branch" ]] && exit 0
 
     # Check if directory already exists
