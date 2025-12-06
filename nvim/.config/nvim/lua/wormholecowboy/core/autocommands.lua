@@ -24,16 +24,32 @@ vim.api.nvim_create_autocmd("VimEnter", {
         print(full_path)
       end, { buffer = 0, desc = "CWD: current buffer" })
 
-      -- Keymap to engage "Writing Mode"
+      -- Keymap to toggle "Writing Mode"
       vim.keymap.set("n", "<leader>q", function()
-        vim.cmd("ZenMode")
-        -- Use setup.buffer to apply settings for the current buffer only
-        require("cmp").setup.buffer({ enabled = false })
-        vim.wo.wrap = true
-        vim.wo.linebreak = true
-        vim.cmd("WindsurfDisable")
-        vim.o.so = 1
-      end, { buffer = 0, desc = "writing mode" })
+        -- Track writing mode state per buffer
+        local is_writing_mode = vim.b.writing_mode or false
+
+        if not is_writing_mode then
+          -- Enter Writing Mode
+          require("lazy").load({ plugins = { "zen-mode.nvim", "windsurf.vim" } })
+          vim.cmd("ZenMode")
+          require("cmp").setup.buffer({ enabled = false })
+          vim.wo.wrap = true
+          vim.wo.linebreak = true
+          vim.cmd("CodeiumDisable")
+          vim.o.so = 1
+          vim.b.writing_mode = true
+        else
+          -- Exit Writing Mode
+          vim.cmd("ZenMode") -- ZenMode is a toggle, calling again exits
+          require("cmp").setup.buffer({ enabled = true })
+          vim.wo.wrap = false
+          vim.wo.linebreak = false
+          vim.cmd("CodeiumEnable")
+          vim.o.so = 8 -- Reset to default scroll offset
+          vim.b.writing_mode = false
+        end
+      end, { buffer = 0, desc = "toggle writing mode" })
 
       -- Keymap to log the variable under the cursor
       vim.keymap.set("n", "<leader>lv", function()
