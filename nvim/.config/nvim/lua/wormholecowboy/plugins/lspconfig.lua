@@ -58,8 +58,9 @@ return {
 			},
 		})
 
-		-- Configure LSP float window borders (Neovim 0.11+)
-		vim.o.winborder = "rounded"
+		-- Configure LSP handlers for rounded borders
+		vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+		vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
 		-- Modern LspAttach autocmd for keybindings (2025 best practice)
 		vim.api.nvim_create_autocmd("LspAttach", {
