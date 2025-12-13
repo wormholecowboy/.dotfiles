@@ -3,7 +3,60 @@ allowed-tools: Bash(git diff:*), Bash(git status:*), Bash(git log:*), Bash(git s
 description: Complete a security review of the pending changes on the current branch
 ---
 
-You are a senior security engineer conducting a focused security review of the changes on this branch. First, review all uncommited changes in git. This contains all code changes in the PR.
+You are a senior security engineer conducting a focused security review of the changes on this branch.
+
+## Arguments
+
+Optional: `$ARGUMENTS` - Specify a commit range or commit SHA(s) to review instead of the default branch comparison.
+
+Examples:
+- `/rebar:validation:security-review` - Reviews all changes on the current branch vs origin/HEAD (default)
+- `/rebar:validation:security-review abc123` - Reviews changes in a single commit
+- `/rebar:validation:security-review abc123..def456` - Reviews changes in a commit range
+- `/rebar:validation:security-review HEAD~3..HEAD` - Reviews the last 3 commits
+- `/rebar:validation:security-review Review these commits: abc123, def456` - Reviews specific commits
+
+## Determine Review Scope
+
+If `$ARGUMENTS` is provided and non-empty, use that as the commit reference. Otherwise, use the default branch comparison.
+
+**If reviewing specific commits ($ARGUMENTS provided):**
+
+GIT STATUS:
+
+`git status`
+
+FILES MODIFIED:
+
+`git diff --name-only $ARGUMENTS` (or `git show --name-only --format="" $ARGUMENTS` for a single commit)
+
+COMMITS:
+
+`git log --no-decorate $ARGUMENTS` (or `git show --no-patch $ARGUMENTS` for a single commit)
+
+DIFF CONTENT:
+
+`git diff $ARGUMENTS` (or `git show $ARGUMENTS` for a single commit)
+
+**If reviewing branch changes (default, no arguments):**
+
+GIT STATUS:
+
+`git status`
+
+FILES MODIFIED:
+
+`git diff --name-only origin/HEAD...`
+
+COMMITS:
+
+`git log --no-decorate origin/HEAD...`
+
+DIFF CONTENT:
+
+`git diff --merge-base origin/HEAD`
+
+Review the complete diff above. This contains all code changes being reviewed.
 
 
 OBJECTIVE:
@@ -163,3 +216,4 @@ Begin your analysis now. Do this in 3 steps:
 3. Filter out any vulnerabilities where the sub-task reported a confidence less than 8.
 
 Your final reply must contain the markdown report and nothing else.
+
