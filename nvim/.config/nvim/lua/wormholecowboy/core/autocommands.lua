@@ -18,13 +18,13 @@ vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
     -- Defer to next event loop tick to ensure plugins are loaded, especially with lazy.nvim
     vim.schedule(function()
-      -- Keymap to show the full path of the current buffer
+      -- Keymap to show the full path of the current buffer (global keymap)
       vim.keymap.set("n", "<leader>ub", function()
         local full_path = vim.fn.expand("%:p")
         print(full_path)
-      end, { buffer = 0, desc = "CWD: current buffer" })
+      end, { desc = "CWD: current buffer" })
 
-      -- Keymap to toggle "Writing Mode"
+      -- Keymap to toggle "Writing Mode" (global keymap, works in all buffers)
       vim.keymap.set("n", "<leader>q", function()
         -- Track writing mode state per buffer
         local is_writing_mode = vim.b.writing_mode or false
@@ -36,7 +36,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
           require("cmp").setup.buffer({ enabled = false })
           vim.wo.wrap = true
           vim.wo.linebreak = true
-          vim.cmd("CodeiumDisable")
+          pcall(vim.cmd, "CodeiumDisable") -- pcall in case Codeium not loaded
           vim.o.so = 1
           vim.b.writing_mode = true
         else
@@ -45,11 +45,11 @@ vim.api.nvim_create_autocmd("VimEnter", {
           require("cmp").setup.buffer({ enabled = true })
           vim.wo.wrap = false
           vim.wo.linebreak = false
-          vim.cmd("CodeiumEnable")
+          pcall(vim.cmd, "CodeiumEnable") -- pcall in case Codeium not loaded
           vim.o.so = 8 -- Reset to default scroll offset
           vim.b.writing_mode = false
         end
-      end, { buffer = 0, desc = "toggle writing mode" })
+      end, { desc = "toggle writing mode" })
 
       -- Keymap to log the variable under the cursor
       vim.keymap.set("n", "<leader>lv", function()
