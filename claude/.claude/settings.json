@@ -14,7 +14,7 @@
       "Bash(docker-compose ps:*)",
       "Bash(docker-compose up:*)",
       "Bash(find:*)",
-      "Bash(gh issue view*)",
+      "Bash(gh issue view:*)",
       "Bash(git:*)",
       "Bash(grep:*)",
       "Bash(ls:*)",
