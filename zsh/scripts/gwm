@@ -3,12 +3,14 @@
 # Git Worktree Manager (gwm)
 # Interactive worktree management using fzf
 
-# Main menu
-action=$(printf "Add worktree\nRemove worktree" | fzf --prompt="Select action: ")
+# Main loop
+while true; do
+  # Main menu
+  action=$(printf "Add worktree\nRemove worktree" | fzf --prompt="Select action: ")
 
-[[ -z "$action" ]] && exit 0
+  [[ -z "$action" ]] && exit 0
 
-if [[ "$action" == "Add worktree" ]]; then
+  if [[ "$action" == "Add worktree" ]]; then
   # Add flow
   branch_type=$(printf "existing\nnew" | fzf --prompt="Branch type: ")
   [[ -z "$branch_type" ]] && exit 0
@@ -64,8 +66,10 @@ if [[ "$action" == "Add worktree" ]]; then
     # Create worktree with new branch
     git worktree add -b "$branch_name" "$branch_name" "$base_branch"
   fi
+  exit 0
+  fi
 
-elif [[ "$action" == "Remove worktree" ]]; then
+  if [[ "$action" == "Remove worktree" ]]; then
   # Remove flow
   # List worktrees
   worktree=$(git worktree list | fzf --prompt="Select worktree to remove: " | awk '{print $1}')
@@ -111,4 +115,5 @@ elif [[ "$action" == "Remove worktree" ]]; then
       fi
     fi
   fi
-fi
+  fi
+done
