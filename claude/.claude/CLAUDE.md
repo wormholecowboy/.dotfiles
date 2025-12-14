@@ -49,3 +49,7 @@
 ## 7. ANTI-Patterns (avoid these)
 - **Magic strings, numbers, etc:** Use named constants instead.  
 - **Random reformatting**: Don’t reformat code.
+
+## 8. Modifiers
+If you see these modifiers in my query, apply them:
+- `*sa`: give a short answer
