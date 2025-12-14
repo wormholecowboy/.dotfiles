@@ -38,11 +38,10 @@
       "Bash(uv pip list:*)",
       "Find(*)",
       "Read(*)",
-      "Read(*)",
       "Web Search(*)",
       "mcp__archon",
       "mcp__context7",
-      "mcp__shadcn",
+      "mcp__shadcn"
     ],
     "deny": [
       "Bash(curl:*)",
