@@ -21,7 +21,15 @@ while true; do
     [[ -z "$branch" ]] && exit 0
 
     # Extract branch name for worktree directory
-    worktree_name=$(basename "$branch")
+    # Check if branch starts with a remote name (e.g., origin/feature/foo)
+    remote_prefix="${branch%%/*}"
+    if git remote | grep -qx "$remote_prefix" 2>/dev/null; then
+      # Remote branch - strip only the remote name, keep the rest (e.g., feature/foo)
+      worktree_name="${branch#*/}"
+    else
+      # Local branch - use last component
+      worktree_name=$(basename "$branch")
+    fi
 
     # Check if worktree directory already exists
     if [[ -e "$worktree_name" ]]; then
