@@ -3,12 +3,14 @@
 # Git Worktree Manager (gwm)
 # Interactive worktree management using fzf
 
-# Main menu
-action=$(printf "Add worktree\nRemove worktree" | fzf --prompt="Select action: ")
+# Main loop
+while true; do
+  # Main menu
+  action=$(printf "Add worktree\nRemove worktree" | fzf --prompt="Select action: ")
 
-[[ -z "$action" ]] && exit 0
+  [[ -z "$action" ]] && exit 0
 
-if [[ "$action" == "Add worktree" ]]; then
+  if [[ "$action" == "Add worktree" ]]; then
   # Add flow
   branch_type=$(printf "existing\nnew" | fzf --prompt="Branch type: ")
   [[ -z "$branch_type" ]] && exit 0
@@ -19,7 +21,15 @@ if [[ "$action" == "Add worktree" ]]; then
     [[ -z "$branch" ]] && exit 0
 
     # Extract branch name for worktree directory
-    worktree_name=$(basename "$branch")
+    # Check if branch starts with a remote name (e.g., origin/feature/foo)
+    remote_prefix="${branch%%/*}"
+    if git remote | grep -qx "$remote_prefix" 2>/dev/null; then
+      # Remote branch - strip only the remote name, keep the rest (e.g., feature/foo)
+      worktree_name="${branch#*/}"
+    else
+      # Local branch - use last component
+      worktree_name=$(basename "$branch")
+    fi
 
     # Check if worktree directory already exists
     if [[ -e "$worktree_name" ]]; then
@@ -64,8 +74,10 @@ if [[ "$action" == "Add worktree" ]]; then
     # Create worktree with new branch
     git worktree add -b "$branch_name" "$branch_name" "$base_branch"
   fi
+  exit 0
+  fi
 
-elif [[ "$action" == "Remove worktree" ]]; then
+  if [[ "$action" == "Remove worktree" ]]; then
   # Remove flow
   # List worktrees
   worktree=$(git worktree list | fzf --prompt="Select worktree to remove: " | awk '{print $1}')
@@ -111,4 +123,5 @@ elif [[ "$action" == "Remove worktree" ]]; then
       fi
     fi
   fi
-fi
+  fi
+done
