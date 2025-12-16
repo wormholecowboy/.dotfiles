@@ -46,18 +46,29 @@ After completing implementation tasks:
 - Follow the testing approach outlined
 - Ensure tests cover edge cases
 
-### 4. Run Validation Commands
+### 4. Run Validation (Trigger Validation Agent)
 
-Execute ALL validation commands from the plan in order:
+**IMPORTANT**: When you reach this phase, you MUST trigger the `execute-validation-runner` agent.
 
-```bash
-# Run each command exactly as specified in plan
+Use the Task tool to launch the validation agent with this prompt:
+```
+Validate the implementation against plan file: $ARGUMENTS
+
+Focus on these validation headings in the plan:
+- ## VALIDATION COMMANDS
+- ## TESTING STRATEGY
+- ## ACCEPTANCE CRITERIA
+- ## COMPLETION CHECKLIST
+
+Execute all validation commands and verify all criteria are met.
 ```
 
-If any command fails:
+Wait for the validation agent to complete and review its report.
+
+If any validation fails:
 - Fix the issue
-- Re-run the command
-- Continue only when it passes
+- Re-trigger the validation agent
+- Continue only when all validations pass
 
 ### 5. Final Verification
 
@@ -65,7 +76,7 @@ Before completing:
 
 - ✅ All tasks from plan completed
 - ✅ All tests created and passing
-- ✅ All validation commands pass
+- ✅ Validation agent reports all checks passed
 - ✅ Code follows project conventions
 - ✅ Documentation added/updated as needed
 
@@ -83,10 +94,10 @@ Provide summary:
 - Test cases implemented
 - Test results
 
-### Validation Results
-```bash
-# Output from each validation command
-```
+### Validation Agent Results
+- Summary from execute-validation-runner agent
+- Pass/fail status for each validation heading
+- Any fixes applied based on validation failures
 
 ### Ready for Commit
 - Confirm all changes are complete
