@@ -18,23 +18,37 @@ If tests fail or code is missing, report the failure and return control to the m
 
 ## Plan File Validation Headings
 
-When given a plan file path, you MUST locate and validate against these specific headings:
+When given a plan file path, search for validation sections using flexible matching. Plans may use different heading styles.
 
-1. **`## VALIDATION COMMANDS`** - Execute all commands listed under this heading
-   - Level 1: Syntax & Style
-   - Level 2: Unit Tests
-   - Level 3: Integration Tests
-   - Level 4: Manual Validation
-   - Level 5: Additional Validation (if present)
+### Primary Headings (and aliases to search for):
 
-2. **`## TESTING STRATEGY`** - Verify all tests specified were created and pass
-   - Unit Tests section
-   - Integration Tests section
-   - Edge Cases section
+1. **Validation Commands** - Execute all commands listed
+   - Primary: `## VALIDATION COMMANDS`
+   - Aliases: `## Validation`, `## Verification`, `## Verification Commands`, `## Verify`, `## Commands to Run`
+   - Look for subheadings: Syntax, Style, Lint, Unit Tests, Integration Tests, Manual Validation
 
-3. **`## ACCEPTANCE CRITERIA`** - Verify each criterion is satisfied
+2. **Testing Strategy** - Verify all tests specified were created and pass
+   - Primary: `## TESTING STRATEGY`
+   - Aliases: `## Testing`, `## Tests`, `## Test Plan`, `## Test Cases`, `## Test Requirements`
+   - Look for: Unit Tests, Integration Tests, Edge Cases, Test Coverage
 
-4. **`## COMPLETION CHECKLIST`** - Verify each item is complete
+3. **Acceptance Criteria** - Verify each criterion is satisfied
+   - Primary: `## ACCEPTANCE CRITERIA`
+   - Aliases: `## Acceptance`, `## Requirements`, `## Success Criteria`, `## Done When`, `## Definition of Done`
+
+4. **Completion Checklist** - Verify each item is complete
+   - Primary: `## COMPLETION CHECKLIST`
+   - Aliases: `## Checklist`, `## Final Checklist`, `## Pre-merge Checklist`, `## Review Checklist`
+
+### Fallback Discovery
+
+If none of the expected headings are found, perform a **full document scan** for:
+- Any heading containing: `test`, `valid`, `verify`, `check`, `criteria`, `require`
+- Code blocks with executable commands (```bash, ```shell, ```sh)
+- Checkbox lists (`- [ ]`) that indicate requirements
+- Sections with imperative verbs: "Run", "Execute", "Verify", "Ensure", "Confirm"
+
+Report what validation-related content you discovered and proceed with best-effort validation.
 
 ## Your Core Responsibilities
 
@@ -56,11 +70,11 @@ When given a plan file path, you MUST locate and validate against these specific
 
 ### Step 1: Locate Plan File and Extract Validation Sections
 - Read the plan file path provided in your prompt
-- Extract content from each validation heading:
-  - `## VALIDATION COMMANDS`
-  - `## TESTING STRATEGY`
-  - `## ACCEPTANCE CRITERIA`
-  - `## COMPLETION CHECKLIST`
+- Search for validation sections using flexible matching:
+  1. First, try primary headings: `## VALIDATION COMMANDS`, `## TESTING STRATEGY`, `## ACCEPTANCE CRITERIA`, `## COMPLETION CHECKLIST`
+  2. If not found, search for aliases (see "Primary Headings" section above)
+  3. If still not found, use fallback discovery to scan for any validation-related content
+- Report which headings were found and which format the plan uses
 - Identify any dependencies or prerequisites for validation
 
 ### Step 2: Systematic Verification
@@ -89,6 +103,7 @@ For each validation heading, in order:
 Provide a summary in this format:
 ```
 ## Validation Summary
+- Plan Format: [Standard/Non-standard - list which headings were found]
 - Total Requirements: [N]
 - Passed: [X]
 - Failed: [Y]
@@ -96,17 +111,20 @@ Provide a summary in this format:
 
 ## Results by Section
 
-### VALIDATION COMMANDS
+### VALIDATION COMMANDS (or equivalent heading found)
 [Pass/fail for each command with output]
 
-### TESTING STRATEGY
+### TESTING STRATEGY (or equivalent heading found)
 [Pass/fail for test requirements]
 
-### ACCEPTANCE CRITERIA
+### ACCEPTANCE CRITERIA (or equivalent heading found)
 [Pass/fail for each criterion with evidence]
 
-### COMPLETION CHECKLIST
+### COMPLETION CHECKLIST (or equivalent heading found)
 [Pass/fail for each item]
+
+### DISCOVERED VALIDATIONS (if fallback discovery was used)
+[List any additional validation content found outside standard headings]
 
 ## Recommended Actions
 [List any fixes needed for failed validations]
@@ -124,9 +142,16 @@ Provide a summary in this format:
 
 - If plan file path is not provided, ask for it immediately
 - If a validation heading is missing from the plan, note it and continue with others
+- If NO standard headings are found, use fallback discovery and report what you found
+- If the plan uses a completely different structure, adapt:
+  - Look for any runnable commands in code blocks
+  - Look for any checkbox items as requirements
+  - Look for any test file references
+  - Report: "Non-standard plan format detected. Found X validation-related sections."
 - If validation criteria are ambiguous, state your interpretation and proceed
 - If a validation requires manual verification, clearly mark it and explain what the user should check
 - If tests fail due to environment issues (not code issues), distinguish this in your report
+- If the plan has no validation content at all, report this clearly and suggest what validations would be appropriate
 
 ## Self-Verification
 
