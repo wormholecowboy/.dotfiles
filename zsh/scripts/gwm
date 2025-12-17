@@ -6,7 +6,7 @@
 # Main loop
 while true; do
   # Main menu
-  action=$(printf "Add worktree\nRemove worktree" | fzf --prompt="Select action: ")
+  action=$(printf "Add worktree\nRemove worktree\nRename worktree" | fzf --prompt="Select action: ")
 
   [[ -z "$action" ]] && exit 0
 
@@ -123,5 +123,58 @@ while true; do
       fi
     fi
   fi
+  fi
+
+  if [[ "$action" == "Rename worktree" ]]; then
+  # Rename flow
+  # List worktrees (excluding main repo)
+  worktree=$(git worktree list | tail -n +2 | fzf --prompt="Select worktree to rename: " | awk '{print $1}')
+  [[ -z "$worktree" ]] && exit 0
+
+  # Get the current worktree directory name
+  current_name=$(basename "$worktree")
+
+  # Get the branch associated with this worktree
+  branch_name=$(git worktree list --porcelain | awk -v wt="$worktree" '
+    $1 == "worktree" && $2 == wt {found=1; next}
+    found && $1 == "branch" {sub(/^refs\/heads\//, "", $2); print $2; exit}
+  ')
+
+  if [[ -z "$branch_name" ]]; then
+    echo "Error: Could not determine branch for worktree"
+    exit 1
+  fi
+
+  # Prompt for new name
+  echo -n "Enter new name for worktree/branch '$current_name': "
+  read new_name
+
+  [[ -z "$new_name" ]] && echo "No name provided" && exit 1
+
+  # Check if new directory already exists
+  parent_dir=$(dirname "$worktree")
+  new_path="$parent_dir/$new_name"
+
+  if [[ -e "$new_path" ]]; then
+    echo "Error: Directory '$new_path' already exists"
+    exit 1
+  fi
+
+  # Check if new branch name already exists
+  if git show-ref --verify --quiet "refs/heads/$new_name"; then
+    echo "Error: Branch '$new_name' already exists"
+    exit 1
+  fi
+
+  # Rename the branch first
+  git branch -m "$branch_name" "$new_name"
+  echo "Branch renamed: $branch_name → $new_name"
+
+  # Move the worktree directory (git tracks this properly)
+  git worktree move "$worktree" "$new_path"
+  echo "Worktree moved: $current_name → $new_name"
+
+  echo "✓ Worktree and branch successfully renamed to '$new_name'"
+  exit 0
   fi
 done
