@@ -1,5 +1,6 @@
 return {
 	"nvim-treesitter/nvim-treesitter-context",
+	enabled = false, -- Disabled due to bash injection query issues in markdown
 	event = { "BufReadPre", "BufNewFile" },
 	opts = { mode = "cursor" },
 	config = function(_, opts)
@@ -16,7 +17,11 @@ return {
 			-- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
 			separator = nil,
 			zindex = 20, -- The Z-index of the context window
-			on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
+			on_attach = function(buf)
+				-- Disable for markdown due to bash injection query issues
+				local ft = vim.bo[buf].filetype
+				return ft ~= "markdown"
+			end,
 		})
 	end,
 }
