@@ -10,7 +10,7 @@ You are about to create a session summary file that will allow work to continue 
 
 ## Output Location
 
-Create the summary file at: `[git-repo-root]/tmp/claude-session-[branch-name]-[timestamp].md`
+Create the summary file at: `[git-repo-root]/tmp/claude-session-[timestamp]-[branch-name].md`
 
 Where:
 - `[branch-name]` is the current git branch (sanitized for filename)
