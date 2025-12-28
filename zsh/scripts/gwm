@@ -6,7 +6,7 @@
 # Main loop
 while true; do
   # Main menu
-  action=$(printf "Add worktree\nRemove worktree\nRename worktree" | fzf --prompt="Select action: ")
+  action=$(printf "Add worktree\nDelete worktree\nRename worktree" | fzf --prompt="Select action: ")
 
   [[ -z "$action" ]] && exit 0
 
@@ -77,10 +77,10 @@ while true; do
   exit 0
   fi
 
-  if [[ "$action" == "Remove worktree" ]]; then
-  # Remove flow
+  if [[ "$action" == "Delete worktree" ]]; then
+  # Delete flow
   # List worktrees
-  worktree=$(git worktree list | fzf --prompt="Select worktree to remove: " | awk '{print $1}')
+  worktree=$(git worktree list | fzf --prompt="Select worktree to delete: " | awk '{print $1}')
   [[ -z "$worktree" ]] && exit 0
 
   # Extract worktree name
