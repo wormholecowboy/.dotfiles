@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(zsh:*)"
+      "Bash(zsh:*)",
+      "WebSearch",
+      "WebFetch(domain:docs.anthropic.com)"
     ]
   }
 }
