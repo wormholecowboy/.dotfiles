@@ -10,7 +10,7 @@ You are resuming work from a previous Claude Code session. Your task is to load 
 
 ## Step 1: Find the Most Recent Session File
 
-Look in `[git-repo-root]/tmp/session-summaries/` for files matching the pattern `claude-session-[initials]-[timestamp]-[branch].md`
+Look in `[git-repo-root]/tmp/session-summaries/` for files matching the pattern `[timestamp]-[brief-description].md`
 
 Select the most recent one based on the timestamp in the filename (format: YYYYMMDD-HHMMSS).
 
@@ -39,14 +39,14 @@ After loading context, ask the user:
 
 ## Handling Multiple Sessions
 
-If multiple session files exist for the same branch:
+If multiple session files exist:
 - Default to the most recent
 - If $ARGUMENTS contains "list", show all available sessions and let user choose
-- If $ARGUMENTS contains a partial filename, timestamp, or initials, match that specific session
+- If $ARGUMENTS contains a partial filename, timestamp, or description keyword, match that specific session
 
 ## Example Usage
 
 - `/resume-session` - Load the most recent session
 - `/resume-session list` - Show all available sessions
 - `/resume-session 20250128` - Load session from specific date
-- `/resume-session BG` - Load most recent session by developer initials
+- `/resume-session auth` - Load session matching "auth" in description
