@@ -45,6 +45,7 @@
 - New repos: use **blank settings** (no `.gitignore`, no README, MIT license).  
 - Default branch: `main`.  
 - Use **git** and **GitHub CLI** for all repo commands.  
+- Assume you are already in the parent directory of the repo unless otherwise specified. Run search tools from cwd.
 
 ## 7. ANTI-Patterns (avoid these)
 - **Magic strings, numbers, etc:** Use named constants instead.  
