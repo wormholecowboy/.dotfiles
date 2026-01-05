@@ -34,7 +34,15 @@ return {
 			},
 		})
 
-		vim.lsp.config("ts_ls", { capabilities = capabilities })
+		vim.lsp.config("ts_ls", {
+			capabilities = capabilities,
+			-- Workaround for vim.fs.root bug in Neovim 0.12-dev
+			root_dir = function(bufnr, on_dir)
+				local root_markers = { "package.json", "tsconfig.json", "jsconfig.json", ".git" }
+				local root = vim.fs.root(bufnr, root_markers)
+				on_dir(root or vim.fn.getcwd())
+			end,
+		})
 		vim.lsp.config("bashls", { capabilities = capabilities })
 		vim.lsp.config("terraformls", { capabilities = capabilities })
 

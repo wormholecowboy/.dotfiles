@@ -82,3 +82,10 @@ export PATH=/Library/TeX/texbin:$PATH
 
 # opencode
 export PATH=/Users/brian.gildea/.opencode/bin:$PATH
+
+# bun completions
+[ -s "/Users/briangildea/.bun/_bun" ] && source "/Users/briangildea/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

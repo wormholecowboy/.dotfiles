@@ -10,11 +10,11 @@ You are about to create a session summary file that will allow work to continue 
 
 ## Output Location
 
-Create the summary file at: `[git-repo-root]/tmp/claude-session-[branch-name]-[timestamp].md`
+Create the summary file at: `[git-repo-root]/tmp/session-summaries/[timestamp]-[brief-description].md`
 
 Where:
-- `[branch-name]` is the current git branch (sanitized for filename)
 - `[timestamp]` is current datetime as YYYYMMDD-HHMMSS
+- `[brief-description]` is a short, kebab-case description of the session's main focus (e.g., "auth-refactor", "api-bugfix", "new-dashboard")
 
 ## Analysis Instructions
 
@@ -68,8 +68,8 @@ Review the ENTIRE conversation history and intelligently determine what to inclu
 ```markdown
 # Claude Session Summary
 Generated: [timestamp]
-Branch: [branch-name]
 Repository: [repo-path]
+Session Focus: [brief-description]
 
 ## User's Additional Context
 [Include $ARGUMENTS here if provided, otherwise state "None provided"]
@@ -115,6 +115,6 @@ Include full absolute paths. Categorize as:]
 2. Apply the include/exclude logic above
 3. Generate the summary file
 4. Report the file path to the user
-5. Suggest they can start a new session with: `cat /tmp/claude-session-*.md` to provide context
+5. Suggest they can start a new session with: `cat /tmp/session-summaries/*.md` to provide context
 
 Be ruthless about excluding completed work - the goal is a minimal, actionable summary that lets work continue efficiently.

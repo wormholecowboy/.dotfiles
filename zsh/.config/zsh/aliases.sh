@@ -90,3 +90,6 @@ cc() {
 alias claudep="CLAUDE_CONFIG_DIR=~/.claude-personal claude"
 alias clauder="CLAUDE_CONFIG_DIR=~/.claude-rebar claude"
 alias claudelv="CLAUDE_CONFIG_DIR=~/.claude-lead-venture claude"
+
+# Ash sandbox - isolated Claude session with network restrictions
+alias ash-sandbox="~/things/myc/ash/main/tools/ccli/claude-sandbox.sh"
