@@ -118,4 +118,3 @@ Include full absolute paths. Categorize as:]
 5. Suggest they can start a new session with: `cat /tmp/claude-session-*.md` to provide context
 
 Be ruthless about excluding completed work - the goal is a minimal, actionable summary that lets work continue efficiently.
-
