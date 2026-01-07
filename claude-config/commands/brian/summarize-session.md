@@ -10,7 +10,7 @@ You are about to create a session summary file that will allow work to continue 
 
 ## Output Location
 
-Create the summary file at: `[git-repo-root]/tmp/session-summaries/[timestamp]-[brief-description].md`
+Create the summary file at: `[git-repo-root]/.session-summaries/[timestamp]-[brief-description].md`
 
 Where:
 - `[timestamp]` is current datetime as YYYYMMDD-HHMMSS
@@ -115,6 +115,6 @@ Include full absolute paths. Categorize as:]
 2. Apply the include/exclude logic above
 3. Generate the summary file
 4. Report the file path to the user
-5. Suggest they can start a new session with: `cat /tmp/session-summaries/*.md` to provide context
+5. Suggest they can start a new session with: `cat /.session-summaries/*.md` to provide context
 
 Be ruthless about excluding completed work - the goal is a minimal, actionable summary that lets work continue efficiently.
