@@ -83,7 +83,7 @@ if [ "$context_size" != "0" ] && [ "$context_size" != "null" ] && [ "$current_us
   # Format token counts in K (thousands)
   tokens_k=$(awk "BEGIN {printf \"%.1f\", $total_tokens/1000}")
   context_k=$(awk "BEGIN {printf \"%.0f\", $context_size/1000}")
-  output+=$(printf '\033[2;35m⧗%sk/%sk (%s%%)\033[0m ' "$tokens_k" "$context_k" "$percent_used")
+  output+=$(printf '\033[2;35m⧗ %sk/%sk (%s%%)\033[0m ' "$tokens_k" "$context_k" "$percent_used")
 fi
 
 # Code change stats (green for added, red for removed)
