@@ -17,9 +17,6 @@ cd "$cwd" 2>/dev/null || { echo "$cwd"; exit 0; }
 # Build the status line similar to Starship
 output=""
 
-# Model name (cyan)
-output+=$(printf '\033[2;36m[%s]\033[0m ' "$model_name")
-
 # Directory path (orange/yellow color: #FFA825)
 # Show only last two directories
 dir_display=$(echo "$cwd" | awk -F'/' '{print $(NF-1)"/"$NF}')
@@ -72,6 +69,9 @@ if git rev-parse --git-dir > /dev/null 2>&1; then
     output+=$'\n'
   fi
 fi
+
+# Model name (cyan)
+output+=$(printf '\033[2;36m[%s]\033[0m ' "$model_name")
 
 # Context window usage (magenta)
 if [ "$context_size" != "0" ] && [ "$context_size" != "null" ] && [ "$current_usage" != "null" ]; then
