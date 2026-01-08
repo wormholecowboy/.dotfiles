@@ -54,3 +54,11 @@
 ## 8. Modifiers
 If you see these modifiers in my query, apply them:
 - `*sa`: give a short answer
+
+## 9. Explore Agent Usage
+When using the Explore agent, ALWAYS:
+1. Pass the explicit cwd path in the prompt
+2. Verify found files exist before reporting
+3. Never assume standard project structures
+4. Report back which worktree was searched, if any
+
