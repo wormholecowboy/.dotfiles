@@ -21,8 +21,8 @@ output=""
 output+=$(printf '\033[2;36m[%s]\033[0m ' "$model_name")
 
 # Directory path (orange/yellow color: #FFA825)
-# Using dimmed colors for status line
-dir_display="$cwd"
+# Show only last two directories
+dir_display=$(echo "$cwd" | awk -F'/' '{print $(NF-1)"/"$NF}')
 output+=$(printf '\033[2;38;2;255;168;37m%s\033[0m ' "$dir_display")
 
 # Git branch and status (if in a git repo)
@@ -67,8 +67,9 @@ if git rev-parse --git-dir > /dev/null 2>&1; then
     [ "$staged" -gt 0 ] && git_status+=$(printf '\033[2;32m++(%s)\033[0m' "$staged")
     
     if [ -n "$git_status" ]; then
-      output+="$git_status "
+      output+="$git_status"
     fi
+    output+=$'\n'
   fi
 fi
 
