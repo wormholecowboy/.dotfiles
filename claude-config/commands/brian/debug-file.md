@@ -1,3 +1,7 @@
+---
+description: Create a debug copy of a file with logging to help diagnose a bug
+---
+
 File: $1
 Bug description: $2
 
