@@ -2,9 +2,11 @@
 description: Create a git commit for only staged files, leaving working tree uncommitted
 ---
 
-Create a new commit for ONLY changed files in staging (working tree MUST stay uncommited)
-run git status && git diff HEAD && git status --porcelain to see what files are uncommitted
+Use the **git-ops** subagent (via Task tool) to commit only staged files.
 
-Add an atomic commit message with an appropriate message
-
-add a tag such as "feat", "fix", "docs", etc. that reflects our work
+Instructions for the subagent:
+- Run `git status && git diff --staged && git status --porcelain` to see staged vs unstaged files
+- Commit ONLY the staged files (do NOT add unstaged files)
+- Working tree changes MUST stay uncommitted
+- Use conventional commit format (feat, fix, docs, etc.)
+- Create an atomic commit with appropriate message
