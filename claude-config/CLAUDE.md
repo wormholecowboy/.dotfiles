@@ -40,6 +40,7 @@
 - Only use **known, verified** packages/libraries/functions.  
 - Shut down any servers you start.  
 - Ask for help when missing context.  
+- IF we are planning/brainstorming, keep code snippets to a minimum. Focus on concepts.
 
 ## 6. Git & Repo Setup
 - New repos: use **blank settings** (no `.gitignore`, no README, MIT license).  
