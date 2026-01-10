@@ -68,16 +68,5 @@
         ]
       }
     ],
-    "Notification": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "say \"Question\""
-          }
-        ]
-      }
-    ]
   }
 }
