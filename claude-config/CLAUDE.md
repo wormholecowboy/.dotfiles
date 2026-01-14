@@ -40,6 +40,7 @@
 - Only use **known, verified** packages/libraries/functions.  
 - Shut down any servers you start.  
 - Ask for help when missing context.  
+- IF we are planning/brainstorming, keep code snippets to a minimum. Focus on concepts.
 
 ## 6. Git & Repo Setup
 - New repos: use **blank settings** (no `.gitignore`, no README, MIT license).  
@@ -62,3 +63,20 @@ When using the Explore agent, ALWAYS:
 3. Never assume standard project structures
 4. Report back which worktree was searched, if any
 
+## 10. Shorthand
+User will often use shorthand when typing. The list following are examples of common shorthand.
+
+### EXAMPLES
+- w: with
+- bc: because
+- def: definitely
+- ref: reference
+- dir: directory
+- arch: architecture
+- mem: memory
+- diff: difference
+- convo: conversation
+- struct: structure
+- str: stretching
+
+Do your best to infer the meaning of any shorthand. Ask if you're not sure.
