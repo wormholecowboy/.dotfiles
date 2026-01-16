@@ -63,7 +63,17 @@ When using the Explore agent, ALWAYS:
 3. Never assume standard project structures
 4. Report back which worktree was searched, if any
 
-## 10. Shorthand
+## 10. Git-Ops Agent Usage
+**Use git-ops agent for:**
+- Reviewing/summarizing branch history or PRs
+- Complex multi-step operations (rebase workflows, conflict resolution)
+- Anything requiring synthesis of multiple git commands
+
+**Run git commands directly for:**
+- Simple one-liners: `git status`, `git diff`, `git add`, `git commit`
+- Quick checks where raw output is needed immediately
+
+## 11. Shorthand
 User will often use shorthand when typing. The list following are examples of common shorthand.
 
 ### EXAMPLES
