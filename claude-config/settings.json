@@ -46,9 +46,7 @@
       "Read(*)",
       "Search(*)",
       "Web Search(*)",
-      "mcp__archon",
-      "mcp__context7",
-      "mcp__shadcn"
+      "mcp__context7"
     ],
     "deny": [
       "Bash(curl:*)",
@@ -62,16 +60,5 @@
     "command": "bash ~/.dotfiles/claude-config/statusline-command.sh"
   },
   "hooks": {
-    "Stop": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "osascript -e 'set volume output volume 20' ; say \"Ready\""
-          }
-        ]
-      }
-    ]
   }
 }
