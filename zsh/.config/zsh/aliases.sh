@@ -71,22 +71,7 @@ alias tfi="terraform init"
 alias tfv="terraform -v"
 alias tfp="terraform plan"
 
-cc() {
-  local choice=$(echo "personal\nrebar\nlead-venture" | fzf --prompt="Select Claude profile: ")
-  if [ -n "$choice" ]; then
-    case "$choice" in
-      "personal")
-        CLAUDE_CONFIG_DIR=~/.claude-personal command claude "$@"
-        ;;
-      "rebar")
-        CLAUDE_CONFIG_DIR=~/.claude-rebar command claude "$@"
-        ;;
-      "lead-venture")
-        CLAUDE_CONFIG_DIR=~/.claude-lead-venture command claude "$@"
-        ;;
-    esac
-  fi
-}
+alias cc="source ~/.dotfiles/zsh/scripts/cc"
 alias claudep="CLAUDE_CONFIG_DIR=~/.claude-personal claude"
 alias clauder="CLAUDE_CONFIG_DIR=~/.claude-rebar claude"
 alias claudelv="CLAUDE_CONFIG_DIR=~/.claude-lead-venture claude"
