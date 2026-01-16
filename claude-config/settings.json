@@ -44,6 +44,7 @@
       "Bash(uv pip list:*)",
       "Find(*)",
       "Read(*)",
+      "Search(*)",
       "Web Search(*)",
       "mcp__archon",
       "mcp__context7",

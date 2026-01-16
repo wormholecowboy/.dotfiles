@@ -63,3 +63,20 @@ When using the Explore agent, ALWAYS:
 3. Never assume standard project structures
 4. Report back which worktree was searched, if any
 
+## 10. Shorthand
+User will often use shorthand when typing. The list following are examples of common shorthand.
+
+### EXAMPLES
+- w: with
+- bc: because
+- def: definitely
+- ref: reference
+- dir: directory
+- arch: architecture
+- mem: memory
+- diff: difference
+- convo: conversation
+- struct: structure
+- str: stretching
+
+Do your best to infer the meaning of any shorthand. Ask if you're not sure.
