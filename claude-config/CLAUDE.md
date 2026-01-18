@@ -90,3 +90,66 @@ User will often use shorthand when typing. The list following are examples of co
 - str: stretching
 
 Do your best to infer the meaning of any shorthand. Ask if you're not sure.
+
+## 12. Debugger Agent Usage
+
+**Use debugger agent PROACTIVELY for:**
+- Test failures (any test failure)
+- Runtime errors or exceptions
+- Build failures
+- Unexpected behavior reported by user
+- Any error that requires investigation
+
+**Run simple diagnostics directly for:**
+- Obvious typos (missing comma, bracket)
+- Import errors with clear missing dependency
+- Single-line syntax errors
+
+### Debug Context Format
+
+When invoking the debugger agent, ALWAYS pass a Debug Context block:
+
+```yaml
+## Debug Context
+
+### Current Issue
+symptom: |
+  [Exact error message or description]
+error_type: [Test Failure | Runtime Error | Build Error | Unexpected Behavior]
+file: [Primary file involved, if known]
+line: [Line number, if known]
+
+### Reproduction Steps
+1. [Step 1]
+2. [Step 2]
+
+### Environment
+language: [Python | TypeScript | etc.]
+framework: [pytest | jest | etc.]
+relevant_dependencies: [List any relevant packages]
+
+### Previous Attempts (if any)
+- attempt_1:
+    hypothesis: [What we thought was wrong]
+    action: [What we tried]
+    result: [What happened]
+
+### Constraints
+- [Known constraints]
+- [Things ruled out]
+```
+
+### Iteration Protocol
+
+1. Debugger investigates, confirms root cause, and applies fix directly
+2. Main thread runs verification steps returned by debugger
+3. If fix fails: re-invoke debugger with updated Debug Context (add to Previous Attempts)
+4. If multiple hypotheses remain: debugger will request more info or try most likely fix
+5. Keep history concise - summarize older attempts, detail recent ones
+
+### Output Handling
+
+- Debugger reports what was found AND what was fixed
+- Main thread runs verification steps and updates user
+- If verification fails, re-invoke with updated Debug Context
+- DO NOT copy entire debug report into response - summarize findings
