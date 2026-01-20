@@ -124,6 +124,7 @@ local opts = { silent = true }
 vim.g.mapleader = " "
 
 keymap("i", "kj", "<ESC>", opts) -- alt escape
+keymap("v", "kj", "<ESC>", opts) -- alt escape
 vim.api.nvim_set_keymap("n", "QQ", ":q!<enter>", { noremap = false }) -- quit nv
 
 -- Kill these
