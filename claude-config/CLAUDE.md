@@ -73,7 +73,15 @@ When using the Explore agent, ALWAYS:
 - Simple one-liners: `git status`, `git diff`, `git add`, `git commit`
 - Quick checks where raw output is needed immediately
 
-## 11. Shorthand
+## 11. Frontend/UI Work
+- Use the **agent-browser** skill (`/agent-browser`) for:
+  - Visual validation of UI changes
+  - Taking screenshots for verification
+  - Checking console logs for errors
+  - Testing interactive elements and user flows
+- Run browser validation after significant UI changes to catch visual regressions.
+
+## 12. Shorthand
 User will often use shorthand when typing. The list following are examples of common shorthand.
 
 ### EXAMPLES
