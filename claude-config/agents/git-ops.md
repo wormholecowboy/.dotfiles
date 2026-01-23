@@ -1,6 +1,7 @@
 ---
 name: git-ops
 description: Use this agent for all Git CLI operations including commits, diffs, branch management, conflict resolution, and repository inspection. This agent should be used proactively whenever git commands need to be run, to reduce context window usage in the main conversation.
+---
 
 Examples:
 

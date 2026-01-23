@@ -46,9 +46,7 @@
       "Read(*)",
       "Search(*)",
       "Web Search(*)",
-      "mcp__archon",
-      "mcp__context7",
-      "mcp__shadcn"
+      "mcp__context7"
     ],
     "deny": [
       "Bash(curl:*)",
@@ -62,16 +60,16 @@
     "command": "bash ~/.dotfiles/claude-config/statusline-command.sh"
   },
   "hooks": {
-    "Stop": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "osascript -e 'set volume output volume 20' ; say \"Ready\""
-          }
-        ]
-      }
-    ]
+  },
+  "mcpServers": {
+     "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp --api-key $CONTEXT7_API_KEY"]
+    },
+      "chrome-devtools": {
+      "command": "npx",
+      "args": ["-y", "chrome-devtools-mcp@latest"]
+    }
+
   }
 }
