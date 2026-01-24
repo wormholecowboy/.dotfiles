@@ -6,6 +6,9 @@
 export EDITOR=nvim
 export XDG_CONFIG_HOME=~/.config
 
+# Variables
+export CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR=1
+
 # LF highlighting
 # export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
 # export LESS=' -R '
