@@ -161,3 +161,15 @@ relevant_dependencies: [List any relevant packages]
 - Main thread runs verification steps and updates user
 - If verification fails, re-invoke with updated Debug Context
 - DO NOT copy entire debug report into response - summarize findings
+
+## 13. Server/Process Startup
+
+**Before starting any server:**
+1. `lsof -i :PORT` - Check if already running. If yes, ask before killing.
+2. Look for `requirements.txt` or `pyproject.toml` before installing deps one-by-one.
+3. Use project venv (`uv run`, `.venv/bin/python`), never system Python.
+4. If venv is broken, recreate it rather than patching symlinks.
+
+**Common ports to check:** 3000 (React), 5173 (Vite), 8000 (FastAPI/uvicorn), 8080 (generic)
+
+**Anti-pattern:** Spawning background server processes that respawn and conflict with each other. Always track what you've started.
