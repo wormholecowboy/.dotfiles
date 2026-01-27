@@ -9,6 +9,7 @@ return {
 		{ "<leader>gg", "<cmd>Neogit<cr>", desc = "neogit" },
 		{ "<leader>gv", "<cmd>DiffviewOpen<cr>", desc = "diffview" },
 		{ "<leader>gx", "<cmd>DiffviewClose<cr>", desc = "close diffview" },
+		{ "<leader>gf", "<cmd>DiffviewFileHistory<cr>", desc = "file history" },
 	},
 	config = function()
 		-- Neogit setup
