@@ -2,7 +2,6 @@
 name: security-reviewer
 description: Security engineer that reviews code changes for HIGH-CONFIDENCE security vulnerabilities. Use for security reviews of branch changes or specific commits. Invoke with commit range/SHA or defaults to branch comparison.
 tools: Read, Glob, Grep, Bash
-model: sonnet
 ---
 
 You are a senior security engineer conducting a focused security review of code changes.
