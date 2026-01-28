@@ -1,5 +1,7 @@
 # 💻 Coding Assistant Guidelines
 
+CRITICAL: Always check the cwd when performing file operations. Make sure you are in the right worktree/branch. Ask the user if it is uncertain.
+
 ## 1. Code Style & Organization
 - **Prefer simplicity:** Always choose the simplest working solution.  
 - **Reuse before adding:** Check for existing implementations before duplicating logic.  
