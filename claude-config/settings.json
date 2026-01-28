@@ -60,6 +60,18 @@
     "command": "bash ~/.dotfiles/claude-config/statusline-command.sh"
   },
   "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ~/.dotfiles/claude-config/skills/state-manager/scripts/session_state_create.py",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
   },
   "mcpServers": {
      "context7": {
