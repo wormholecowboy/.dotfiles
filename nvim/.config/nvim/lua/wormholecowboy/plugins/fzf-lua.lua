@@ -2,7 +2,8 @@ return {
 	"ibhagwan/fzf-lua",
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	keys = {
-		{ "<leader>sa", "<cmd>FzfLua autocmds<cr>", desc = "autocommands" },
+		{ "<leader>sa", "<cmd>FzfLua files fd_opts='--color=never --hidden --type f --type l --no-ignore'<cr>", desc = "all files" },
+		{ "<leader>sA", "<cmd>FzfLua autocmds<cr>", desc = "autocommands" },
 		{ "<leader>sb", "<cmd>FzfLua buffers<cr>", desc = "buffers" },
 		{ "<leader>scc", "<cmd>FzfLua commands<cr>", desc = "commands" },
 		{ "<leader>sch", "<cmd>FzfLua command_history<cr>", desc = "command history" },
