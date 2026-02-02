@@ -17,3 +17,5 @@ extra optional user context = $ARGUMENTS
 
 **Verification**: If you see paths containing `.bare/` or `worktrees/` in search results, STOP - you've escaped the worktree boundary.
 
+**ASK USER IF YOU ARE UNSURE OF PATH OR WORKING DIRECTORY**
+
