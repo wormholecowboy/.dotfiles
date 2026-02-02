@@ -83,6 +83,7 @@ map mm mark-save
 map au unarchive
 map af select-files
 map ad select-dirs
+map l $$EDITOR $f
 
 
 # Movement
