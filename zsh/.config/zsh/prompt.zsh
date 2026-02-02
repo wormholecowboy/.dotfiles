@@ -5,7 +5,7 @@ autoload -Uz vcs_info
 precmd() { vcs_info }
 
 # Git branch format: [icon branch] in green with white brackets
-zstyle ':vcs_info:git:*' formats '%F{white}[%F{green} %b%F{white}]%f '
+zstyle ':vcs_info:git:*' formats '%F{white}[%F{green}%b%F{white}]%f '
 zstyle ':vcs_info:*' enable git
 
 # Enable prompt substitution
