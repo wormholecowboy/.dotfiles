@@ -60,28 +60,7 @@
     "command": "bash ~/.dotfiles/claude-config/statusline-command.sh"
   },
   "hooks": {
-    "SessionStart": [
-      {
-        "matcher": "startup",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python3 ~/.dotfiles/claude-config/skills/state-manager/scripts/session_state_create.py",
-            "timeout": 10
-          }
-        ]
-      }
-    ]
   },
   "mcpServers": {
-     "context7": {
-      "command": "npx",
-      "args": ["-y", "@upstash/context7-mcp --api-key $CONTEXT7_API_KEY"]
-    },
-      "chrome-devtools": {
-      "command": "npx",
-      "args": ["-y", "chrome-devtools-mcp@latest"]
-    }
-
   }
 }
