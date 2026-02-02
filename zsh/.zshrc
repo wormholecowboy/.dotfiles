@@ -56,8 +56,9 @@ setopt pushdminus
 . ~/things/scripts/dirchanger.sh
 . ~/.config/lf/lfcd.sh
 . ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-eval "$(zoxide init zsh)"
-eval "$(starship init zsh)"
+# Cached init scripts (regenerate after upgrades: zoxide init zsh > ~/.config/zsh/zoxide.zsh)
+source ~/.config/zsh/zoxide.zsh
+source ~/.config/zsh/starship.zsh
 . ~/.config/zsh/aliases.sh
 . ~/.config/zsh/syntax-hl/zsh-syntax-highlighting.zsh
 . ~/.config/zsh/zsh-vi-mode/zsh-vi-mode.zsh
