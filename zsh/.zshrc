@@ -58,7 +58,7 @@ setopt pushdminus
 . ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # Cached init scripts (regenerate after upgrades: zoxide init zsh > ~/.config/zsh/zoxide.zsh)
 source ~/.config/zsh/zoxide.zsh
-source ~/.config/zsh/starship.zsh
+source ~/.config/zsh/prompt.zsh
 . ~/.config/zsh/aliases.sh
 . ~/.config/zsh/syntax-hl/zsh-syntax-highlighting.zsh
 . ~/.config/zsh/zsh-vi-mode/zsh-vi-mode.zsh

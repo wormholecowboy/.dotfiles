@@ -9,10 +9,9 @@ Personal dotfiles repository using GNU Stow-style structure. Each top-level dire
 ## Structure
 
 ```
-zsh/           # Shell config (.zshrc, aliases, plugins)
+zsh/           # Shell config (.zshrc, aliases, plugins, custom prompt)
 tmux/          # Terminal multiplexer (.tmux.conf)
 nvim/          # Neovim config (Lua-based, Lazy plugin manager)
-starship/      # Prompt theme
 lf/            # File manager
 alacritty/     # Terminal emulator
 ghostty/       # Terminal emulator
@@ -23,6 +22,7 @@ ai/            # AI prompts, rules, and templates
 ## Key Files
 
 - `zsh/.zshrc` - Main shell config with lazy NVM loading and cached init scripts
+- `zsh/.config/zsh/prompt.zsh` - Custom zsh prompt (path + git branch)
 - `zsh/.config/zsh/aliases.sh` - Shell aliases
 - `tmux/.tmux.conf` - Tmux config with fzf session management
 - `decisions.md` - Architectural decisions log (update when making significant changes)
@@ -32,12 +32,12 @@ ai/            # AI prompts, rules, and templates
 The shell uses several optimizations to reduce startup time:
 
 1. **Lazy NVM loading** - NVM only loads when `node`/`npm`/`nvm`/`npx` is called
-2. **Cached init scripts** - zoxide and starship init outputs are cached
+2. **Cached zoxide init** - zoxide init output is cached
+3. **Custom prompt** - Native zsh prompt using `vcs_info` (replaces starship)
 
-After upgrading these tools, regenerate caches:
+After upgrading zoxide, regenerate cache:
 ```bash
 zoxide init zsh > ~/.config/zsh/zoxide.zsh
-starship init zsh > ~/.config/zsh/starship.zsh
 ```
 
 ## Working with This Repo

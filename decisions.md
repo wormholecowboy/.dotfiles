@@ -14,4 +14,16 @@
 
 **Maintenance notes:**
 - After upgrading zoxide: `zoxide init zsh > ~/.config/zsh/zoxide.zsh`
-- After upgrading starship: `starship init zsh > ~/.config/zsh/starship.zsh`
+
+## 2026-02-02: Replace starship with custom zsh prompt
+
+**Problem:** Starship was an extra dependency to maintain
+
+**Changes made:**
+1. Created `~/.config/zsh/prompt.zsh` with native zsh prompt using `vcs_info`
+2. Removed starship cached init script and config directory
+3. Prompt replicates starship look: orange path (#FFA825), green git branch with white brackets
+
+**Result:** Same 0.58s startup, one less dependency
+
+**File:** `zsh/.config/zsh/prompt.zsh`
