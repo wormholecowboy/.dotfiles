@@ -1,19 +1,20 @@
 ---
-description: Summarize session context to a temp file before context window fills up
+description: Summarize session context to a state file before context window fills up
 ---
 
 User's additional context: $ARGUMENTS
 
-# Summarize Session for Context Continuity
+# Create Session State File
 
-You are about to create a session summary file that will allow work to continue in a fresh Claude Code session. This is an alternative to auto-compact when approaching context limits.
+You are about to create a session state file that will allow work to continue in a fresh Claude Code session. This is an alternative to auto-compact when approaching context limits.
 
 ## Output Location
 
-Create the summary file at: `[git-repo-root]/.session-summaries/[timestamp]-[brief-description].md`
+Create the state file at: `[git-root]/.state-[timestamp]-[brief-description].md`
 
 Where:
-- `[timestamp]` is current datetime as YYYYMMDD-HHMMSS
+- `[git-root]` is the root of the current git repository (use `git rev-parse --show-toplevel`)
+- `[timestamp]` is current datetime as YYYY-MM-DD-HH:MM
 - `[brief-description]` is a short, kebab-case description of the session's main focus (e.g., "auth-refactor", "api-bugfix", "new-dashboard")
 
 ## Analysis Instructions
@@ -63,12 +64,13 @@ Review the ENTIRE conversation history and intelligently determine what to inclu
 - Implied follow-up work
 - Items the user mentioned wanting to do
 
-## Summary File Format
+## State File Format
 
 ```markdown
-# Claude Session Summary
+# Claude Session State
 Generated: [timestamp]
 Repository: [repo-path]
+Branch: [current branch name]
 Session Focus: [brief-description]
 
 ## User's Additional Context
@@ -113,8 +115,8 @@ Include full absolute paths. Categorize as:]
 
 1. Analyze the full conversation
 2. Apply the include/exclude logic above
-3. Generate the summary file
+3. Generate the state file at the git worktree root
 4. Report the file path to the user
-5. Suggest they can start a new session with: `cat /.session-summaries/*.md` to provide context
+5. Suggest they can resume with: `/state-resume` or `/state-resume [description-keyword]`
 
 Be ruthless about excluding completed work - the goal is a minimal, actionable summary that lets work continue efficiently.
