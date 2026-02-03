@@ -34,8 +34,8 @@ Create a well-structured PRD with the following sections. Adapt depth and detail
 - Key user needs and pain points
 
 **4. MVP Scope**
-- **In Scope:** Core functionality for MVP (use ✅ checkboxes)
-- **Out of Scope:** Features deferred to future phases (use ❌ checkboxes)
+- **In Scope:** Core functionality for MVP (use `- [ ]` unchecked todo items)
+- **Out of Scope:** Features deferred to future phases (use bullet points with "N/A" or strikethrough)
 - Group by categories (Core Functionality, Technical, Integration, Deployment)
 
 **5. User Stories**
@@ -74,13 +74,13 @@ Create a well-structured PRD with the following sections. Adapt depth and detail
 
 **11. Success Criteria**
 - MVP success definition
-- Functional requirements (use ✅ checkboxes)
+- Functional requirements (use `- [ ]` unchecked todo items)
 - Quality indicators
 - User experience goals
 
 **12. Implementation Phases**
 - Break down into 3-4 phases
-- Each phase includes: Goal, Deliverables (✅ checkboxes), Validation criteria
+- Each phase includes: Goal, Deliverables (`- [ ]` unchecked todo items), Validation criteria
 - Realistic timeline estimates
 
 **13. Future Considerations**
@@ -130,7 +130,7 @@ Create a well-structured PRD with the following sections. Adapt depth and detail
 
 - **Tone:** Professional, clear, action-oriented
 - **Format:** Use markdown extensively (headings, lists, code blocks, tables)
-- **Checkboxes:** Use ✅ for in-scope items, ❌ for out-of-scope
+- **Checkboxes:** Use `- [ ]` for in-scope/todo items, bullet points for out-of-scope
 - **Specificity:** Prefer concrete examples over abstract descriptions
 - **Length:** Comprehensive but scannable (typically 30-60 sections worth of content)
 
