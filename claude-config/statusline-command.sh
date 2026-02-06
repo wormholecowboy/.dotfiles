@@ -17,58 +17,25 @@ cd "$cwd" 2>/dev/null || { echo "$cwd"; exit 0; }
 # Build the status line similar to Starship
 output=""
 
-# Directory path (orange/yellow color: #FFA825)
-# Show only last two directories
-dir_display=$(echo "$cwd" | awk -F'/' '{print $(NF-1)"/"$NF}')
-output+=$(printf '\033[2;38;2;255;168;37m%s\033[0m ' "$dir_display")
+# Directory path (orange: #FFA825)
+# Show last 5 directories (matches zsh %5~)
+dir_display=$(echo "$cwd" | sed "s|^$HOME|~|" | awk -F'/' '{n=NF; start=(n>5)?n-4:1; for(i=start;i<=n;i++) printf "%s%s", (i>start?"/":""), $i}')
+output+=$(printf '\033[38;2;255;168;37m%s\033[0m ' "$dir_display")
 
-# Git branch and status (if in a git repo)
+# Git branch (if in a git repo)
 if git rev-parse --git-dir > /dev/null 2>&1; then
   # Get branch name
   branch=$(git branch --show-current 2>/dev/null)
   if [ -z "$branch" ]; then
     branch=$(git rev-parse --short HEAD 2>/dev/null)
   fi
-  
+
   if [ -n "$branch" ]; then
-    # Git branch with symbol in green
-    output+=$(printf '\033[2;1;32m[\033[0m')
-    output+=$(printf '\033[2;1;32m\ue725 %s\033[0m' "$branch")
-    output+=$(printf '\033[2;1;32m]\033[0m ')
-    
-    # Git status
-    git_status=""
-    
-    # Check for various git states (skip optional locks)
-    untracked=$(git ls-files --others --exclude-standard 2>/dev/null | wc -l | tr -d ' ')
-    modified=$(git diff --name-only 2>/dev/null | wc -l | tr -d ' ')
-    staged=$(git diff --cached --name-only 2>/dev/null | wc -l | tr -d ' ')
-    
-    # Ahead/behind
-    ahead_behind=$(git rev-list --left-right --count @{upstream}...HEAD 2>/dev/null)
-    if [ -n "$ahead_behind" ]; then
-      behind=$(echo "$ahead_behind" | awk '{print $1}')
-      ahead=$(echo "$ahead_behind" | awk '{print $2}')
-      
-      if [ "$ahead" -gt 0 ] && [ "$behind" -gt 0 ]; then
-        git_status+="⇕⇡😵${ahead}⇣${behind}"
-      elif [ "$ahead" -gt 0 ]; then
-        git_status+="⇡🏎💨${ahead}"
-      elif [ "$behind" -gt 0 ]; then
-        git_status+="⇣😰${behind}"
-      fi
-    fi
-    
-    [ "$untracked" -gt 0 ] && git_status+="🤷"
-    [ "$modified" -gt 0 ] && git_status+="📝"
-    [ "$staged" -gt 0 ] && git_status+=$(printf '\033[2;32m++(%s)\033[0m' "$staged")
-    
-    if [ -n "$git_status" ]; then
-      output+="$git_status"
-    fi
-    output+=$'\n'
+    # Git branch: white brackets, green branch (matches zsh prompt)
+    output+=$(printf '\033[37m[\033[32m%s\033[37m]\033[0m' "$branch")
   fi
 fi
+output+=$'\n'
 
 # Model name (cyan)
 output+=$(printf '\033[2;36m[%s]\033[0m ' "$model_name")
