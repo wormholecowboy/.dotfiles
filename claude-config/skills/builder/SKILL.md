@@ -61,10 +61,14 @@ When invoked via `/builder`:
 **Summary:**
 
 1. **Check Learnings** - Read `learnings.md`, surface relevant past learnings
-2. **Interview (Bidirectional)** - Ask questions, then state assumptions back for confirmation
-3. **Write PRD** - Create `main.md` using the 16-section template in `prd-guide.md`
-4. **Quality Check** - Run through checklist before proceeding
-5. **Initialize ADR** - Create `adr.md` with initial technical decisions
+2. **Interview (Bidirectional)** - Ask questions to understand the goal, then state assumptions back for confirmation
+3. **Explore Codebase** - Use Explore agent to understand patterns, conventions, integration points
+4. **User Flows & UI** - Walk through primary user flows, map screens/states, identify interactions (required for user-facing features)
+5. **Constraints & Scope** - Establish constraints, risks, and explicit out-of-scope items
+6. **Synthesize** - Combine findings into coherent requirements
+7. **Write PRD** - Create `main.md` using the 16-section template in `prd-guide.md`
+8. **Quality Check** - Run through checklist before proceeding
+9. **Initialize ADR** - Create `adr.md` with initial technical decisions
 
 ### Stage 2: Architecture Review (Subagent)
 
@@ -348,6 +352,7 @@ Tracks plan progress and artifacts:
 name: plan-name
 created: 2026-01-17
 current_stage: prd  # prd | arch-review | impl-planning | impl-review | ready | building | final-review | complete
+prd_substage: interview  # interview | exploration | user-flows | constraints | synthesize | writing | quality-check (only when current_stage is prd)
 completed_steps:
   - prd_drafted
   - arch_review_complete
@@ -488,7 +493,7 @@ Create a new plan folder:
 2. **Initialize files:**
    ```
    plans/[name]/
-   ├── state.yaml    # Initialized with name, created date, stage: prd
+   ├── state.yaml    # Initialized with name, created date, stage: prd, prd_substage: interview
    ├── main.md       # PRD template from prd-guide.md
    └── adr.md        # Empty ADR template
    ```

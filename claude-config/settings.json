@@ -54,13 +54,11 @@
       "Read(./secrets/**)"
     ]
   },
-  "alwaysThinkingEnabled": true,
+  "hooks": {},
   "statusLine": {
     "type": "command",
     "command": "bash ~/.dotfiles/claude-config/statusline-command.sh"
   },
-  "hooks": {
-  },
-  "mcpServers": {
-  }
+  "alwaysThinkingEnabled": true,
+  "mcpServers": {}
 }

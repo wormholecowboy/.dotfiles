@@ -45,7 +45,31 @@ Report back what you found:
 
 **Why this matters:** PRD decisions grounded in actual code context are far more accurate than decisions based on conversation alone. Patterns, constraints, and integration points are often implicit in the code.
 
-**Phase 3: Constraints & Scope**
+**Phase 3: User Flows & UI (REQUIRED for user-facing features)**
+
+Before moving to constraints, walk through how users will actually interact with this feature. Abstract requirements miss design gaps that concrete user flow walkthroughs catch.
+
+| Step | What to Do | Why It Matters |
+|------|------------|----------------|
+| Map primary user flow | Walk through the happy path step by step — what does the user see, click, type? | Reveals missing screens, transitions, and data needs |
+| Identify entry points | How does the user get to this feature? Navigation, deep links, notifications? | Prevents orphaned features with no discoverability |
+| Sketch key screens/states | Describe (or ASCII sketch) the main screens, components, or views | Makes abstract requirements concrete and reviewable |
+| Map screen states | For each screen: empty, loading, populated, error, edge case | Prevents "what happens when there's no data?" gaps |
+| Identify interactions | Buttons, forms, modals, drag-drop, keyboard shortcuts | Surfaces complexity hidden in "simple" features |
+| Walk error flows | What happens when things go wrong? Validation, network errors, permissions | Error UX is often an afterthought — catch it here |
+| Consider responsive/accessibility | Mobile vs desktop? Screen reader? Keyboard nav? | Constraints that affect architecture decisions |
+
+**How to discuss with user:**
+> "Let me walk through the user flow. The user starts at [X], sees [Y], clicks [Z]... Does that match your mental model? What am I missing?"
+
+**Output feeds into:**
+- User Stories — grounded in real interactions, not abstract
+- Features Specification — informed by actual screens and states
+- Implementation Phases — phased by user-facing milestones
+
+**When to skip:** Pure backend/infrastructure work with no user-facing component. Even CLI tools benefit from thinking through the command flow.
+
+**Phase 4: Constraints & Scope**
 
 | Question | Why It Matters |
 |----------|----------------|
@@ -216,7 +240,8 @@ Include 3-5 key risks.
 Before moving to Stage 2, verify:
 
 - [ ] **Scope clarity** - In/Out scope sections are explicit
-- [ ] **User stories have benefits** - Each story explains "so that [why]"
+- [ ] **User flows mapped** - Primary flows walked through, screen states identified (or explicitly skipped for non-UI work)
+- [ ] **User stories have benefits** - Each story explains "so that [why]" and is grounded in actual user flows
 - [ ] **Success criteria are measurable** - Can objectively verify completion
 - [ ] **Technical choices are justified** - Rationale provided
 - [ ] **Phases are actionable** - Each has clear deliverables
