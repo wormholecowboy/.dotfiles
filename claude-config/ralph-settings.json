@@ -1,0 +1,17 @@
+  "sandbox": {
+    "enabled": false,
+    "autoAllowBashIfSandboxed": true,
+    "excludedCommands": ["docker", "docker-compose", "supabase", "git"],
+    "network": {
+      "allowedDomains": [
+        "localhost",
+        "127.0.0.1",
+        "github.com",
+        "api.anthropic.com",
+        "pypi.org",
+        "files.pythonhosted.org"
+      ],
+      "allowLocalBinding": true
+    },
+    "allowUnsandboxedCommands": false
+  },

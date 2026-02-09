@@ -476,7 +476,7 @@ Links to PRDs, reviews, external docs.
 | `*build [task-id]` | Build a specific task (spawn task-builder, validate, review, commit) |
 | `*build-next` | Build the next eligible task (unblocked, pending) |
 | `*build-phase [N]` | Build all tasks in phase N sequentially |
-| `*ralph [mode] [max]` | Run automated Ralph loop (see ralph-exec.sh) |
+| `*ralph [max]` | Run automated Ralph loop (see ralph-exec.sh) |
 | `*aggregate` | Run Stage 7 aggregation and final review |
 | `*finalize [path]` | Copy ADR to project folder, mark plan complete |
 | `*save` | Save current state (update state.yaml) |
@@ -551,18 +551,12 @@ Run the Ralph build loop via `ralph-exec.sh`:
 
 ```bash
 # From skill directory
-./ralph-exec.sh <plan-dir> [mode] [max-iterations]
+./ralph-exec.sh <plan-dir> [max-iterations]
 
 # Examples
 ./ralph-exec.sh .claude/plans/my-feature
-./ralph-exec.sh plans/my-feature implementation 20
-./ralph-exec.sh plans/spike exploration 10
+./ralph-exec.sh plans/my-feature 20
 ```
-
-**Modes:**
-- `implementation` (default) - High planning, watch closely, stop if off track
-- `exploration` - Low planning, walk away, for research/MVPs
-- `brute-force` - Testing mode, run overnight in sandbox
 
 **Output signals the script watches for:**
 - `RALPH_COMPLETE` - All tasks done, loop exits successfully
@@ -919,37 +913,6 @@ When the user runs `*one`, toggle a mode where:
 - Confirm current state when toggled: "One-question mode: ON" or "One-question mode: OFF"
 
 This is for low-energy planning sessions where simplicity matters.
-
----
-
-## Build Modes
-
-Three ways to run Stage 6 build, depending on planning intensity and risk tolerance:
-
-### Implementation Mode (Default)
-
-- High planning intensity required
-- Watch first few iterations closely
-- If loop goes off track: **stop, edit spec/impl plan, restart**
-- Best for: real features, production code
-- Use `*build-next` manually or with close monitoring
-
-### Exploration Mode
-
-- Minimal planning - brain dump into spec is acceptable
-- Launch and walk away
-- Best for: research, MVPs, feature spikes, back-burner projects
-- Lower risk, lower quality expectations
-- Good for consuming API tokens before reset
-
-### Brute Force Testing Mode
-
-- Give Claude access to test runner + browser (sandboxed)
-- Let it systematically find bugs and edge cases
-- Run overnight unattended
-- Best for: security testing, UI regression, edge case discovery
-- **Requires sandboxed environment** (Docker container)
-- **UI testing:** Use `/agent-browser` skill for visual validation, screenshots, and interactive element testing
 
 ---
 

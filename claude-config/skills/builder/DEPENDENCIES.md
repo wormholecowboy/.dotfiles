@@ -13,8 +13,8 @@ External tools and skills required for full functionality.
 
 | Dependency | Purpose | When Needed | Install |
 |------------|---------|-------------|---------|
-| agent-browser | UI testing, screenshots, visual validation | Brute-force testing mode | `npm install -g agent-browser` |
-| Docker | Sandboxed builds for unattended runs | Ralph loops, brute-force mode | [docker.com](https://docker.com) |
+| agent-browser | UI testing, screenshots, visual validation | UI validation tasks | `npm install -g agent-browser` |
+| Docker | Sandboxed builds for unattended runs | Ralph loops | [docker.com](https://docker.com) |
 
 ## Validation Tools
 

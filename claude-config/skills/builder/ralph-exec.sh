@@ -1,23 +1,17 @@
 #!/bin/bash
 # ralph-exec.sh - Run Ralph build loop for builder skill
 #
-# Usage: ./ralph-exec.sh <plan-dir> [mode] [max-iterations]
-#
-# Modes:
-#   implementation - High planning, watch closely (default)
-#   exploration    - Low planning, walk away
-#   brute-force    - Testing mode, run overnight
+# Usage: ./ralph-exec.sh <plan-dir> [max-iterations]
 #
 # Example:
-#   ./ralph-exec.sh .claude/plans/my-feature implementation 20
+#   ./ralph-exec.sh .claude/plans/my-feature 20
 #
 # Logs are saved to <plan-dir>/logs/
 
 set -euo pipefail
 
-PLAN_DIR="${1:?Usage: ralph-exec.sh <plan-dir> [mode] [max-iterations]}"
-MODE="${2:-implementation}"
-MAX_ITERATIONS="${3:-50}"
+PLAN_DIR="${1:?Usage: ralph-exec.sh <plan-dir> [max-iterations]}"
+MAX_ITERATIONS="${2:-50}"
 
 # Colors for output
 RED='\033[0;31m'
@@ -59,7 +53,6 @@ cat > "$SUMMARY_FILE" << EOF
 # Ralph Run Summary
 
 Started: $RUN_START
-Mode: $MODE
 Max iterations: $MAX_ITERATIONS
 
 ## Iterations
@@ -85,15 +78,12 @@ fi
 cat >> "$FINDINGS_FILE" << EOF
 ## Run: $RUN_START
 
-Mode: $MODE
-
 ### Issues & Workarounds
 
 EOF
 
 echo -e "${GREEN}Ralph loop starting${NC}"
 echo "  Plan: $PLAN_DIR"
-echo "  Mode: $MODE"
 echo "  Max iterations: $MAX_ITERATIONS"
 echo "  Logs: $LOG_DIR"
 echo ""
@@ -147,7 +137,7 @@ EOF
 }
 
 # Build the prompt for task building
-TASK_PROMPT="You are a task builder for the builder skill running in $MODE mode.
+TASK_PROMPT="You are a task builder for the builder skill.
 
 ## Your Mission
 Build ONE task from the implementation plan, validate it, and exit.
