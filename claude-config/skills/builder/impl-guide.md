@@ -132,7 +132,21 @@ Before writing tasks, answer these questions:
 
 ## Phase D: Write Implementation Plan
 
-Create `impl/phaseN-impl.md` with the following structure.
+Create `impl/phaseN/` directory with a `context.md` file and per-task files (`taskN.md`).
+
+**Directory structure:**
+```
+impl/phaseN/
+├── context.md    # Everything below EXCEPT individual tasks
+├── task1.md      # Task 1 spec (### Task 1: heading + full details)
+├── task2.md      # Task 2 spec
+└── ...
+```
+
+**context.md** contains: Plan header, context references, patterns, validation commands, phase validation, confidence score.
+**taskN.md** contains: One task section (### Task N: heading with all details).
+
+Use the following structure across these files.
 
 ### Plan Header
 

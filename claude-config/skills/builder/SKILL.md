@@ -29,9 +29,14 @@ plans/[name]/
 ├── state.yaml              # Plan state tracking
 ├── main.md                 # PRD (all phases defined here)
 ├── adr.md                  # Architecture Decision Record
-├── impl/                   # Implementation plans (one per phase)
-│   ├── phase1-impl.md
-│   └── phase2-impl.md
+├── impl/                   # Implementation plans (per-task directories)
+│   ├── phase1/
+│   │   ├── context.md      # Phase context, patterns, deps, validation
+│   │   ├── task1.md        # Task 1 spec
+│   │   └── task2.md        # Task 2 spec
+│   └── phase2/
+│       ├── context.md
+│       └── task1.md
 └── reviews/                # Review outputs
     ├── prd-review.md
     ├── task-phase1-task1-review.md
@@ -96,7 +101,7 @@ When invoked via `/builder`:
 
 1. **Spawn general-purpose agents** (one per phase, in parallel)
    - Prompt includes: PRD path, phase number, and instruction to follow `impl-guide.md`
-   - Agent has write access, creates `impl/phaseN-impl.md` directly
+   - Agent has write access, creates `impl/phaseN/` directory with `context.md` + per-task `taskN.md` files
    - **Important:** Use `general-purpose` agent (not `Plan`) because it can write files
 
 2. **Agents execute the impl-guide.md process:**
@@ -119,7 +124,7 @@ When invoked via `/builder`:
 **Why this matters:** Each phase plan is created in isolation. When Phase 2 expects to call a function from Phase 1, we need to verify Phase 1 actually creates that function with the expected signature.
 
 1. **Spawn alignment-checker agent** (reads ALL impl plans together)
-   - Agent reads all `impl/phaseN-impl.md` files in one context
+   - Agent reads all `impl/phaseN/` directories (context.md + task files) in one context
    - Scans for cross-plan dependencies and validates alignment
 
 2. **Check for misalignments:**
@@ -411,8 +416,8 @@ artifacts:
   prd: main.md
   adr: adr.md
   impl_plans:
-    - impl/phase1-impl.md
-    - impl/phase2-impl.md
+    - impl/phase1/   # context.md + task*.md
+    - impl/phase2/
   reviews:
     - reviews/prd-review.md
     - reviews/impl-review-phase1.md
@@ -551,11 +556,13 @@ Run the Ralph build loop via `ralph-exec.sh`:
 
 ```bash
 # From skill directory
-./ralph-exec.sh <plan-dir> [max-iterations]
+./ralph-exec.sh <plan-dir> [phase|max-iterations|all]
 
 # Examples
-./ralph-exec.sh .claude/plans/my-feature
-./ralph-exec.sh plans/my-feature 20
+./ralph-exec.sh .claude/plans/my-feature              # interactive picker
+./ralph-exec.sh .claude/plans/my-feature phase1       # build all pending in phase 1
+./ralph-exec.sh .claude/plans/my-feature 5            # build next 5 tasks
+./ralph-exec.sh .claude/plans/my-feature all          # build everything
 ```
 
 **Output signals the script watches for:**
@@ -595,16 +602,20 @@ Spawn architect-reviewer agent:
 ```
 Spawn general-purpose agent (one per phase, in parallel):
 - Prompt: "Create a detailed implementation plan for Phase N from [plan-folder/main.md].
-  Write the plan to [plan-folder/impl/phaseN-impl.md].
+  Write the plan as a per-task directory at [plan-folder/impl/phaseN/]:
+  - context.md — Overview, metadata, context refs, patterns, phase validation, confidence score
+  - task1.md — Task 1 spec (### Task 1: heading + full details)
+  - task2.md — Task 2 spec
+  - etc.
 
   Include:
   - Task breakdown with unique IDs (e.g., phase1-task1)
   - Dependencies between tasks (blockedBy field)
   - Validation commands for each task
-  - Phase-level validation commands
+  - Phase-level validation commands (in context.md)
   - Risk areas and testing strategy
 
-  End with a Confidence Score (N/10). If score < 10/10:
+  End context.md with a Confidence Score (N/10). If score < 10/10:
   1. Ask yourself: 'What would make this 10/10?'
   2. Address the gaps if you can, OR
   3. Add an '## Escalation Notes' section listing unresolved concerns for architect review."
@@ -617,7 +628,7 @@ Spawn general-purpose agent (one per phase, in parallel):
 Spawn general-purpose agent (single agent reads ALL impl plans):
 - Prompt: "Check cross-plan alignment for all implementation plans in [plan-folder/impl/].
 
-  Read ALL phaseN-impl.md files together. Look for misalignments between plans:
+  Read ALL impl/phaseN/ directories (context.md + task files) together. Look for misalignments between plans:
 
   **Check for:**
   1. **Wrong signatures** - Function/method called with args different than defined
@@ -660,7 +671,7 @@ Spawn general-purpose agent (single agent reads ALL impl plans):
 
 ```
 Spawn architect-reviewer agent (one per impl plan, in parallel):
-- Prompt: "Review the implementation plan at [plan-folder/impl/phaseN-impl.md].
+- Prompt: "Review the implementation plan at [plan-folder/impl/phaseN/] (read context.md + all task*.md files).
   Write findings to [plan-folder/reviews/impl-review-phaseN.md].
 
   Focus on:
@@ -670,7 +681,7 @@ Spawn architect-reviewer agent (one per impl plan, in parallel):
   - Technical feasibility
   - Missing edge cases
 
-  Check the Confidence Score and Escalation Notes section.
+  Check the Confidence Score and Escalation Notes section in context.md.
   If you cannot resolve escalation notes or cannot get confidence to 10/10,
   flag for escalation to user in your review."
 ```
@@ -679,9 +690,13 @@ Spawn architect-reviewer agent (one per impl plan, in parallel):
 
 ```
 Spawn task-builder agent (SEQUENTIALLY, one task at a time):
-- Prompt: "Build task [task-id] from the implementation plan at [impl/phaseN-impl.md].
+- Prompt: "Build task [task-id].
 
-  Read the full plan for context, then implement ONLY task [task-id].
+  Read these files for context:
+  1. [impl/phaseN/context.md] — Phase context, patterns, dependencies
+  2. [impl/phaseN/taskN.md] — Task specification
+
+  Implement ONLY task [task-id].
 
   After implementation, run these validation commands:
   [paste task's validation commands here]
