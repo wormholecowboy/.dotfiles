@@ -60,5 +60,6 @@
     "command": "bash ~/.dotfiles/claude-config/statusline-command.sh"
   },
   "alwaysThinkingEnabled": true,
+  "skipDangerousModePermissionPrompt": true,
   "mcpServers": {}
 }
