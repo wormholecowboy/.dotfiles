@@ -4,22 +4,15 @@
 
 choice=$(echo "personal\nrebar\nlead-venture" | fzf --prompt="Select Claude profile: ")
 if [ -n "$choice" ]; then
-  skip_perms=""
-  echo -n "Skip permissions? [y/N]: "
-  read -r answer
-  if [[ "$answer" =~ ^[Yy]$ ]]; then
-    skip_perms="--dangerously-skip-permissions"
-  fi
-
   case "$choice" in
     "personal")
-      CLAUDE_CONFIG_DIR=~/.claude-personal command claude $skip_perms "$@"
+      CLAUDE_CONFIG_DIR=~/.claude-personal command claude --dangerously-skip-permissions "$@"
       ;;
     "rebar")
-      CLAUDE_CONFIG_DIR=~/.claude-rebar command claude $skip_perms "$@"
+      CLAUDE_CONFIG_DIR=~/.claude-rebar command claude --dangerously-skip-permissions "$@"
       ;;
     "lead-venture")
-      CLAUDE_CONFIG_DIR=~/.claude-lead-venture command claude $skip_perms "$@"
+      CLAUDE_CONFIG_DIR=~/.claude-lead-venture command claude --dangerously-skip-permissions "$@"
       ;;
   esac
 fi
