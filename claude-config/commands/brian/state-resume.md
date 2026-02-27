@@ -10,7 +10,7 @@ You are resuming work from a previous Claude Code session. Your task is to load 
 
 ## Step 1: Find the State File
 
-Look in the current git repository root (use `git rev-parse --show-toplevel`) for files matching the pattern `.state-[timestamp]-[brief-description].md`
+Look in the current git repository root (use `git rev-parse --show-toplevel`) for files matching the pattern `.state/.state-[timestamp]-[brief-description].md`
 
 Select the most recent one based on the timestamp in the filename (format: YYYY-MM-DD-HH:MM).
 

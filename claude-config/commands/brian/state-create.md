@@ -10,7 +10,7 @@ You are about to create a session state file that will allow work to continue in
 
 ## Output Location
 
-Create the state file at: `[git-root]/.state-[timestamp]-[brief-description].md`
+Create the state file at: `[git-root]/.state/.state-[timestamp]-[brief-description].md`
 
 Where:
 - `[git-root]` is the root of the current git repository (use `git rev-parse --show-toplevel`)
