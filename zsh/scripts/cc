@@ -2,14 +2,11 @@
 
 # Claude Code profile selector with optional permission skip
 
-choice=$(echo "personal\nrebar\nlead-venture" | fzf --prompt="Select Claude profile: ")
+choice=$(echo "personal\nlead-venture" | fzf --prompt="Select Claude profile: ")
 if [ -n "$choice" ]; then
   case "$choice" in
     "personal")
       CLAUDE_CONFIG_DIR=~/.claude-personal command claude --dangerously-skip-permissions "$@"
-      ;;
-    "rebar")
-      CLAUDE_CONFIG_DIR=~/.claude-rebar command claude --dangerously-skip-permissions "$@"
       ;;
     "lead-venture")
       CLAUDE_CONFIG_DIR=~/.claude-lead-venture command claude --dangerously-skip-permissions "$@"
