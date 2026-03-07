@@ -50,19 +50,19 @@ if [ "$context_size" != "0" ] && [ "$context_size" != "null" ] && [ "$current_us
   # Format token counts in K (thousands)
   tokens_k=$(awk "BEGIN {printf \"%.1f\", $total_tokens/1000}")
   context_k=$(awk "BEGIN {printf \"%.0f\", $context_size/1000}")
-  # Color based on usage: green < 70%, yellow 70-89%, red >= 90%
-  if [ "$percent_used" -ge 90 ]; then
+  # Color based on usage: green < 40%, yellow 40-54%, red >= 55%
+  if [ "$percent_used" -ge 55 ]; then
     bar_color='\033[31m'
-  elif [ "$percent_used" -ge 70 ]; then
+  elif [ "$percent_used" -ge 40 ]; then
     bar_color='\033[33m'
   else
-    bar_color='\033[32m'
+    bar_color='\033[38;2;0;200;80m'
   fi
   # Build 10-segment bar
   filled=$((percent_used / 10))
   empty=$((10 - filled))
   bar=$(printf "%${filled}s" | tr ' ' '█')$(printf "%${empty}s" | tr ' ' '░')
-  output+=$(printf '%b%s\033[0m %sk/%sk (%s%%) ' "$bar_color" "$bar" "$tokens_k" "$context_k" "$percent_used")
+  output+=$(printf '%s%% %b%s\033[0m %sk/%sk ' "$percent_used" "$bar_color" "$bar" "$tokens_k" "$context_k")
 fi
 
 # Code change stats (green for added, red for removed)
