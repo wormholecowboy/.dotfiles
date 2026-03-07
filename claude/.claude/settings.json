@@ -57,7 +57,7 @@
   "hooks": {},
   "statusLine": {
     "type": "command",
-    "command": "bash ~/.dotfiles/claude/statusline-command.sh"
+    "command": "~/.dotfiles/claude/.claude/statusline-command.sh"
   },
   "alwaysThinkingEnabled": true,
   "skipDangerousModePermissionPrompt": true,
