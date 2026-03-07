@@ -1,15 +1,17 @@
 #!/bin/zsh
 
-# Claude Code profile selector with optional permission skip
+# Claude Code launcher with skip permissions
 
-choice=$(echo "personal\nlead-venture" | fzf --prompt="Select Claude profile: ")
-if [ -n "$choice" ]; then
-  case "$choice" in
-    "personal")
-      CLAUDE_CONFIG_DIR=~/.claude-personal command claude --dangerously-skip-permissions "$@"
-      ;;
-    "lead-venture")
-      CLAUDE_CONFIG_DIR=~/.claude-lead-venture command claude --dangerously-skip-permissions "$@"
-      ;;
-  esac
-fi
+# choice=$(echo "personal\nlead-venture" | fzf --prompt="Select Claude profile: ")
+# if [ -n "$choice" ]; then
+#   case "$choice" in
+#     "personal")
+#       CLAUDE_CONFIG_DIR=~/.claude-personal command claude --dangerously-skip-permissions "$@"
+#       ;;
+#     "lead-venture")
+#       CLAUDE_CONFIG_DIR=~/.claude-lead-venture command claude --dangerously-skip-permissions "$@"
+#       ;;
+#   esac
+# fi
+
+command claude --dangerously-skip-permissions "$@"
