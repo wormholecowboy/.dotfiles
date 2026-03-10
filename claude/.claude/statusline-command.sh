@@ -40,7 +40,7 @@ output+=$'\n'
 # Model name (cyan)
 output+=$(printf '\033[2;36m[%s]\033[0m ' "$model_name")
 
-# Context window usage (magenta)
+# Context window usage with color-coded bar
 if [ "$context_size" != "0" ] && [ "$context_size" != "null" ] && [ "$current_usage" != "null" ]; then
   input_tokens=$(echo "$current_usage" | jq -r '.input_tokens // 0')
   cache_creation=$(echo "$current_usage" | jq -r '.cache_creation_input_tokens // 0')
@@ -50,7 +50,19 @@ if [ "$context_size" != "0" ] && [ "$context_size" != "null" ] && [ "$current_us
   # Format token counts in K (thousands)
   tokens_k=$(awk "BEGIN {printf \"%.1f\", $total_tokens/1000}")
   context_k=$(awk "BEGIN {printf \"%.0f\", $context_size/1000}")
-  output+=$(printf '\033[2;35m⧗ %sk/%sk (%s%%)\033[0m ' "$tokens_k" "$context_k" "$percent_used")
+  # Color based on usage: green < 40%, yellow 40-54%, red >= 55%
+  if [ "$percent_used" -ge 55 ]; then
+    bar_color='\033[31m'
+  elif [ "$percent_used" -ge 40 ]; then
+    bar_color='\033[33m'
+  else
+    bar_color='\033[38;2;0;200;80m'
+  fi
+  # Build 10-segment bar
+  filled=$((percent_used / 10))
+  empty=$((10 - filled))
+  bar=$(printf "%${filled}s" | tr ' ' '█')$(printf "%${empty}s" | tr ' ' '░')
+  output+=$(printf '%s%% %b%s\033[0m %sk/%sk ' "$percent_used" "$bar_color" "$bar" "$tokens_k" "$context_k")
 fi
 
 # Code change stats (green for added, red for removed)
