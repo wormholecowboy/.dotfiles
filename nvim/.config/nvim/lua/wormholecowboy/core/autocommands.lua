@@ -31,7 +31,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
 
         if not is_writing_mode then
           -- Enter Writing Mode
-          require("lazy").load({ plugins = { "zen-mode.nvim", "windsurf.vim" } })
+          require("lazy").load({ plugins = { "zen-mode.nvim" } })
           vim.cmd("ZenMode")
           require("cmp").setup.buffer({ enabled = false })
           vim.wo.wrap = true
