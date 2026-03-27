@@ -57,8 +57,11 @@ setopt pushdminus
 . ~/.config/lf/lfcd.sh
 . ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # Cached init scripts (regenerate after upgrades: zoxide init zsh > ~/.config/zsh/zoxide.zsh)
-source ~/.config/zsh/zoxide.zsh
-source ~/.config/zsh/prompt.zsh
+
+export _ZO_FZF_OPTS="--scheme=path --tiebreak=end,chunk,index --bind=ctrl-z:ignore,btab:up,tab:down --cycle --keep-right --border=sharp --height=45% --info=inline --layout=reverse --tabstop=1 --exit-0 --select-1"
+. ~/.config/zsh/zoxide.zsh
+
+. ~/.config/zsh/prompt.zsh
 . ~/.config/zsh/aliases.sh
 . ~/.config/zsh/syntax-hl/zsh-syntax-highlighting.zsh
 . ~/.config/zsh/zsh-vi-mode/zsh-vi-mode.zsh
