@@ -41,12 +41,16 @@ output+=$'\n'
 output+=$(printf '\033[2;36m[%s]\033[0m ' "$model_name")
 
 # Context window usage with color-coded bar
-if [ "$context_size" != "0" ] && [ "$context_size" != "null" ] && [ "$current_usage" != "null" ]; then
+if [ "$context_size" != "0" ] && [ "$context_size" != "null" ] && [ -n "$context_size" ] && [ "$current_usage" != "null" ] && [ -n "$current_usage" ]; then
   input_tokens=$(echo "$current_usage" | jq -r '.input_tokens // 0')
   cache_creation=$(echo "$current_usage" | jq -r '.cache_creation_input_tokens // 0')
   cache_read=$(echo "$current_usage" | jq -r '.cache_read_input_tokens // 0')
   total_tokens=$((input_tokens + cache_creation + cache_read))
-  percent_used=$((total_tokens * 100 / context_size))
+  if [ "$context_size" -gt 0 ] 2>/dev/null; then
+    percent_used=$((total_tokens * 100 / context_size))
+  else
+    percent_used=0
+  fi
   # Format token counts in K (thousands)
   tokens_k=$(awk "BEGIN {printf \"%.1f\", $total_tokens/1000}")
   context_k=$(awk "BEGIN {printf \"%.0f\", $context_size/1000}")
