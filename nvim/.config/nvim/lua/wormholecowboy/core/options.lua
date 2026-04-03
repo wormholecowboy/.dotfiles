@@ -1,3 +1,10 @@
+-- Reason: lazy NVM in zshrc means `node` isn't on PATH when Neovim spawns LSP servers
+local nvm_node = vim.fn.expand("~/.nvm/versions/node")
+local node_dirs = vim.fn.glob(nvm_node .. "/v*", false, true)
+if #node_dirs > 0 then
+  table.sort(node_dirs)
+  vim.env.PATH = node_dirs[#node_dirs] .. "/bin:" .. vim.env.PATH
+end
 
 vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
 vim.opt.fileencoding = "utf-8" -- the encoding written to a file
