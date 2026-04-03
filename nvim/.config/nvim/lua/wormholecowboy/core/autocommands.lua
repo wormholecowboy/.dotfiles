@@ -36,7 +36,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
           require("cmp").setup.buffer({ enabled = false })
           vim.wo.wrap = true
           vim.wo.linebreak = true
-          pcall(vim.cmd, "CodeiumDisable") -- pcall in case Codeium not loaded
           vim.o.so = 1
           vim.b.writing_mode = true
         else
@@ -45,7 +44,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
           require("cmp").setup.buffer({ enabled = true })
           vim.wo.wrap = false
           vim.wo.linebreak = false
-          pcall(vim.cmd, "CodeiumEnable") -- pcall in case Codeium not loaded
           vim.o.so = 8 -- Reset to default scroll offset
           vim.b.writing_mode = false
         end
