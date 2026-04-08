@@ -21,6 +21,32 @@ return {
 		{ "<leader>sn", "<cmd>FzfLua manpages<cr>", desc = "man pages" },
 		{ "<leader>ss", "<cmd>FzfLua grep<cr>", desc = "string" },
 		{ "<leader>sw", "<cmd>FzfLua grep_cword<cr>", desc = "word" },
+		{
+			"<leader>sF",
+			function()
+				require("fzf-lua").files({
+					cwd = "~",
+					fd_opts = "--color=never --hidden --type f --type l --no-ignore "
+						.. "--search-path ~/.dotfiles "
+						.. "--search-path ~/Desktop "
+						.. "--search-path ~/Downloads "
+						.. "--search-path ~/Music "
+						.. "--search-path ~/things "
+						.. "--search-path ~/temp",
+				})
+			end,
+			desc = "my folders",
+		},
+		{
+			"<leader>s/",
+			function()
+				require("fzf-lua").files({
+					cwd = "/",
+					fd_opts = "--color=never --hidden --type f --type l --no-ignore",
+				})
+			end,
+			desc = "files (root /)",
+		},
 	},
 	opts = function()
 		local actions = require("fzf-lua").actions

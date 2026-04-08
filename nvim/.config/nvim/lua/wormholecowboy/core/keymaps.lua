@@ -58,6 +58,27 @@
 -- │   v          │   log variable                                           │
 -- ├──────────────┼──────────────────────────────────────────────────────────┤
 -- │ s            │ +search (fzf-lua)                                        │
+-- │   a          │   all files (hidden, no-ignore)                         │
+-- │   A          │   autocommands                                          │
+-- │   b          │   buffers                                               │
+-- │   cc         │   commands                                              │
+-- │   ch         │   command history                                       │
+-- │   cs         │   colorschemes                                          │
+-- │   e          │   changes                                               │
+-- │   f          │   files                                                 │
+-- │   F          │   files (home folders: dotfiles,Desktop,Downloads,etc)  │
+-- │   /          │   files (root /)                                        │
+-- │   gf         │   git files                                             │
+-- │   gb         │   git branches                                          │
+-- │   gc         │   git commits                                           │
+-- │   gh         │   git stash                                             │
+-- │   gs         │   git status                                            │
+-- │   h          │   help                                                  │
+-- │   k          │   keymaps                                               │
+-- │   m          │   marks                                                 │
+-- │   n          │   man pages                                             │
+-- │   s          │   string (grep)                                         │
+-- │   w          │   word (grep cword)                                     │
 -- ├──────────────┼──────────────────────────────────────────────────────────┤
 -- │ u            │ +user                                                    │
 -- │   b          │   buffer path                                            │
