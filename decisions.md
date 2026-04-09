@@ -7,7 +7,7 @@
 **Changes made:**
 1. Removed duplicate NVM block (was loading twice)
 2. Removed duplicate `compinit` call (Docker had added a second one)
-3. Implemented lazy loading for NVM (only loads when node/npm/nvm/npx is called)
+3. ~~Implemented lazy loading for NVM~~ (reverted 2026-04-09 — was causing issues)
 4. Cached zoxide and starship init scripts (source static files instead of `eval`)
 
 **Result:** 2.37s → 0.58s (75% faster)
@@ -27,3 +27,12 @@
 **Result:** Same 0.58s startup, one less dependency
 
 **File:** `zsh/.config/zsh/prompt.zsh`
+
+## 2026-04-09: Remove NVM lazy loading
+
+**Problem:** Claude Code shells don't source `.zshrc`, so the lazy-load stubs never existed in those shells — meaning `node`/`npm` were unavailable to Claude Code's Bash tool.
+
+**Changes made:**
+1. Replaced lazy-load stubs with direct NVM sourcing in `.zshrc`
+
+**Result:** NVM loads eagerly on shell startup (trades some startup time for reliability). Claude Code shells can access node/npm via PATH set by NVM.
