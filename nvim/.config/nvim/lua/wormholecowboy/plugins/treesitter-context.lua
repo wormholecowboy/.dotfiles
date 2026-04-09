@@ -1,6 +1,6 @@
 return {
 	"nvim-treesitter/nvim-treesitter-context",
-	enabled = false, -- Disabled due to bash injection query issues in markdown
+	enabled = true,
 	event = { "BufReadPre", "BufNewFile" },
 	opts = { mode = "cursor" },
 	config = function(_, opts)
