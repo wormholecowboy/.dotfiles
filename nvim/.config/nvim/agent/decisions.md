@@ -78,3 +78,6 @@ Added test runner framework with adapters for pytest, jest, and Go. Bound to `<F
 - `x` stop, `w` watch file
 - `[t/]t` jump to prev/next failed test
 
+## 2026-04-10: Auto-reload buffers on external file changes
+Added `autoread` + `checktime` autocmd + tmux `focus-events on` so Neovim buffers auto-reload when files are edited externally (e.g., Claude Code in another tmux window). Three changes: tmux forwards focus events → Neovim fires `FocusGained`/`BufEnter` → `checktime` compares timestamps → `autoread` silently reloads.
+

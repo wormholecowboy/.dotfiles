@@ -52,6 +52,7 @@ vim.opt.relativenumber = true
 vim.opt.wrap = false -- display lines as one long line
 
 vim.opt.updatetime = 50
+vim.opt.autoread = true
 -- vim.opt.colorcolumn = "80"
 
 vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case"

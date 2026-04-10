@@ -104,6 +104,14 @@ vim.api.nvim_create_autocmd("VimEnter", {
   end,
 })
 
+-- Reason: forces Neovim to check file timestamps on focus/buffer switch
+-- so buffers auto-reload when edited externally (e.g., Claude Code in another tmux window)
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
+  group = augroup,
+  desc = "Auto-reload files changed outside Neovim",
+  command = "checktime",
+})
+
 -- vim.diagnostic.config({virtual_text = false, underline = true})
 -- this will disable lsp diagnostics
 --
