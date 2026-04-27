@@ -64,5 +64,6 @@
   },
   "alwaysThinkingEnabled": true,
   "skipDangerousModePermissionPrompt": true,
-  "mcpServers": {}
+  "mcpServers": {},
+  "skipAutoPermissionPrompt": true
 }
