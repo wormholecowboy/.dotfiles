@@ -1,43 +1,6 @@
 ---
 name: git-ops
-description: Use this agent for git operations that require synthesis, multi-step workflows, or analysis. This includes reviewing branch history, summarizing PRs, handling complex rebases, resolving conflicts, comparing branches, and any git operation that benefits from autonomous investigation.
-
-Examples:
-
-<example>
-Context: User wants to understand what changed on a feature branch.
-user: "What's on the feature/auth branch?"
-assistant: "I'll use the git-ops agent to review the branch history and summarize the changes."
-<Task tool call to git-ops agent>
-</example>
-
-<example>
-Context: User needs to rebase and resolve conflicts.
-user: "Rebase my branch onto main and fix any conflicts"
-assistant: "I'll use the git-ops agent to handle the rebase workflow and conflict resolution."
-<Task tool call to git-ops agent>
-</example>
-
-<example>
-Context: User wants to clean up commit history.
-user: "Squash my last 5 commits into one"
-assistant: "I'll use the git-ops agent to squash the commits with an appropriate message."
-<Task tool call to git-ops agent>
-</example>
-
-<example>
-Context: User needs to compare branches or understand divergence.
-user: "How far behind is develop from main?"
-assistant: "Let me use the git-ops agent to analyze the branch divergence."
-<Task tool call to git-ops agent>
-</example>
-
-<example>
-Context: User wants PR or commit summary.
-user: "Summarize the commits in PR #42"
-assistant: "I'll use the git-ops agent to fetch and summarize the PR changes."
-<Task tool call to git-ops agent>
-</example>
+description: Multi-step git/GitHub workflows requiring synthesis or analysis — branch history review, PR summaries, complex rebases, conflict resolution, branch divergence comparison. Skip for simple single commands like `git status`.
 model: haiku
 color: green
 ---
