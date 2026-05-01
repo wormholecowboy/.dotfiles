@@ -9,12 +9,17 @@ CRITICAL: Always check the cwd when performing file operations. Make sure you ar
 - **Safety:** Confirm paths/modules exist. Ask before overwriting `.env`. Only use verified packages.
 - **No Laziness:** Find root causes. No temporary fixes. Senior developer standards.
 
-## 2. Testing
+## 2. Refactors / Moving Code
+- **Prefer `Edit` over `Write`** when relocating existing code. `Edit` preserves bytes exactly; `Write` retypes from memory and can introduce drift (extra blank lines, stripped whitespace, dropped lines).
+- **Verify with `diff`** after moving blocks: compare the original range (`git show HEAD:path`) against the new location. `ast.parse` only proves syntax — it won't catch missing or altered lines.
+- **Smoke-test imports** with a `python3 -c "from new.module import ..."` to catch broken refs that syntax checks miss.
+
+## 3. Testing
 - **Mocking/stubbing:** Only for tests. Never in dev/prod.
 - **Coverage:** 1 expected case, 1 edge case, 1 failure case per function.
 - **Maintenance:** Update tests when logic changes.
 
-## 3. Shorthand & Modifiers
+## 4. Shorthand & Modifiers
 Infer meaning from shorthand. Ask if unsure.
 
 `w`=with
@@ -26,7 +31,7 @@ Infer meaning from shorthand. Ask if unsure.
 `convo`=conversation
 `*sa`=give a short answer
 
-## 4. Server/Process Startup
+## 5. Server/Process Startup
 
 **Before starting any server:**
 1. `lsof -i :PORT` - Check if running. Ask before killing.
@@ -38,7 +43,7 @@ Infer meaning from shorthand. Ask if unsure.
 
 **Anti-pattern:** Background processes that respawn and conflict. Track what you start.
 
-## 5. Work Computer Config
+## 6. Work Computer Config
 
 <!--# BEGIN SNYK GLOBAL RULE -->
 ---
