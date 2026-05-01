@@ -30,6 +30,8 @@ Infer meaning from shorthand. Ask if unsure.
 `mem`=memory
 `convo`=conversation
 `*sa`=give a short answer
+`*um`=update memory (mem skill)
+`*mr <topic>`=read memory by topic (mem skill)
 
 ## 5. Server/Process Startup
 
@@ -63,3 +65,7 @@ Note: snyk CLI is only available on my work computer. Hostname begins with `LVUS
 - Rescan the code after fixing the issues to ensure that the issues were fixed and that there are no newly introduced issues.
 - Repeat this process until no new issues are found.
 <!--# END SNYK GLOBAL RULE -->
+
+## 7. Memory
+
+Persistent context lives in `.mem/` at git root. See `mem` skill for spec and triggers (`*um`, `*mr`, `/mem-read`).
