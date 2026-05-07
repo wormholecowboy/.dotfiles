@@ -81,3 +81,14 @@ Added test runner framework with adapters for pytest, jest, and Go. Bound to `<F
 ## 2026-04-10: Auto-reload buffers on external file changes
 Added `autoread` + `checktime` autocmd + tmux `focus-events on` so Neovim buffers auto-reload when files are edited externally (e.g., Claude Code in another tmux window). Three changes: tmux forwards focus events → Neovim fires `FocusGained`/`BufEnter` → `checktime` compares timestamps → `autoread` silently reloads.
 
+## 2026-05-07: Added ThePrimeagen/99 (AI agent)
+Added `lua/wormholecowboy/plugins/99.lua`. Fills the long-reserved `<leader>a` AI placeholder (which-key already had `{ "<leader>a", group = "ai" }`). Lazy-loaded via `keys` spec only — no user commands are registered upstream.
+
+**Provider:** `ClaudeCodeProvider`. The plugin shells out to `claude --dangerously-skip-permissions --model <model> --print <query>` (providers.lua:192-201). The skip-permissions flag is upstream behavior, not configurable; acceptable because every invocation is user-initiated via a keymap and short-lived.
+
+**Model:** `"opus"`. The claude CLI accepts `opus` / `sonnet` / `haiku` as aliases for "latest in family" (per `claude --help`); using the alias auto-tracks new releases instead of pinning to a specific version like `claude-opus-4-6` that goes stale. Runtime override available via `require("99.extensions.telescope").select_model()`.
+
+**Keymaps:** `<leader>av` (visual replace), `<leader>as` (search), `<leader>ax` (stop). Remapped from upstream `<leader>9*` defaults to fit the existing `<leader>a` AI namespace convention. Updated `core/keymaps.lua` legend.
+
+**Prerequisite verified:** `claude` CLI present at `/opt/homebrew/bin/claude` (v2.1.118).
+

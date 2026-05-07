@@ -1,7 +1,8 @@
 # Neovim Plugin Index
-*Last updated: 2025-11-19*
+*Last updated: 2026-05-07*
 *Consolidated keymaps: 2025-11-19 - All keymaps now referenced from keymaps.lua*
 *Plugin addition: 2025-11-19 - Added lazydev.nvim for Lua development*
+*Plugin addition: 2026-05-07 - Added ThePrimeagen/99 (AI agent) on `<leader>a*`*
 
 ## Configuration Architecture
 
@@ -382,6 +383,26 @@ nvim/
 
 ---
 
+### AI Integration
+
+#### 99
+- **Repo:** ThePrimeagen/99
+- **File:** `lua/wormholecowboy/plugins/99.lua`
+- **Purpose:** Agentic AI workflow inside Neovim — visual-selection replacement, codebase search, and prompt operations against an external AI CLI
+- **Provider:** ClaudeCodeProvider (`_99.Providers.ClaudeCodeProvider`)
+  - Shells out to `claude --dangerously-skip-permissions --model <model> --print <query>`
+  - **Implication:** every request bypasses Claude Code's permission system. Acceptable here because invocations are user-initiated and short-lived.
+- **Model:** `"opus"` — claude CLI alias resolving to latest Opus (auto-tracks new Opus releases). Overridable at runtime via `require("99.extensions.telescope").select_model()`
+- **Lazy loading:** `keys` only (no user commands registered by upstream)
+- **Keymaps:** `<leader>a*` namespace (formerly the unused AI placeholder)
+  - `<leader>av` (visual) — replace selection with AI output
+  - `<leader>as` — codebase search
+  - `<leader>ax` — cancel in-flight requests
+- **Prerequisite:** `claude` CLI on PATH (verified at `/opt/homebrew/bin/claude`)
+- **Dependencies:** none (pure Lua, external CLI does the work)
+
+---
+
 ### Specialized Tools
 
 #### ccc.nvim
@@ -478,8 +499,8 @@ Located in `lua/wormholecowboy/lazy.lua` (lines 27-31):
 ---
 
 ## Plugin Statistics
-- **Total plugins:** 44+ (including dependencies)
-- **Primary categories:** 9
+- **Total plugins:** 45+ (including dependencies)
+- **Primary categories:** 10
 - **LSP servers managed:** 5 (via mason-lspconfig)
 - **Colorschemes available:** 12+
 - **Lazy loading:** Heavy use of events for performance
@@ -507,10 +528,8 @@ Located in `lua/wormholecowboy/lazy.lua` (lines 27-31):
 
 ### Potential Areas for Future Enhancement
 1. Consider DAP/debugging setup (currently no debugger)
-2. AI/LLM integration (placeholder in keymaps)
-3. Session management (no auto-session or persistence plugin)
-4. Project management (no project.nvim)
-5. Testing integration (no neotest or similar)
+2. Session management (no auto-session or persistence plugin)
+3. Project management (no project.nvim)
 
 ### Removed Plugins (per decisions.md)
 - noice.nvim - UI overhaul (2025-03-18)

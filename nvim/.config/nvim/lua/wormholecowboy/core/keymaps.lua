@@ -42,7 +42,10 @@
 -- │ w            │ write (save)                                             │
 -- │ z            │ zen mode                                                 │
 -- ├──────────────┼──────────────────────────────────────────────────────────┤
--- │ a            │ Reserved for AI                                          │
+-- │ a            │ +ai (99.lua, ThePrimeagen/99)                            │
+-- │   v          │   replace visual selection w/ AI (visual mode)           │
+-- │   s          │   search (AI codebase Q&A)                               │
+-- │   x          │   stop all in-flight requests                            │
 -- ├──────────────┼──────────────────────────────────────────────────────────┤
 -- │ g            │ +git                                                     │
 -- │   g          │   neogit status                                          │
