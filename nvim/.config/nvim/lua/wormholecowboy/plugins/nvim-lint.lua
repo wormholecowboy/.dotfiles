@@ -23,6 +23,7 @@ return {
 
 		lint.linters_by_ft = {
 			python = { "pylint" },
+      lua = { "luacheck" },
 			-- javascript = { "eslint_d" },
 			-- javascriptreact = { "eslint_d" },
 			-- typescript = { "eslint_d" },
