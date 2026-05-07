@@ -93,11 +93,12 @@ return {
 				vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, opts)
 
 				-- Diagnostics navigation (Neovim 0.10+ - uses vim.diagnostic.jump)
+				-- float = true: open the diagnostic float after jumping
 				vim.keymap.set("n", "[d", function()
-					vim.diagnostic.jump({ count = -1 })
+					vim.diagnostic.jump({ count = -1, float = true })
 				end, opts)
 				vim.keymap.set("n", "]d", function()
-					vim.diagnostic.jump({ count = 1 })
+					vim.diagnostic.jump({ count = 1, float = true })
 				end, opts)
 				vim.keymap.set("n", "gl", vim.diagnostic.open_float, opts)
 
