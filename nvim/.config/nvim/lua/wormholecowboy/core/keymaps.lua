@@ -87,12 +87,8 @@
 -- │   b          │   buffer path                                            │
 -- │   c          │   code actions                                           │
 -- │   d          │   insert date                                            │
--- │   i          │   open IDE (vscode forks)                                │
--- │   n          │   notes                                                  │
--- │   p          │   prog notes                                             │
--- │   t          │   twilight                                               │
+-- │   p          │   edit prog notes                                        │
 -- │   v          │   edit nvim config                                       │
--- │   x          │   close split buffer                                     │
 -- │   z          │   edit zshrc                                             │
 -- │   w          │   +workspace (LSP)                                       │
 -- │     a        │     add folder                                           │
@@ -166,12 +162,12 @@ keymap("n", "c", [["_c]])
 --   vim.cmd("%s/\r$//")
 -- end
 
-keymap("n", "<leader>uz", "<cmd>edit $HOME/.zshrc<cr>", opts) --edit zsh
-keymap("n", "<leader>uv", "<cmd>edit $HOME/.config/nvim/<cr>", opts) --edit neovim
-keymap("n", "<leader>up", "<cmd>edit $HOME/pnotes<cr>", opts) --prog notes
+keymap("n", "<leader>uz", "<cmd>edit $HOME/.zshrc<cr>", { silent = true, desc = "edit zshrc" })
+keymap("n", "<leader>uv", "<cmd>edit $HOME/.config/nvim/<cr>", { silent = true, desc = "edit nvim config" })
+keymap("n", "<leader>up", "<cmd>edit $HOME/pnotes<cr>", { silent = true, desc = "edit prog notes" })
 -- <leader>uc is set in lspconfig.lua on LspAttach (buffer-local)
 -- keymap("n", "<leader>uw", "`[v`]:lua removeReturnCharacters()<cr>", opts) --remove windows return carriage for WSL
-keymap("n", "<leader>ud", "<cmd>r !date '+\\%Y-\\%m-\\%d'<CR>", opts)  -- date
+keymap("n", "<leader>ud", "<cmd>r !date '+\\%Y-\\%m-\\%d'<CR>", { silent = true, desc = "insert date" })
 
 keymap("n", "<leader>w", ":w<cr>", opts) --save
 keymap("n", "<leader>c", ":bp|bd#<cr>", opts) --close split buffer
