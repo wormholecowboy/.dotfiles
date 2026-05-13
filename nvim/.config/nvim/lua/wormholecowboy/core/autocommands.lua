@@ -25,27 +25,15 @@ vim.api.nvim_create_autocmd("VimEnter", {
       end, { desc = "CWD: current buffer" })
 
       -- Keymap to toggle "Writing Mode" (global keymap, works in all buffers)
+      -- Reason: side-effects live in zen-mode's on_open/on_close so any exit path
+      -- (Ctrl-hjkl window switch, <leader>z, etc.) stays in sync with vim.g.writing_mode.
       vim.keymap.set("n", "<leader>q", function()
-        -- Track writing mode state per buffer
-        local is_writing_mode = vim.b.writing_mode or false
-
-        if not is_writing_mode then
-          -- Enter Writing Mode
+        if not vim.g.writing_mode then
           require("lazy").load({ plugins = { "zen-mode.nvim" } })
+          vim.g.writing_mode = true -- set before ZenMode so on_open sees it
           vim.cmd("ZenMode")
-          require("cmp").setup.buffer({ enabled = false })
-          vim.wo.wrap = true
-          vim.wo.linebreak = true
-          vim.o.so = 1
-          vim.b.writing_mode = true
         else
-          -- Exit Writing Mode
-          vim.cmd("ZenMode") -- ZenMode is a toggle, calling again exits
-          require("cmp").setup.buffer({ enabled = true })
-          vim.wo.wrap = false
-          vim.wo.linebreak = false
-          vim.o.so = 8 -- Reset to default scroll offset
-          vim.b.writing_mode = false
+          vim.cmd("ZenMode") -- on_close handles cleanup + resets flag
         end
       end, { desc = "toggle writing mode" })
 
