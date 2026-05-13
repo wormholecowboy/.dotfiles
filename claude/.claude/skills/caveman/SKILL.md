@@ -7,6 +7,7 @@ description: >
   like caveman", "use caveman", "less tokens", "be brief/terse", or invokes /caveman.
   Stays active across all responses in the session until the user says "stop caveman"
   or "normal mode".
+argument-hint: lite/full/ultra
 ---
 
 # Caveman
