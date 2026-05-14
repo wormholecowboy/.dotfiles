@@ -64,6 +64,7 @@
   },
   "alwaysThinkingEnabled": true,
   "skipDangerousModePermissionPrompt": true,
+  "editorMode": "vim",
   "mcpServers": {},
   "skipAutoPermissionPrompt": true
 }
