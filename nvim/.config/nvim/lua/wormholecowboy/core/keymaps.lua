@@ -166,6 +166,7 @@ keymap("n", "<leader>uz", "<cmd>edit $HOME/.zshrc<cr>", { silent = true, desc = 
 keymap("n", "<leader>uv", "<cmd>edit $HOME/.config/nvim/<cr>", { silent = true, desc = "edit nvim config" })
 keymap("n", "<leader>up", "<cmd>edit $HOME/pnotes<cr>", { silent = true, desc = "edit prog notes" })
 -- <leader>uc is set in lspconfig.lua on LspAttach (buffer-local)
+-- <leader>uf is set in conform.lua (format code)
 -- keymap("n", "<leader>uw", "`[v`]:lua removeReturnCharacters()<cr>", opts) --remove windows return carriage for WSL
 keymap("n", "<leader>ud", "<cmd>r !date '+\\%Y-\\%m-\\%d'<CR>", { silent = true, desc = "insert date" })
 

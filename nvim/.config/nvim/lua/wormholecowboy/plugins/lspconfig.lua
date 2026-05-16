@@ -45,6 +45,16 @@ return {
 		})
 		vim.lsp.config("bashls", { capabilities = capabilities })
 		vim.lsp.config("terraformls", { capabilities = capabilities })
+		vim.lsp.config("gopls", {
+			capabilities = capabilities,
+			settings = {
+				gopls = {
+					analyses = { unusedparams = true, shadow = true },
+					staticcheck = true,
+					gofumpt = false,
+				},
+			},
+		})
 
 		-- Configure diagnostic display (Neovim 0.11+ signs API)
 		vim.diagnostic.config({

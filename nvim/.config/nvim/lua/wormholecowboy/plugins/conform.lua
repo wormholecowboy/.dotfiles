@@ -15,12 +15,25 @@ return {
       mode = { "n", "v", "x" },
       desc = "format code",
     },
+    {
+      "<leader>uf",
+      function()
+        require("conform").format({
+          lsp_format = "fallback",
+          stop_after_first = true,
+          async = false,
+          timeout_ms = 1000,
+        })
+      end,
+      mode = { "n", "v", "x" },
+      desc = "format code",
+    },
   },
   opts = {
     formatters_by_ft = {
       python = { "isort", "black" },
       lua = { "stylua" },
-      go = { "gofmt" },
+      go = { "goimports" },
       svelte = { "prettierd", "prettier" },
       javascript = { "prettierd", "prettier" },
       typescript = { "prettierd", "prettier" },
