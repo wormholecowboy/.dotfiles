@@ -101,6 +101,7 @@ return {
 				-- Code actions and refactoring
 				vim.keymap.set({ "n", "v" }, "<leader>uc", vim.lsp.buf.code_action, opts)
 				vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, opts)
+				vim.keymap.set("n", "<leader>ur", vim.lsp.buf.rename, opts)
 
 				-- Diagnostics navigation (Neovim 0.10+ - uses vim.diagnostic.jump)
 				-- float = true: open the diagnostic float after jumping

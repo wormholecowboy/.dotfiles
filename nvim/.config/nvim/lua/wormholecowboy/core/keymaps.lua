@@ -88,6 +88,7 @@
 -- │   c          │   code actions                                           │
 -- │   d          │   insert date                                            │
 -- │   p          │   edit prog notes                                        │
+-- │   r          │   rename variable (lspconfig.lua)                        │
 -- │   v          │   edit nvim config                                       │
 -- │   z          │   edit zshrc                                             │
 -- │   w          │   +workspace (LSP)                                       │
