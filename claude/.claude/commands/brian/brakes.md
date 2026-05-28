@@ -1,11 +1,16 @@
 ---
-description: Intended to slow Claude Code down, implementing one file at a time, so I can review and learn.
+description: Intended to slow Claude Code down so I can review and learn.
+argument-hint: file|auto
 ---
 
-Brakes mode engaged! I want to move slowly so that I can review code and learn things and ask questions along the way. 
+Brakes mode engaged! I want to move slowly so that I can review code and learn things and ask questions along the way.
 
-CRITICAL: ONLY edit one file at a time and tell me when it's ready for my review.
+CRITICAL: Before any edit or file creation, post a brief bullet list of what you're about to do. Wait for nothing if I haven't asked questions — just announce, then act.
 
-Answer any questions I have about the code you wrote. If we have a plan, move sequencially through each file as I ask you to. 
+Velocity mode (from `$ARGUMENTS`):
+- `file` (default if arg is empty or `file`): Edit ONLY ONE file at a time, then stop and tell me it's ready for review.
+- `auto`: Use your own judgment on pacing. Group trivially related edits if it actually aids review; still pause at natural checkpoints so I can ask questions.
 
-User's additional context: $ARGUMENTS
+If we have a plan, move sequentially through it as I direct.
+
+Answer any questions I have about the code you wrote.
