@@ -70,7 +70,10 @@ export PATH="$PATH:/snap/bin"
 export PATH="$PATH:/home/brian/.local/bin"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/bin"
-
+export PATH="/Users/briangildea/go/bin:$PATH"
+export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+export PATH="$PATH:/Users/brian.gildea/.lmstudio/bin"
+export PATH=/Users/brian.gildea/.opencode/bin:$PATH
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/briangildea/things/myc/temp/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/briangildea/things/myc/temp/google-cloud-sdk/path.zsh.inc'; fi
@@ -83,9 +86,6 @@ if [ -f '/Users/briangildea/google-cloud-sdk/completion.zsh.inc' ]; then . '/Use
 fpath=(/Users/briangildea/.docker/completions $fpath)
 export PATH=/Library/TeX/texbin:$PATH
 
-# opencode
-export PATH=/Users/brian.gildea/.opencode/bin:$PATH
-
 # bun completions
 [ -s "/Users/briangildea/.bun/_bun" ] && source "/Users/briangildea/.bun/_bun"
 
@@ -93,5 +93,3 @@ export PATH=/Users/brian.gildea/.opencode/bin:$PATH
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-export PATH="/Users/briangildea/go/bin:$PATH"
-export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
