@@ -45,3 +45,13 @@ zoxide init zsh > ~/.config/zsh/zoxide.zsh
 - Test shell changes with `time zsh -i -c exit`
 - Log significant decisions in `decisions.md` with date and rationale
 - Claude Code config lives in `claude-config/` (agents, commands, skills)
+
+## Commit Message Format
+
+Use conventional commits with a scope matching the top-level directory:
+
+```
+feat(nvim): add buffer view preservation
+fix(zsh): correct NVM lazy load path
+chore(tmux): update keybind prefix
+```
