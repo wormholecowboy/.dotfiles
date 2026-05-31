@@ -1,6 +1,27 @@
 -- Create a single augroup for all autocommands in this file for better organization
 local augroup = vim.api.nvim_create_augroup("WormholeCowboyAutocommands", { clear = true })
 
+local buf_views = {}
+
+vim.api.nvim_create_autocmd("BufLeave", {
+  group = augroup,
+  desc = "Save buffer view on leave",
+  callback = function()
+    buf_views[vim.api.nvim_get_current_buf()] = vim.fn.winsaveview()
+  end,
+})
+
+vim.api.nvim_create_autocmd("BufEnter", {
+  group = augroup,
+  desc = "Restore buffer view on enter",
+  callback = function()
+    local bufnr = vim.api.nvim_get_current_buf()
+    if buf_views[bufnr] then
+      vim.fn.winrestview(buf_views[bufnr])
+    end
+  end,
+})
+
 vim.api.nvim_create_autocmd("TextYankPost", {
   group = augroup,
   desc = "Hightlight selection on yank",
