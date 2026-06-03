@@ -6,7 +6,7 @@
       "apiKey": "lm-studio",
       "models": [
         {
-          "id": "google/gemma-4-26b-a4b",
+          "id": "google/gemma-4-e4b",
           "input": [
             "text",
             "image"
