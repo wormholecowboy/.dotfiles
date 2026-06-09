@@ -6,7 +6,7 @@ set relativenumber
 set drawbox
 
 # Syntax Highlighting
-set previewer bat --color=always --style=numbers --paging=never
+set previewer ~/.config/lf/preview.sh
 map i $bat --color=always --style=full --paging=always $f
 
 # Custom Functions
