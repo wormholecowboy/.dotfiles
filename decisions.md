@@ -36,3 +36,19 @@
 1. Replaced lazy-load stubs with direct NVM sourcing in `.zshrc`
 
 **Result:** NVM loads eagerly on shell startup (trades some startup time for reliability). Claude Code shells can access node/npm via PATH set by NVM.
+
+## 2026-06-10: NVM `--no-use` + `.zshenv` PATH
+
+**Problem:** Eager NVM sourcing accounted for ~80% of shell startup (~1050ms of ~1300ms). Most of the cost was `nvm_auto`/`nvm_ensure_version_installed` — the auto-`nvm use` step, not loading the function itself.
+
+**Changes made:**
+1. Created `zsh/.zshenv` that resolves the NVM default alias chain (`default` → `lts/*` → `lts/krypton` → `v24.14.1`) and prepends that version's bin to `PATH`, without sourcing `nvm.sh`. `.zshenv` is read by *all* zsh invocations including non-interactive (Claude Code's Bash tool, scripts) — fixes the 2026-04-09 regression at the root.
+2. Changed `.zshrc` NVM source to use `--no-use` flag (per [nvm-sh/nvm#1261](https://github.com/nvm-sh/nvm/issues/1261)) — loads the `nvm` command but skips the slow auto-activation.
+3. Dropped the duplicate `nvm.sh` source (both paths were the same symlinked file).
+4. Symlinked `~/.zshenv → .dotfiles/zsh/.zshenv` (matching the `.zshrc` pattern).
+
+**Result:** 1.29s → 0.24s startup (~5x faster). `node`/`npm` available in interactive shells, non-interactive shells, and Claude Code's Bash tool. `nvm` command still works interactively.
+
+**Maintenance notes:**
+- If `nvm alias default` is ever changed, `.zshenv` re-resolves on next shell startup — no manual action needed.
+- Remaining startup cost (~75ms) is mostly `compaudit`/`compinit`; not worth optimizing yet.
