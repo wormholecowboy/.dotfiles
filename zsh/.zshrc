@@ -21,9 +21,19 @@ HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.cache/zsh/history
 
-# Load and initialise completion system
+# Load and initialise completion system.
+# Skip the security audit (compaudit, ~65ms) on most startups — only run the
+# full compinit once per day. -C uses the cached dump without auditing.
+# The `(#q...)` glob qualifier needs extendedglob, scoped to this function.
 autoload -Uz compinit
-compinit
+() {
+  emulate -L zsh -o extendedglob
+  if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
+    compinit
+  else
+    compinit -C
+  fi
+}
 
 # NVM (lazy — --no-use skips auto-activation, the slowest part of nvm.sh).
 # NVM_DIR and node PATH are set in .zshenv so non-interactive shells get them too.

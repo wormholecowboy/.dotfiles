@@ -51,4 +51,15 @@
 
 **Maintenance notes:**
 - If `nvm alias default` is ever changed, `.zshenv` re-resolves on next shell startup — no manual action needed.
-- Remaining startup cost (~75ms) is mostly `compaudit`/`compinit`; not worth optimizing yet.
+
+## 2026-06-10: Daily compinit audit (skip compaudit on most startups)
+
+**Problem:** After the NVM fix, `compaudit` was the next biggest cost (~65ms, ~30% of remaining startup). It runs a security audit of every directory in `$fpath` on every shell start — overkill when the dirs haven't changed.
+
+**Changes made:**
+1. Replaced unconditional `compinit` with a daily-audit pattern: run full `compinit` (with audit) only if `~/.zcompdump` is older than 24 hours; otherwise use `compinit -C` (skips audit, trusts cached dump).
+2. Wrapped the conditional in an anonymous function with `emulate -L zsh -o extendedglob` because the `(#q...)` glob qualifier needs `EXTENDED_GLOB`, which isn't globally enabled. Initial attempt without this silently fell through and `-C` never fired.
+
+**Result:** 0.24s → 0.18s (compinit 75ms → 7ms). Total project: 1.29s → 0.18s, ~7x faster than baseline.
+
+**Caveat:** If you add a new completion script to `$fpath`, it may not be picked up until either (a) 24h passes, or (b) you `rm ~/.zcompdump` to force a rebuild.
