@@ -19,7 +19,8 @@
 -- ├──────────────┬──────────────────────────────────────────────────────────┤
 -- │ gd           │ go to definition                                         │
 -- │ gD           │ go to declaration                                        │
--- │ gi           │ go to implementation                                     │
+-- │ gi           │ go to last insert position + insert mode (vim default)   │
+-- │ gI           │ go to implementation                                     │
 -- │ gt           │ go to type definition                                    │
 -- │ go           │ go to definition of type                                 │
 -- │ gr           │ go to references                                         │
