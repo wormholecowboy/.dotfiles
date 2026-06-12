@@ -68,4 +68,4 @@ Note: snyk CLI is only available on my work computer. Hostname begins with `LVUS
 
 ## 7. Memory
 
-Persistent context lives in `.mem/` at git root. See `mem` skill for spec and triggers (`*um`, `*mr`, `/mem-read`).
+Persistent context lives in `.mem/` at git root. See `mem` skill for spec and triggers (`*um`, `*mr`, `/mem`).

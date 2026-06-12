@@ -1,7 +1,7 @@
 ---
 name: mem
 description: >
-  Persistent memory at `.mem/` (git root). Triggers: `*um` (update), `*mr <topic>` (read by topic), `/mem-read` (resume), or "update/read memory".
+  Persistent memory at `.mem/` (git root). Triggers: `*um` (update), `*mr <topic>` (read by topic), `/mem` (resume; init from convo if missing), or "update/read memory".
 ---
 
 # Memory System
@@ -84,24 +84,25 @@ retrieval across daily files. One entry, one primary tag.
 2. `grep -rn "\[<topic>\]" [root]/.mem/*.md` — load matching chunks only.
 3. Present matched entries grouped by source file. Cheaper than full read.
 
-### `/mem-read` or "read memory" — full resume
+### `/mem` or "read memory" — full resume
 
-1. Read `[root]/.mem/long.md` if present.
-2. Find most recent daily: glob `[root]/.mem/????-??-??.md`, sort desc, pick
-   top. Read it.
-3. Args handling:
-   - `list` → list all dailies with focus line, let user pick.
-   - `<YYYY-MM-DD>` → load that specific daily.
-   - `<topic>` → also pull tagged chunks from older dailies via grep.
-4. Present terse summary:
-   - focus + status (from frontmatter)
-   - open qs
-   - next
-   - wip
-   - key files
-5. Ask: "Resume on [top next item], or different focus?"
-
-If `.mem/` missing, say no memory yet — suggest `*um` to start.
+1. `git rev-parse --show-toplevel` → `[root]`
+2. **If `[root]/.mem/` does not exist** — initialize from current conversation:
+   a. `mkdir -p [root]/.mem`
+   b. Write `long.md` populated from convo (goals/learnings/gotchas/arch).
+      Skip empty sections. Tag every entry `[topic]`.
+   c. Write `[root]/.mem/$(date +%Y-%m-%d).md` populated from convo, with
+      frontmatter (`branch`, `focus`, `status`) and sections (wip/next/qs/
+      files/done). Skip empty sections. Tag every entry `[topic]`.
+   d. Confirm to user: paths written + one-line summary of what was captured.
+3. **Else** — resume from existing memory:
+   a. Read `[root]/.mem/long.md` if present.
+   b. Find most recent daily: glob `[root]/.mem/????-??-??.md`, sort desc,
+      pick top. Read it.
+   c. Present terse summary: focus + status, open qs, next, wip, key files.
+   d. Ask: "Resume on [top next item], or different focus?"
+4. If user passed an argument, treat as additional context to scope the
+   resume summary or seed the initial `focus`.
 
 ## Discovery
 
