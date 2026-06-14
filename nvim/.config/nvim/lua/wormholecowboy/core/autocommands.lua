@@ -113,6 +113,15 @@ vim.api.nvim_create_autocmd("VimEnter", {
   end,
 })
 
+-- Enable native treesitter highlighting for all filetypes (Neovim 0.12+)
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup,
+  desc = "Enable native treesitter highlighting",
+  callback = function()
+    pcall(vim.treesitter.start)
+  end,
+})
+
 -- Reason: forces Neovim to check file timestamps on focus/buffer switch
 -- so buffers auto-reload when edited externally (e.g., Claude Code in another tmux window)
 vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {

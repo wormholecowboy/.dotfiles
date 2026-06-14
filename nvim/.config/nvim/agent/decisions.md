@@ -92,3 +92,15 @@ Added `lua/wormholecowboy/plugins/99.lua`. Fills the long-reserved `<leader>a` A
 
 **Prerequisite verified:** `claude` CLI present at `/opt/homebrew/bin/claude` (v2.1.118).
 
+## 2026-05-30: nvim-treesitter migration — native Neovim 0.12 treesitter
+
+**Root cause:** nvim-treesitter `master` branch is frozen and incompatible with Neovim 0.12. The `Query:iter_matches()` API changed in 0.12 so `match[id]` returns a list of nodes instead of a single node; calling `.range()` on the table produced `attempt to call method 'range' (a nil value)`. nvim-treesitter was also archived on 2026-04-03.
+
+**Changes made:**
+- `treesitter.lua` — switched to `branch = "main"`, removed `require("nvim-treesitter.configs").setup()` entirely. Now only manages parser installation via `opts.ensure_installed`.
+- `treesitter-objects.lua` — switched to `branch = "main"`, removed nvim-treesitter dependency, moved all textobjects/move config here with new standalone `require("nvim-treesitter-textobjects").setup({})` API.
+- `autotag.lua` — added explicit `require("nvim-ts-autotag").setup()` (was relying on nvim-treesitter.configs integration).
+- `autocommands.lua` — added FileType autocmd calling `pcall(vim.treesitter.start)` for native Neovim 0.12 highlighting.
+
+**After this change:** Run `:Lazy update nvim-treesitter nvim-treesitter-textobjects` then `:TSUpdate` in Neovim. If parser compilation fails, install `tree-sitter-cli` first: `brew install tree-sitter`.
+
