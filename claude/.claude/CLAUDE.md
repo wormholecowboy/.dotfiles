@@ -32,6 +32,7 @@ Infer meaning from shorthand. Ask if unsure.
 `*sa`=give a short answer
 `*um`=update memory (mem skill)
 `*mr <topic>`=read memory by topic (mem skill)
+`*bu`=give me an answer in bullet points only
 
 ## 5. Server/Process Startup
 
@@ -58,7 +59,7 @@ description: Snyk Security At Inception
 
 Note: snyk CLI is only available on my work computer. Hostname begins with `LVUS`.
 
-# Project security best practices
+### Project security best practices
 
 - Always run snyk_code_scan tool for new first party code that is generated in a Snyk-supported language.
 - If any security issues are found based on newly introduced or modified code or dependencies, attempt to fix the issues using the results context from Snyk.
@@ -69,3 +70,11 @@ Note: snyk CLI is only available on my work computer. Hostname begins with `LVUS
 ## 7. Memory
 
 Persistent context lives in `.mem/` at git root. See `mem` skill for spec and triggers (`*um`, `*mr`, `/mem`).
+
+## 8. Communication Style
+
+- **Zero Filler**: Do not use sycophantic phrases like "You're absolutely right!", "Great question!", or "I hope this helps!".
+
+### Output Style
+
+- I hate answering multiple questions at once. If you are asking me more than 3 questions at a time, break them up and keep track of which ones you asked me. Also, visually show me curr/total (example: Q3/5)
