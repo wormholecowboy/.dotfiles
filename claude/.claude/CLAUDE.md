@@ -18,6 +18,9 @@ CRITICAL: Always check the cwd when performing file operations. Make sure you ar
 - **Mocking/stubbing:** Only for tests. Never in dev/prod.
 - **Coverage:** 1 expected case, 1 edge case, 1 failure case per function.
 - **Maintenance:** Update tests when logic changes.
+- **Mocks grow per-test, not per-plan:** Start with the minimum stub that lets `require`/import succeed. For each new test: write the assertion first, run it, then add only the mock surface the failure demands. No closure-state, configurators (`__configure`/`__reset`), captured-args helpers, or pagination-cursor mocks until a test fails for lack of them. First test inlines; second creates the abstraction.
+- **Anti-pattern (plan-driven mock factory):** writing a large mock factory upfront from the test plan, then writing tests against it. Most surface goes unused; speculative machinery rots into the foundation; reviewer can't justify any line because nothing concrete motivates it yet.
+- **Production-code testability gaps emerge during the build, not planning** (e.g., `exports.handler = serverless(app)` blocking supertest until `exports.app` is added alongside). Don't plan around them — let real test failures surface them.
 
 ## 4. Shorthand & Modifiers
 Infer meaning from shorthand. Ask if unsure.
