@@ -1,3 +1,15 @@
+# 2026-06-17
+
+## 2026-06-17: nvim-treesitter-textobjects API fix (follow-up to 2026-05-30 migration)
+The 2026-05-30 migration switched to `branch = "main"` but the config still passed `keymaps`/`goto_next_start`/etc. inside `setup({...})`. Two issues compounded the failure:
+
+1. **Stale on-disk checkout.** `lazy-lock.json` pinned commit `851e865` (the rewritten main with `.setup()`), but `~/.local/share/nvim/lazy/nvim-treesitter-textobjects` was still at `ad8f0a4` (pre-rewrite, only `M.init` / `define_modules` — no `setup` field, hence `attempt to call field 'setup' (a nil value)`). Fix: `git fetch origin main && git checkout 851e865` directly in the plugin dir — `:Lazy restore` would do the same.
+2. **Wrong setup schema.** The rewrite's `setup()` accepts only `select.{lookahead, lookbehind, selection_modes, include_surrounding_whitespace}` and `move.set_jumps`. Bindings must be set manually:
+   - `vim.keymap.set({"x","o"}, lhs, function() require("nvim-treesitter-textobjects.select").select_textobject(query, "textobjects") end)`
+   - `vim.keymap.set({"n","x","o"}, lhs, function() require("nvim-treesitter-textobjects.move").goto_*(query, "textobjects") end)`
+
+Rewrote `treesitter-objects.lua` accordingly. All original bindings preserved: `af/if`, `ac/ic`, `ai/ii`, `al/il`, `at`, `]m/[m`, `]]/[[`, `]M/[M`, `][/[]`. Selection modes (`@parameter.outer=v`, `@function.outer=V`, `@class.outer=<c-v>`) and `include_surrounding_whitespace = true` kept.
+
 # 2024-12-11
 Adding oil to try out buffer editing for file tree
 
@@ -91,4 +103,16 @@ Added `lua/wormholecowboy/plugins/99.lua`. Fills the long-reserved `<leader>a` A
 **Keymaps:** `<leader>av` (visual replace), `<leader>as` (search), `<leader>ax` (stop). Remapped from upstream `<leader>9*` defaults to fit the existing `<leader>a` AI namespace convention. Updated `core/keymaps.lua` legend.
 
 **Prerequisite verified:** `claude` CLI present at `/opt/homebrew/bin/claude` (v2.1.118).
+
+## 2026-05-30: nvim-treesitter migration — native Neovim 0.12 treesitter
+
+**Root cause:** nvim-treesitter `master` branch is frozen and incompatible with Neovim 0.12. The `Query:iter_matches()` API changed in 0.12 so `match[id]` returns a list of nodes instead of a single node; calling `.range()` on the table produced `attempt to call method 'range' (a nil value)`. nvim-treesitter was also archived on 2026-04-03.
+
+**Changes made:**
+- `treesitter.lua` — switched to `branch = "main"`, removed `require("nvim-treesitter.configs").setup()` entirely. Now only manages parser installation via `opts.ensure_installed`.
+- `treesitter-objects.lua` — switched to `branch = "main"`, removed nvim-treesitter dependency, moved all textobjects/move config here with new standalone `require("nvim-treesitter-textobjects").setup({})` API.
+- `autotag.lua` — added explicit `require("nvim-ts-autotag").setup()` (was relying on nvim-treesitter.configs integration).
+- `autocommands.lua` — added FileType autocmd calling `pcall(vim.treesitter.start)` for native Neovim 0.12 highlighting.
+
+**After this change:** Run `:Lazy update nvim-treesitter nvim-treesitter-textobjects` then `:TSUpdate` in Neovim. If parser compilation fails, install `tree-sitter-cli` first: `brew install tree-sitter`.
 

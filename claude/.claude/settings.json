@@ -69,5 +69,6 @@
   "editorMode": "vim",
   "skipAutoPermissionPrompt": true,
   "mcpServers": {},
+  "effortLevel": "xhigh",
   "model": "opus"
 }
