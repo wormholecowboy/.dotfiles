@@ -63,10 +63,11 @@
     "typescript-lsp@claude-plugins-official": true
   },
   "alwaysThinkingEnabled": true,
+  "effortLevel": "xhigh",
   "awaySummaryEnabled": false,
   "skipDangerousModePermissionPrompt": true,
   "editorMode": "vim",
   "skipAutoPermissionPrompt": true,
   "mcpServers": {},
-  "effortLevel": "xhigh"
+  "model": "opus"
 }
