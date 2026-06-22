@@ -1,5 +1,5 @@
 return {
-	"ThePrimeagen/99",
+	dir = "/Users/briangildea/things/myc/99/master",
 	keys = {
 		{
 			"<leader>av",
@@ -22,6 +22,41 @@ return {
 				require("99").stop_all_requests()
 			end,
 			desc = "99: stop requests",
+		},
+		{
+			"<leader>at",
+			function()
+				require("99").tutorial()
+			end,
+			desc = "99: tutorial",
+		},
+		{
+			"<leader>aV",
+			function()
+				require("99").vibe()
+			end,
+			desc = "99: vibe",
+		},
+		{
+			"<leader>ao",
+			function()
+				require("99").open()
+			end,
+			desc = "99: reopen last result",
+		},
+		{
+			"<leader>am",
+			function()
+				require("99.extensions.telescope").select_model()
+			end,
+			desc = "99: select model",
+		},
+		{
+			"<leader>ap",
+			function()
+				require("99.extensions.telescope").select_provider()
+			end,
+			desc = "99: select provider",
 		},
 	},
 	config = function()

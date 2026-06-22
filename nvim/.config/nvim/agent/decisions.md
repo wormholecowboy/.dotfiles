@@ -1,3 +1,10 @@
+# 2026-06-22
+
+## 2026-06-22: 99 — local checkout + expanded keymaps
+Switched the `99` plugin spec from the remote `"ThePrimeagen/99"` to a local checkout: `dir = "/Users/briangildea/things/myc/99/master"`. Reason: developing/iterating against a local copy of the plugin rather than the published repo.
+
+Added 5 keymaps under the `<leader>a` (+ai) prefix in `99.lua`: `aV` vibe (AI session → quickfix), `at` tutorial, `ao` reopen last result, `am` select model (telescope), `ap` select provider (telescope). Existing `av`/`as`/`ax` unchanged. Updated the `+ai` block in `keymaps.lua` legend to match (source note now "local 99", box alignment verified at 78 cols). No keymap conflicts.
+
 # 2026-06-17
 
 ## 2026-06-17: nvim-treesitter-textobjects API fix (follow-up to 2026-05-30 migration)

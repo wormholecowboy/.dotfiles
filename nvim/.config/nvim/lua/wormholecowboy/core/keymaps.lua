@@ -43,9 +43,14 @@
 -- │ w            │ write (save)                                             │
 -- │ z            │ zen mode                                                 │
 -- ├──────────────┼──────────────────────────────────────────────────────────┤
--- │ a            │ +ai (99.lua, ThePrimeagen/99)                            │
+-- │ a            │ +ai (99.lua, local 99)                                   │
 -- │   v          │   replace visual selection w/ AI (visual mode)           │
+-- │   V          │   vibe (AI session → quickfix)                           │
 -- │   s          │   search (AI codebase Q&A)                               │
+-- │   o          │   reopen last result                                     │
+-- │   t          │   tutorial                                               │
+-- │   m          │   select model                                           │
+-- │   p          │   select provider                                        │
 -- │   x          │   stop all in-flight requests                            │
 -- ├──────────────┼──────────────────────────────────────────────────────────┤
 -- │ g            │ +git                                                     │
