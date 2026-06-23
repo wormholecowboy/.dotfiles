@@ -13,6 +13,13 @@ Replaces the older `.state/` system.
 
 - `.mem/long.md` — durable: goals, learnings, gotchas, arch. Slow churn.
 - `.mem/YYYY-MM-DD.md` — daily: per-session work state.
+- `.mem/<topic>.md` — standalone artifact: a substantive enumerated deliverable the session locked (spec, schema, numbered list, decision table). Full content, not fragments. Pointed to from daily/long.
+
+## Artifacts (don't lossy-compress deliverables)
+
+- When the session produces a concrete, agreed/"locked" enumerated artifact (numbered list, schema, spec, decision table), persist it IN FULL to `.mem/<topic>.md` **proactively** during `*um` and `/mem` init — do not compress it to a one-liner in the daily and do not wait to be asked.
+- Daily/long get only a pointer: `[topic] <name> → .mem/<topic>.md`.
+- Artifact files are exempt from the fragment-only style rule below — preserve enough to reconstruct the deliverable without re-deriving it.
 
 ## `long.md` format
 
