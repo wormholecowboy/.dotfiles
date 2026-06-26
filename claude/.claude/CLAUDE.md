@@ -51,6 +51,14 @@ Infer meaning from shorthand. Ask if unsure.
 
 ## 6. Work Computer Config
 
+### AWS CLI
+
+You don't have the AWS credentials exported in your environment, so bare `aws ...` commands fail with permission errors. Prepend `awsl; ` to any AWS CLI command and it will work — `awsl` is an alias to a script that exports the AWS variables into the current shell.
+
+```bash
+awsl; aws s3 ls
+```
+
 <!--# BEGIN SNYK GLOBAL RULE -->
 ---
 alwaysApply: true
