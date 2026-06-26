@@ -76,9 +76,10 @@ return {
 			},
 		})
 
-		-- Configure LSP handlers for rounded borders
-		vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-		vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
+		-- Rounded borders for all floating windows (hover, signature help, diagnostics).
+		-- Reason: vim.lsp.with()/vim.lsp.handlers overrides were removed in Neovim 0.12;
+		-- the global winborder option is the modern replacement.
+		vim.o.winborder = "rounded"
 
 		-- Modern LspAttach autocmd for keybindings (2025 best practice)
 		vim.api.nvim_create_autocmd("LspAttach", {
