@@ -1,5 +1,23 @@
 # 2026-06-26
 
+## 2026-06-26: Treesitter highlighting dead — incomplete `master`→`main` migration + missing `tree-sitter` CLI
+
+**Symptom:** Syntax highlighting "barely working" — comments rendered as plain `Normal` (white) on every colorscheme. `:Inspect` on a comment → "No items found." Diagnostics on a python buffer: `vim.treesitter.start()` returned `start_ok=true` (no error) yet `ts_active=false`, `hl_query_found=false`, `query_files=0`. Parser loaded fine (`parser_ok=true`).
+
+**Root cause (two compounding faults):**
+1. **`treesitter.lua` still used the old `master`-branch API** (`opts = { ensure_installed, auto_install }`) while pinned to `branch = "main"`. On `main`, `setup()` accepts only `install_dir`; those keys are silently ignored, so **`install()` never ran**. `install()` is the function that copies each language's parser AND its `runtime/queries/<lang>` into the install dir. Without it, the highlighter starts with no `highlights` query and paints nothing — `start()` does not error in that case.
+   - The stray python parser found at `lazy/nvim-treesitter/parser/python.so` was a leftover from the `:TSUpdate` build / old `auto_install`; its queries (`runtime/queries/`) were never on the runtimepath (only `<plugin>/queries` would be, which doesn't exist on `main`).
+2. **The `main` branch compiles parsers with the `tree-sitter` CLI, which was not installed.** brew's `tree-sitter` formula is the C *library* only (libtree-sitter, no `bin/`). The CLI is a **separate formula: `tree-sitter-cli`**. Without it, `install()` fails at "Compiling parser" (`ENOENT: 'tree-sitter'`) and queries are never copied.
+
+**Fix applied:**
+- `brew install tree-sitter-cli` (0.26.9, matches the `tree-sitter` library version). New hard dependency for the `main` branch — must be present on every machine for parser builds.
+- Rewrote `treesitter.lua` to the canonical `main`-branch spec: `lazy = false`, `build = ":TSUpdate"`, and `config = function() require("nvim-treesitter").install(ensure) end` with the language list. **Added `python`** (was missing entirely). Did NOT call `setup({install_dir})` — default install dir is `stdpath('data')/site`, which Neovim already has on the runtimepath (verified `query_files=1` resolving from `~/.local/share/nvim/site/queries/python/`).
+- Highlighting itself is still enabled by the existing `FileType` autocmd in `core/autocommands.lua` (`pcall(vim.treesitter.start)`) — unchanged, correct for `main`.
+
+**Verified:** after `install({...}):wait()`, running the python `highlights` query against a parsed tree yields captures incl. `comment = 1`, `function`, `keyword.*`, `variable.*`. Query resolves on rtp, highlighter attaches.
+
+**Next time / durability:** if highlighting silently dies on `main`, check in order: (1) `tree-sitter --version` on PATH, (2) `:lua =#vim.api.nvim_get_runtime_file("queries/<lang>/highlights.scm",true)` — if 0, the lang was never `install()`ed, (3) `:TSInstall <lang>` / add to the `ensure` list. `nvim-treesitter-textobjects` is also on `main` (migrated 2026-06-17), so reverting core to `master` was rejected to avoid splitting the pair.
+
 ## 2026-06-26: Startup crash — SIGKILL (Code Signature Invalid) on LuaSnip jsregexp.so
 
 **Symptom:** After `brew upgrade` (Neovim 0.11.6 → 0.12.3 on macOS Tahoe / Darwin 25.5), `nvim` died instantly at startup with `zsh: killed`. No Lua error, no crash dialog. `nvim -u NONE` started fine; full config did not.
