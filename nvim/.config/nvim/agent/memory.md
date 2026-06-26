@@ -293,6 +293,19 @@ Fast checks (1-2 seconds) will miss most or all diagnostics.
 
 **Why:** The legend is the SINGLE SOURCE OF TRUTH for all keymaps. Outdated legend entries cause confusion and potential conflicts.
 
+### macOS Tahoe — SIGKILL (Code Signature Invalid) on native .so
+**CRITICAL pattern:** On macOS Tahoe (Darwin 25+), if `nvim` dies instantly at startup with `zsh: killed` / exit `137` and NO Lua error, suspect a native `.so` with an invalid code signature — NOT a config bug. `nvim -u NONE` will start fine; full config won't.
+
+**Fast diagnosis:**
+1. Check exit code: `nvim --headless +q; echo $?` → `137` means SIGKILL.
+2. Read newest crash report: `~/Library/Logs/DiagnosticReports/nvim-*.ips` → look for `SIGKILL (Code Signature Invalid)` + CODESIGNING "Invalid Page".
+3. Find the exact `.so` by hooking the loader:
+   `nvim --cmd 'lua local ol=package.loadlib; package.loadlib=function(p,f) local fh=io.open("/tmp/load.txt","a"); fh:write(tostring(p).."\n"); fh:close(); return ol(p,f) end' --headless +q` then read `/tmp/load.txt` (last line = culprit). For `ffi.load` modules, hook `ffi.load` the same way.
+
+**Fix:** `codesign --force --sign - <path-to.so>`. Note: static `codesign -v` can report "valid on disk" even when dyld rejects it at runtime — trust the runtime load test, not `-v`.
+
+**Known offender:** `~/.local/share/nvim/lazy/LuaSnip/deps/luasnip-jsregexp.so` (2026-06-26). Recurs if LuaSnip recompiles jsregexp. **User barely uses LuaSnip — removing it is an acceptable permanent fix if this keeps happening.** See decisions.md 2026-06-26.
+
 ### Temporary and Troubleshooting Files
 **Location:** `/temp/` directory in the config root
 

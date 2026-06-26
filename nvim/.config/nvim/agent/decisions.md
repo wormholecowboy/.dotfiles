@@ -1,3 +1,32 @@
+# 2026-06-26
+
+## 2026-06-26: Startup crash — SIGKILL (Code Signature Invalid) on LuaSnip jsregexp.so
+
+**Symptom:** After `brew upgrade` (Neovim 0.11.6 → 0.12.3 on macOS Tahoe / Darwin 25.5), `nvim` died instantly at startup with `zsh: killed`. No Lua error, no crash dialog. `nvim -u NONE` started fine; full config did not.
+
+**Diagnosis path (for next time):**
+1. `nvim --headless +q` exited `137` (128+9 = SIGKILL), not a normal error.
+2. macOS crash report under `~/Library/Logs/DiagnosticReports/nvim-*.ips` showed `EXC_BAD_ACCESS / SIGKILL (Code Signature Invalid)`, CODESIGNING "Invalid Page".
+3. The faulting backtrace was in **dyld during `dlopen`**, called from **libluajit** while sourcing the config (`nlua_exec_file` → `lua_pcall` → `dlopen`) — i.e. a native `.so` `require`d at startup, NOT a config logic bug. (The `libtree-sitter` mention in the first report was a red herring.)
+4. Hooking `package.loadlib` via `--cmd` pinned the exact file:
+   `nvim --cmd 'lua local ol=package.loadlib; package.loadlib=function(p,f) local fh=io.open("/tmp/load.txt","a"); fh:write(tostring(p).."\n"); fh:close(); return ol(p,f) end' --headless +q`
+   Last logged load before the kill = the culprit.
+
+**Root cause:** `~/.local/share/nvim/lazy/LuaSnip/deps/luasnip-jsregexp.so` (locally-compiled native module LuaSnip loads at startup) had an **invalid ad-hoc code signature**. It passed static `codesign -v` ("valid on disk") but failed dyld's stricter runtime page-signature check on macOS Tahoe, so the kernel SIGKILLed nvim the instant it was `dlopen`ed. Mach-O was otherwise correct (arm64, minos 26.0).
+
+**Fix applied:** re-sign the offending `.so`:
+```bash
+codesign --force --sign - ~/.local/share/nvim/lazy/LuaSnip/deps/luasnip-jsregexp.so
+```
+Confirmed: full config now starts clean (exit 0).
+
+**Durability / next steps:** the re-sign holds until LuaSnip recompiles jsregexp (e.g. on `:Lazy update`), which can reintroduce a bad signature. If the SIGKILL returns, re-run the `codesign --force --sign -` line on that `.so`. **User barely uses LuaSnip — removing it entirely is an acceptable permanent fix if this recurs** (would drop snippet expansion; friendly-snippets/cmp_luasnip depend on it). Same `codesign` trick applies to any locally-compiled `.so` that triggers this on Tahoe.
+
+**Unrelated 0.12 API fixes made in the same session** (real removals surfaced by the version bump, not the crash cause):
+- `lspconfig.lua` — `vim.lsp.with()` / `vim.lsp.handlers[...]` overrides were removed in 0.12 → replaced with `vim.o.winborder = "rounded"` (global rounded borders for hover/signature/diagnostic floats).
+- `autocommands.lua` — `vim.highlight.on_yank` → `vim.hl.on_yank` (renamed in 0.11+).
+- `99.lua` — hardcoded `/Users/briangildea/...` dir → `vim.fn.expand("$HOME/things/myc/99/master")` for cross-machine portability (two machines with different usernames). Also required creating the missing git worktree locally: `git --git-dir=.bare worktree add master master` in `~/things/myc/99`.
+
 # 2026-06-22
 
 ## 2026-06-22: 99 — local checkout + expanded keymaps
