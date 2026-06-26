@@ -1,5 +1,5 @@
 return {
-	dir = "/Users/briangildea/things/myc/99/master",
+	dir = vim.fn.expand("$HOME/things/myc/99/master"),
 	keys = {
 		{
 			"<leader>av",
