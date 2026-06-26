@@ -16,7 +16,7 @@ return {
 	},
 	config = function()
 		function ColorMyPencils(color)
-			color = color or "focuspoint"
+			color = color or "everforest"
 			vim.cmd.colorscheme(color)
 
       -- transparent background
