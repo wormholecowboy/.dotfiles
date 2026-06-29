@@ -1,6 +1,6 @@
 ---
-description: Intended to slow Claude Code down so I can review and learn.
-argument-hint: file|auto|step
+description: Restrict Claude's building speed so I can review and understand. 
+argument-hint: file|auto(default)|step
 ---
 
 Brakes mode engaged! I want to move slowly so that I can review code and learn things and ask questions along the way.
