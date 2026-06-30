@@ -1,5 +1,7 @@
 ---
+name: commit-all
 description: Create a git commit for all uncommitted changes with conventional commit message
+disable-model-invocation: true
 ---
 
 Use the **git-ops** subagent (via Task tool) to commit all uncommitted changes.

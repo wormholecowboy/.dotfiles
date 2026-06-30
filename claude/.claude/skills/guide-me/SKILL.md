@@ -1,3 +1,9 @@
+---
+name: guide-me
+description: Build with me as your guide — tell me what to do, not how
+disable-model-invocation: true
+---
+
 I want to build with you as my guide. Help me build the feature we are talking about:
 - Point me to the correct docs I need
 - ONLY give me the solution if I ask for it

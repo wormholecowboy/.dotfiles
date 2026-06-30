@@ -1,5 +1,7 @@
 ---
+name: bullet-summary
 description: Create quick bullet summary of conversation so far
+disable-model-invocation: true
 ---
 
 Go through the conversation and then create a brief bullet point history of the conversation so far.

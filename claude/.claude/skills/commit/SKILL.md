@@ -1,5 +1,7 @@
 ---
+name: commit
 description: Create a git commit for the changes we made in this conversation
+disable-model-invocation: true
 ---
 
 Use the **git-ops** subagent (via Task tool) to create a detailed git commit.
