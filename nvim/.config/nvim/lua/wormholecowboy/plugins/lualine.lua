@@ -1,5 +1,16 @@
 local function get_current_buffer_path()
-  return vim.fn.expand('%:p')
+  local path = vim.fn.expand('%:p')
+  if path == '' then
+    return ''
+  end
+  -- Show only the last 5 path segments, prefixed with … when truncated
+  local parts = vim.split(path, '/', { trimempty = true })
+  local keep = 5
+  if #parts <= keep then
+    return path
+  end
+  local tail = vim.list_slice(parts, #parts - keep + 1, #parts)
+  return '…/' .. table.concat(tail, '/')
 end
 
 return {
