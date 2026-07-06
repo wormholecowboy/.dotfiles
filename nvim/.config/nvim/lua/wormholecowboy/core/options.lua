@@ -27,6 +27,9 @@ vim.opt.shiftwidth = 2 -- the number of spaces when using <>
 vim.opt.softtabstop = 2 -- Defines how many spaces the <Tab> key inserts or deletes in insert mode. This doesn’t directly affect > or <, but it's useful to keep consistent with shiftwidth.
 vim.opt.expandtab = true -- convert tabs to spaces
 vim.opt.tabstop = 2 -- Controls how many spaces a tab character represents visually. This only matters if expandtab is not set and actual tab characters are used.
+-- Neovim's bundled markdown ftplugin forces 4-space indent (tabstop/softtabstop/shiftwidth=4)
+-- via g:markdown_recommended_style. Opt out so markdown uses the global 2 above.
+vim.g.markdown_recommended_style = 0
 vim.opt.smarttab = true -- It makes tabbing smarter by aligning it with the indentation settings (shiftwidth and tabstop).
 -- Effect in Insert Mode:
 --

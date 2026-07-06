@@ -1,3 +1,15 @@
+# 2026-07-06
+
+## 2026-07-06: Markdown `>` indented 4 instead of global 2 — opt out of runtime's recommended style
+
+**Symptom:** In markdown buffers `>`/`>>` shifted by 4 spaces, not the global `shiftwidth=2` set in `core/options.lua`.
+
+**Root cause:** Not our config. Neovim's bundled markdown ftplugin (`$VIMRUNTIME/ftplugin/markdown.vim`, line 27) runs `setlocal expandtab tabstop=4 softtabstop=4 shiftwidth=4`, gated behind `g:markdown_recommended_style` (defaults to 1). The `>` operator shifts by `shiftwidth` (falling back to `tabstop` when sw=0), so the buffer-local 4 won over our global 2. Traced with `:verbose setlocal shiftwidth?` in a markdown buffer, which named the runtime ftplugin + line.
+
+**Why 4 is the "recommended" default:** CommonMark treats 4 leading spaces as an indented code block, so the runtime's recommended style uses 4-space indentation for markdown.
+
+**Fix applied:** Set `vim.g.markdown_recommended_style = 0` in `core/options.lua` (grouped with the indent options). This disables the entire recommended-style block, so markdown falls back to the global `expandtab`/`shiftwidth=2`/`tabstop=2`/`softtabstop=2`. Chosen over an `after/ftplugin/markdown.lua` override because it cleanly opts out rather than re-fighting the runtime per buffer. Must be set before the ftplugin loads — options.lua runs at startup, before any markdown buffer opens, so ordering is fine. Verified headless: markdown now reports sw/ts/sts = 2.
+
 # 2026-07-03
 
 ## 2026-07-03: Treesitter boot error — `install` nil; stale checkout stranded on old `master` branch
