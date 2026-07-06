@@ -1,0 +1,8 @@
+
+{
+  "lastChangelogVersion": "0.80.3",
+  "theme": "dark",
+  "defaultProvider": "lmstudio",
+  "defaultModel": "google/gemma-4-12b-qat",
+  "hideThinkingBlock": true
+}
