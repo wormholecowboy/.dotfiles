@@ -1,3 +1,23 @@
+# 2026-07-03
+
+## 2026-07-03: Treesitter boot error — `install` nil; stale checkout stranded on old `master` branch
+
+**Symptom:** On boot, `Failed to run 'config' for nvim-treesitter` →
+`treesitter.lua:53: attempt to call field 'install' (a nil value)`. Config itself was already the correct `main`-branch spec (`branch = "main"`, `require("nvim-treesitter").install(ensure)`).
+
+**Root cause:** Same class as the 2026-06-17 textobjects failure — **stale on-disk checkout, wrong branch.** `lazy-lock.json` correctly pinned the main-branch commit `4916d659`, but the working tree in `~/.local/share/nvim/lazy/nvim-treesitter` was detached at `42fc28ba` ("announce archiving of master branch") — the tip of the **old `master`** branch. That code ships `configs.lua`/`highlight.lua` and has **no top-level `install()`**, hence the nil. lazy.nvim does not force-switch branches on an already-installed repo when the spec's `branch` field changes, so it left the master checkout in place.
+
+**Diagnosis (fast path):** in the plugin dir, `git log -1 --oneline` (showed the master-archive commit), `git branch --show-current` (detached), `ls lua/nvim-treesitter/configs.lua` (present = still on master; on `main` it's absent), and `git log -1 --oneline origin/main` (= the locked `4916d659`). Confirmed the real API on `origin/main` with `git show origin/main:lua/nvim-treesitter/init.lua | grep 'function M.install'` before switching.
+
+**Fix applied:**
+```bash
+cd ~/.local/share/nvim/lazy/nvim-treesitter
+git checkout -B main origin/main   # → 4916d659, matches lazy-lock.json
+```
+After: on branch `main` at `4916d659`, `configs.lua` gone, `M.install` present. Headless boot clean — no error, `install(ensure)` began downloading/compiling all parsers. `tree-sitter` CLI already present (`0.26.10`, `/opt/homebrew/bin`), so the executable guard added on 2026-06-26 passed.
+
+**Next time / durability:** whenever a plugin's `branch` field changes on an already-installed repo, lazy can leave a stale checkout on the old branch → `attempt to call field '<x>' (a nil value)`. Fix with `:Lazy restore <plugin>` / `:Lazy update <plugin>`, or `git checkout -B <branch> origin/<branch>` directly in the plugin dir. Quick tell for treesitter specifically: presence of `lua/nvim-treesitter/configs.lua` means it's still on `master`. This is the **third** occurrence of the stale-checkout pattern in this repo (see 2026-06-17 textobjects, 2026-06-26 treesitter master→main).
+
 # 2026-06-26
 
 ## 2026-06-26: Treesitter highlighting dead — incomplete `master`→`main` migration + missing `tree-sitter` CLI

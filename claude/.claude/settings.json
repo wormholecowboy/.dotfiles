@@ -54,6 +54,7 @@
       "Read(./secrets/**)"
     ]
   },
+  "model": "opus",
   "hooks": {},
   "statusLine": {
     "type": "command",
@@ -69,6 +70,5 @@
   "editorMode": "vim",
   "skipAutoPermissionPrompt": true,
   "mcpServers": {},
-  "effortLevel": "xhigh",
-  "model": "opus"
+  "tui": "fullscreen"
 }
