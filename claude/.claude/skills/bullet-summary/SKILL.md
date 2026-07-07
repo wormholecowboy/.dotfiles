@@ -6,3 +6,5 @@ disable-model-invocation: true
 
 Go through the conversation and then create a brief bullet point history of the conversation so far.
 Keep it to one line per event/though/idea/etc.
+
+extra context from user = $ARGUMENTS
