@@ -30,6 +30,13 @@ return {
         "BufferLineModifiedSelected",
         "BufferLineDuplicateSelected",
         "BufferLineCloseButtonSelected",
+        -- diagnostic-selected groups, else an active tab with an LSP
+        -- error/warning keeps its italic + colored fg instead of the mode block
+        "BufferLineErrorSelected",
+        "BufferLineWarningSelected",
+        "BufferLineInfoSelected",
+        "BufferLineHintSelected",
+        "BufferLineDiagnosticSelected",
       }) do
         vim.api.nvim_set_hl(0, group, { link = "lualine_a_normal" })
       end
