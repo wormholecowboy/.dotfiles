@@ -1,3 +1,11 @@
+# 2026-07-08
+
+## 2026-07-08: leap.nvim repo moved to Codeberg — switched spec from short-name to `url`
+
+**Change:** The `leap.nvim` upstream moved off GitHub to Codeberg. Updated `lua/wormholecowboy/plugins/leap.lua` from the `"ggandor/leap.nvim"` short-name to `url = "https://codeberg.org/andyg/leap.nvim"`. Config (keys, preview fn, equivalence classes, repeat keys, backdrop hl) unchanged.
+
+**Note for next boot:** lazy.nvim derives the same plugin name (`leap.nvim`) from both the old short-name and the new URL, so the on-disk clone still has the old GitHub remote. lazy should detect the URL mismatch and re-clone; if it doesn't, `:Lazy restore leap.nvim` / `:Lazy sync`, then `:Lazy clean` + reinstall as a fallback. Same stale-checkout family as the treesitter/textobjects entries below, but triggered by a URL change rather than a branch change.
+
 # 2026-07-06
 
 ## 2026-07-06: Markdown `>` indented 4 instead of global 2 — opt out of runtime's recommended style
