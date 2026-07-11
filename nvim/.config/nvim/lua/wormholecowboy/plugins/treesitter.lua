@@ -26,6 +26,19 @@ local ensure = {
 	"ruby",
 	"markdown",
 	"python",
+	"yaml",
+	"toml",
+	"markdown_inline",
+	"css",
+	"comment",
+	"gitcommit",
+	"diff",
+	"regex",
+	"git_rebase",
+	"gitignore",
+	"sql",
+	"xml",
+	"rust",
 }
 
 return {
