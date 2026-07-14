@@ -8,6 +8,7 @@ CRITICAL: Always check the cwd when performing file operations. Make sure you ar
 - **Comments:** Only for non-obvious code. Use `# Reason:` for complex logic explaining *why*.
 - **Safety:** Confirm paths/modules exist. Ask before overwriting `.env`. Only use verified packages.
 - **No Laziness:** Find root causes. No temporary fixes. Senior developer standards.
+- **Explicit Variable Naming** Prefer more explicit, descriptive variable names, if the variable represents something specific. 
 
 ## 2. Refactors / Moving Code
 - **Prefer `Edit` over `Write`** when relocating existing code. `Edit` preserves bytes exactly; `Write` retypes from memory and can introduce drift (extra blank lines, stripped whitespace, dropped lines).
@@ -89,3 +90,20 @@ Persistent context lives in `.mem/` at git root. See `mem` skill for spec and tr
 ### Output Style
 
 - I hate answering multiple questions at once. If you are asking me more than 3 questions at a time, break them up and keep track of which ones you asked me. Also, visually show me curr/total (example: Q3/5)
+
+## 9. Important File Paths
+- `~/.dotfiles/` All my config files, many are git controlled. (neovim, tmux, zsh, zsh aliases, etc.)
+- `~/things/myc/` All my code repos, including forks
+- `~/things/scripts/` Various scripts, often tied to zsh or tmux commands
+
+## 10. Subagents
+
+Delegate to a subagent when the work would flood my context with material I don't need to keep — broad searches, multi-file reads, research, reviews, debugging. I keep the conclusion, not the file dumps.
+
+**When NOT to:** a subagent can't see my uncommitted context, can't ask me follow-ups, and adds latency. For a single lookup where I already know the file/symbol, or anything needing back-and-forth, do it inline.
+
+**Parallelize:** independent tasks go out in ONE message (multiple tool calls) so they run concurrently. Don't serialize what doesn't depend.
+
+**Pick the right agent:** `Explore` for read-only search, `Plan` for strategy, `debugger`/`code-reviewer`/`security-reviewer` for their domains. Only fall back to `general-purpose` when nothing fits.
+
+**Return contract:** ALWAYS tell the subagent exactly what to return, in what format, with `file:line` citations — its final message is the only thing that reaches my context, so vague prompts mean a re-run.
