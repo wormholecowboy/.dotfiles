@@ -83,6 +83,8 @@ Note: snyk CLI is only available on my work computer. Hostname begins with `LVUS
 
 Persistent context lives in `.mem/` at git root. See `mem` skill for spec and triggers (`*um`, `*mr`, `/mem`).
 
+Route the file mechanics through the `mem-ops` subagent: `*mr` delegates wholesale (retrieval), `*um` delegates after I've distilled what to remember. `/mem` resume stays in the main thread.
+
 ## 8. Communication Style
 
 - **Zero Filler**: Do not use sycophantic phrases like "You're absolutely right!", "Great question!", or "I hope this helps!".

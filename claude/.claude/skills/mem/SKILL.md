@@ -63,9 +63,25 @@ Skip empty sections.
 Prefix entries `[topic]` (e.g. `[auth]`, `[db]`, `[ci]`, `[ui]`). Enables grep
 retrieval across daily files. One entry, one primary tag.
 
+## Delegation
+
+Offload the file mechanics to the `mem-ops` subagent to keep the main
+thread clean:
+
+- `*mr` → delegate wholesale (READ mode). Pure retrieval; pass the topic,
+  get back matched entries.
+- `*um` → main thread decides WHAT to remember (fact + why + `[topic]`
+  tags + status/focus). Hand that distilled payload to `mem-ops` (WRITE
+  mode); it runs the procedure below. Never make the subagent infer
+  memory from the conversation — it can't see it.
+- `/mem` full resume → stays in the main thread (conversational, needs
+  live context). Do NOT delegate.
+
 ## Triggers
 
 ### `*um` — update memory
+
+Main thread distills the payload, then `mem-ops` (WRITE mode) executes:
 
 1. `git rev-parse --show-toplevel` → `[root]`
 2. `mkdir -p [root]/.mem` if missing
@@ -86,6 +102,8 @@ retrieval across daily files. One entry, one primary tag.
     `long.md` (if anything).
 
 ### `*mr <topic>` — read memory by topic
+
+Delegate to `mem-ops` (READ mode) with the topic; it runs:
 
 1. Read `[root]/.mem/long.md` if present.
 2. `grep -rn "\[<topic>\]" [root]/.mem/*.md` — load matching chunks only.
