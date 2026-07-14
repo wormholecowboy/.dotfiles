@@ -5,7 +5,7 @@ CRITICAL: Always check the cwd when performing file operations. Make sure you ar
 ## 1. Code Style & Workflow
 - **Stick to the stack:** When fixing issues, exhaust current tech and patterns before introducing new ones. Don't change stable architecture unless explicitly told.
 - **Scoped changes:** Only modify code directly relevant to the request. Think through impacts on related code.
-- **Comments:** Only for non-obvious code. Use `# Reason:` for complex logic explaining *why*.
+- **Comments:** Only for non-obvious code. Use `# Reason:` for complex logic explaining *why*. No ticket/story numbers or conversation-specific labels (e.g. "Option B", "the new approach", "per our discussion") — keep comments generalized to the repo long-term.
 - **Safety:** Confirm paths/modules exist. Ask before overwriting `.env`. Only use verified packages.
 - **No Laziness:** Find root causes. No temporary fixes. Senior developer standards.
 - **Explicit Variable Naming** Prefer more explicit, descriptive variable names, if the variable represents something specific. 
