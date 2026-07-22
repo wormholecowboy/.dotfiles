@@ -54,21 +54,21 @@
       "Read(./secrets/**)"
     ]
   },
-  "model": "opus",
+  "model": "opus[1m]",
   "hooks": {},
   "statusLine": {
     "type": "command",
     "command": "~/.dotfiles/claude/.claude/statusline-command.sh"
   },
   "enabledPlugins": {
-    "typescript-lsp@claude-plugins-official": true
+    "typescript-lsp@claude-plugins-official": false
   },
   "alwaysThinkingEnabled": true,
   "effortLevel": "xhigh",
   "awaySummaryEnabled": false,
+  "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
   "editorMode": "vim",
   "skipAutoPermissionPrompt": true,
-  "mcpServers": {},
-  "tui": "fullscreen"
+  "mcpServers": {}
 }

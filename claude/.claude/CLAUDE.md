@@ -16,6 +16,7 @@ CRITICAL: Always check the cwd when performing file operations. Make sure you ar
 - **Smoke-test imports** with a `python3 -c "from new.module import ..."` to catch broken refs that syntax checks miss.
 
 ## 3. Testing
+- ALWAYS ask if I want new tests before creating them.
 - **Mocking/stubbing:** Only for tests. Never in dev/prod.
 - **Coverage:** 1 expected case, 1 edge case, 1 failure case per function.
 - **Maintenance:** Update tests when logic changes.
