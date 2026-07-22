@@ -8,6 +8,7 @@ cwd=$(echo "$input" | jq -r '.workspace.current_dir')
 model_name=$(echo "$input" | jq -r '.model.display_name // "Claude"')
 context_size=$(echo "$input" | jq -r '.context_window.context_window_size // 0')
 current_usage=$(echo "$input" | jq -r '.context_window.current_usage')
+effort_level=$(echo "$input" | jq -r '.effort.level // empty')
 lines_added=$(echo "$input" | jq -r '.cost.total_lines_added // 0')
 lines_removed=$(echo "$input" | jq -r '.cost.total_lines_removed // 0')
 
@@ -39,6 +40,11 @@ output+=$'\n'
 
 # Model name (cyan)
 output+=$(printf '\033[2;36m[%s]\033[0m ' "$model_name")
+
+# Effort level (dim magenta, right of context usage)
+if [ -n "$effort_level" ]; then
+  output+=$(printf '\033[2;35m⚡%s\033[0m ' "$effort_level")
+fi
 
 # Context window usage with color-coded bar
 if [ "$context_size" != "0" ] && [ "$context_size" != "null" ] && [ -n "$context_size" ] && [ "$current_usage" != "null" ] && [ -n "$current_usage" ]; then
