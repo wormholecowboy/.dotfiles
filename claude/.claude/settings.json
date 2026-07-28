@@ -16,7 +16,15 @@
       "Bash(docker-compose logs:*)",
       "Bash(find:*)",
       "Bash(gh issue view:*)",
-      "Bash(git:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git branch:*)",
+      "Bash(git fetch:*)",
+      "Bash(git stash:*)",
       "Bash(grep:*)",
       "Bash(head:*)",
       "Bash(ls:*)",
@@ -50,11 +58,15 @@
     ],
     "deny": [
       "Bash(curl:*)",
+      "Bash(git push*--force*)",
+      "Bash(git push* -f*)",
+      "Bash(git reset*--hard*)",
+      "Bash(git clean*)",
+      "Bash(git checkout -- *)",
       "Read(./.env)",
       "Read(./secrets/**)"
     ]
   },
-  "model": "opus[1m]",
   "hooks": {},
   "statusLine": {
     "type": "command",
@@ -70,5 +82,6 @@
   "skipDangerousModePermissionPrompt": true,
   "editorMode": "vim",
   "skipAutoPermissionPrompt": true,
-  "mcpServers": {}
+  "mcpServers": {},
+  "model": "claude-fable-5"
 }
