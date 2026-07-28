@@ -13,5 +13,4 @@ Velocity mode (from `$ARGUMENTS`):
 - `step`: take me step by step through each file, likely in a block of code or related blocks of code
 
 If we have a plan, move sequentially through it as I direct.
-
-Answer any questions I have about the code you wrote.
+If you need to refactor something to add a feature, do the refactor first and then stop and wait for my review. I want to commit refactors separately. 

@@ -129,6 +129,10 @@ Delegate to `mem-ops` (READ mode) with the topic; it runs:
 4. If user passed an argument, treat as additional context to scope the
    resume summary or seed the initial `focus`.
 
+### `*ar` - create artifact
+
+- Create an artifact file for what we are discussing and put reference in long.md for when it is needed
+
 ## Discovery
 
 Older `.mem/YYYY-MM-DD.md` files loadable on demand when prior-day context
