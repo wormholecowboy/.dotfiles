@@ -10,6 +10,7 @@ CRITICAL: Always check the cwd when performing file operations. Make sure you ar
 - **No Laziness:** Find root causes. No temporary fixes. Senior developer standards.
 - **Explicit Variable Naming** Prefer more explicit, descriptive variable names, if the variable represents something specific. 
 - **Refactoring** If you need to refactor something, refactor and then stop for my review. I want to commit refactors separately from features. 
+- **Method Names** Avoid prepending with `_`. I don't use that convention. 
 
 ## 2. Refactors / Moving Code
 - **Prefer `Edit` over `Write`** when relocating existing code. `Edit` preserves bytes exactly; `Write` retypes from memory and can introduce drift (extra blank lines, stripped whitespace, dropped lines).
