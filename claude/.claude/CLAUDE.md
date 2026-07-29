@@ -39,6 +39,7 @@ Infer meaning from shorthand. Ask if unsure.
 `*sa`=give a short answer
 `*um`=update memory (mem skill)
 `*mr <topic>`=read memory by topic (mem skill)
+`*op`=update/create repo operating instructions in long.md (mem skill)
 `*bu`=give me an answer in bullet points only
 
 ## 5. Server/Process Startup
