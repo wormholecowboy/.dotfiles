@@ -1,3 +1,20 @@
+# 2026-08-01
+
+## 2026-08-01: vim-herdr-navigation now lazy.nvim-managed (dropped external `~/things/myc` clone)
+
+**Problem:** The 2026-07-31 setup loaded the nav plugin by `dofile`-ing `~/things/myc/vim-herdr-navigation/editor/nvim.lua` from `after/plugin/herdr-nav.lua`, guarded by `fs_stat`. On any machine without that clone (dotfiles sync doesn't carry it) the guard fell through and **no `<C-h/j/k/l>` maps were created** — tmux pass-through into nvim silently broke (worked in bare tmux panes, dead inside nvim).
+
+**Changes made:**
+- `tmux-navigator.lua`: added `paulbkim-dev/vim-herdr-navigation` as a lazy `dependencies` entry, `lazy = false`, and in `config` `dofile` its `editor/nvim.lua` from lazy's install dir (`require("lazy.core.config").plugins["vim-herdr-navigation"].dir`). Kept `vim.g.tmux_navigator_no_mappings = 1`; re-added `<C-\>` → `TmuxNavigatePrevious`. vim-tmux-navigator stays as the dep providing `TmuxNavigate*`.
+- Deleted `after/plugin/herdr-nav.lua` and the `~/things/myc` path dependency.
+- `lazy-lock.json` now pins vim-herdr-navigation.
+
+**Result:** The plugin installs automatically on every machine via lazy. The one spec is correct in both tmux and herdr (`editor/nvim.lua`: vim split → herdr pane → `TmuxNavigate*` → `wincmd`). Verified headless: `<C-h/j/k/l>` resolve to the plugin's nav fn, `<C-\>` → `TmuxNavigatePrevious`, `:TmuxNavigateLeft` defined at startup, no errors.
+
+**Herdr side (other machine):** the herdr-side link still points at `~/things/myc/vim-herdr-navigation`. To drop that clone, on the herdr machine: open nvim once (lazy installs to `~/.local/share/nvim/lazy/vim-herdr-navigation`), then `herdr plugin unlink vim-herdr-navigation && herdr plugin link ~/.local/share/nvim/lazy/vim-herdr-navigation && herdr server reload-config`, then `rm -rf ~/things/myc/vim-herdr-navigation`.
+
+**Rollback:** remove the `dependencies`/`config` from `tmux-navigator.lua` and restore the four directional `keys` entries (see git `abae5bb^`).
+
 # 2026-07-31
 
 ## 2026-07-31: `<C-h/j/k/l>` remapped for herdr trial — vim-herdr-navigation, tmux fallback preserved
@@ -10,7 +27,7 @@
 
 **Behavior:** identical to before inside tmux; inside herdr, edge navigation now crosses into herdr panes. Verified headless that `<C-h>`/`<C-l>` normal-mode maps resolve to the plugin's `editor/nvim.lua`.
 
-**Rollback (if herdr trial ends):** delete `after/plugin/herdr-nav.lua` and restore the four directional `keys` entries + remove `init` in `tmux-navigator.lua`.
+**Rollback (if herdr trial ends):** delete `after/plugin/herdr-nav.lua` and restore the four directional `keys` entries + remove `init` in `tmux-navigator.lua`. **(Superseded 2026-08-01 — `after/plugin/herdr-nav.lua` was deleted and loading moved to lazy.nvim; see the 2026-08-01 entry.)**
 
 # 2026-07-08
 

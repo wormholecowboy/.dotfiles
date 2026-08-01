@@ -1,5 +1,43 @@
 # Decisions
 
+## 2026-08-01: vim-herdr-navigation moved to lazy.nvim (nvim side) — dropping the `~/things/myc` clone
+
+**Problem:** The nvim keymaps were loaded by `dofile`-ing `~/things/myc/vim-herdr-navigation/editor/nvim.lua`. That clone isn't carried by dotfiles sync, so on machines without it `<C-h/j/k/l>` didn't map at all and tmux pass-through into nvim broke (bare tmux panes fine, dead inside nvim).
+
+**Changes made:**
+- nvim now installs `paulbkim-dev/vim-herdr-navigation` via lazy.nvim (folded into the `vim-tmux-navigator` spec, `lazy = false`, loads `editor/nvim.lua` from lazy's install dir). Deleted `after/plugin/herdr-nav.lua`. Detail in nvim `agent/decisions.md` (2026-08-01 entry).
+- The herdr side (`navigate.sh` via `herdr plugin link` + config.toml keybinds) is unchanged and still works.
+
+### ⚠ ACTION PENDING on the herdr machine — hand this to that machine's agent
+
+The nvim side is done and synced via git. The herdr-side link still points at the
+unwanted `~/things/myc/vim-herdr-navigation` and needs to move onto lazy's clone so
+the myc copy can be deleted. Steps for the herdr machine:
+
+1. `git pull` this dotfiles repo so the updated `nvim/.../plugins/tmux-navigator.lua`
+   is in place.
+2. Install the plugin under lazy: open nvim once, or headless:
+   ```bash
+   nvim --headless "+Lazy! sync" +qa
+   ```
+   This clones it to `~/.local/share/nvim/lazy/vim-herdr-navigation`.
+3. Re-point herdr at that dir and remove the old clone:
+   ```bash
+   herdr plugin unlink vim-herdr-navigation
+   herdr plugin link ~/.local/share/nvim/lazy/vim-herdr-navigation
+   herdr server reload-config          # or prefix+r inside herdr
+   rm -rf ~/things/myc/vim-herdr-navigation
+   ```
+4. Verify:
+   - `herdr plugin list` shows `vim-herdr-navigation` linked to the
+     `~/.local/share/nvim/lazy/...` path.
+   - Inside a herdr pane running nvim, `<C-h/j/k/l>` crosses from a vim split edge
+     into the neighbouring herdr pane; in a bare herdr pane it moves pane focus.
+
+After this the lazy install dir is the single source for both nvim and herdr — nothing
+in `~/things/myc`. Caveat: removing the plugin from the nvim config would then also
+break the herdr link (shared clone).
+
 ## 2026-07-31: herdr trial — tmux-parity config, tmux left untouched
 
 **Problem:** Evaluating herdr (terminal workspace manager) as a possible tmux replacement. Needed the muscle-memory bindings ported without breaking the existing tmux setup during the trial.

@@ -64,6 +64,7 @@
   "trouble.nvim": { "branch": "main", "commit": "bd67efe408d4816e25e8491cc5ad4088e708a69a" },
   "vim-desertink": { "branch": "master", "commit": "4409ecb4a50ae5914e6048190e04d9974abc1115" },
   "vim-gotham": { "branch": "main", "commit": "d3dbb47721a1a210533c7cd8eed2ae326c13f39f" },
+  "vim-herdr-navigation": { "branch": "main", "commit": "53e318c772c4d3b7fbd904ac43bcf3e5b5d8b244" },
   "vim-surround": { "branch": "master", "commit": "3d188ed2113431cf8dac77be61b842acb64433d9" },
   "vim-tmux-navigator": { "branch": "master", "commit": "e41c431a0c7b7388ae7ba341f01a0d217eb3a432" },
   "which-key.nvim": { "branch": "main", "commit": "3aab2147e74890957785941f0c1ad87d0a44c15a" },
