@@ -16,7 +16,15 @@
       "Bash(docker-compose logs:*)",
       "Bash(find:*)",
       "Bash(gh issue view:*)",
-      "Bash(git:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git branch:*)",
+      "Bash(git fetch:*)",
+      "Bash(git stash:*)",
       "Bash(grep:*)",
       "Bash(head:*)",
       "Bash(ls:*)",
@@ -50,21 +58,25 @@
     ],
     "deny": [
       "Bash(curl:*)",
+      "Bash(git push*--force*)",
+      "Bash(git push* -f*)",
+      "Bash(git reset*--hard*)",
+      "Bash(git clean*)",
+      "Bash(git checkout -- *)",
       "Read(./.env)",
       "Read(./secrets/**)"
     ]
   },
-  "model": "opus",
   "hooks": {},
   "statusLine": {
     "type": "command",
     "command": "~/.dotfiles/claude/.claude/statusline-command.sh"
   },
   "enabledPlugins": {
-    "typescript-lsp@claude-plugins-official": true
+    "typescript-lsp@claude-plugins-official": false
   },
   "alwaysThinkingEnabled": true,
-  "effortLevel": "xhigh",
+  "effortLevel": "high",
   "awaySummaryEnabled": false,
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,

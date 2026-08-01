@@ -1,5 +1,22 @@
 # Decisions
 
+## 2026-07-31: herdr trial — tmux-parity config, tmux left untouched
+
+**Problem:** Evaluating herdr (terminal workspace manager) as a possible tmux replacement. Needed the muscle-memory bindings ported without breaking the existing tmux setup during the trial.
+
+**Changes made:**
+1. Built `herdr/.config/herdr/config.toml` mirroring `.tmux.conf`: prefix `ctrl+a`, `prefix+s` workspace picker, `prefix+o` native fuzzy goto, `prefix+r` reload, `prefix+[` copy mode, `prefix+"`/`prefix+%` splits, lazygit popups on `prefix+g`/`G`, nvim scratch pane on `prefix+P`, fzf multi-select workspace kill on `prefix+K` (via `herdr workspace list` JSON + jq), dracula theme.
+2. Adopted [vim-herdr-navigation](https://github.com/paulbkim-dev/vim-herdr-navigation) (cloned to `~/things/myc/vim-herdr-navigation`, registered with `herdr plugin link`) for bare `ctrl+h/j/k/l` vim-aware pane navigation — replaces an equivalent homegrown script.
+3. nvim: `<C-h/j/k/l>` now mapped by the plugin's `editor/nvim.lua` (loaded from `after/plugin/herdr-nav.lua`), which detects herdr vs tmux via env vars at runtime — see nvim's `agent/decisions.md` for detail.
+4. Last-workspace jump (tmux `prefix+L` / `switch-client -l`): herdr 0.7.5 has no MRU action and its API exposes only current focus. A polling-watcher script worked but was removed as too much machinery — left unresolved until herdr ships a native action (see compromises.md).
+5. Full mapping rationale, gaps, and unverified items logged in `herdr/.config/herdr/compromises.md`.
+
+**Result:** herdr usable with tmux muscle memory; `.tmux.conf` unchanged and tmux fully functional — the two coexist, nvim picks the right multiplexer per session.
+
+**Maintenance notes:**
+- Config edits apply live via `herdr config check && herdr server reload-config` (or `prefix+r` inside herdr).
+- The nav plugin is a linked local clone — `git pull` in `~/things/myc/vim-herdr-navigation` to update it.
+
 ## 2026-02-02: Optimize zsh startup time
 
 **Problem:** Shell boot time was ~2.4s

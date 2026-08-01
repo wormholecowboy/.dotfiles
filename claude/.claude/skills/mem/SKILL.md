@@ -1,7 +1,7 @@
 ---
 name: mem
 description: >
-  Persistent memory at `.mem/` (git root). Triggers: `*um` (update), `*mr <topic>` (read by topic), `/mem` (resume; init from convo if missing), or "update/read memory".
+  Persistent memory at `.mem/` (git root). Triggers: `*um` (update), `*mr <topic>` (read by topic), `*op` (update repo operating instructions), `/mem` (resume; init from convo if missing), or "update/read memory".
 ---
 
 # Memory System
@@ -24,6 +24,9 @@ Replaces the older `.state/` system.
 ## `long.md` format
 
 ```
+## ops
+1. [topic] instruction
+- [topic] instruction
 ## goals
 - [topic] item
 ## learnings
@@ -35,6 +38,11 @@ Replaces the older `.state/` system.
 ```
 
 Skip empty sections.
+
+`## ops` = standing operating instructions for this repo/worktree — carry them
+out EVERY session here, unprompted. Numbered when order matters, bullets when
+not. Whenever `long.md` is loaded (`/mem`, `*mr`, or any read), apply ops
+immediately as active instructions, not background context.
 
 ## Daily format
 
@@ -63,9 +71,25 @@ Skip empty sections.
 Prefix entries `[topic]` (e.g. `[auth]`, `[db]`, `[ci]`, `[ui]`). Enables grep
 retrieval across daily files. One entry, one primary tag.
 
+## Delegation
+
+Offload the file mechanics to the `mem-ops` subagent to keep the main
+thread clean:
+
+- `*mr` → delegate wholesale (READ mode). Pure retrieval; pass the topic,
+  get back matched entries.
+- `*um` → main thread decides WHAT to remember (fact + why + `[topic]`
+  tags + status/focus). Hand that distilled payload to `mem-ops` (WRITE
+  mode); it runs the procedure below. Never make the subagent infer
+  memory from the conversation — it can't see it.
+- `/mem` full resume → stays in the main thread (conversational, needs
+  live context). Do NOT delegate.
+
 ## Triggers
 
 ### `*um` — update memory
+
+Main thread distills the payload, then `mem-ops` (WRITE mode) executes:
 
 1. `git rev-parse --show-toplevel` → `[root]`
 2. `mkdir -p [root]/.mem` if missing
@@ -87,11 +111,25 @@ retrieval across daily files. One entry, one primary tag.
 
 ### `*mr <topic>` — read memory by topic
 
+Delegate to `mem-ops` (READ mode) with the topic; it runs:
+
 1. Read `[root]/.mem/long.md` if present.
 2. `grep -rn "\[<topic>\]" [root]/.mem/*.md` — load matching chunks only.
 3. Present matched entries grouped by source file. Cheaper than full read.
 
-### `/mem` or "read memory" — full resume
+### `*op` — update/create operating instructions
+
+Main thread distills the instruction(s) — imperative, `[topic]`-tagged,
+numbered if user implies order — then `mem-ops` (WRITE mode) executes:
+
+1. `git rev-parse --show-toplevel` → `[root]`; `mkdir -p [root]/.mem` if missing.
+2. Read `[root]/.mem/long.md` if present; create if not.
+3. Merge into `## ops` (create section at TOP of long.md if missing):
+   update/replace an existing instruction it supersedes rather than append a
+   duplicate; preserve numbering order, renumber if inserting.
+4. Confirm to user: final `## ops` content as written.
+
+Ops live ONLY in long.md — never in dailies.
 
 1. `git rev-parse --show-toplevel` → `[root]`
 2. **If `[root]/.mem/` does not exist** — initialize from current conversation:
@@ -106,10 +144,16 @@ retrieval across daily files. One entry, one primary tag.
    a. Read `[root]/.mem/long.md` if present.
    b. Find most recent daily: glob `[root]/.mem/????-??-??.md`, sort desc,
       pick top. Read it.
-   c. Present terse summary: focus + status, open qs, next, wip, key files.
-   d. Ask: "Resume on [top next item], or different focus?"
+   c. If `long.md` has `## ops`: adopt as active standing instructions for the
+      session and list them in the summary.
+   d. Present terse summary: focus + status, open qs, next, wip, key files.
+   e. Ask: "Resume on [top next item], or different focus?"
 4. If user passed an argument, treat as additional context to scope the
    resume summary or seed the initial `focus`.
+
+### `*ar` - create artifact
+
+- Create an artifact file for what we are discussing and put reference in long.md for when it is needed
 
 ## Discovery
 

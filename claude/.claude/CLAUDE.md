@@ -5,9 +5,12 @@ CRITICAL: Always check the cwd when performing file operations. Make sure you ar
 ## 1. Code Style & Workflow
 - **Stick to the stack:** When fixing issues, exhaust current tech and patterns before introducing new ones. Don't change stable architecture unless explicitly told.
 - **Scoped changes:** Only modify code directly relevant to the request. Think through impacts on related code.
-- **Comments:** Only for non-obvious code. Use `# Reason:` for complex logic explaining *why*.
+- **Comments:** Only for non-obvious code. Use `# Reason:` for complex logic explaining *why*. No ticket/story numbers or conversation-specific labels (e.g. "Option B", "the new approach", "per our discussion") — keep comments generalized to the repo long-term.
 - **Safety:** Confirm paths/modules exist. Ask before overwriting `.env`. Only use verified packages.
 - **No Laziness:** Find root causes. No temporary fixes. Senior developer standards.
+- **Explicit Variable Naming** Prefer more explicit, descriptive variable names, if the variable represents something specific. 
+- **Refactoring** If you need to refactor something, refactor and then stop for my review. I want to commit refactors separately from features. 
+- **Method Names** Avoid prepending with `_`. I don't use that convention. 
 
 ## 2. Refactors / Moving Code
 - **Prefer `Edit` over `Write`** when relocating existing code. `Edit` preserves bytes exactly; `Write` retypes from memory and can introduce drift (extra blank lines, stripped whitespace, dropped lines).
@@ -15,6 +18,7 @@ CRITICAL: Always check the cwd when performing file operations. Make sure you ar
 - **Smoke-test imports** with a `python3 -c "from new.module import ..."` to catch broken refs that syntax checks miss.
 
 ## 3. Testing
+- ALWAYS ask if I want new tests before creating them.
 - **Mocking/stubbing:** Only for tests. Never in dev/prod.
 - **Coverage:** 1 expected case, 1 edge case, 1 failure case per function.
 - **Maintenance:** Update tests when logic changes.
@@ -35,6 +39,7 @@ Infer meaning from shorthand. Ask if unsure.
 `*sa`=give a short answer
 `*um`=update memory (mem skill)
 `*mr <topic>`=read memory by topic (mem skill)
+`*op`=update/create repo operating instructions in long.md (mem skill)
 `*bu`=give me an answer in bullet points only
 
 ## 5. Server/Process Startup
@@ -82,6 +87,8 @@ Note: snyk CLI is only available on my work computer. Hostname begins with `LVUS
 
 Persistent context lives in `.mem/` at git root. See `mem` skill for spec and triggers (`*um`, `*mr`, `/mem`).
 
+Route the file mechanics through the `mem-ops` subagent: `*mr` delegates wholesale (retrieval), `*um` delegates after I've distilled what to remember. `/mem` resume stays in the main thread.
+
 ## 8. Communication Style
 
 - **Zero Filler**: Do not use sycophantic phrases like "You're absolutely right!", "Great question!", or "I hope this helps!".
@@ -89,3 +96,20 @@ Persistent context lives in `.mem/` at git root. See `mem` skill for spec and tr
 ### Output Style
 
 - I hate answering multiple questions at once. If you are asking me more than 3 questions at a time, break them up and keep track of which ones you asked me. Also, visually show me curr/total (example: Q3/5)
+
+## 9. Important File Paths
+- `~/.dotfiles/` All my config files, many are git controlled. (neovim, tmux, zsh, zsh aliases, etc.)
+- `~/things/myc/` All my code repos, including forks
+- `~/things/scripts/` Various scripts, often tied to zsh or tmux commands
+
+## 10. Subagents
+
+Delegate to a subagent when the work would flood my context with material I don't need to keep — broad searches, multi-file reads, research, reviews, debugging. I keep the conclusion, not the file dumps.
+
+**When NOT to:** a subagent can't see my uncommitted context, can't ask me follow-ups, and adds latency. For a single lookup where I already know the file/symbol, or anything needing back-and-forth, do it inline.
+
+**Parallelize:** independent tasks go out in ONE message (multiple tool calls) so they run concurrently. Don't serialize what doesn't depend.
+
+**Pick the right agent:** `Explore` for read-only search, `Plan` for strategy, `debugger`/`code-reviewer`/`security-reviewer` for their domains. Only fall back to `general-purpose` when nothing fits.
+
+**Return contract:** ALWAYS tell the subagent exactly what to return, in what format, with `file:line` citations — its final message is the only thing that reaches my context, so vague prompts mean a re-run.

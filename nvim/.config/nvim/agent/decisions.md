@@ -1,3 +1,17 @@
+# 2026-07-31
+
+## 2026-07-31: `<C-h/j/k/l>` remapped for herdr trial — vim-herdr-navigation, tmux fallback preserved
+
+**Context:** Trialing herdr alongside tmux (see dotfiles root `decisions.md`). The old mappings in `tmux-navigator.lua` (`<C-h/j/k/l>` → `TmuxNavigate*`) only know tmux — inside herdr they'd dead-end at a split edge.
+
+**Changes made:**
+- New `after/plugin/herdr-nav.lua`: dofiles `~/things/myc/vim-herdr-navigation/editor/nvim.lua` (guarded with `vim.uv.fs_stat`, so machines without the clone are unaffected). That file maps `<C-h/j/k/l>` to: `wincmd` first; if the window didn't move (split edge), `$HERDR_PANE_ID` set → `herdr pane focus --direction <dir> --current`, else `$TMUX` set → `TmuxNavigate<Dir>`, else stop at edge.
+- `tmux-navigator.lua`: added `init` with `vim.g.tmux_navigator_no_mappings = 1` and dropped the four directional `keys` entries (kept `<C-\>` → `TmuxNavigatePrevious` and the `cmd` triggers — the herdr-nav fallback lazy-loads the plugin through those commands).
+
+**Behavior:** identical to before inside tmux; inside herdr, edge navigation now crosses into herdr panes. Verified headless that `<C-h>`/`<C-l>` normal-mode maps resolve to the plugin's `editor/nvim.lua`.
+
+**Rollback (if herdr trial ends):** delete `after/plugin/herdr-nav.lua` and restore the four directional `keys` entries + remove `init` in `tmux-navigator.lua`.
+
 # 2026-07-08
 
 ## 2026-07-08: leap.nvim repo moved to Codeberg — switched spec from short-name to `url`

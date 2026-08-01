@@ -21,8 +21,7 @@ return {
 				spell_check = true,
 			},
 			prompt_force_push = false,
-			disable_line_numbers = false,
-			disable_relative_line_numbers = false,
+      disable_signs = true
 		})
 
 		-- Diffview setup with default keymaps (desc fields for diffview's help system)
