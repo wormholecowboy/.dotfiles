@@ -241,3 +241,9 @@ Added `lua/wormholecowboy/plugins/99.lua`. Fills the long-reserved `<leader>a` A
 
 **After this change:** Run `:Lazy update nvim-treesitter nvim-treesitter-textobjects` then `:TSUpdate` in Neovim. If parser compilation fails, install `tree-sitter-cli` first: `brew install tree-sitter`.
 
+
+## 2026-08-03: leap.nvim origin migrated to Codeberg
+
+**Root cause:** lazy.nvim reported "Origin has changed" for leap.nvim — the spec in `leap.lua` already pointed to `https://codeberg.org/andyg/leap.nvim`, but the installed clone's git origin was still `github.com/ggandor/leap.nvim`. The upstream move is legitimate: leap.nvim officially migrated to Codeberg in Dec 2025 (confirmed via GitHub README redirect and the local clone's `docs(readme): moved to codeberg` commit; GitHub repo is frozen, mirror at git.disroot.org/andyg/leap.nvim).
+
+**Fix:** Ran `:Lazy update leap.nvim` headless — lazy re-pointed origin to Codeberg and pulled to `52bc56b` (2026-07-19). Verified `require("leap")` loads and the config function runs without error. Updated the plugins.md entry (repo URL + corrected stale lazy-load/setup details).
