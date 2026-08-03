@@ -1,5 +1,28 @@
 {
+  "alwaysThinkingEnabled": true,
+  "awaySummaryEnabled": false,
+  "editorMode": "vim",
+  "effortLevel": "high",
+  "enabledPlugins": {
+    "typescript-lsp@claude-plugins-official": false
+  },
   "env": {},
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "bash '/Users/brian.gildea/.claude/hooks/herdr-agent-state.sh' session",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ]
+  },
+  "mcpServers": {},
+  "model": "claude-fable-5",
   "permissions": {
     "allow": [
       "Bash(cat:*)",
@@ -67,20 +90,11 @@
       "Read(./secrets/**)"
     ]
   },
-  "hooks": {},
-  "statusLine": {
-    "type": "command",
-    "command": "~/.dotfiles/claude/.claude/statusline-command.sh"
-  },
-  "enabledPlugins": {
-    "typescript-lsp@claude-plugins-official": false
-  },
-  "alwaysThinkingEnabled": true,
-  "effortLevel": "high",
-  "awaySummaryEnabled": false,
-  "tui": "fullscreen",
-  "skipDangerousModePermissionPrompt": true,
-  "editorMode": "vim",
   "skipAutoPermissionPrompt": true,
-  "mcpServers": {}
+  "skipDangerousModePermissionPrompt": true,
+  "statusLine": {
+    "command": "~/.dotfiles/claude/.claude/statusline-command.sh",
+    "type": "command"
+  },
+  "tui": "fullscreen"
 }

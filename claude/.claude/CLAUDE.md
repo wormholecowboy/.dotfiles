@@ -9,7 +9,7 @@ CRITICAL: Always check the cwd when performing file operations. Make sure you ar
 - **Safety:** Confirm paths/modules exist. Ask before overwriting `.env`. Only use verified packages.
 - **No Laziness:** Find root causes. No temporary fixes. Senior developer standards.
 - **Explicit Variable Naming** Prefer more explicit, descriptive variable names, if the variable represents something specific. 
-- **Refactoring** If you need to refactor something, refactor and then stop for my review. I want to commit refactors separately from features. 
+- **Refactoring** If you need to refactor something, refactor and then stop for my review BEFORE continuing with feature add.
 - **Method Names** Avoid prepending with `_`. I don't use that convention. 
 
 ## 2. Refactors / Moving Code
