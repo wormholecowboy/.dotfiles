@@ -7,10 +7,12 @@ CRITICAL: Always check the cwd when performing file operations. Make sure you ar
 - **Scoped changes:** Only modify code directly relevant to the request. Think through impacts on related code.
 - **Comments:** Only for non-obvious code. Use `# Reason:` for complex logic explaining *why*. No ticket/story numbers or conversation-specific labels (e.g. "Option B", "the new approach", "per our discussion") — keep comments generalized to the repo long-term.
 - **Safety:** Confirm paths/modules exist. Ask before overwriting `.env`. Only use verified packages.
-- **No Laziness:** Find root causes. No temporary fixes. Senior developer standards.
 - **Explicit Variable Naming** Prefer more explicit, descriptive variable names, if the variable represents something specific. 
 - **Refactoring** If you need to refactor something, refactor and then stop for my review BEFORE continuing with feature add.
-- **Method Names** Avoid prepending with `_`. I don't use that convention. 
+- **Method Names** Avoid prepending with `_`.
+
+### Temporary Comments
+- Explain your reasoning for complex blocks of code. Prepend comment with `--TEMP` so it's easy to grep and delete
 
 ## 2. Refactors / Moving Code
 - **Prefer `Edit` over `Write`** when relocating existing code. `Edit` preserves bytes exactly; `Write` retypes from memory and can introduce drift (extra blank lines, stripped whitespace, dropped lines).
@@ -23,7 +25,7 @@ CRITICAL: Always check the cwd when performing file operations. Make sure you ar
 - **Coverage:** 1 expected case, 1 edge case, 1 failure case per function.
 - **Maintenance:** Update tests when logic changes.
 - **Mocks grow per-test, not per-plan:** Start with the minimum stub that lets `require`/import succeed. For each new test: write the assertion first, run it, then add only the mock surface the failure demands. No closure-state, configurators (`__configure`/`__reset`), captured-args helpers, or pagination-cursor mocks until a test fails for lack of them. First test inlines; second creates the abstraction.
-- **Anti-pattern (plan-driven mock factory):** writing a large mock factory upfront from the test plan, then writing tests against it. Most surface goes unused; speculative machinery rots into the foundation; reviewer can't justify any line because nothing concrete motivates it yet.
+- **Anti-pattern (plan-driven mock factory):** writing a large mock factory upfront from the test plan, then writing tests against it. Most surface goes unused.
 - **Production-code testability gaps emerge during the build, not planning** (e.g., `exports.handler = serverless(app)` blocking supertest until `exports.app` is added alongside). Don't plan around them — let real test failures surface them.
 
 ## 4. Shorthand & Modifiers
@@ -64,25 +66,6 @@ You don't have the AWS credentials exported in your environment, so bare `aws ..
 awsl; aws s3 ls
 ```
 
-<!--# BEGIN SNYK GLOBAL RULE -->
----
-alwaysApply: true
-always_on: true
-trigger: always_on
-applyTo: "**"
-description: Snyk Security At Inception
----
-
-Note: snyk CLI is only available on my work computer. Hostname begins with `LVUS`.
-
-### Project security best practices
-
-- Always run snyk_code_scan tool for new first party code that is generated in a Snyk-supported language.
-- If any security issues are found based on newly introduced or modified code or dependencies, attempt to fix the issues using the results context from Snyk.
-- Rescan the code after fixing the issues to ensure that the issues were fixed and that there are no newly introduced issues.
-- Repeat this process until no new issues are found.
-<!--# END SNYK GLOBAL RULE -->
-
 ## 7. Memory
 
 Persistent context lives in `.mem/` at git root. See `mem` skill for spec and triggers (`*um`, `*mr`, `/mem`).
@@ -91,11 +74,11 @@ Route the file mechanics through the `mem-ops` subagent: `*mr` delegates wholesa
 
 ## 8. Communication Style
 
-- **Zero Filler**: Do not use sycophantic phrases like "You're absolutely right!", "Great question!", or "I hope this helps!".
+- Brevity is the soul of wit. Be concise and to the point. 
 
 ### Output Style
 
-- I hate answering multiple questions at once. If you are asking me more than 3 questions at a time, break them up and keep track of which ones you asked me. Also, visually show me curr/total (example: Q3/5)
+- If you are asking me more than 3 questions at a time, break them up and keep track of which ones you asked me. Also, visually show me curr/total (example: Q3/5)
 
 ## 9. Important File Paths
 - `~/.dotfiles/` All my config files, many are git controlled. (neovim, tmux, zsh, zsh aliases, etc.)
