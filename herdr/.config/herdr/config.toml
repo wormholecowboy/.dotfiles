@@ -10,7 +10,7 @@
 #                  gruvbox, one-dark, solarized, kanagawa, rose-pine,
 #                  vesper
 # Matches the dracula palette used by the tmux nova theme
-name = "dracula"
+name = "nord"
 
 # Follow host terminal light/dark appearance and switch Herdr UI themes.
 # Existing manual behavior is unchanged unless this is true.
@@ -178,8 +178,8 @@ height = "90%"
 key = "prefix+shift+g"
 type = "popup"
 command = "~/scripts/tmux-lazygit-picker.sh"
-width = "90%"
-height = "90%"
+width = "95%"
+height = "95%"
 
 # blank nvim pane for prompting (tmux prefix+P)
 [[keys.command]]
@@ -215,7 +215,7 @@ command = "vim-herdr-navigation.right"
 key = "prefix+o"
 type = "popup"
 command = '''herdr workspace list | jq -r '.result.workspaces[] | "\(.workspace_id)\t\(.label)"' | fzf --reverse --delimiter="\t" --with-nth=2 --header="Switch Workspace" | cut -f1 | xargs -I {} herdr workspace focus {}'''
-width = "60%"
+width = "20%"
 height = "60%"
 
 # fzf kill workspace(s), multi-select with Tab (tmux prefix+K)
@@ -244,7 +244,7 @@ description = "last workspace"
 sidebar_min_width = 6
 
 # Maximum sidebar width when expanded (columns)
-sidebar_max_width = 14
+sidebar_max_width = 24
 
 # Start with the sidebar collapsed. Changes take effect on the next launch.
 # sidebar_start_collapsed = false
