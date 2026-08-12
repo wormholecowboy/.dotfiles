@@ -1,3 +1,39 @@
+# 2026-08-12
+
+## 2026-08-12: LuaSnip — aborted `jsregexp006` submodule, plus a macOS code-signing kill from the jsregexp build
+
+**Two stacked problems, found while clearing `fatal: not a git repository: ../../.git/modules/deps/jsregexp006`.**
+
+**Problem 1 — aborted submodule clone blocked all updates.** A LuaSnip release in the `v2.*` range added a third submodule, `deps/jsregexp006`. Its clone was interrupted, leaving `deps/jsregexp006/.git` pointing at `.git/modules/deps/jsregexp006`, a directory holding only a `config` file — no HEAD, no objects, no refs. Every `git reset` lazy attempted then died on that submodule, which stranded the worktree mid-transition: HEAD at `03c8e67` while the tree still carried a newer version's `Makefile`, `DOC.md`, CI workflows, a deleted `lua/luasnip/snippets.lua`, and untracked `data/`. The worktree `.gitmodules` listed three submodules where HEAD listed two, so the condition re-armed itself on every update.
+
+*Fix:* removed both `jsregexp006` stubs, then `git stash push --include-untracked` (chosen over `reset --hard` so the drift stays recoverable — see `stash@{0}`), then `git submodule sync && git submodule update --init deps/jsregexp deps/jsregexp005`, which moved `deps/jsregexp` from v0.1.0 to the expected v0.0.6 (`b5a81e2`).
+
+**Problem 2 — the jsregexp build hard-kills nvim on macOS.** Running the declared `make install_jsregexp` produced a binary that SIGKILLed nvim on startup (LuaSnip is not lazy-loaded — `plugins/init.lua` lists it with no trigger — so this killed every launch, including `nvim --clean` when the library was on `cpath`). The crash report gave the real cause: `"namespace":"CODESIGNING","indicator":"Invalid Page"`. The Makefile compiles `deps/jsregexp/jsregexp.so` (linker-signed, valid) and then `cp`s it to `deps/luasnip-jsregexp.so`; the copy's signature is no longer valid for the mapped pages, and macOS kills any process that loads it. The uncopied original loaded fine, which confirmed the `cp` as the trigger. This is not a graceful degradation path: `lua/luasnip/util/jsregexp.lua` `loadlib`s the binary and *calls* into it, so a bad library takes the editor down rather than falling back.
+
+*Fix:* `luasnip.lua` `build` now re-signs the copy ad hoc after the make step, guarded so non-Darwin machines skip it:
+`make install_jsregexp && { [ "$(uname)" != Darwin ] || codesign --force --sign - deps/luasnip-jsregexp.so; }`
+Verified this is safe to express as a shell string: lazy runs any `build` not starting with `:` via `$SHELL -c` with cwd set to the plugin dir (`lazy/manage/task/plugin.lua`, `B.shell`).
+
+**Verified:** ran the exact build string lazy will run — binary rebuilds, re-signs to `Signature=adhoc`, nvim starts clean, `luasnip.util.jsregexp` returns a working compile function, 7086 snippets load, and `git status` in the plugin dir is empty so lazy can update without complaint.
+
+**Note:** the previously working `.so` dated 2024 was overwritten by the first (unsigned) rebuild and is not recoverable from the stash, since build artifacts are gitignored and stash does not capture ignored files. The rebuilt-and-signed binary replaces it.
+
+## 2026-08-12: nvim-treesitter-textobjects checkout had drifted to the frozen `master` branch
+
+**Problem:** On one machine, every buffer open threw `E5108: module 'nvim-treesitter.configs' not found`, raised from `plugin/nvim-treesitter-textobjects.vim` on `BufReadPre`. The config source was never at fault — `treesitter-objects.lua` already uses the `main` API (`require("nvim-treesitter-textobjects").setup()`). The installed clone was checked out at `5ca4aaa` ("docs: master is frozen"), a commit on `origin/master`, not `origin/main`. The `master` tree ships a `plugin/` autoload shim whose module starts with `require "nvim-treesitter.configs"` — a module the `main` branch of nvim-treesitter (correctly checked out at `4916d65`) no longer provides. Old textobjects + new treesitter = guaranteed crash on the first file opened.
+
+**Why only one machine:** `lazy-lock.json` had been rewritten locally with the `master` commit for this plugin, so the drift was baked into the lockfile rather than the config. The other machine still had the committed `main` commit `851e865`.
+
+**Changes made:**
+- `lazy-lock.json`: `nvim-treesitter-textobjects` `5ca4aaa` → `851e865` (verified on `origin/main`). Only that one entry was touched — the other ~45 updated pins in the working tree were left alone so no plugin gets silently downgraded by a future `:Lazy restore`.
+- Checked out `851e865` in `~/.local/share/nvim/lazy/nvim-treesitter-textobjects`. This removes `plugin/` entirely (`main` ships no `plugin/` dir) and restores the `lua/nvim-treesitter-textobjects/{init,select,move}.lua` layout the spec expects.
+
+**Verified headless:** module loads, `select.select_textobject` and `move.goto_next_start` are functions, `af`/`]m` maps registered, treesitter highlighting active on the opened buffer, clean startup with no errors.
+
+**Note:** a branch-drift sweep across all locked plugins flagged only `telescope.nvim` (HEAD on `origin/0.1.x`, lock says `master`) — a false positive, since the spec pins `tag = "0.1.8"`, which lives on that release branch.
+
+**Rollback:** `git -C ~/.local/share/nvim/lazy/nvim-treesitter-textobjects checkout --detach 5ca4aaa` and revert the lockfile line — though this restores the crash.
+
 # 2026-08-01
 
 ## 2026-08-01: vim-herdr-navigation now lazy.nvim-managed (dropped external `~/things/myc` clone)
