@@ -11,9 +11,6 @@ CRITICAL: Always check the cwd when performing file operations. Make sure you ar
 - **Refactoring** If you need to refactor something, refactor and then stop for my review BEFORE continuing with feature add.
 - **Method Names** Avoid prepending with `_`.
 
-### Temporary Comments
-- Explain your reasoning for complex blocks of code. Prepend comment with `--TEMP` so it's easy to grep and delete
-
 ## 2. Refactors / Moving Code
 - **Prefer `Edit` over `Write`** when relocating existing code. `Edit` preserves bytes exactly; `Write` retypes from memory and can introduce drift (extra blank lines, stripped whitespace, dropped lines).
 - **Verify with `diff`** after moving blocks: compare the original range (`git show HEAD:path`) against the new location. `ast.parse` only proves syntax — it won't catch missing or altered lines.
@@ -56,7 +53,11 @@ Infer meaning from shorthand. Ask if unsure.
 
 **Anti-pattern:** Background processes that respawn and conflict. Track what you start.
 
-## 6. Work Computer Config
+## 6. Available Tools
+
+### Terraform Switch
+
+Use `tfswitch` to use another version of terrafom, if needed.
 
 ### AWS CLI
 

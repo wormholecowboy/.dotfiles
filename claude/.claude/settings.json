@@ -67,7 +67,6 @@
       "Read(./secrets/**)"
     ]
   },
-  "model": "opus",
   "hooks": {
     "SessionStart": [
       {
@@ -96,5 +95,5 @@
   "skipDangerousModePermissionPrompt": true,
   "editorMode": "vim",
   "skipAutoPermissionPrompt": true,
-  "mcpServers": {}
+  "mcpServers": {},
 }
