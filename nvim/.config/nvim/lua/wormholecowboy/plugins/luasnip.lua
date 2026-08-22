@@ -1,7 +1,10 @@
 return {
   "L3MON4D3/LuaSnip",
   version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
-  build = "make install_jsregexp",
+  -- The Makefile `cp`s the compiled jsregexp binary into place, which invalidates
+  -- its linker signature. macOS then SIGKILLs nvim (CODESIGNING/Invalid Page) as
+  -- soon as LuaSnip loads it, so re-sign the copy ad hoc.
+  build = [[make install_jsregexp && { [ "$(uname)" != Darwin ] || codesign --force --sign - deps/luasnip-jsregexp.so; }]],
   dependencies = {
     "rafamadriz/friendly-snippets",
     "saadparwaiz1/cmp_luasnip",

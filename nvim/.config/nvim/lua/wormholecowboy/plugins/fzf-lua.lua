@@ -2,7 +2,16 @@ return {
 	"ibhagwan/fzf-lua",
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	keys = {
-		{ "<leader>sa", "<cmd>FzfLua files fd_opts='--color=never --hidden --type f --type l --no-ignore'<cr>", desc = "all files" },
+		{
+			"<leader>sa",
+			function()
+				require("fzf-lua").files({
+					cwd = vim.fs.root(0, ".git") or vim.uv.cwd(),
+					fd_opts = "--color=never --hidden --no-ignore --type f --type l --exclude .git",
+				})
+			end,
+			desc = "all files",
+		},
 		{ "<leader>sA", "<cmd>FzfLua autocmds<cr>", desc = "autocommands" },
 		{ "<leader>sb", "<cmd>FzfLua buffers<cr>", desc = "buffers" },
 		{ "<leader>scc", "<cmd>FzfLua commands<cr>", desc = "commands" },

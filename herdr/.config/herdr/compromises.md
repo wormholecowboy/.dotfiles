@@ -42,7 +42,7 @@ tmux session → herdr workspace, tmux window → herdr tab, tmux pane → pane.
 | resurrect/continuum | `resume_agents_on_restore = true` + experimental `pane_history = true` |
 | `history-limit 5000` (lines) | `scrollback_limit_bytes` default 10MB kept (bytes, not lines; more generous) |
 | `base-index 1`, renumber | No option; herdr numbering appears 1-based natively |
-| escape-time, focus-events, extended-keys/csi-u | No config equivalents; presumably handled internally — watch nvim autoread and csi-u apps for regressions |
+| escape-time, focus-events, extended-keys/csi-u | No config equivalents. Focus events verified 2026-08-03: herdr forwards mode-1004 focus reporting (`CSI I`/`CSI O`) to panes on pane-focus change, always-on — nvim autoread works without config. escape-time/csi-u still unverified |
 
 ## Still to verify by hand
 

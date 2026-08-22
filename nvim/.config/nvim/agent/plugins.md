@@ -333,13 +333,13 @@ nvim/
 - **Keymaps:** `<leader>/` toggle, `gb/gc` operators
 
 #### leap.nvim
-- **Repo:** ggandor/leap.nvim
-- **Event:** BufReadPre, BufNewFile
+- **Repo:** https://codeberg.org/andyg/leap.nvim (moved from GitHub ggandor/leap.nvim, Dec 2025; GitHub repo is frozen)
+- **Lazy-load:** `keys` (loads on first `s`/`S` press)
 - **Purpose:** Fast motion plugin for precise navigation
 - **Keymaps:**
-  - `s` - Forward leap motion (normal, visual, operator-pending modes)
-  - `S` - Cross-window leap
-- **Setup:** Uses `create_default_mappings()` for standard Leap behavior
+  - `s` - `<Plug>(leap)` forward leap motion (normal, visual, operator-pending modes)
+  - `S` - `<Plug>(leap-from-window)` cross-window leap
+- **Setup:** `<Plug>` mappings via lazy `keys`; custom `opts.preview` filter, `equivalence_classes`, repeat keys `<enter>`/`<backspace>`, `LeapBackdrop` linked to `Comment`
 
 ---
 

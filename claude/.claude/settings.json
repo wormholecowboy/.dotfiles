@@ -67,8 +67,20 @@
       "Read(./secrets/**)"
     ]
   },
-  "model": "opus",
-  "hooks": {},
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash '/Users/brian.gildea/.claude/hooks/herdr-agent-state.sh' session",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  },
   "statusLine": {
     "type": "command",
     "command": "~/.dotfiles/claude/.claude/statusline-command.sh"
@@ -83,5 +95,5 @@
   "skipDangerousModePermissionPrompt": true,
   "editorMode": "vim",
   "skipAutoPermissionPrompt": true,
-  "mcpServers": {}
+  "mcpServers": {},
 }

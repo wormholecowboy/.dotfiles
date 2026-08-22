@@ -1,0 +1,40 @@
+gui:
+  # Valid names are: 'status', 'files', 'worktrees', 'submodules', 'branches',
+  # 'remotes', 'tags', 'commits', 'reflog', 'stash'. 'files', 'branches', and
+  # 'commits' must always be included; they can't be hidden.
+  sidePanels:
+    - [status]
+    - [files, worktrees]
+    - [branches, remotes]
+    - [commits, reflog]
+    - [stash]
+  sidePanelWidth: 0.25
+  expandFocusedSidePanel: true
+
+  # This can be toggled from within Lazygit with the '`' key, but that will not
+  # change the default.
+  showFileTree: true
+  # How to sort files and directories in the file tree.
+  # One of: 'mixed' (default) | 'filesFirst' | 'foldersFirst'
+  fileTreeSortOrder: mixed
+  # If true (default), sort the file tree case-sensitively.
+  fileTreeSortCaseSensitive: true
+
+
+  # Nerd fonts version to use.
+  # One of: '2' | '3' | empty string (default)
+  # If empty, do not show icons.
+  nerdFontsVersion: "3"
+
+
+  # Default size for focused window. Can be changed from within Lazygit with '+'
+  # and '_' (but this won't change the default).
+  # One of: 'normal' (default) | 'half' | 'full'
+  screenMode: half
+
+  # Window border style.
+  # One of 'rounded' (default) | 'single' | 'double' | 'hidden' | 'bold'
+  border: hidden
+
+
+
