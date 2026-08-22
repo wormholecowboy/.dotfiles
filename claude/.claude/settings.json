@@ -67,6 +67,7 @@
       "Read(./secrets/**)"
     ]
   },
+  "model": "opus",
   "hooks": {},
   "statusLine": {
     "type": "command",
