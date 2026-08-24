@@ -190,6 +190,8 @@ command = "nvim"
 # vim-tmux-navigator parity: bare ctrl+h/j/k/l via the vim-herdr-navigation
 # plugin (linked from ~/things/myc/vim-herdr-navigation); forwards into
 # vim/nvim and crosses split edges via editor/nvim.lua on the nvim side
+# bash: herdr plugin link ~/.local/share/nvim/lazy/vim-herdr-navigation
+#    !!! instal in nvim first !!!
 [[keys.command]]
 key = "ctrl+h"
 type = "plugin_action"
@@ -227,6 +229,8 @@ width = "60%"
 height = "60%"
 
 # tmux parity: prefix+L = last session (switch-client -l)
+# bash: herdr plugin install third774/herdr-last-workspace
+# needs rust toolchain
 [[keys.command]]
 key = "prefix+shift+l"
 type = "plugin_action"
