@@ -96,4 +96,5 @@
   "editorMode": "vim",
   "skipAutoPermissionPrompt": true,
   "mcpServers": {},
+  "model": "opus"
 }
