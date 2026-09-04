@@ -90,7 +90,7 @@
 -- │   w          │   word (grep cword)                                     │
 -- ├──────────────┼──────────────────────────────────────────────────────────┤
 -- │ u            │ +user                                                    │
--- │   b          │   copy buffer path to clipboard                          │
+-- │   b          │   copy buffer path to clipboard (pick depth)             │
 -- │   c          │   code actions                                           │
 -- │   d          │   insert date                                            │
 -- │   p          │   edit prog notes                                        │
