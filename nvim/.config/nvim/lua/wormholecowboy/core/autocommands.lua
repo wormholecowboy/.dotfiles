@@ -39,11 +39,12 @@ vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
     -- Defer to next event loop tick to ensure plugins are loaded, especially with lazy.nvim
     vim.schedule(function()
-      -- Keymap to show the full path of the current buffer (global keymap)
+      -- Keymap to copy the full path of the current buffer to the clipboard (global keymap)
       vim.keymap.set("n", "<leader>ub", function()
         local full_path = vim.fn.expand("%:p")
-        print(full_path)
-      end, { desc = "CWD: current buffer" })
+        vim.fn.setreg("+", full_path)
+        print("Copied: " .. full_path)
+      end, { desc = "Copy buffer path to clipboard" })
 
       -- Keymap to toggle "Writing Mode" (global keymap, works in all buffers)
       -- Reason: side-effects live in zen-mode's on_open/on_close so any exit path
