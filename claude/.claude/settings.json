@@ -74,7 +74,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash '/Users/brian.gildea/.claude/hooks/herdr-agent-state.sh' session",
+            "command": "bash \"$HOME/.claude/hooks/herdr-agent-state.sh\" session",
             "timeout": 10
           }
         ]
@@ -96,4 +96,5 @@
   "editorMode": "vim",
   "skipAutoPermissionPrompt": true,
   "mcpServers": {},
+  "model": "opus"
 }

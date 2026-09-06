@@ -66,6 +66,8 @@ alias grep="grep --color=auto"
 
 alias awsl="source ~/things/scripts/export-aws-creds.sh"
 alias awh="source ~/things/scripts/aws-wormhole/aws-main.sh"
+alias eclog="~/.dotfiles/zsh/scripts/login-ec2.sh"
+alias rds="~/.dotfiles/zsh/scripts/rds-tunnel.sh"
 alias tfa="terraform apply"
 alias tfi="terraform init"
 alias tfv="terraform -v"

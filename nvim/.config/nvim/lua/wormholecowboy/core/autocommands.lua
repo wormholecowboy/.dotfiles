@@ -39,11 +39,42 @@ vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
     -- Defer to next event loop tick to ensure plugins are loaded, especially with lazy.nvim
     vim.schedule(function()
-      -- Keymap to show the full path of the current buffer (global keymap)
+      -- Keymap to copy the buffer path to the clipboard via a depth picker:
+      -- one entry per trailing path level, each showing the exact string copied,
+      -- with the full absolute path as the last entry
       vim.keymap.set("n", "<leader>ub", function()
         local full_path = vim.fn.expand("%:p")
-        print(full_path)
-      end, { desc = "CWD: current buffer" })
+        if full_path == "" then
+          vim.notify("No file path for this buffer", vim.log.levels.WARN)
+          return
+        end
+
+        local segments = vim.split(full_path, "/", { trimempty = true })
+        local choices = {}
+        for depth = 1, #segments do
+          local path = table.concat(vim.list_slice(segments, #segments - depth + 1, #segments), "/")
+          if depth == #segments then
+            path = full_path -- deepest level keeps the leading slash (full path)
+          end
+          table.insert(choices, { depth = depth, path = path })
+        end
+
+        -- Reason: dressing.nvim only lazy-loads with icon-picker; load it here so
+        -- vim.ui.select gets the float UI instead of the native numbered prompt
+        require("lazy").load({ plugins = { "dressing.nvim" } })
+        vim.ui.select(choices, {
+          prompt = "Copy path (" .. #segments .. " levels)",
+          format_item = function(item)
+            local label = item.depth == #segments and "full" or tostring(item.depth)
+            return string.format("%s ▸ %s", label, item.path)
+          end,
+        }, function(choice)
+          if choice then
+            vim.fn.setreg("+", choice.path)
+            print("Copied: " .. choice.path)
+          end
+        end)
+      end, { desc = "Copy buffer path to clipboard (pick depth)" })
 
       -- Keymap to toggle "Writing Mode" (global keymap, works in all buffers)
       -- Reason: side-effects live in zen-mode's on_open/on_close so any exit path
