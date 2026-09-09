@@ -3,7 +3,8 @@
     "allow": [
       "Bash(zsh:*)",
       "WebSearch",
-      "WebFetch(domain:docs.anthropic.com)"
+      "WebFetch(domain:docs.anthropic.com)",
+      "Bash(luacheck *)"
     ]
   }
 }
