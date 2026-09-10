@@ -1,3 +1,19 @@
+# 2026-09-10
+
+## 2026-09-10: Added oil-git-status.nvim
+
+**Request:** User asked to add refractalize/oil-git-status.nvim.
+
+**What it does:** Shows git status signs in oil.nvim buffers using two sign columns — left column is index status, right column is working-tree status (`git status --short` format). Ignored files shown as `!!` by default.
+
+**Changes made:**
+- New spec `plugins/oil-git-status.lua` — default setup (`config = true`), depends on oil.nvim.
+- `plugins/oil.lua` — `win_options.signcolumn` changed from `"no"` to `"yes:2"` (hard requirement of the plugin: it needs two sign columns in oil buffers).
+
+**Verified:** luacheck clean on both files; headless nvim loads `oil-git-status` successfully (72 plugins registered).
+
+**Note:** The initial `Lazy! sync` used for install also bumped ~15 unrelated plugin pins; reverted via `git restore lazy-lock.json` + `Lazy! restore` so the lockfile diff contains only the new oil-git-status entry.
+
 # 2026-08-12
 
 ## 2026-08-12: LuaSnip — aborted `jsregexp006` submodule, plus a macOS code-signing kill from the jsregexp build

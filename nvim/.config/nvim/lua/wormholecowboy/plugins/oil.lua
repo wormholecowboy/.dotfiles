@@ -23,7 +23,8 @@ return {
     -- Window-local options to use for oil buffers
     win_options = {
       wrap = false,
-      signcolumn = "no",
+      -- oil-git-status needs two sign columns (index + working tree status)
+      signcolumn = "yes:2",
       cursorcolumn = false,
       foldcolumn = "0",
       spell = false,

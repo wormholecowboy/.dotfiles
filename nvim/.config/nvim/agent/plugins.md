@@ -1,5 +1,6 @@
 # Neovim Plugin Index
-*Last updated: 2026-05-07*
+*Last updated: 2026-09-10*
+*Plugin addition: 2026-09-10 - Added oil-git-status.nvim (git status signs in oil buffers)*
 *Consolidated keymaps: 2025-11-19 - All keymaps now referenced from keymaps.lua*
 *Plugin addition: 2025-11-19 - Added lazydev.nvim for Lua development*
 *Plugin addition: 2026-05-07 - Added ThePrimeagen/99 (AI agent) on `<leader>a*`*
@@ -43,6 +44,13 @@ nvim/
   - Float window interface
 - **Keymaps:** `<leader>e` prefix
 - **Dependencies:** mini.icons
+- **Note:** `win_options.signcolumn = "yes:2"` required by oil-git-status.nvim
+
+#### oil-git-status.nvim
+- **Repo:** refractalize/oil-git-status.nvim
+- **Purpose:** Git status signs in oil buffers (two sign columns: index + working tree, `git status --short` style)
+- **Config:** Defaults (`config = true`); `show_ignored = true` by default
+- **Dependencies:** oil.nvim (needs `signcolumn = "yes:2"` in oil's win_options)
 
 #### telescope.nvim
 - **Repo:** nvim-telescope/telescope.nvim
