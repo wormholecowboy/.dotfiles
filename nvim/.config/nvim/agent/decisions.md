@@ -1,5 +1,25 @@
 # 2026-09-10
 
+## 2026-09-10: Added tiny-cmdline.nvim
+
+**Request:** User asked to add rachartier/tiny-cmdline.nvim.
+
+**What it does:** Repositions the command line as a centered floating window using Neovim's native ui2 system. Search (`/`, `?`) stays native at the bottom by default.
+
+**Changes made:**
+- New spec `plugins/tiny-cmdline.lua` — defaults (`opts = {}`), with `vim.o.cmdheight = 0` in `init` (required before plugin init or the cmdline stays bottom-aligned). This changes the global cmdheight from the default 1.
+
+**Compatibility checked:**
+- Neovim 0.12.4 meets the >= 0.12 requirement.
+- nvim-cmp completion-menu repositioning is unsupported by this plugin, but cmp-cmdline is only listed as a dependency in cmp.lua and never configured (`cmp.setup.cmdline` is not called), so cmdline completion is native wildmenu — caveat doesn't apply.
+- ui2 is experimental upstream; if cmdline behaves oddly after a Neovim upgrade, suspect this plugin first.
+
+**Verified:** luacheck clean; installed via `Lazy! install` (not sync, to avoid unrelated pin bumps); headless load confirms module loads and cmdheight=0. Lockfile diff contains only the new entry.
+
+**Fix (same day):** Initial spec was inert — the plugin only *hooks into* ui2 (reads `ui2.wins.cmd`) and never enables it. Spec's `config` now calls `require("vim._core.ui2").enable({})` before `setup()`. Note: this attaches ui2's `ext_messages`, changing message rendering globally, not just the cmdline. Headless verification is limited — `ui2.enable()` returns early when no UI is attached, so the floating window only appears in a real session.
+
+**Context note:** User previously removed noice.nvim (2025-03-18, "no excessive UI") — this is a much narrower UI change (cmdline only), and was explicitly requested.
+
 ## 2026-09-10: Added oil-git-status.nvim
 
 **Request:** User asked to add refractalize/oil-git-status.nvim.

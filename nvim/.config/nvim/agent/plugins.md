@@ -1,6 +1,7 @@
 # Neovim Plugin Index
 *Last updated: 2026-09-10*
 *Plugin addition: 2026-09-10 - Added oil-git-status.nvim (git status signs in oil buffers)*
+*Plugin addition: 2026-09-10 - Added tiny-cmdline.nvim (centered floating cmdline via native ui2)*
 *Consolidated keymaps: 2025-11-19 - All keymaps now referenced from keymaps.lua*
 *Plugin addition: 2025-11-19 - Added lazydev.nvim for Lua development*
 *Plugin addition: 2026-05-07 - Added ThePrimeagen/99 (AI agent) on `<leader>a*`*
@@ -291,6 +292,14 @@ nvim/
   - Marks and registers hints
   - Spelling suggestions
   - Custom operators (gc for comments)
+
+#### tiny-cmdline.nvim
+- **Repo:** rachartier/tiny-cmdline.nvim
+- **Purpose:** Centered floating command-line window (replaces bottom cmdline) via Neovim's native ui2
+- **Requires:** Neovim >= 0.12 (running 0.12.4), `cmdheight=0` (set in spec's `init`)
+- **Config:** Defaults — 60% width (min 40/max 80 cols), centered, rounded border; `/` and `?` search stay native at bottom
+- **Caveat:** ui2 is experimental; completion menu repositioning unsupported for nvim-cmp, but cmp-cmdline is not configured here so cmdline completion is native wildmenu
+- **Dependencies:** none
 
 #### indent-blankline.nvim
 - **Repo:** lukas-reineke/indent-blankline.nvim
