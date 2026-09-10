@@ -5,6 +5,7 @@
 # Requires an active AWS session (run awsl first).
 
 BASTION_INSTANCE_ID="i-09c35b10cc0f38b96"
+SSH_LOCAL_PORT="2222"
 
 # Format: alias|remote-host|remote-port|local-port
 DATABASES=(
@@ -23,6 +24,11 @@ Opens SSM port-forwarding tunnels to RDS databases through the bastion
 (${BASTION_INSTANCE_ID}). Requires an active AWS session (run awsl
 first). Pick databases in the fzf list: Tab to select several, Enter to
 confirm. Tunnels run as background jobs here and Ctrl+C closes them all.
+
+The "ssh" entry forwards localhost:${SSH_LOCAL_PORT} to port 22 on the
+bastion, so you can ssh in or copy files onto it:
+  ssh -p ${SSH_LOCAL_PORT} ec2-user@localhost
+  scp -P ${SSH_LOCAL_PORT} file.txt ec2-user@localhost:/tmp/
 EOM
       return 0
     fi
@@ -47,10 +53,13 @@ EOM
 
   local entry chosen
   chosen="$(
+    {
     for entry in "${DATABASES[@]}"; do
       IFS='|' read -r db_alias host remote_port local_port <<<"$entry"
       printf '%-20s localhost:%-6s -> %s:%s\n' "$db_alias" "$local_port" "$host" "$remote_port"
-    done | fzf --multi --prompt='RDS tunnel> ' --header='Tab: multi-select, Enter: open tunnels'
+    done
+    printf '%-20s localhost:%-6s -> %s:22 (ssh/scp)\n' "ssh" "$SSH_LOCAL_PORT" "$BASTION_INSTANCE_ID"
+  } | fzf --multi --prompt='RDS tunnel> ' --header='Tab: multi-select, Enter: open tunnels'
   )"
 
   if [[ -z "$chosen" ]]; then
@@ -62,6 +71,23 @@ EOM
   local line selected_alias db_alias host remote_port local_port params
   while IFS= read -r line; do
     selected_alias="${line%% *}"
+
+    if [[ "$selected_alias" == "ssh" ]]; then
+      if lsof -i ":${SSH_LOCAL_PORT}" >/dev/null 2>&1; then
+        echo "Port ${SSH_LOCAL_PORT} is already in use, skipping ssh." >&2
+        continue
+      fi
+      aws ssm start-session \
+        --target "${BASTION_INSTANCE_ID}" \
+        --document-name AWS-StartPortForwardingSession \
+        --parameters "{\"portNumber\":[\"22\"],\"localPortNumber\":[\"${SSH_LOCAL_PORT}\"]}" &
+      tunnel_pids+=($!)
+      echo "SSH tunnel on localhost:${SSH_LOCAL_PORT} (pid $!)"
+      echo "  ssh -p ${SSH_LOCAL_PORT} ec2-user@localhost"
+      echo "  scp -P ${SSH_LOCAL_PORT} file.txt ec2-user@localhost:/tmp/"
+      continue
+    fi
+
     for entry in "${DATABASES[@]}"; do
       IFS='|' read -r db_alias host remote_port local_port <<<"$entry"
       [[ "$db_alias" == "$selected_alias" ]] || continue
