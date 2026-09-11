@@ -65,13 +65,24 @@ EOM
       return 1
     fi
 
-    echo "Select an instance:"
-    local PS3="Instance number: "
     local chosen
-    select chosen in "${labels[@]}"; do
-      [[ -n "$chosen" ]] && break
-      echo "Not a valid selection. Try again, or Ctrl+C to cancel." >&2
-    done
+    if command -v fzf >/dev/null 2>&1; then
+      chosen="$(printf '%s\n' "${labels[@]}" | fzf \
+        --prompt="instance> " \
+        --header="Select an instance (Esc to cancel)" \
+        --height=40% --reverse)"
+      if [[ -z "$chosen" ]]; then
+        echo "No instance was selected, aborting." >&2
+        return 1
+      fi
+    else
+      echo "Select an instance:"
+      local PS3="Instance number: "
+      select chosen in "${labels[@]}"; do
+        [[ -n "$chosen" ]] && break
+        echo "Not a valid selection. Try again, or Ctrl+C to cancel." >&2
+      done
+    fi
 
     instance_id="${chosen%% *}"
   fi
