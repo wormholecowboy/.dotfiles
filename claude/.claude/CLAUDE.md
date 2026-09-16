@@ -40,6 +40,7 @@ Infer meaning from shorthand. Ask if unsure.
 `*mr <topic>`=read memory by topic (mem skill)
 `*op`=update/create repo operating instructions in long.md (mem skill)
 `*bu`=give me an answer in bullet points only
+`*sub <task>`=delegate the task to the best-fit subagent (see Subagents section). The subagent MUST be given full context to do the job effectively, and MUST return all relevant information so the main agent retains what it needs in its own context.
 
 ## 5. Server/Process Startup
 
