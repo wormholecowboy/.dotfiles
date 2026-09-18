@@ -317,7 +317,7 @@ window_title = "{workspace}: {tab}"
 # Right-aligned tab bar status. No {workspace} token exists here, so a
 # command entry polls the socket API for the focused workspace label.
 tab_bar_right = [
-  { type = "command", command = "~/scripts/herdr-workspace-status.sh", interval_seconds = 5, timeout_seconds = 2 },
+  { type = "command", command = "~/scripts/herdr-workspace-status.sh", interval_seconds = 2, timeout_seconds = 2 },
   { type = "zoom" },
 ]
 tab_bar_right_separator = " · "
