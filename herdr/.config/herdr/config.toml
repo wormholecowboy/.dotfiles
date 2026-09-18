@@ -311,6 +311,17 @@ confirm_close = false
 # New tabs can still be created with the configured keybinding.
 # hide_tab_bar_when_single_tab = false
 
+# Outer terminal window title. Tokens: {hostname} {workspace} {tab} {pane} {terminal_title}
+window_title = "{workspace}: {tab}"
+
+# Right-aligned tab bar status. No {workspace} token exists here, so a
+# command entry polls the socket API for the focused workspace label.
+tab_bar_right = [
+  { type = "command", command = "~/scripts/herdr-workspace-status.sh", interval_seconds = 5, timeout_seconds = 2 },
+  { type = "zoom" },
+]
+tab_bar_right_separator = " · "
+
 # Agent panel ordering: "spaces" (grouped by space) or "priority" (attention queue).
 # "workspaces" is accepted as an alias for "spaces".
 # agent_panel_sort = "spaces"
