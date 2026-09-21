@@ -92,6 +92,10 @@
   "effortLevel": "high",
   "awaySummaryEnabled": false,
   "tui": "fullscreen",
+  "voice": {
+    "enabled": false,
+    "mode": "hold"
+  },
   "skipDangerousModePermissionPrompt": true,
   "editorMode": "vim",
   "skipAutoPermissionPrompt": true,

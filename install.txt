@@ -9,6 +9,7 @@ lf
 zoxide
 lesspipe
 source-highlight
+git-delta
 
 saml2aws
 brew tap hashicorp/tap
