@@ -30,22 +30,22 @@ gui:
   # One of 'rounded' (default) | 'single' | 'double' | 'hidden' | 'bold'
   border: rounded
   theme:
-      activeBorderColor:
-        - "#88C0D0" # Nord frost blue (active window border)
-        - bold
-      inactiveBorderColor:
-        - "#4C566A" # Nord polar night gray (inactive borders)
-      optionsTextColor:
-        - "#EBCB8B" # Nord aurora yellow (help/options text)
-      selectedLineBgColor:
-        - "#434C5E" # Nord highlighted selection background
-      searchingActiveBorderColor:
-        - "#81A1C1" # Nord lighter frost blue for active search
-      unstagedChangesColor:
-        - "#BF616A" # Nord aurora red for unstaged changes
-      defaultFgColor:
+    activeBorderColor:
+      - "#88C0D0" # Nord frost blue (active window border)
+      - bold
+    inactiveBorderColor:
+      - "#4C566A" # Nord polar night gray (inactive borders)
+    optionsTextColor:
+      - "#EBCB8B" # Nord aurora yellow (help/options text)
+    selectedLineBgColor:
+      - "#434C5E" # Nord highlighted selection background
+    searchingActiveBorderColor:
+      - "#81A1C1" # Nord lighter frost blue for active search
+    unstagedChangesColor:
+      - "#BF616A" # Nord aurora red for unstaged changes
+    defaultFgColor:
       - "#D8DEE9" # Nord snow storm light gray for standard text
 git:
-  pagers:
+  diffRenderers:
     - colorArg: always
-      pager: delta --dark --paging=never
+      command: delta --dark --paging=never
