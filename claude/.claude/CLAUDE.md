@@ -10,6 +10,7 @@ CRITICAL: Always check the cwd when performing file operations. Make sure you ar
 - **Explicit Variable Naming** Prefer more explicit, descriptive variable names, if the variable represents something specific. 
 - **Refactoring** If you need to refactor something, refactor and then stop for my review BEFORE continuing with feature add.
 - **Method Names** Avoid prepending with `_`.
+- **Break long conditionals one branch/predicate per line** (all languages — SQL, JS, Python, Go, Terraform, ...): once a multi-branch conditional or multi-predicate boolean runs long (~100+ chars, or 3+ branches/predicates), split it — each `WHEN`/`ELSE`/`END`, `case`, `if`/`elif`/`else`, and each `AND`/`OR`/`&&`/`||` predicate on its own line, indented one level under its opener. Short ones stay inline — `isTrue ? runFunc() : otherThing()` is one line, not three. Applies equally to machine-generated SQL/config I check in (e.g. Presto view DDL dumps) — reformat before committing.
 
 ## 2. Refactors / Moving Code
 - **Prefer `Edit` over `Write`** when relocating existing code. `Edit` preserves bytes exactly; `Write` retypes from memory and can introduce drift (extra blank lines, stripped whitespace, dropped lines).
