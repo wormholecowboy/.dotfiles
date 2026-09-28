@@ -3,7 +3,7 @@ gui:
   # 'remotes', 'tags', 'commits', 'reflog', 'stash'. 'files', 'branches', and
   # 'commits' must always be included; they can't be hidden.
   sidePanels:
-    - [status]
+    # - [status]
     - [files, worktrees]
     - [branches, remotes]
     - [commits, reflog]
