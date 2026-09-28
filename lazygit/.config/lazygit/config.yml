@@ -10,6 +10,7 @@ gui:
     - [stash]
   sidePanelWidth: 0.25
   expandFocusedSidePanel: true
+  expandedSidePanelWeight: 5
   # This can be toggled from within Lazygit with the '`' key, but that will not
   # change the default.
   showFileTree: true
