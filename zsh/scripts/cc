@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-# Claude Code launcher with skip permissions
+# Claude Code launcher. Pass -b to bypass permissions.
 
 # choice=$(echo "personal\nlead-venture" | fzf --prompt="Select Claude profile: ")
 # if [ -n "$choice" ]; then
@@ -14,4 +14,13 @@
 #   esac
 # fi
 
-command claude --dangerously-skip-permissions "$@"
+claude_args=()
+for arg in "$@"; do
+  if [[ "$arg" == "-b" ]]; then
+    claude_args+=(--dangerously-skip-permissions)
+  else
+    claude_args+=("$arg")
+  fi
+done
+
+command claude "${claude_args[@]}"
