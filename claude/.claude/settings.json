@@ -63,10 +63,43 @@
       "Bash(git reset*--hard*)",
       "Bash(git clean*)",
       "Bash(git checkout -- *)",
+      "Bash(aws athena start-query-execution*CREATE OR REPLACE VIEW*)",
+      "Bash(aws athena start-query-execution*create or replace view*)",
+      "Bash(aws athena start-query-execution*DROP VIEW*)",
+      "Bash(aws athena start-query-execution*drop view*)",
+      "Bash(aws athena start-query-execution*DROP TABLE*)",
+      "Bash(aws athena start-query-execution*drop table*)",
+      "Bash(aws athena start-query-execution*DROP DATABASE*)",
+      "Bash(aws athena start-query-execution*drop database*)",
+      "Bash(aws athena start-query-execution*DROP SCHEMA*)",
+      "Bash(aws athena start-query-execution*drop schema*)",
+      "Bash(aws athena start-query-execution*ALTER TABLE*)",
+      "Bash(aws athena start-query-execution*alter table*)",
+      "Bash(aws athena start-query-execution*ALTER VIEW*)",
+      "Bash(aws athena start-query-execution*alter view*)",
+      "Bash(aws athena start-query-execution*ALTER DATABASE*)",
+      "Bash(aws athena start-query-execution*alter database*)",
+      "Bash(aws athena start-query-execution*INSERT INTO*)",
+      "Bash(aws athena start-query-execution*insert into*)",
+      "Bash(aws athena start-query-execution*UNLOAD*)",
+      "Bash(aws athena start-query-execution*unload*)",
+      "Bash(aws athena start-query-execution*UPDATE *)",
+      "Bash(aws athena start-query-execution*update *)",
+      "Bash(aws athena start-query-execution*DELETE FROM*)",
+      "Bash(aws athena start-query-execution*delete from*)",
+      "Bash(aws athena start-query-execution*MERGE INTO*)",
+      "Bash(aws athena start-query-execution*merge into*)",
+      "Bash(aws athena start-query-execution*TRUNCATE*)",
+      "Bash(aws athena start-query-execution*truncate*)",
+      "Bash(aws athena start-query-execution*OPTIMIZE*)",
+      "Bash(aws athena start-query-execution*optimize*)",
+      "Bash(aws athena start-query-execution*VACUUM*)",
+      "Bash(aws athena start-query-execution*vacuum*)",
       "Read(./.env)",
       "Read(./secrets/**)"
     ]
   },
+  "model": "claude-fable-5-1[1m]",
   "hooks": {
     "SessionStart": [
       {
@@ -99,6 +132,6 @@
   "skipDangerousModePermissionPrompt": true,
   "editorMode": "vim",
   "skipAutoPermissionPrompt": true,
-  "mcpServers": {},
-  "model": "opus"
+  "voiceEnabled": false,
+  "mcpServers": {}
 }
