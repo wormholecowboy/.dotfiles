@@ -344,7 +344,7 @@
         <h1>Live Context UI <span class="thin">— a page that keeps up with the conversation.</span></h1>
         <p class="lead">
           Your instinct is right: <em>separate the data from the view</em>. Claude appends tiny events,
-          <code>cv</code> folds them into state, and a local page renders it with prebuilt components.
+          <code>ernie</code> folds them into state, and a local page renders it with prebuilt components.
           Four refinements make it cheap per update, durable across compaction, and <em>two-way</em>.
         </p>
         <div class="kpis">
@@ -378,14 +378,14 @@ flowchart TD
     SS["SessionStart hook"]
     ST["Stop hook"]
   end
-  CLI["cv (one Go binary)"]
+  CLI["ernie (one Go binary)"]
   LOG[("events.jsonl<br/>keyed by repo + branch")]
-  SRV["cv serve<br/>fold · SSE · POST"]
+  SRV["ernie serve<br/>fold · SSE · POST"]
   UI["browser page<br/>prebuilt components"]
   YOU(["You"])
   MEM[(".mem/")]
 
-  C -->|"cv plan · decide · ask"| CLI
+  C -->|"ernie plan · decide · ask"| CLI
   PT -->|"files · cmds · tests"| CLI
   CLI -->|append| LOG
   LOG -->|"poll for changes"| SRV
@@ -395,7 +395,7 @@ flowchart TD
   SRV -->|append| LOG
   LOG -->|"your changes since last turn"| UP
   UP -->|"inject context"| C
-  LOG -->|"cv dump on compact/clear"| SS
+  LOG -->|"ernie dump on compact/clear"| SS
   SS -->|"inject context"| C
   ST -.->|"edits but no events? remind"| C
   LOG -.->|"distill at session end"| MEM
@@ -429,7 +429,7 @@ sequenceDiagram
   You->>C: Send next prompt
   Hook->>Log: Read user events since last turn
   Hook->>C: Inject Q2 answer into context
-  C->>Log: cv plan set p3 done
+  C->>Log: ernie plan set p3 done
   Log-->>UI: SSE push, plan card flips to done
   Note over UI,C: Claude never edits HTML or rereads the log
         </script>
@@ -458,7 +458,7 @@ sequenceDiagram
           <div class="card">
             <span class="label">4 · memory</span>
             <h3>It's Claude's working memory too</h3>
-            <p>After compaction, a <code>SessionStart</code> hook prints <code>cv dump</code>, so compact structured state comes back automatically instead of a lossy summary. At session end, distill into <code>.mem/</code>.</p>
+            <p>After compaction, a <code>SessionStart</code> hook prints <code>ernie dump</code>, so compact structured state comes back automatically instead of a lossy summary. At session end, distill into <code>.mem/</code>.</p>
           </div>
         </div>
       </section>
@@ -496,12 +496,12 @@ sequenceDiagram
               <tr>
                 <td>Update one item</td>
                 <td><span class="badge badge--warn">fiddly</span><code>jq</code> path surgery</td>
-                <td><span class="badge badge--pass">by id</span><code>cv plan set p3 done</code></td>
+                <td><span class="badge badge--pass">by id</span><code>ernie plan set p3 done</code></td>
               </tr>
               <tr>
                 <td>Current state</td>
                 <td><span class="badge badge--pass">direct</span>Parse the file</td>
-                <td><span class="badge badge--info">fold</span>Folded once in <code>cv</code> (server pushes state; <code>cv dump</code> for Claude)</td>
+                <td><span class="badge badge--info">fold</span>Folded once in <code>ernie</code> (server pushes state; <code>ernie dump</code> for Claude)</td>
               </tr>
             </tbody>
           </table>
@@ -515,13 +515,13 @@ sequenceDiagram
         <div class="code-pair">
           <div class="code">
             <div class="code-head"><span>claude runs</span><span>bash</span></div>
-<pre><span class="c-cmd">cv</span> plan add <span class="c-str">"Wire SSE endpoint"</span>
-<span class="c-cmd">cv</span> plan set p3 done
-<span class="c-cmd">cv</span> decide <span class="c-str">"JSONL over JSON"</span> \
+<pre><span class="c-cmd">ernie</span> plan add <span class="c-str">"Wire SSE endpoint"</span>
+<span class="c-cmd">ernie</span> plan set p3 done
+<span class="c-cmd">ernie</span> decide <span class="c-str">"JSONL over JSON"</span> \
    --why <span class="c-str">"append-only"</span>
-<span class="c-cmd">cv</span> ask <span class="c-str">"Per-session or per-repo?"</span>
-<span class="c-cmd">cv</span> diagram arch &lt; arch.mmd
-<span class="c-cmd">cv</span> dump   <span class="c-dim"># compact state</span></pre>
+<span class="c-cmd">ernie</span> ask <span class="c-str">"Per-session or per-repo?"</span>
+<span class="c-cmd">ernie</span> diagram arch &lt; arch.mmd
+<span class="c-cmd">ernie</span> dump   <span class="c-dim"># compact state</span></pre>
           </div>
           <div class="code">
             <div class="code-head"><span>events.jsonl</span><span>append-only</span></div>
@@ -530,7 +530,7 @@ sequenceDiagram
 <span class="c-dim">{"by":"claude",</span><span class="c-key">"t":"decision"</span>,"op":"add","id":"d1","text":<span class="c-str">"JSONL over JSON"</span>,…}
 <span class="c-dim">{"by":"claude",</span><span class="c-key">"t":"question"</span>,"op":"add","id":"q2","text":<span class="c-str">"Per-session or…"</span>}
 <span class="c-user">{"by":"user",</span><span class="c-key">"t":"question"</span>,"op":"answer","id":"q2","text":<span class="c-str">"per repo"</span>}
-<span class="c-dim">{"by":"hook",</span><span class="c-key">"t":"file"</span>,"op":"touch","path":"bin/cv","tool":"Edit"}</pre>
+<span class="c-dim">{"by":"hook",</span><span class="c-key">"t":"file"</span>,"op":"touch","path":"bin/ernie","tool":"Edit"}</pre>
           </div>
         </div>
         <div class="envelope">
@@ -549,7 +549,7 @@ sequenceDiagram
         <div class="grid">
           <div class="card writer">
             <div class="role">Claude</div>
-            <div class="role-sub">judgment · via cv</div>
+            <div class="role-sub">judgment · via ernie</div>
             <ul>
               <li>Plan items and status</li>
               <li>Decisions + why</li>
@@ -597,7 +597,7 @@ sequenceDiagram
               <ul class="plan" id="plan">
                 <li class="done"><span class="id">p1</span>Pick event format</li>
                 <li class="done"><span class="id">p2</span>Sketch architecture</li>
-                <li class="active"><span class="id">p3</span>Build <code>cv</code> CLI</li>
+                <li class="active"><span class="id">p3</span>Build <code>ernie</code> CLI</li>
                 <li><span class="id">p4</span>Server: watch, SSE, POST</li>
                 <li><span class="id">p5</span>Page components + replay</li>
                 <li><span class="id">p6</span>Hooks</li>
@@ -631,7 +631,7 @@ sequenceDiagram
             <div class="panel p-dia">
               <h4><span>Diagram</span><span>arch</span></h4>
               <div class="mini-flow">
-                <span class="box">cv</span><span class="arr">→</span>
+                <span class="box">ernie</span><span class="arr">→</span>
                 <span class="box">events.jsonl</span><span class="arr">→</span>
                 <span class="box">page</span>
               </div>
@@ -640,7 +640,7 @@ sequenceDiagram
             <div class="panel p-act">
               <h4><span>Activity</span><span>tail</span></h4>
               <ul class="act" id="activity">
-                <li><span class="t">14:02</span><span class="who who--hook">hook</span> Edit bin/cv</li>
+                <li><span class="t">14:02</span><span class="who who--hook">hook</span> Edit bin/ernie</li>
                 <li><span class="t">14:03</span><span class="who who--hook">hook</span> Bash ./test.sh ✓</li>
                 <li><span class="t">14:03</span><span class="who who--claude">claude</span> p3 → active</li>
               </ul>
@@ -730,21 +730,21 @@ sequenceDiagram
           </table>
         </div>
         <ol class="steps">
-          <li><b>Core</b> <span>— event types, append, log path, fold, <code>cv plan · decide · ask · dump</code>, with tests</span></li>
-          <li><b>Hooks</b> <span>— <code>cv hook post-tool-use · user-prompt-submit · session-start · stop</code>, wired into settings.json</span></li>
-          <li><b>Server + page</b> <span>— <code>cv serve</code>, page from <code>mock.html</code> embedded in the binary, SSE, token-guarded POST</span></li>
+          <li><b>Core</b> <span>— event types, append, log path, fold, <code>ernie plan · decide · ask · dump</code>, with tests</span></li>
+          <li><b>Hooks</b> <span>— <code>ernie hook post-tool-use · user-prompt-submit · session-start · stop</code>, wired into settings.json</span></li>
+          <li><b>Server + page</b> <span>— <code>ernie serve</code>, page from <code>mock.html</code> embedded in the binary, SSE, token-guarded POST</span></li>
           <li><b>Adoption</b> <span>— skill or CLAUDE.md rule, <code>decisions.md</code> entry, build line in <code>install.txt</code></span></li>
         </ol>
         <div class="calls">
           <div class="call">
             <span class="q-num">Q1 · language</span>
             <p>Go: one binary for the CLI, hooks and server</p>
-            <span class="badge badge--warn">proposed</span>
+            <span class="badge badge--pass">decided</span>
           </div>
           <div class="call">
             <span class="q-num">Q2 · home</span>
-            <p>Dotfiles, top-level <code>cv/</code>, built to <code>~/.local/bin</code></p>
-            <span class="badge badge--warn">tentative</span>
+            <p>Dotfiles, top-level <code>ernie/</code>, built to <code>~/.local/bin</code></p>
+            <span class="badge badge--pass">decided</span>
           </div>
           <div class="call">
             <span class="q-num">Q3 · tests</span>

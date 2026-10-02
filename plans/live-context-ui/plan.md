@@ -16,11 +16,13 @@ A browser page next to the terminal that shows structured session state: plan, d
 | # | Decision | Why | Status |
 |---|----------|-----|--------|
 | D1 | Append-only JSONL event log is the source of truth | Claude never reads the file before writing; safe with several writers; history for free | decided |
-| D2 | Go, one binary `cv` (CLI + hook handlers + server) | Already installed (go1.26.1), ~4ms warm start, stdlib covers HTTP/SSE/JSON/embed/tests | **proposed — confirm** |
-| D3 | Fold events into state on the server; the page only renders | The fold logic lives once, in Go, and is tested once; no second copy in JS | proposed |
+| D2 | Go, one binary `ernie` (CLI + hook handlers + server) | Already installed (go1.26.1), ~4ms warm start, stdlib covers HTTP/SSE/JSON/embed/tests | decided 2026-10-02 |
+| D3 | Fold events into state on the server; the page only renders | The fold logic lives once, in Go, and is tested once; no second copy in JS | decided 2026-10-02 |
 | D4 | One log per repo + branch | Survives `/clear` and new sessions | decided |
-| D5 | Source in dotfiles, top-level `cv/` (not a stow package) | You said "probably dotfiles" | tentative |
+| D5 | Source in dotfiles, top-level `ernie/` (not a stow package), built to `~/.local/bin` | Dotfiles for now; can move to its own repo in `~/things/myc/` later | decided 2026-10-02 |
 | D6 | Tests with `go test` | You said yes | decided |
+| D7 | Binary name `ernie` | Your pick; free on PATH, in Homebrew and in your zsh config | decided 2026-10-02 |
+| D8 | v1 server started by hand: `ernie serve` in a herdr/tmux pane; `ernie open` only opens the browser | Visible logs, easy restart after rebuilds, no hidden background process. Move to launchd once stable | decided 2026-10-02 |
 
 ## Q1: Go vs bash + jq vs Bun
 
@@ -46,14 +48,14 @@ flowchart TD
     SS["SessionStart hook"]
     ST["Stop hook"]
   end
-  CLI["cv (one binary)"]
+  CLI["ernie (one binary)"]
   LOG[("events.jsonl<br/>per repo + branch")]
-  SRV["cv serve<br/>fold · SSE · POST"]
+  SRV["ernie serve<br/>fold · SSE · POST"]
   UI["browser page"]
   YOU(["You"])
 
-  C -->|"cv plan · decide · ask"| CLI
-  PT -->|"cv hook post-tool-use"| CLI
+  C -->|"ernie plan · decide · ask"| CLI
+  PT -->|"ernie hook post-tool-use"| CLI
   CLI -->|append| LOG
   LOG -->|"poll for changes"| SRV
   SRV -->|"SSE: full state"| UI
@@ -62,14 +64,14 @@ flowchart TD
   SRV -->|append| LOG
   LOG -->|"inbox since last turn"| UP
   UP -->|"stdout → context"| C
-  LOG -->|"cv dump on compact/clear"| SS
+  LOG -->|"ernie dump on compact/clear"| SS
   SS -->|"stdout → context"| C
-  ST -.->|"edits, no cv events? block once"| C
+  ST -.->|"edits, no ernie events? block once"| C
 ```
 
 ## Storage
 
-- **Path:** `~/.local/state/cv/<repo-slug>/<branch>.jsonl`. Kept out of the repo so work repos don't need gitignore changes.
+- **Path:** `~/.local/state/ernie/<repo-slug>/<branch>.jsonl`. Kept out of the repo so work repos don't need gitignore changes.
   - Repo comes from `git rev-parse --show-toplevel` on the hook's `cwd`.
   - Branch comes from `git branch --show-current`; a detached HEAD uses the short SHA.
   - `/` in branch names is escaped.
@@ -110,23 +112,23 @@ flowchart TD
 ## CLI surface
 
 ```bash
-cv plan add "Wire SSE endpoint"          # → p4
-cv plan set p4 active|done|todo|dropped
-cv decide "JSONL over JSON" --why "..."  # → d3
-cv ask "CLI language?" --choice go --choice "bash + jq"   # → q2
-cv diagram arch < arch.mmd               # or heredoc
-cv fact "Hooks must exit 0 on any error"
-cv dump                                  # compact state, for Claude
-cv inbox                                 # your events since the last turn mark
-cv serve [--port N]                      # one server, all logs
-cv open                                  # open the page for this repo + branch
-cv hook post-tool-use|user-prompt-submit|session-start|stop   # reads hook JSON on stdin
+ernie plan add "Wire SSE endpoint"          # → p4
+ernie plan set p4 active|done|todo|dropped
+ernie decide "JSONL over JSON" --why "..."  # → d3
+ernie ask "CLI language?" --choice go --choice "bash + jq"   # → q2
+ernie diagram arch < arch.mmd               # or heredoc
+ernie fact "Hooks must exit 0 on any error"
+ernie dump                                  # compact state, for Claude
+ernie inbox                                 # your events since the last turn mark
+ernie serve [--port N]                      # one server, all logs
+ernie open                                  # open the page for this repo + branch
+ernie hook post-tool-use|user-prompt-submit|session-start|stop   # reads hook JSON on stdin
 ```
 
-`cv dump` prints compact text rather than JSON, to keep it cheap in tokens:
+`ernie dump` prints compact text rather than JSON, to keep it cheap in tokens:
 
 ```
-PLAN 2/6  ✓p1 Pick event format · ✓p2 Sketch arch · ▶p3 Build cv · p4 Server · p5 Page · p6 Hooks
+PLAN 2/6  ✓p1 Pick event format · ✓p2 Sketch arch · ▶p3 Build ernie · p4 Server · p5 Page · p6 Hooks
 DECIDED   d1 JSONL over JSON (append-only) · d2 Scope repo+branch (survives /clear)
 OPEN      q1 CLI language? [go | bash + jq | bun]
 ANSWERED  q2 Where does it live? → dotfiles
@@ -140,15 +142,15 @@ Every handler finishes in a few ms and **always exits 0 without writing anything
 | Hook | Matcher | Does |
 |---|---|---|
 | `PostToolUse` | `Edit\|Write\|MultiEdit\|NotebookEdit\|Bash` | Appends `file touch` / `cmd run` events |
-| `UserPromptSubmit` | — | Prints `cv inbox` (your page edits since the last turn) to stdout, which goes into context, then appends a `turn mark` |
-| `SessionStart` | `compact\|clear\|resume` | Prints `cv dump` so state comes back automatically after compaction |
-| `Stop` | — | If there are file/cmd events since the last turn mark but no `by:claude` events, return `{"decision":"block","reason":"…log updates with cv"}`. Skip when `stop_hook_active` is true (prevents loops) |
+| `UserPromptSubmit` | — | Prints `ernie inbox` (your page edits since the last turn) to stdout, which goes into context, then appends a `turn mark` |
+| `SessionStart` | `compact\|clear\|resume` | Prints `ernie dump` so state comes back automatically after compaction |
+| `Stop` | — | If there are file/cmd events since the last turn mark but no `by:claude` events, return `{"decision":"block","reason":"…log updates with ernie"}`. Skip when `stop_hook_active` is true (prevents loops) |
 
-The existing `SessionStart` herdr hook stays; the `cv` hook goes alongside it.
+The existing `SessionStart` herdr hook stays; the `ernie` hook goes alongside it.
 
 **Check during build:** whether the Bash `tool_response` in `PostToolUse` includes an exit code. If it doesn't, `cmd` events record no pass/fail and test detection waits.
 
-## Server (`cv serve`)
+## Server (`ernie serve`)
 
 - Binds to `127.0.0.1` only. One server handles every repo/branch log; the page URL picks one (`/?log=<slug>/<branch>`).
 - Endpoints:
@@ -163,7 +165,7 @@ The existing `SessionStart` herdr hook stays; the `cv` hook goes alongside it.
   - `Content-Type: application/json` only, with no CORS preflight handling
   - an allowlist of ops users may send: `question answer`, `plan set`, `note add`, `fact dismiss`
   - inbox output is framed as "user notes from the page"
-- Lifecycle for v1: start it by hand in a herdr/tmux pane (`lsof` the port first). No auto-spawn, to avoid the respawn conflicts you've hit before.
+- **Lifecycle (D8):** for v1 you start `ernie serve` by hand in a herdr/tmux pane (`lsof` the port first). `ernie open` only opens the browser; if the server isn't running it prints a hint to start it. No auto-spawn, to avoid the respawn conflicts you've hit before. Later: a launchd agent in dotfiles.
 
 ## Page
 
@@ -201,21 +203,24 @@ Each function gets one expected case, one edge case and one failure case. Use `t
 
 ## Phases (stop for review after each)
 
-0. **Confirm** D2, D5, the name, and server lifecycle (open questions below).
+0. ~~**Confirm** decisions~~ → done 2026-10-02.
 1. **Core:** event types, `Append`, `LogPath`, `Fold`, `Dump`, `Inbox`, plus the `plan`/`decide`/`ask`/`fact`/`diagram`/`dump` commands, with tests.
-2. **Hooks:** the four `cv hook` handlers with tests, wired into `claude/.claude/settings.json`.
-3. **Server + page:** `cv serve`, embedded page built from `mock.html`, SSE, token-guarded POST, with tests.
+2. **Hooks:** the four `ernie hook` handlers with tests, wired into `claude/.claude/settings.json`.
+3. **Server + page:** `ernie serve`, embedded page built from `mock.html`, SSE, token-guarded POST, with tests.
 4. **Adoption:**
    - a short skill or CLAUDE.md rule for when Claude logs
    - an entry in `decisions.md`
-   - a build line in `install.txt` (`go build -o ~/.local/bin/cv ./cv`)
+   - a build line in `install.txt` (`go build -o ~/.local/bin/ernie ./ernie`)
 
 ## Open questions
 
-- **Q1/4** Go OK? (D2)
-- **Q2/4** Top-level `cv/` in dotfiles, built to `~/.local/bin` (already on PATH)? Or its own repo in `~/things/myc/`?
-- **Q3/4** Is the name `cv` OK? (It's free on PATH.)
-- **Q4/4** Start the server by hand in a pane for v1, or have `cv open` start it?
+- ~~Go OK?~~ → yes (D2)
+- ~~Name?~~ → `ernie` (D7)
+- ~~Server lifecycle?~~ → started by hand for now (D8)
+- ~~Where does the source live?~~ → dotfiles for now (D5)
+- ~~Server folds, page only renders?~~ → yes (D3)
+
+None open. Left to verify during build: whether the Bash `tool_response` includes an exit code (see Hooks).
 
 ## Out of scope for v1
 

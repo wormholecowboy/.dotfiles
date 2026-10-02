@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>cv · Live Context</title>
+  <title>ernie · Live Context</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Fragment+Mono&display=swap" rel="stylesheet">
@@ -223,10 +223,10 @@
   <div class="mock-banner">MOCK · static sample state, no server · actions update local state and the outbox only</div>
 
   <header class="topbar">
-    <div class="brand">c<span>v</span></div>
+    <div class="brand">ernie<span>.</span></div>
     <select class="log-picker" id="log-picker" aria-label="Log">
       <option>dotfiles / main</option>
-      <option>dotfiles / feat-cv-core</option>
+      <option>dotfiles / feat-ernie-core</option>
       <option>work-repo / fix-auth-redirect</option>
     </select>
     <div class="status">
@@ -306,10 +306,11 @@
       ],
       questions: [
         { id: 'q1', text: 'Want tests?', choices: ['yes', 'no'], answer: 'yes' },
-        { id: 'q2', text: 'Go for the CLI, hooks and server?', choices: ['go', 'bash + jq', 'bun'] },
-        { id: 'q3', text: 'Where does the source live?', choices: ['dotfiles cv/', '~/things/myc/cv'] },
-        { id: 'q4', text: 'Name the binary cv?', choices: [] },
-        { id: 'q5', text: 'Server lifecycle for v1?', choices: ['manual pane', 'cv open auto-starts'] },
+        { id: 'q2', text: 'Go for the CLI, hooks and server?', choices: ['go', 'bash + jq', 'bun'], answer: 'go' },
+        { id: 'q3', text: 'Where does the source live?', choices: ['dotfiles ernie/', '~/things/myc/ernie'], answer: 'dotfiles ernie/' },
+        { id: 'q4', text: 'Name for the binary?', choices: [], answer: 'ernie' },
+        { id: 'q5', text: 'Server lifecycle for v1?', choices: ['manual pane', 'launchd'], answer: 'manual pane' },
+        { id: 'q6', text: 'Server folds state, page only renders?', choices: ['yes', 'no — fold in the page'], answer: 'yes' },
       ],
       facts: [
         { id: 'f1', text: 'Hooks exit 0 on any error — never break a session' },
@@ -326,10 +327,10 @@
       ],
       diagrams: [
         { name: 'arch', mermaid: `flowchart TD
-  C["Claude"] -->|"cv plan · decide · ask"| CLI["cv"]
+  C["Claude"] -->|"ernie plan · decide · ask"| CLI["ernie"]
   H["hooks"] -->|"files · cmds"| CLI
   CLI -->|append| LOG[("events.jsonl")]
-  LOG -->|poll| SRV["cv serve<br/>fold"]
+  LOG -->|poll| SRV["ernie serve<br/>fold"]
   SRV -->|"SSE state"| UI["this page"]
   UI -->|"POST + token"| SRV
   LOG -->|"inbox on next prompt"| C` },
@@ -342,7 +343,7 @@
   Page->>Log: Append answer event
   You->>Claude: Next prompt
   Log->>Claude: Hook injects inbox
-  Claude->>Log: cv plan set p4 done
+  Claude->>Log: ernie plan set p4 done
   Log-->>Page: SSE pushes new state` },
       ],
     };
