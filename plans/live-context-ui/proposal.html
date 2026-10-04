@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Live Context UI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Fragment+Mono&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    img, svg, pre { max-width: 100%; }
+
+    :root {
+      --sans: 'Bricolage Grotesque', system-ui, sans-serif;
+      --mono: 'Fragment Mono', ui-monospace, SFMono-Regular, monospace;
+
+      --bg: #0a1520; --bg-card: #0f1e2c; --bg-recessed: #0c1925; --code-bg: #07111a;
+      --text: #d8e6f2; --text-dim: #8299ae; --text-accent: #7dd3fc;
+      --accent: #38bdf8; --accent-soft: #0c2f48;
+      --border: #1c3246; --border-accent: #1f5a82;
+      --grid-minor: rgba(56,189,248,.045); --grid-major: rgba(56,189,248,.09);
+      --success: #34d399; --warning: #fbbf24; --error: #f87171; --info: #93c5fd;
+      --pass-bg: #064e3b; --pass-fg: #a7f3d0;
+      --fail-bg: #7f1d1d; --fail-fg: #fecaca;
+      --warn-bg: #78350f; --warn-fg: #fde68a;
+      --info-bg: #1e3a8a; --info-fg: #dbeafe;
+      --shadow: rgba(0,0,0,.55);
+      color-scheme: dark;
+    }
+    @media (prefers-color-scheme: light) {
+      :root:not([data-theme="dark"]) {
+        --bg: #f3f7fb; --bg-card: #ffffff; --bg-recessed: #e9f0f6; --code-bg: #f7fafc;
+        --text: #0d1f2e; --text-dim: #557087; --text-accent: #0369a1;
+        --accent: #0284c7; --accent-soft: #e0f2fe;
+        --border: #cfdce8; --border-accent: #7cc4ee;
+        --grid-minor: rgba(2,132,199,.055); --grid-major: rgba(2,132,199,.11);
+        --success: #059669; --warning: #b45309; --error: #dc2626; --info: #1d4ed8;
+        --pass-bg: #d1fae5; --pass-fg: #065f46;
+        --fail-bg: #fee2e2; --fail-fg: #991b1b;
+        --warn-bg: #fef3c7; --warn-fg: #92400e;
+        --info-bg: #dbeafe; --info-fg: #1e40af;
+        --shadow: rgba(13,31,46,.18);
+        color-scheme: light;
+      }
+    }
+    :root[data-theme="light"] {
+      --bg: #f3f7fb; --bg-card: #ffffff; --bg-recessed: #e9f0f6; --code-bg: #f7fafc;
+      --text: #0d1f2e; --text-dim: #557087; --text-accent: #0369a1;
+      --accent: #0284c7; --accent-soft: #e0f2fe;
+      --border: #cfdce8; --border-accent: #7cc4ee;
+      --grid-minor: rgba(2,132,199,.055); --grid-major: rgba(2,132,199,.11);
+      --success: #059669; --warning: #b45309; --error: #dc2626; --info: #1d4ed8;
+      --pass-bg: #d1fae5; --pass-fg: #065f46;
+      --fail-bg: #fee2e2; --fail-fg: #991b1b;
+      --warn-bg: #fef3c7; --warn-fg: #92400e;
+      --info-bg: #dbeafe; --info-fg: #1e40af;
+      --shadow: rgba(13,31,46,.18);
+      color-scheme: light;
+    }
+
+    body {
+      margin: 0; font-family: var(--sans); color: var(--text); line-height: 1.55;
+      background-color: var(--bg);
+      background-image:
+        linear-gradient(var(--grid-major) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+        linear-gradient(var(--grid-minor) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px);
+      background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px;
+      background-attachment: fixed;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: .65;
+      background: radial-gradient(ellipse at 75% -10%, var(--accent-soft) 0%, transparent 55%);
+    }
+
+    code, pre, .mono { font-family: var(--mono); }
+    a { color: var(--text-accent); }
+
+    .theme-toggle {
+      position: fixed; top: 14px; right: 16px; z-index: 300;
+      font: 12px var(--mono); color: var(--text); background: var(--bg-card);
+      border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; cursor: pointer;
+    }
+    .theme-toggle:hover { border-color: var(--accent); }
+
+    /* Layout */
+    .wrap { max-width: 1280px; margin: 0 auto; padding: 48px 24px 96px;
+      display: grid; grid-template-columns: 170px 1fr; gap: 0 48px; }
+    .main { min-width: 0; }
+    .toc { position: sticky; top: 24px; align-self: start; padding: 14px 0;
+      grid-row: 1 / -1; max-height: calc(100dvh - 48px); overflow-y: auto; }
+    .toc-title { font: 10px var(--mono); text-transform: uppercase; letter-spacing: .14em;
+      color: var(--text-dim); padding: 0 8px 10px; }
+    .toc a { display: block; font-size: 12px; color: var(--text-dim); text-decoration: none;
+      padding: 5px 8px; border-radius: 5px; border-left: 2px solid transparent; transition: all .15s; }
+    .toc a:hover { color: var(--text); }
+    .toc a.active { color: var(--text); border-left-color: var(--accent); background: var(--accent-soft); }
+
+    @media (max-width: 1000px) {
+      .wrap { grid-template-columns: 1fr; padding: 24px 16px 72px; }
+      .toc { position: sticky; top: 0; z-index: 200; display: flex; gap: 4px; margin: 0 -16px;
+        overflow-x: auto; -webkit-overflow-scrolling: touch; max-height: none;
+        background: var(--bg); border-bottom: 1px solid var(--border); padding: 8px 16px; }
+      .toc-title { display: none; }
+      .toc a { white-space: nowrap; flex-shrink: 0; border-left: none; border-bottom: 2px solid transparent; }
+      .toc a.active { border-left: none; border-bottom-color: var(--accent); }
+      .theme-toggle { top: auto; bottom: 14px; }
+    }
+
+    section { margin: 0 0 72px; scroll-margin-top: 24px; }
+    @media (max-width: 1000px) { section { scroll-margin-top: 60px; } }
+
+    /* Type */
+    .kicker { font: 11px var(--mono); text-transform: uppercase; letter-spacing: .16em; color: var(--accent); }
+    h1 { font-size: clamp(42px, 7vw, 84px); line-height: .95; letter-spacing: -.03em;
+      font-weight: 800; margin: 14px 0 20px; }
+    h1 .thin { font-weight: 400; color: var(--text-dim); }
+    .lead { font-size: clamp(17px, 2vw, 21px); max-width: 760px; color: var(--text); margin: 0 0 32px; }
+    .lead em { font-style: normal; color: var(--text-accent); }
+    h2 { font-size: 28px; letter-spacing: -.01em; margin: 0 0 6px; font-weight: 800;
+      display: flex; align-items: baseline; gap: 14px; }
+    h2 .num { font: 13px var(--mono); color: var(--accent); border: 1px solid var(--border-accent);
+      border-radius: 4px; padding: 2px 7px; transform: translateY(-4px); }
+    .sub { color: var(--text-dim); margin: 0 0 22px; max-width: 760px; }
+    h3 { font-size: 17px; margin: 0 0 8px; font-weight: 600; }
+    p { margin: 0 0 10px; overflow-wrap: break-word; }
+
+    /* Cards */
+    .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+    .grid > * { min-width: 0; }
+    .card { background: var(--bg-card); border: 1px solid var(--border); padding: 22px; border-radius: 10px; }
+    .card--hero { background: var(--accent-soft); border: 1px solid var(--border-accent);
+      padding: 26px; border-radius: 12px; }
+    .card--recessed { background: var(--bg-recessed); border: 1px solid var(--border);
+      padding: 18px; border-radius: 8px; color: var(--text-dim); font-size: .95em; }
+    .card .label { font: 10px var(--mono); text-transform: uppercase; letter-spacing: .12em;
+      color: var(--text-dim); margin-bottom: 10px; display: block; }
+    .card p { color: var(--text-dim); font-size: 15px; }
+    .card--hero p { color: var(--text); }
+    .card ul { margin: 6px 0 0; padding-left: 18px; color: var(--text-dim); font-size: 14.5px; }
+    .card li { margin: 4px 0; }
+
+    .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; }
+    .kpi { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px;
+      padding: 18px; position: relative; overflow: hidden; }
+    .kpi::after { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent); }
+    .kpi .v { font-size: 34px; font-weight: 800; letter-spacing: -.02em; color: var(--text-accent); line-height: 1.1; }
+    .kpi .k { font: 11px var(--mono); color: var(--text-dim); text-transform: uppercase; letter-spacing: .08em; margin-top: 4px; }
+
+    /* Badges */
+    .badge { display: inline-block; padding: 2px 9px; border-radius: 12px; font: 600 10.5px var(--mono);
+      text-transform: uppercase; letter-spacing: .06em; vertical-align: middle; white-space: nowrap; }
+    .badge--pass { background: var(--pass-bg); color: var(--pass-fg); }
+    .badge--fail { background: var(--fail-bg); color: var(--fail-fg); }
+    .badge--warn { background: var(--warn-bg); color: var(--warn-fg); }
+    .badge--info { background: var(--info-bg); color: var(--info-fg); }
+
+    /* Mermaid */
+    .mermaid-wrap { position: relative; overflow: auto; border: 1px solid var(--border);
+      border-radius: 10px; padding: 48px 24px 24px; background: var(--bg-card); }
+    .mermaid { display: flex; justify-content: center; min-height: 120px; }
+    .mermaid svg { height: auto; }
+    .mermaid .nodeLabel { color: var(--text) !important; }
+    .mermaid .edgeLabel { color: var(--text-dim) !important; background-color: var(--bg-card) !important; }
+    .mermaid .edgeLabel rect { fill: var(--bg-card) !important; }
+    .mermaid .edgeLabel p { background-color: var(--bg-card) !important; }
+    .mmd-loading { font: 12px var(--mono); color: var(--text-dim); align-self: center; }
+    .zoom-bar { position: absolute; top: 10px; right: 10px; display: flex; gap: 4px; z-index: 10; }
+    .zoom-bar button { background: var(--bg-recessed); border: 1px solid var(--border); border-radius: 4px;
+      padding: 4px 10px; cursor: pointer; font: 13px var(--mono); color: var(--text); }
+    .zoom-bar button:hover { border-color: var(--accent); }
+    .diagram-caption { font: 11px var(--mono); color: var(--text-dim); position: absolute; top: 16px; left: 18px;
+      text-transform: uppercase; letter-spacing: .1em; }
+
+    /* Table */
+    .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; background: var(--bg-card); }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 620px; }
+    thead { position: sticky; top: 0; z-index: 5; }
+    th { background: var(--bg-recessed); text-align: left; padding: 11px 14px; font: 10.5px var(--mono);
+      text-transform: uppercase; letter-spacing: .08em; color: var(--text-dim); border-bottom: 2px solid var(--border); }
+    td { padding: 11px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover { background: var(--accent-soft); }
+    td:first-child { font-weight: 600; white-space: nowrap; }
+    td .badge { margin-right: 6px; }
+    .foot { font-size: 12.5px; color: var(--text-dim); margin-top: 10px; }
+
+    /* Code */
+    .code-pair { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.4fr); gap: 16px; }
+    @media (max-width: 860px) { .code-pair { grid-template-columns: 1fr; } }
+    .code { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--code-bg); min-width: 0; }
+    .code-head { font: 10.5px var(--mono); text-transform: uppercase; letter-spacing: .1em; color: var(--text-dim);
+      padding: 9px 14px; border-bottom: 1px solid var(--border); background: var(--bg-recessed);
+      display: flex; justify-content: space-between; gap: 8px; }
+    pre { margin: 0; padding: 14px 16px; font-size: 12.5px; line-height: 1.75; overflow-x: auto; }
+    .c-cmd { color: var(--accent); }
+    .c-str { color: var(--warning); }
+    .c-dim { color: var(--text-dim); }
+    .c-key { color: var(--info); }
+    .c-user { color: var(--success); }
+    .envelope { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .field { font: 12px var(--mono); background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 6px; padding: 6px 10px; color: var(--text-dim); }
+    .field b { color: var(--text); font-weight: 400; }
+
+    /* Who writes what */
+    .writer { border-top: 3px solid var(--accent); }
+    .writer--hook { border-top-color: var(--warning); }
+    .writer--you { border-top-color: var(--success); }
+    .writer .role { font-size: 22px; font-weight: 800; margin-bottom: 2px; }
+    .writer .role-sub { font: 11px var(--mono); color: var(--text-dim); text-transform: uppercase;
+      letter-spacing: .08em; margin-bottom: 12px; }
+
+    /* Mock dashboard */
+    .mock { border: 1px solid var(--border-accent); border-radius: 12px; overflow: hidden;
+      background: var(--bg-card); box-shadow: 0 30px 70px -35px var(--shadow); }
+    .mock-chrome { display: flex; align-items: center; gap: 7px; padding: 10px 14px;
+      background: var(--bg-recessed); border-bottom: 1px solid var(--border); font: 11.5px var(--mono); color: var(--text-dim); }
+    .mock-chrome .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border); flex-shrink: 0; }
+    .mock-url { margin-left: 8px; padding: 3px 10px; background: var(--bg); border: 1px solid var(--border);
+      border-radius: 6px; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .live { color: var(--success); white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; }
+    .live::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--success);
+      animation: pulse 1.8s ease-in-out infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
+
+    .mock-body { display: grid; gap: 14px; padding: 16px;
+      grid-template-columns: 1.15fr 1fr 1fr;
+      grid-template-areas: "plan questions decisions" "plan diagram activity"; }
+    @media (max-width: 900px) {
+      .mock-body { grid-template-columns: 1fr;
+        grid-template-areas: "plan" "questions" "decisions" "diagram" "activity"; }
+    }
+    .panel { background: var(--bg-recessed); border: 1px solid var(--border); border-radius: 8px; padding: 14px; min-width: 0; }
+    .panel h4 { margin: 0 0 12px; font: 10.5px var(--mono); text-transform: uppercase; letter-spacing: .1em;
+      color: var(--text-dim); display: flex; justify-content: space-between; gap: 8px; font-weight: 400; }
+    .panel h4 span:last-child { color: var(--text-accent); }
+    .p-plan { grid-area: plan; } .p-q { grid-area: questions; } .p-dec { grid-area: decisions; }
+    .p-dia { grid-area: diagram; } .p-act { grid-area: activity; }
+
+    .plan { list-style: none; margin: 0; padding: 0; }
+    .plan li { position: relative; padding: 7px 0 7px 28px; font-size: 14px; border-bottom: 1px dashed var(--border); cursor: pointer; }
+    .plan li:last-child { border-bottom: none; }
+    .plan li::before { content: ''; position: absolute; left: 2px; top: 10px; width: 14px; height: 14px;
+      border: 1.5px solid var(--text-dim); border-radius: 4px; }
+    .plan li.done { color: var(--text-dim); text-decoration: line-through; text-decoration-color: var(--border-accent); }
+    .plan li.done::before { background: var(--success); border-color: var(--success); }
+    .plan li.done::after { content: '✓'; position: absolute; left: 4.5px; top: 6px; font-size: 12px; color: var(--bg); font-weight: 800; }
+    .plan li.active::before { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+    .plan li.active { color: var(--text-accent); }
+    .plan .id { font: 10.5px var(--mono); color: var(--text-dim); margin-right: 6px; text-decoration: none; display: inline-block; }
+
+    .q { padding: 0 0 12px; margin-bottom: 12px; border-bottom: 1px dashed var(--border); }
+    .q:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .q-num { font: 10.5px var(--mono); color: var(--accent); }
+    .q-text { font-size: 14px; margin: 3px 0 8px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chip { font: 11.5px var(--mono); padding: 4px 10px; border-radius: 14px; border: 1px solid var(--border);
+      background: var(--bg-card); color: var(--text); cursor: pointer; }
+    .chip:hover { border-color: var(--accent); }
+    .chip.selected { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+    .q input { width: 100%; font: 12.5px var(--mono); padding: 7px 10px; border-radius: 6px;
+      border: 1px solid var(--border); background: var(--bg-card); color: var(--text); }
+    .q input:focus { outline: none; border-color: var(--accent); }
+
+    .dec { padding: 0 0 10px 12px; margin-bottom: 10px; border-left: 2px solid var(--accent); }
+    .dec:last-child { margin-bottom: 0; padding-bottom: 0; }
+    .dec b { display: block; font-size: 14px; font-weight: 600; }
+    .dec span { font-size: 12.5px; color: var(--text-dim); }
+
+    .mini-flow { display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: wrap; padding: 14px 0 6px; }
+    .mini-flow .box { font: 11px var(--mono); padding: 7px 10px; border: 1px solid var(--border-accent);
+      background: var(--accent-soft); border-radius: 5px; }
+    .mini-flow .arr { color: var(--text-dim); font-size: 13px; }
+
+    .act { list-style: none; margin: 0; padding: 0; font: 11.5px var(--mono); max-height: 170px; overflow-y: auto; }
+    .act li { padding: 4px 0; color: var(--text-dim); overflow-wrap: anywhere; }
+    .act .t { color: var(--text-dim); opacity: .7; margin-right: 6px; }
+    .who { display: inline-block; min-width: 50px; }
+    .who--hook { color: var(--warning); } .who--claude { color: var(--accent); } .who--you { color: var(--success); }
+    .act li.new { animation: flash 1.2s ease-out; }
+    @keyframes flash { from { background: var(--accent-soft); } to { background: transparent; } }
+
+    .component-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .component-chips span { font: 12px var(--mono); padding: 6px 12px; border-radius: 6px;
+      border: 1px solid var(--border); background: var(--bg-card); }
+    .component-chips span i { font-style: normal; color: var(--text-dim); margin-left: 6px; }
+
+    /* Pitfalls */
+    .review-card { border-left: 4px solid; padding: 16px 20px; background: var(--bg-card);
+      border-radius: 0 10px 10px 0; border-top: 1px solid var(--border); border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border); }
+    .review-card--ugly { border-left-color: var(--warning); }
+    .review-card--good { border-left-color: var(--success); }
+    .review-card h3 { font-size: 16px; }
+    .review-card p { color: var(--text-dim); font-size: 14.5px; }
+    .review-card .fix { color: var(--text); font-size: 14.5px; margin: 0; }
+    .review-card .fix b { font: 10.5px var(--mono); text-transform: uppercase; letter-spacing: .1em; color: var(--success); margin-right: 6px; }
+
+    /* Steps */
+    .steps { list-style: none; counter-reset: step; margin: 0; padding: 0; }
+    .steps li { counter-increment: step; position: relative; padding: 14px 16px 14px 60px; margin-bottom: 10px;
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; }
+    .steps li::before { content: counter(step, decimal-leading-zero); position: absolute; left: 18px; top: 14px;
+      font: 13px var(--mono); color: var(--accent); }
+    .steps li b { font-weight: 600; }
+    .steps li span { color: var(--text-dim); font-size: 14.5px; }
+    .steps li .badge { margin-left: 6px; }
+
+    .calls { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-top: 18px; }
+    .call { border: 1px dashed var(--border-accent); border-radius: 10px; padding: 16px; background: var(--bg-recessed); min-width: 0; }
+    .call .q-num { display: block; margin-bottom: 4px; }
+    .call p { font-size: 14.5px; margin-bottom: 8px; }
+
+    footer { font: 11px var(--mono); color: var(--text-dim); border-top: 1px solid var(--border); padding-top: 18px; }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" id="theme-toggle" type="button">◐ theme</button>
+
+  <div class="wrap">
+    <nav class="toc" id="toc">
+      <div class="toc-title">Contents</div>
+      <a href="#s0">Overview</a>
+      <a href="#s1">Architecture</a>
+      <a href="#s2">One turn</a>
+      <a href="#s3">Refinements</a>
+      <a href="#s4">JSON vs JSONL</a>
+      <a href="#s5">Event format</a>
+      <a href="#s6">Who writes what</a>
+      <a href="#s7">The page</a>
+      <a href="#s8">Pitfalls</a>
+      <a href="#s9">Alternative</a>
+      <a href="#s10">Prototype</a>
+    </nav>
+
+    <div class="main">
+
+      <!-- Overview -->
+      <section id="s0">
+        <div class="kicker">Design proposal · Claude Code companion pane</div>
+        <h1>Live Context UI <span class="thin">— a page that keeps up with the conversation.</span></h1>
+        <p class="lead">
+          Your instinct is right: <em>separate the data from the view</em>. Claude appends tiny events,
+          <code>ernie</code> folds them into state, and a local page renders it with prebuilt components.
+          Four refinements make it cheap per update, durable across compaction, and <em>two-way</em>.
+        </p>
+        <div class="kpis">
+          <div class="kpi"><div class="v">1 line</div><div class="k">per update</div></div>
+          <div class="kpi"><div class="v">0</div><div class="k">file reads before a write</div></div>
+          <div class="kpi"><div class="v">3</div><div class="k">hooks (+1 optional)</div></div>
+          <div class="kpi"><div class="v">1</div><div class="k">static page, no build</div></div>
+        </div>
+      </section>
+
+      <!-- Architecture -->
+      <section id="s1">
+        <h2><span class="num">01</span>Architecture</h2>
+        <p class="sub">One append-only log is the source of truth. Everything else writes to it or reads from it.</p>
+        <div class="mermaid-wrap">
+          <span class="diagram-caption">system</span>
+          <div class="zoom-bar">
+            <button type="button" data-zoom="in" title="Zoom in">+</button>
+            <button type="button" data-zoom="out" title="Zoom out">&minus;</button>
+            <button type="button" data-zoom="reset" title="Reset">Reset</button>
+            <button type="button" data-zoom="expand" title="Open in new window">&#x26F6;</button>
+          </div>
+          <div class="mermaid" data-src="mmd-arch"><span class="mmd-loading">rendering…</span></div>
+        </div>
+        <script type="text/plain" id="mmd-arch">
+flowchart TD
+  subgraph term["Claude Code session"]
+    C["Claude"]
+    PT["PostToolUse hook"]
+    UP["UserPromptSubmit hook"]
+    SS["SessionStart hook"]
+    ST["Stop hook"]
+  end
+  CLI["ernie (one Go binary)"]
+  LOG[("events.jsonl<br/>keyed by repo + branch")]
+  SRV["ernie serve<br/>fold · SSE · POST"]
+  UI["browser page<br/>prebuilt components"]
+  YOU(["You"])
+  MEM[(".mem/")]
+
+  C -->|"ernie plan · decide · ask"| CLI
+  PT -->|"files · cmds · tests"| CLI
+  CLI -->|append| LOG
+  LOG -->|"poll for changes"| SRV
+  SRV -->|"SSE: full state"| UI
+  YOU <-->|"check · answer · note"| UI
+  UI -->|"POST + token"| SRV
+  SRV -->|append| LOG
+  LOG -->|"your changes since last turn"| UP
+  UP -->|"inject context"| C
+  LOG -->|"ernie dump on compact/clear"| SS
+  SS -->|"inject context"| C
+  ST -.->|"edits but no events? remind"| C
+  LOG -.->|"distill at session end"| MEM
+        </script>
+      </section>
+
+      <!-- One turn -->
+      <section id="s2">
+        <h2><span class="num">02</span>One turn, end to end</h2>
+        <p class="sub">You answer in the browser instead of the terminal. Claude never edits HTML or rereads the log.</p>
+        <div class="mermaid-wrap">
+          <span class="diagram-caption">sequence</span>
+          <div class="zoom-bar">
+            <button type="button" data-zoom="in" title="Zoom in">+</button>
+            <button type="button" data-zoom="out" title="Zoom out">&minus;</button>
+            <button type="button" data-zoom="reset" title="Reset">Reset</button>
+            <button type="button" data-zoom="expand" title="Open in new window">&#x26F6;</button>
+          </div>
+          <div class="mermaid" data-src="mmd-turn"><span class="mmd-loading">rendering…</span></div>
+        </div>
+        <script type="text/plain" id="mmd-turn">
+sequenceDiagram
+  autonumber
+  actor You
+  participant UI as Browser page
+  participant Log as events.jsonl
+  participant Hook as UserPromptSubmit
+  participant C as Claude
+  You->>UI: Answer Q2 with per repo
+  UI->>Log: Append answer event from user
+  You->>C: Send next prompt
+  Hook->>Log: Read user events since last turn
+  Hook->>C: Inject Q2 answer into context
+  C->>Log: ernie plan set p3 done
+  Log-->>UI: SSE push, plan card flips to done
+  Note over UI,C: Claude never edits HTML or rereads the log
+        </script>
+      </section>
+
+      <!-- Refinements -->
+      <section id="s3">
+        <h2><span class="num">03</span>The four refinements</h2>
+        <p class="sub">What changes from "JSON file + inject via CLI".</p>
+        <div class="grid">
+          <div class="card">
+            <span class="label">1 · storage</span>
+            <h3>Append-only event log</h3>
+            <p>Every update is one line appended by a tiny CLI. No read-before-write, cost stays flat as the session grows, and you get a timeline for free.</p>
+          </div>
+          <div class="card">
+            <span class="label">2 · capture</span>
+            <h3>Hooks log the mechanical stuff</h3>
+            <p><code>PostToolUse</code> records files touched, commands run, tests pass/fail — zero model tokens. Claude only writes judgment: plan, decisions, questions, diagrams.</p>
+          </div>
+          <div class="card card--hero">
+            <span class="label">3 · direction — biggest win</span>
+            <h3>Make it two-way</h3>
+            <p>Check off, answer, annotate in the UI; it appends to the same log. <code>UserPromptSubmit</code> injects your changes since the last turn. No more answering Q3/5 in the terminal.</p>
+          </div>
+          <div class="card">
+            <span class="label">4 · memory</span>
+            <h3>It's Claude's working memory too</h3>
+            <p>After compaction, a <code>SessionStart</code> hook prints <code>ernie dump</code>, so compact structured state comes back automatically instead of a lossy summary. At session end, distill into <code>.mem/</code>.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- JSON vs JSONL -->
+      <section id="s4">
+        <h2><span class="num">04</span>Single JSON file vs append-only JSONL</h2>
+        <p class="sub">Why the storage change matters more than it looks.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Concern</th><th>Single JSON file</th><th>Append-only JSONL</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Write cost</td>
+                <td><span class="badge badge--fail">grows</span>Read whole file, then edit — cost scales with session length</td>
+                <td><span class="badge badge--pass">flat</span>One appended line</td>
+              </tr>
+              <tr>
+                <td>Multiple writers</td>
+                <td><span class="badge badge--warn">clobber</span>Claude, hooks, and browser race; last write wins</td>
+                <td><span class="badge badge--pass">safe</span>Small <code>O_APPEND</code> writes don't overwrite each other</td>
+              </tr>
+              <tr>
+                <td>History</td>
+                <td><span class="badge badge--fail">lost</span>Overwritten in place</td>
+                <td><span class="badge badge--pass">free</span>Every change is a timeline entry</td>
+              </tr>
+              <tr>
+                <td>Corruption</td>
+                <td><span class="badge badge--warn">fragile</span>One bad edit breaks the whole file</td>
+                <td><span class="badge badge--pass">isolated</span>Skip the one malformed line</td>
+              </tr>
+              <tr>
+                <td>Update one item</td>
+                <td><span class="badge badge--warn">fiddly</span><code>jq</code> path surgery</td>
+                <td><span class="badge badge--pass">by id</span><code>ernie plan set p3 done</code></td>
+              </tr>
+              <tr>
+                <td>Current state</td>
+                <td><span class="badge badge--pass">direct</span>Parse the file</td>
+                <td><span class="badge badge--info">fold</span>Folded once in <code>ernie</code> (server pushes state; <code>ernie dump</code> for Claude)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Event format -->
+      <section id="s5">
+        <h2><span class="num">05</span>CLI and event shape</h2>
+        <p class="sub">Terse commands on the left; what lands in the log on the right.</p>
+        <div class="code-pair">
+          <div class="code">
+            <div class="code-head"><span>claude runs</span><span>bash</span></div>
+<pre><span class="c-cmd">ernie</span> plan add <span class="c-str">"Wire SSE endpoint"</span>
+<span class="c-cmd">ernie</span> plan set p3 done
+<span class="c-cmd">ernie</span> decide <span class="c-str">"JSONL over JSON"</span> \
+   --why <span class="c-str">"append-only"</span>
+<span class="c-cmd">ernie</span> ask <span class="c-str">"Per-session or per-repo?"</span>
+<span class="c-cmd">ernie</span> diagram arch &lt; arch.mmd
+<span class="c-cmd">ernie</span> dump   <span class="c-dim"># compact state</span></pre>
+          </div>
+          <div class="code">
+            <div class="code-head"><span>events.jsonl</span><span>append-only</span></div>
+<pre><span class="c-dim">{"by":"claude",</span><span class="c-key">"t":"plan"</span>,"op":"add","id":"p3","text":<span class="c-str">"Wire SSE endpoint"</span>}
+<span class="c-dim">{"by":"claude",</span><span class="c-key">"t":"plan"</span>,"op":"set","id":"p3","status":"done"}
+<span class="c-dim">{"by":"claude",</span><span class="c-key">"t":"decision"</span>,"op":"add","id":"d1","text":<span class="c-str">"JSONL over JSON"</span>,…}
+<span class="c-dim">{"by":"claude",</span><span class="c-key">"t":"question"</span>,"op":"add","id":"q2","text":<span class="c-str">"Per-session or…"</span>}
+<span class="c-user">{"by":"user",</span><span class="c-key">"t":"question"</span>,"op":"answer","id":"q2","text":<span class="c-str">"per repo"</span>}
+<span class="c-dim">{"by":"hook",</span><span class="c-key">"t":"file"</span>,"op":"touch","path":"bin/ernie","tool":"Edit"}</pre>
+          </div>
+        </div>
+        <div class="envelope">
+          <span class="field"><b>ts</b> · timestamp</span>
+          <span class="field"><b>by</b> · claude | hook | user</span>
+          <span class="field"><b>t</b> · component type</span>
+          <span class="field"><b>op</b> · add | set | answer | touch</span>
+          <span class="field"><b>id</b> · stable, so updates are one line</span>
+        </div>
+      </section>
+
+      <!-- Who writes what -->
+      <section id="s6">
+        <h2><span class="num">06</span>Who writes what</h2>
+        <p class="sub">Spend model tokens only on things that need judgment.</p>
+        <div class="grid">
+          <div class="card writer">
+            <div class="role">Claude</div>
+            <div class="role-sub">judgment · via ernie</div>
+            <ul>
+              <li>Plan items and status</li>
+              <li>Decisions + why</li>
+              <li>Open questions</li>
+              <li>Diagrams (Mermaid text)</li>
+              <li>Key facts / gotchas</li>
+            </ul>
+          </div>
+          <div class="card writer writer--hook">
+            <div class="role">Hooks</div>
+            <div class="role-sub">mechanics · zero tokens</div>
+            <ul>
+              <li>Files touched (Edit / Write)</li>
+              <li>Commands run (Bash)</li>
+              <li>Test pass / fail from exit codes</li>
+              <li>Turn boundaries</li>
+            </ul>
+          </div>
+          <div class="card writer writer--you">
+            <div class="role">You</div>
+            <div class="role-sub">steering · via the page</div>
+            <ul>
+              <li>Answers to questions</li>
+              <li>Check off / reprioritize</li>
+              <li>Notes and corrections</li>
+              <li>Pin or dismiss facts</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- The page -->
+      <section id="s7">
+        <h2><span class="num">07</span>The page itself</h2>
+        <p class="sub">A mock built from this conversation. Click plan items and answer chips — answers land in the activity feed, which is what the hook would hand Claude.</p>
+        <div class="mock">
+          <div class="mock-chrome">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            <span class="mock-url">localhost · dotfiles @ main</span>
+            <span class="live">live</span>
+          </div>
+          <div class="mock-body">
+            <div class="panel p-plan">
+              <h4><span>Plan</span><span id="plan-count">2/6</span></h4>
+              <ul class="plan" id="plan">
+                <li class="done"><span class="id">p1</span>Pick event format</li>
+                <li class="done"><span class="id">p2</span>Sketch architecture</li>
+                <li class="active"><span class="id">p3</span>Build <code>ernie</code> CLI</li>
+                <li><span class="id">p4</span>Server: watch, SSE, POST</li>
+                <li><span class="id">p5</span>Page components + replay</li>
+                <li><span class="id">p6</span>Hooks</li>
+              </ul>
+            </div>
+
+            <div class="panel p-q">
+              <h4><span>Questions</span><span id="q-count">0/2 answered</span></h4>
+              <div class="q" data-q="Q1">
+                <div class="q-num">Q1/2</div>
+                <div class="q-text">CLI language?</div>
+                <div class="chips">
+                  <button type="button" class="chip">go</button>
+                  <button type="button" class="chip">bash + jq</button>
+                  <button type="button" class="chip">bun</button>
+                </div>
+              </div>
+              <div class="q" data-q="Q2">
+                <div class="q-num">Q2/2</div>
+                <div class="q-text">Where does it live?</div>
+                <input type="text" id="q2-input" placeholder="type + enter…">
+              </div>
+            </div>
+
+            <div class="panel p-dec">
+              <h4><span>Decisions</span><span>2</span></h4>
+              <div class="dec"><b>JSONL over JSON</b><span>append-only, no read-before-write</span></div>
+              <div class="dec"><b>Scope by repo + branch</b><span>survives <code>/clear</code> and new sessions</span></div>
+            </div>
+
+            <div class="panel p-dia">
+              <h4><span>Diagram</span><span>arch</span></h4>
+              <div class="mini-flow">
+                <span class="box">ernie</span><span class="arr">→</span>
+                <span class="box">events.jsonl</span><span class="arr">→</span>
+                <span class="box">page</span>
+              </div>
+            </div>
+
+            <div class="panel p-act">
+              <h4><span>Activity</span><span>tail</span></h4>
+              <ul class="act" id="activity">
+                <li><span class="t">14:02</span><span class="who who--hook">hook</span> Edit bin/ernie</li>
+                <li><span class="t">14:03</span><span class="who who--hook">hook</span> Bash ./test.sh ✓</li>
+                <li><span class="t">14:03</span><span class="who who--claude">claude</span> p3 → active</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="component-chips">
+          <span>plan<i>checklist + status</i></span>
+          <span>decisions<i>what + why</i></span>
+          <span>questions<i>Qn/total, answerable</i></span>
+          <span>diagram<i>Mermaid text</i></span>
+          <span>table<i>rows from events</i></span>
+          <span>facts<i>pinned gotchas</i></span>
+          <span>activity<i>hook feed</i></span>
+        </div>
+      </section>
+
+      <!-- Pitfalls -->
+      <section id="s8">
+        <h2><span class="num">08</span>Pitfalls</h2>
+        <p class="sub">Where this kind of tool usually goes stale or sprawls.</p>
+        <div class="grid">
+          <div class="review-card review-card--ugly">
+            <h3>Claude forgets to update</h3>
+            <p>The page quietly drifts from reality.</p>
+            <p class="fix"><b>Fix</b>Short skill / CLAUDE.md rule, plus a <code>Stop</code> hook that blocks when edits were logged this turn but no Claude events were.</p>
+          </div>
+          <div class="review-card review-card--ugly">
+            <h3>Wrong state scope</h3>
+            <p>Session-ID keys vanish on <code>/clear</code> or restart.</p>
+            <p class="fix"><b>Fix</b>Key the log by repo + branch.</p>
+          </div>
+          <div class="review-card review-card--ugly">
+            <h3>Schema creep</h3>
+            <p>Every new need becomes a new component type.</p>
+            <p class="fix"><b>Fix</b>Fixed, small component set. Every item gets an <code>id</code>.</p>
+          </div>
+          <div class="review-card review-card--ugly">
+            <h3><code>file://</code> can't fetch or watch</h3>
+            <p>A bare HTML file can't load the log or receive pushes.</p>
+            <p class="fix"><b>Fix</b>Tiny local server; <code>lsof</code> the port before starting.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Alternative -->
+      <section id="s9">
+        <h2><span class="num">09</span>Alternative: hosted Artifact + database</h2>
+        <p class="sub">The same shape already exists on claude.ai — useful for testing the UX before building.</p>
+        <div class="grid">
+          <div class="card card--hero">
+            <span class="label">Local build · recommended</span>
+            <h3>Hackable, wired into hooks</h3>
+            <ul>
+              <li>Data stays on disk next to the repo</li>
+              <li>Hooks write directly; no API in the loop</li>
+              <li>Any component you want, any time</li>
+            </ul>
+          </div>
+          <div class="card">
+            <span class="label">Hosted artifact</span>
+            <h3>Exists today, zero setup</h3>
+            <ul>
+              <li>Page + shared DB; Claude writes rows without republishing</li>
+              <li>Private by default, shareable link</li>
+              <li>Lives on claude.ai; harder to customize; no hook integration</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Prototype -->
+      <section id="s10">
+        <h2><span class="num">10</span>Prototype scope</h2>
+        <p class="sub">One Go binary, built in four reviewed phases. Full spec in <code>plan.md</code>.</p>
+        <div class="table-wrap" style="margin-bottom:18px">
+          <table>
+            <thead>
+              <tr><th>Language</th><th>Startup (measured)</th><th>Server?</th><th>Fold + tests</th><th>Install</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>bash + jq</td><td>~3–7ms</td><td><span class="badge badge--fail">no</span>needs a 2nd language</td><td><span class="badge badge--warn">awkward</span>jq reduce</td><td><span class="badge badge--pass">have</span></td></tr>
+              <tr><td>Go</td><td>~4ms warm</td><td><span class="badge badge--pass">stdlib</span>net/http, SSE</td><td><span class="badge badge--pass">go test</span></td><td><span class="badge badge--pass">have</span>go1.26.1</td></tr>
+              <tr><td>Bun</td><td>~10–20ms (typical)</td><td><span class="badge badge--pass">yes</span></td><td><span class="badge badge--pass">bun test</span></td><td><span class="badge badge--warn">new</span>not installed</td></tr>
+              <tr><td>Node</td><td>67ms</td><td><span class="badge badge--pass">yes</span></td><td><span class="badge badge--pass">yes</span></td><td><span class="badge badge--pass">have</span>nvm</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ol class="steps">
+          <li><b>Core</b> <span>— event types, append, log path, fold, <code>ernie plan · decide · ask · dump</code>, with tests</span></li>
+          <li><b>Hooks</b> <span>— <code>ernie hook post-tool-use · user-prompt-submit · session-start · stop</code>, wired into settings.json</span></li>
+          <li><b>Server + page</b> <span>— <code>ernie serve</code>, page from <code>mock.html</code> embedded in the binary, SSE, token-guarded POST</span></li>
+          <li><b>Adoption</b> <span>— skill or CLAUDE.md rule, <code>decisions.md</code> entry, build line in <code>install.txt</code></span></li>
+        </ol>
+        <div class="calls">
+          <div class="call">
+            <span class="q-num">Q1 · language</span>
+            <p>Go: one binary for the CLI, hooks and server</p>
+            <span class="badge badge--pass">decided</span>
+          </div>
+          <div class="call">
+            <span class="q-num">Q2 · home</span>
+            <p>Own repo at <code>~/things/myc/ernie</code>, built to <code>~/.local/bin</code></p>
+            <span class="badge badge--pass">decided</span>
+          </div>
+          <div class="call">
+            <span class="q-num">Q3 · tests</span>
+            <p><code>go test</code>: expected, edge and failure case per unit</p>
+            <span class="badge badge--pass">decided</span>
+          </div>
+        </div>
+      </section>
+
+      <footer>Updated 2026-10-02 · plans/live-context-ui/proposal.html · spec: plan.md · page mock: mock.html</footer>
+    </div>
+  </div>
+
+  <!-- UI behavior: theme, zoom, scroll spy, mock interactions -->
+  <script>
+    (function () {
+      const root = document.documentElement;
+      function currentTheme() {
+        if (root.dataset.theme) return root.dataset.theme;
+        return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      }
+      window.currentTheme = currentTheme;
+      document.getElementById('theme-toggle').addEventListener('click', () => {
+        root.dataset.theme = currentTheme() === 'dark' ? 'light' : 'dark';
+        window.dispatchEvent(new Event('themechange'));
+      });
+      window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => {
+        if (!root.dataset.theme) window.dispatchEvent(new Event('themechange'));
+      });
+
+      // Zoom the diagram, not the wrapper, so the toolbar stays fixed size
+      function setZoom(diagram, value) {
+        diagram.style.zoom = Math.max(0.3, Math.min(3, value));
+      }
+      document.querySelectorAll('.mermaid-wrap').forEach(wrap => {
+        const diagram = wrap.querySelector('.mermaid');
+        wrap.querySelectorAll('[data-zoom]').forEach(btn => btn.addEventListener('click', () => {
+          const cur = parseFloat(diagram.style.zoom || 1);
+          const action = btn.dataset.zoom;
+          if (action === 'in') return setZoom(diagram, cur * 1.2);
+          if (action === 'out') return setZoom(diagram, cur * 0.8);
+          if (action === 'reset') return setZoom(diagram, 1);
+          const svg = diagram.querySelector('svg');
+          if (!svg) return;
+          const win = window.open();
+          const bg = getComputedStyle(document.body).backgroundColor;
+          win.document.write(`<body style="margin:0;padding:24px;background:${bg}">${svg.outerHTML}</body>`);
+        }));
+        wrap.addEventListener('wheel', e => {
+          if (!(e.ctrlKey || e.metaKey)) return;
+          e.preventDefault();
+          const cur = parseFloat(diagram.style.zoom || 1);
+          setZoom(diagram, cur * (e.deltaY < 0 ? 1.1 : 0.9));
+        }, { passive: false });
+      });
+
+      // Scroll spy
+      const sections = document.querySelectorAll('section[id^="s"]');
+      const tocLinks = document.querySelectorAll('.toc a');
+      const spy = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          tocLinks.forEach(a => a.classList.remove('active'));
+          const link = document.querySelector(`.toc a[href="#${entry.target.id}"]`);
+          if (!link) return;
+          link.classList.add('active');
+          if (window.innerWidth <= 1000) link.scrollIntoView({ inline: 'center', block: 'nearest' });
+        });
+      }, { rootMargin: '-10% 0px -80% 0px' });
+      sections.forEach(s => spy.observe(s));
+
+      // Mock dashboard interactions
+      const activity = document.getElementById('activity');
+      function now() {
+        const d = new Date();
+        return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+      }
+      function logActivity(text) {
+        const li = document.createElement('li');
+        li.className = 'new';
+        li.innerHTML = `<span class="t">${now()}</span><span class="who who--you">you</span> `;
+        li.appendChild(document.createTextNode(text));
+        activity.appendChild(li);
+        activity.scrollTop = activity.scrollHeight;
+      }
+
+      const planItems = document.querySelectorAll('#plan li');
+      const planCount = document.getElementById('plan-count');
+      function refreshPlanCount() {
+        const done = document.querySelectorAll('#plan li.done').length;
+        planCount.textContent = `${done}/${planItems.length}`;
+      }
+      planItems.forEach(li => li.addEventListener('click', () => {
+        const id = li.querySelector('.id').textContent;
+        const nowDone = !li.classList.contains('done');
+        li.classList.toggle('done', nowDone);
+        if (nowDone) li.classList.remove('active');
+        refreshPlanCount();
+        logActivity(`${id} → ${nowDone ? 'done' : 'todo'}`);
+      }));
+
+      const answered = new Set();
+      const qCount = document.getElementById('q-count');
+      function markAnswered(q) {
+        answered.add(q);
+        qCount.textContent = `${answered.size}/2 answered`;
+      }
+      document.querySelectorAll('.q .chips').forEach(group => {
+        const q = group.closest('.q').dataset.q;
+        group.querySelectorAll('.chip').forEach(chip => chip.addEventListener('click', () => {
+          group.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+          chip.classList.add('selected');
+          markAnswered(q);
+          logActivity(`answered ${q}: ${chip.textContent}`);
+        }));
+      });
+      const q2 = document.getElementById('q2-input');
+      q2.addEventListener('keydown', e => {
+        if (e.key !== 'Enter' || !q2.value.trim()) return;
+        markAnswered('Q2');
+        logActivity(`answered Q2: ${q2.value.trim()}`);
+        q2.value = '';
+      });
+    })();
+  </script>
+
+  <!-- Mermaid rendering (re-renders on theme change) -->
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+
+    let layout = 'dagre';
+    try {
+      const elk = (await import('https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk/dist/mermaid-layout-elk.esm.min.mjs')).default;
+      mermaid.registerLayoutLoaders(elk);
+      layout = 'elk';
+    } catch (err) {
+      console.warn('ELK layout unavailable, falling back to dagre', err);
+    }
+
+    const palettes = {
+      dark: {
+        primaryColor: '#0c2f48', primaryTextColor: '#d8e6f2', primaryBorderColor: '#38bdf8',
+        lineColor: '#5f7d96', secondaryColor: '#0f1e2c', tertiaryColor: '#0c1925',
+        background: '#0f1e2c', mainBkg: '#0c2f48', clusterBkg: '#0d1b28', clusterBorder: '#1f5a82',
+        edgeLabelBackground: '#0f1e2c', titleColor: '#8299ae',
+        actorBkg: '#0c2f48', actorBorder: '#38bdf8', actorTextColor: '#d8e6f2', actorLineColor: '#1f5a82',
+        signalColor: '#8299ae', signalTextColor: '#d8e6f2',
+        noteBkgColor: '#78350f', noteTextColor: '#fde68a', noteBorderColor: '#fbbf24',
+        sequenceNumberColor: '#0a1520',
+      },
+      light: {
+        primaryColor: '#e0f2fe', primaryTextColor: '#0d1f2e', primaryBorderColor: '#0284c7',
+        lineColor: '#7b93a8', secondaryColor: '#ffffff', tertiaryColor: '#f3f7fb',
+        background: '#ffffff', mainBkg: '#e0f2fe', clusterBkg: '#f5f9fc', clusterBorder: '#7cc4ee',
+        edgeLabelBackground: '#ffffff', titleColor: '#557087',
+        actorBkg: '#e0f2fe', actorBorder: '#0284c7', actorTextColor: '#0d1f2e', actorLineColor: '#7cc4ee',
+        signalColor: '#557087', signalTextColor: '#0d1f2e',
+        noteBkgColor: '#fef3c7', noteTextColor: '#92400e', noteBorderColor: '#b45309',
+        sequenceNumberColor: '#ffffff',
+      },
+    };
+
+    const targets = [...document.querySelectorAll('.mermaid[data-src]')];
+    let renderPass = 0;
+
+    async function renderAll() {
+      const pass = ++renderPass;
+      const theme = window.currentTheme();
+      mermaid.initialize({
+        startOnLoad: false, layout, theme: 'base', securityLevel: 'loose',
+        fontFamily: "'Fragment Mono', ui-monospace, monospace",
+        themeVariables: { ...palettes[theme], fontFamily: "'Fragment Mono', ui-monospace, monospace", fontSize: '13px' },
+        flowchart: { curve: 'basis', padding: 14 },
+        sequence: { actorMargin: 60, messageMargin: 38, mirrorActors: false },
+      });
+      for (const [index, el] of targets.entries()) {
+        const source = document.getElementById(el.dataset.src).textContent.trim();
+        try {
+          const { svg } = await mermaid.render(`mmd-svg-${index}-${pass}`, source);
+          if (pass !== renderPass) return;
+          el.innerHTML = svg;
+        } catch (err) {
+          el.innerHTML = `<pre class="mmd-loading">Diagram failed to render: ${String(err.message || err)}</pre>`;
+        }
+      }
+    }
+
+    await document.fonts.ready;
+    renderAll();
+    window.addEventListener('themechange', renderAll);
+  </script>
+</body>
+</html>

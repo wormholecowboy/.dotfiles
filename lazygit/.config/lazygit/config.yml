@@ -3,14 +3,14 @@ gui:
   # 'remotes', 'tags', 'commits', 'reflog', 'stash'. 'files', 'branches', and
   # 'commits' must always be included; they can't be hidden.
   sidePanels:
-    - [status]
+    # - [status]
     - [files, worktrees]
     - [branches, remotes]
     - [commits, reflog]
     - [stash]
   sidePanelWidth: 0.25
   expandFocusedSidePanel: true
-
+  expandedSidePanelWeight: 5
   # This can be toggled from within Lazygit with the '`' key, but that will not
   # change the default.
   showFileTree: true
@@ -19,22 +19,34 @@ gui:
   fileTreeSortOrder: mixed
   # If true (default), sort the file tree case-sensitively.
   fileTreeSortCaseSensitive: true
-
-
   # Nerd fonts version to use.
   # One of: '2' | '3' | empty string (default)
   # If empty, do not show icons.
   nerdFontsVersion: "3"
-
-
   # Default size for focused window. Can be changed from within Lazygit with '+'
   # and '_' (but this won't change the default).
   # One of: 'normal' (default) | 'half' | 'full'
-  screenMode: half
-
+  screenMode: normal
   # Window border style.
   # One of 'rounded' (default) | 'single' | 'double' | 'hidden' | 'bold'
-  border: hidden
-
-
-
+  border: rounded
+  theme:
+    activeBorderColor:
+      - "#88C0D0" # Nord frost blue (active window border)
+      - bold
+    inactiveBorderColor:
+      - "#4C566A" # Nord polar night gray (inactive borders)
+    optionsTextColor:
+      - "#EBCB8B" # Nord aurora yellow (help/options text)
+    selectedLineBgColor:
+      - "#434C5E" # Nord highlighted selection background
+    searchingActiveBorderColor:
+      - "#81A1C1" # Nord lighter frost blue for active search
+    unstagedChangesColor:
+      - "#BF616A" # Nord aurora red for unstaged changes
+    defaultFgColor:
+      - "#D8DEE9" # Nord snow storm light gray for standard text
+git:
+  diffRenderers:
+    - colorArg: always
+      command: delta --dark --paging=never
