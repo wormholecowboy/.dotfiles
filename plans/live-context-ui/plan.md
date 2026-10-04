@@ -1,6 +1,6 @@
 # Live Context UI — Plan
 
-**Status:** planning, nothing built yet · **Updated:** 2026-10-02
+**Status:** ready to build, nothing built yet · **Updated:** 2026-10-03 (impl.md amendments A1–A20 folded in)
 
 Files in this folder:
 - `plan.md` — this doc (the build spec)
@@ -26,6 +26,8 @@ A browser page next to the terminal that shows structured session state: plan, d
 | D9 | `*um` mirrors each open ernie item into `queue.md` as its own line, with an `(ernie:…)` marker | Complete for `/mem`, `*mr` and other agents. Revisit (one summary line per branch for plan steps) if `queue.md` gets noisy | decided 2026-10-02 |
 | D8 | v1 server started by hand: `ernie serve` in a herdr/tmux pane; `ernie open` only opens the browser | Visible logs, easy restart after rebuilds, no hidden background process. Move to launchd once stable | decided 2026-10-02 |
 | D10 | Plan docs (`plan.md`, `impl.md`, `mock.html`, `proposal.html`) move to `~/things/myc/ernie/docs/` at task 1.1 | The spec lives with the code | decided 2026-10-02 |
+| D11 | CLI built on `spf13/cobra`, the one exception to stdlib-only | Flags can go after positionals (`ernie decide "x" --why "y"`), nested subcommands, generated help, and zsh completion for free. Startup cost < 1ms | decided 2026-10-03 (impl A16) |
+| D12 | Hooks are global (in `claude/.claude/settings.json`) and do nothing unless the branch has a log. Only `ernie init` creates a log, and Claude never runs it unless asked | One config for every repo; repos without a log are unaffected; the skill can't quietly turn ernie on everywhere | decided 2026-10-02 (impl A1, A2) |
 
 ## Q1: Go vs bash + jq vs Bun
 
@@ -74,23 +76,26 @@ flowchart TD
 
 ## Storage
 
-- **Path:** `~/.local/state/ernie/<repo-slug>/<branch>.jsonl`. Kept out of the repo so work repos don't need gitignore changes.
-  - Repo comes from `git rev-parse --show-toplevel` on the hook's `cwd`.
-  - Branch comes from `git branch --show-current`; a detached HEAD uses the short SHA.
-  - `/` in branch names is escaped.
+- **Path:** `~/.local/state/ernie/<repo-slug>/<branch>.jsonl` (`$ERNIE_HOME`, then `$XDG_STATE_HOME/ernie`, override the default). Kept out of every repo so work repos don't need gitignore changes, and never put in git.
+  - Repo comes from `git rev-parse --git-common-dir` on the hook's `cwd`, so all worktrees of a repo share one folder. Their logs stay apart by branch, since git won't check out one branch in two worktrees.
+  - The slug is the repo's basename (`dotfiles`). It becomes `dotfiles-3f2a1c` only if a different repo already owns that name; a `.root` file in each slug folder records the owner.
+  - Branch comes from reading `<git-dir>/HEAD`. A detached HEAD during a rebase reads `rebase-merge/head-name` or `rebase-apply/head-name`; otherwise it uses the short SHA.
+  - `%` and `/` in branch file names are escaped (`%25`, `%2F`). URLs and markers use the raw branch.
   - Outside a git repo, use a hash of the cwd.
-- **Append:** `O_APPEND|O_CREATE|O_WRONLY` plus an exclusive `flock`, one `write` per line. The lock removes any doubt about large lines such as diagrams.
-- **IDs:** the CLI folds the log to find the next id (`p4`, `d3`, `q2`) and prints it. Disk reads are cheap; what matters is that Claude never spends tokens reading the file.
+- **On / off:** a branch is on only when its log exists. `ernie init` creates it (`O_CREATE|O_EXCL`). Everything else opens without `O_CREATE`, so a missing log means "do nothing", with no stat-then-open race. `ernie off` writes a `<branch>.off` marker that makes hooks and CLI writes do nothing; `ernie init` removes it.
+- **Permissions:** log files `0600`, folders `0700`. `cmd run` events can hold command lines.
+- **Writes:** an exclusive `flock` around read → change → append, all new lines in one `write`. The next-id lookup + append, the inbox read + turn mark, and the Stop check + `stop remind` each happen under one lock, so parallel writers (e.g. subagents) never reuse an id or lose an inbox event.
+- **IDs:** the CLI folds the log to find the next id (`p4`, `d3`, `q2`) and prints it. Ids are never reused, even for dropped items. Disk reads are cheap; what matters is that Claude never spends tokens reading the file.
 
 ### Event envelope
 
 ```json
-{"ts":"2026-10-02T14:03:11Z","by":"claude","t":"plan","op":"set","id":"p3","status":"done"}
+{"ts":"2026-10-02T14:03:11.042Z","by":"claude","t":"plan","op":"set","id":"p3","status":"done"}
 ```
 
 | Field | Values |
 |---|---|
-| `ts` | RFC 3339 UTC |
+| `ts` | RFC 3339 UTC, millisecond precision |
 | `by` | `claude` · `hook` · `user` |
 | `t` | component type (fixed set below) |
 | `op` | operation for that type |
@@ -103,13 +108,15 @@ flowchart TD
 |---|---|---|---|
 | `plan` | `add`, `set` | claude, user | `text`, `status`: todo/active/done/dropped |
 | `decision` | `add`, `set` | claude | `text`, `why` |
-| `question` | `add`, `answer` | claude / user | `text`, `choices[]?` / `text` |
+| `question` | `add`, `answer` | claude / claude, user | `text`, `choices[]?` / `text` |
 | `diagram` | `put` | claude | `name`, `mermaid` |
 | `fact` | `add`, `dismiss` | claude, user | `text` |
 | `note` | `add` | user | `text`, `ref?` |
-| `file` · `cmd` | `touch` · `run` | hook | `path`, `tool` · `cmd`, `exit?` |
+| `file` · `cmd` | `touch` · `run` | hook | `path`, `tool`, `agent?` · `cmd` (first line, redacted, ≤300 chars), `exit?`, `agent?` |
 | `turn` | `mark` | hook | `n` |
-| `mem` | `sync` | claude | `at` (timestamp of the last event included) |
+| `stop` | `remind` | hook | — (at most one per turn) |
+| `mem` | `sync` | claude | `upto` (byte offset of the log covered by that `*um`) |
+| `meta` | `init` | user (via `ernie init`) | `root`, `name`; always the first line. Not part of the inbox |
 
 Items Claude writes (`plan`, `decision`, `question`, `fact`) take an optional `tag` field that matches `.mem/tags.md` vocabulary (e.g. `auth`), so `*um` can carry it over and `*mr` can find it.
 
@@ -118,20 +125,29 @@ Items Claude writes (`plan`, `decision`, `question`, `fact`) take an optional `t
 ## CLI surface
 
 ```bash
+ernie init                                  # turn ernie on for this repo + branch (creates the log; you run it, not Claude)
+ernie off                                   # turn it off (writes <branch>.off; `init` turns it back on)
+ernie where                                 # key, log path, on/off, server URL
+ernie version                               # git describe of the build
 ernie plan add "Wire SSE endpoint" --tag ui # → p4 (--tag works on plan/decide/ask/fact)
 ernie plan set p4 active|done|todo|dropped
 ernie decide "JSONL over JSON" --why "..."  # → d3
 ernie ask "CLI language?" --choice go --choice "bash + jq"   # → q2
+ernie answer q2 go                          # close a question you answered in the terminal
 ernie diagram arch < arch.mmd               # or heredoc
-ernie fact "Hooks must exit 0 on any error"
+ernie fact "Hooks must exit 0 on any error" # → f1
+ernie fact dismiss f1
 ernie dump                                  # compact state, for Claude
 ernie inbox                                 # your events since the last turn mark
-ernie mem delta                             # what changed since the last *um, grouped by .mem target
-ernie mem synced                            # record that *um wrote the delta
-ernie serve [--port N]                      # one server, all logs
+ernie mem delta                             # what changed since the last *um, grouped by .mem target; ends with cursor=<n>
+ernie mem synced <n>                        # record that *um wrote the delta up to that cursor
+ernie serve [--port N]                      # one server, all logs (default port 7477)
 ernie open                                  # open the page for this repo + branch
+ernie completion zsh                        # zsh completion script (cobra)
 ernie hook post-tool-use|user-prompt-submit|session-start|stop   # reads hook JSON on stdin
 ```
+
+Flags can go anywhere on the line (cobra/pflag). Write commands need an existing log: with no log they exit 1 and print a hint to run `ernie init`; with an `.off` marker they write nothing and print a notice.
 
 `ernie dump` prints compact text rather than JSON, to keep it cheap in tokens:
 
@@ -145,16 +161,18 @@ FACTS     Hooks must exit 0 on any error
 
 ## Hooks
 
-Every handler finishes in a few ms and **always exits 0 without writing anything if there's no log or something goes wrong**. A broken hook must never break a session.
+Every handler finishes in a few ms and **always exits 0 without writing anything if there's no log, the branch is off, or something goes wrong**. A broken hook must never break a session.
+
+The hooks live in the global `claude/.claude/settings.json`, so there's nothing to add per repo. Each command is guarded (`[ -x ~/.local/bin/ernie ] && … || true`), so machines without ernie are unaffected. `"Bash(ernie:*)"` goes in the `allow` list so Claude's log writes don't prompt. `"Bash(ernie init:*)"` goes in `ask`, so Claude can't silently turn ernie on (`ask`/`deny` override `allow`), and `"Bash(ernie serve:*)"` goes in `deny`, since it's long-running and would hang a Bash call (you run it in a pane).
 
 | Hook | Matcher | Does |
 |---|---|---|
-| `PostToolUse` | `Edit\|Write\|MultiEdit\|NotebookEdit\|Bash` | Appends `file touch` / `cmd run` events |
-| `UserPromptSubmit` | — | Prints `ernie inbox` (your page edits since the last turn) to stdout, which goes into context, then appends a `turn mark` |
-| `SessionStart` | `compact\|clear\|resume\|fork` | Prints `ernie dump` so state comes back automatically after compaction |
-| `Stop` | — | If there are file/cmd events since the last turn mark but no `by:claude` events, return top-level `{"decision":"block","reason":"…log updates with ernie"}`. Blocks at most once per turn: append a `stop remind` event, and skip if one already exists for this turn. Also honor `stop_hook_active` if the input has it (the hooks reference doesn't list the field) |
+| `PostToolUse` | `Edit\|Write\|MultiEdit\|NotebookEdit\|Bash` | Appends `file touch` / `cmd run` events. Bash commands are redacted first (`*_TOKEN=…`, `Bearer …`, `--password …`, `ghp_`/`sk-`/`AKIA`/`xox` keys → `‹redacted›`; best-effort). Bash calls that run `ernie` itself are skipped |
+| `UserPromptSubmit` | — | Prints `ernie inbox` (your page edits since the last turn) to stdout, which goes into context, then appends a `turn mark`. Both happen under one lock. Prints nothing when the inbox is empty |
+| `SessionStart` | `startup\|compact\|clear\|resume\|fork` | Prints `ernie dump` so state comes back in new sessions and after compaction. The dump's header line also tells Claude that ernie is on for this branch |
+| `Stop` | — | If there are `file touch` events since the last turn mark but no `by:claude` events, return top-level `{"decision":"block","reason":"…"}`. Turns that only ran commands aren't nagged. The reason says to log plan/decision/question changes, or just stop if nothing changed. Blocks at most once per turn: append a `stop remind` event, and skip if one already exists for this turn. Also honor `stop_hook_active` if the input has it (whether the field is present is unverified; the phase 2 spike confirms) |
 
-The existing `SessionStart` herdr hook stays; the `ernie` hook goes alongside it.
+The existing `SessionStart` herdr hook stays; the `ernie` hook goes alongside it. Whether `fork` exists as a source is checked by the phase 2 spike.
 
 **Check during build:** the hooks reference doesn't document the shape of `tool_response` for Bash. Capture a real payload with a throwaway logging hook before writing the parser. If there's no exit code, `cmd` events record no pass/fail and test detection waits.
 
@@ -168,7 +186,8 @@ The existing `SessionStart` herdr hook stays; the `ernie` hook goes alongside it
   - `POST /events` accepts user events
 - Change detection: see "How the page stays current" below.
 - **Security:** user events end up in Claude's context, so any other website you have open could otherwise POST to localhost and inject prompt text. To block that:
-  - a random token generated per server, baked into the served page, and required on every POST
+  - every request's `Host` must be `127.0.0.1:<port>` or `localhost:<port>` (403 otherwise). This blocks DNS rebinding, where a hostile domain resolves to 127.0.0.1 and reads the token from the server
+  - a random token generated per server start, sent to the page in an `event: hello` frame (`data: {"token":"…","version":"…"}`) at the start of every `/stream` connection, and required on every POST. A cross-origin page can't read the SSE response (no CORS headers), and the Host allowlist blocks rebinding, so only the page sees it
   - `Origin` must be the server's own origin
   - `Content-Type: application/json` only, with no CORS preflight handling
   - an allowlist of ops users may send: `question answer`, `plan set`, `note add`, `fact dismiss`
@@ -183,9 +202,10 @@ The browser never reads the JSONL. The server tails it, keeps the folded state i
 2. **Detect (0–250ms).** For each log with at least one open tab, the server keeps a `watcher` holding `offset` (bytes already read) and the folded `state`. Every 250ms it calls `os.Stat`:
    - size == offset → nothing to do
    - size > offset → read from `offset` to EOF. Parse only complete lines (ending in `\n`), and advance `offset` past the last newline, so a half-written trailing line waits for the next check
-   - size < offset → the file was truncated or replaced: reset `offset = 0`, rebuild `state` from scratch
+   - size < offset, or the file was replaced (`!os.SameFile`) → reset `offset = 0`, rebuild `state` from scratch
+   - file removed → send `event: gone` (the page shows "log not found") and keep polling; if it reappears, refold and resume sending `state`
    - logs with no open tab get no watcher, so they cost nothing
-3. **Apply.** Each new event goes through `state = Apply(state, event)`, so work grows with the number of new lines, not with the file size. It's the same `Apply` that `Fold` and `ernie dump` use.
+3. **Apply.** Each new event goes through `state.Apply(event)`, so work grows with the number of new lines, not with the file size. It's the same `Apply` that `Fold` and `ernie dump` use.
 4. **Push.** Marshal the full state (a few KB) and send it to every subscriber of that log as an SSE frame:
    ```
    event: state
@@ -194,9 +214,9 @@ The browser never reads the JSONL. The server tails it, keeps the folded state i
    The whole state is sent, not a diff: no diff logic, and the page can't drift.
 5. **Render.** The page's `EventSource` gets the frame and calls `render(state)` (rules under Page).
 
-**Page actions follow the same path.** `POST /events` → validate → the same `Append` → the server re-checks right away instead of waiting for the next tick → push. The page has no special case for its own changes.
+**Page actions follow the same path.** `POST /events` → validate → the same `Update` → the server re-checks right away instead of waiting for the next tick → push. The page has no special case for its own changes.
 
-**Subscribe and reconnect.** A new `/stream` subscriber gets the current state immediately. If `ernie serve` restarts (e.g. after a rebuild), `EventSource` reconnects by itself (~3s), and the server rebuilds state from the file, so nothing is lost. The page shows "reconnecting…" while it's disconnected.
+**Subscribe and reconnect.** A new `/stream` subscriber gets a `hello` frame (the token) and then the current state immediately. If `ernie serve` restarts (e.g. after a rebuild), `EventSource` reconnects by itself (~3s), the new `hello` refreshes the token (the page always POSTs with the latest one), and the server rebuilds state from the file, so nothing is lost. The page shows "reconnecting…" while it's disconnected.
 
 **Why polling instead of a file watcher:** stdlib only, the same behavior on macOS and Linux, a `stat` costs microseconds, and 250ms is too short to notice.
 
@@ -204,6 +224,9 @@ The browser never reads the JSONL. The server tails it, keeps the folded state i
 
 - One HTML file with vanilla JS, no build step, Mermaid from the CDN. It's embedded in the binary.
 - Renders the state from SSE and POSTs your actions. It doesn't fold or keep its own copy of the logic.
+- The state includes `pending` (your events since the last turn mark) and `inboxText` (the exact text the next prompt's hook will inject, from the same Go function). The page's outbox and preview show these instead of keeping a client-side outbox.
+- `activity` in the state holds only the last 350 entries, so SSE frames stay small. The full history stays in the log.
+- Paths are shown relative to the repo root from the log's `meta init` line; the index page (`/` without `?log`) lists logs by repo name.
 - `mock.html` is the visual target; its `render*` functions are the starting point.
 - Render rules:
   - every `state` frame redraws each panel from scratch, with no partial patching
@@ -213,7 +236,7 @@ The browser never reads the JSONL. The server tails it, keeps the folded state i
 
 ## Fold logic
 
-`Apply(state, event) → State` applies one event. `Fold(events) → State` runs `Apply` over all events in file order. Both are pure. The server calls `Apply` incrementally as new lines arrive; `ernie dump` and the CLI's next-id lookup call `Fold`.
+`(*State).Apply(event)` updates the state in place with no I/O. `Fold(events) → State` runs `Apply` over all events in file order. Deterministic, no I/O. The server calls `Apply` incrementally as new lines arrive; `ernie dump` and the CLI's next-id lookup call `Fold`.
 
 | Case | Behavior |
 |---|---|
@@ -222,7 +245,7 @@ The browser never reads the JSONL. The server tails it, keeps the folded state i
 | malformed line | skipped, counted in `State.Warnings` |
 | unknown `t` / `op` | ignored silently (forward compatibility) |
 
-`Inbox(events)` returns `by:user` events after the last `turn mark`.
+`Inbox(state)` returns `state.pending`: the `by:user` events after the last `turn mark`, limited to the user ops (`meta` events don't count).
 
 ## Tests (`go test`)
 
@@ -231,17 +254,18 @@ Each function gets one expected case, one edge case and one failure case. Use `t
 | Unit | Expected | Edge | Failure |
 |---|---|---|---|
 | `Fold` | add → set → done | set before add; duplicate add | malformed line skipped + warning |
-| `Append` | line + newline written | quotes/newlines in text round-trip | unwritable dir → error |
-| `LogPath` | repo + branch | `/` in branch; detached HEAD | not a git repo → cwd-hash fallback |
+| `Update` / `AppendExisting` | line + newline written | quotes/newlines in text round-trip; 20 parallel writers → 20 unique ids | missing log → no-op, no file created |
+| `Resolve` | repo + branch | `/` in branch; worktree shares the main repo's slug; rebase in progress → real branch | not a git repo → cwd-hash fallback |
+| `Redact` | `GH_TOKEN=abc` → masked | `Bearer …`, `--password x` | no secrets → unchanged |
 | `Inbox` | user events after the last turn | no turn mark yet | empty log |
 | `Tail` (watcher read) | new complete lines returned, offset advanced | half-written trailing line held until the next read | file shrank → offset reset, state rebuilt |
-| `GET /stream` | new subscriber gets current state at once | append → every subscriber gets the new state | unknown log → 404 |
+| `GET /stream` | new subscriber gets a `hello` frame with the token, then current state at once | append → every subscriber gets the new state | unknown log → 404 |
 | `Dump` | golden output | empty state | — |
 | hook `post-tool-use` | Edit → `file touch` | unknown tool → no-op | bad stdin JSON → exit 0, nothing written |
 | hook `stop` | edits without claude events → block | already reminded this turn → allow | no log → allow |
 | `POST /events` | valid answer appended | disallowed op → 400 | bad/missing token → 403 |
 | `ernie mem delta` | mixed events → grouped by target, mirror markers included | nothing since last sync → "nothing new" | no log for branch → exit 0, "no ernie log" (so `*um` falls back) |
-| `ernie mem synced` | appends a `mem sync` with the right `at` | second call with no new events → no duplicate marker | no log → exit 0, no-op |
+| `ernie mem synced` | appends a `mem sync` with the given `upto` | same cursor as the last sync → no duplicate marker | no log → exit 0, no-op |
 
 ## Integration with skills and `.mem`
 
@@ -266,7 +290,7 @@ The `*um` flow stays the same: the main thread distills, `mem-ops` writes. The c
 1. **Step 0 (new):** if an ernie log exists for this repo + branch, run `ernie mem delta`. If there's no log, or ernie isn't installed, `*um` runs exactly as today.
 2. The main thread uses the delta as the base of the payload and adds what needs judgment: which decisions and facts are durable, tags for untagged items, and the *why*.
 3. `mem-ops` writes as usual. It only needs to know that `(ernie:…)` markers identify mirrors: update a mirror by its marker, and delete it when the payload lists it as resolved.
-4. Only after `mem-ops` confirms, run `ernie mem synced`, so a failed write gets retried on the next `*um`.
+4. Only after `mem-ops` confirms, run `ernie mem synced <cursor>` with the cursor that `mem delta` printed, so a failed write gets retried on the next `*um`. Events logged while `*um` runs fall after the cursor and show up in the next delta.
 
 How the delta maps to `.mem`:
 
@@ -286,7 +310,7 @@ How the delta maps to `.mem`:
 `ernie mem delta` output, compact text for the main thread:
 
 ```
-ernie → .mem delta · dotfiles/main · since 2026-10-02T09:12Z
+ernie → .mem delta · dotfiles/main · since 2026-10-02T09:12Z · cursor=48213
 focus       p4 Core: append, fold, dump
 wip         [ernie] p4 Core: append, fold, dump
 done        [ernie] p1 Pick event format · [ernie] p2 Sketch architecture
@@ -316,12 +340,12 @@ judge       d1 JSONL over JSON — append-only… · f1 Hooks exit 0 on any erro
 ## Phases (stop for review after each)
 
 0. ~~**Confirm** decisions~~ → done 2026-10-02.
-1. **Core:** event types, `Append`, `LogPath`, `Fold`, `Dump`, `Inbox`, plus the `plan`/`decide`/`ask`/`fact`/`diagram`/`dump` commands, with tests.
-2. **Hooks:** the four `ernie hook` handlers with tests, wired into `claude/.claude/settings.json`.
+1. **Core:** event types (including the `tag` field), `Create`, `Update`, `AppendExisting`, `Resolve`, `Fold`, `Dump`, `Inbox`, plus the `plan`/`decide`/`ask`/`fact`/`diagram`/`dump` commands, with tests.
+2. **Hooks:** the four `ernie hook` handlers with tests, wired into `claude/.claude/settings.json`, plus a minimal `ernie` skill so Claude knows what the hooks mean.
 3. **Server + page:** `ernie serve`, embedded page built from `mock.html`, SSE, token-guarded POST, with tests.
 4. **Adoption + skill integration** (see "Integration with skills and `.mem`"):
-   - `ernie mem delta` / `ernie mem synced` and the `tag` field, with tests
-   - the new `ernie` skill
+   - `ernie mem delta` / `ernie mem synced`, with tests
+   - extend the `ernie` skill: tags, `mem delta` / `synced` and `*um`
    - `mem` skill edits: `*um` step 0 + marker handling for `mem-ops`, and `ernie dump` in `/mem` resume
    - `gtg` and `handoff` edits
    - an entry in `decisions.md`
