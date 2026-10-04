@@ -67,6 +67,15 @@
       "Read(./secrets/**)"
     ]
   },
+  "model": "opus",
+  "sandbox": {
+    "network": {
+      "allowedDomains": [
+        "45.76.0.220",
+        "vultr"
+      ]
+    }
+  },
   "hooks": {
     "SessionStart": [
       {
@@ -94,7 +103,6 @@
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
   "editorMode": "vim",
-  "skipAutoPermissionPrompt": true,
   "mcpServers": {},
-  "model": "opus"
+  "agentPushNotifEnabled": true
 }
