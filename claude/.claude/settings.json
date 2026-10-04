@@ -140,7 +140,7 @@
   "skipDangerousModePermissionPrompt": true,
   "editorMode": "vim",
   "mcpServers": {},
-  "agentPushNotifEnabled": true
+  "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
-  "voiceEnabled": false,
+  "voiceEnabled": false
 }
