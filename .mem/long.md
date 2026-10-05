@@ -8,6 +8,6 @@
 - [claude-hooks] hook exit code 2 = blocking error, and Go panics exit 2 → Go hook handlers must recover and exit 0
 - [claude-hooks] dotfiles hooks calling tools built in ~/things/myc must guard on the binary (`[ -x … ] && … || true`); ~/things/myc isn't synced by dotfiles, missing binary = hook error every tool call
 ## arch
-- [ernie] source in ~/things/myc/ernie; dotfiles holds only Claude-side pieces (hooks in claude/.claude/settings.json, ernie skill, mem/gtg/handoff edits, install.txt entry). Plan docs move to ~/things/myc/ernie/docs/ at build task 1.1
+- [ernie] source + spec + memory in ~/things/myc/ernie (its own .mem/); dotfiles holds only Claude-side pieces (hooks in claude/.claude/settings.json, ernie skill, mem/gtg/handoff edits, install.txt entry)
 ## reference
-- [ernie] live context UI plan → /Users/brian.gildea/.dotfiles/plans/live-context-ui/plan.md (spec) + impl.md (build plan) (+ mock.html, proposal.html); repoint after the docs move
+- [ernie] spec + build plan → ~/things/myc/ernie/.mem/artifacts/ (spec_ernie.md, plan_ernie_build.md)
