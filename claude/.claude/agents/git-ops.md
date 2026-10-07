@@ -1,7 +1,7 @@
 ---
 name: git-ops
 description: Multi-step git/GitHub workflows requiring synthesis or analysis — branch history review, PR summaries, complex rebases, conflict resolution, branch divergence comparison. Skip for simple single commands like `git status`.
-model: haiku
+model: sonnet
 color: green
 ---
 

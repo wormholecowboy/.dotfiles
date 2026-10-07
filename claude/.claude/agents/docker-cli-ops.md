@@ -1,7 +1,7 @@
 ---
 name: docker-cli-ops
 description: Execute Docker CLI commands, inspect container/image/volume/network state, read logs, and diagnose container issues. Use proactively after deploys to verify container health.
-model: haiku
+model: sonnet
 color: cyan
 ---
 

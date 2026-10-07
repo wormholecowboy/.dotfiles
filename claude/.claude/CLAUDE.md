@@ -64,11 +64,28 @@ Use `tfswitch` to use another version of terrafom, if needed.
 
 ### AWS CLI
 
-You don't have the AWS credentials exported in your environment, so bare `aws ...` commands fail with permission errors. Prepend `awsl; ` to any AWS CLI command and it will work — `awsl` is an alias to a script that exports the AWS variables into the current shell.
+Run `aws ...` directly. `AWS_PROFILE=saml` and `AWS_REGION` are set in settings `env`, and the CLI reads the credentials that `saml2aws` saves to `~/.aws/credentials`.
 
 ```bash
-awsl; aws s3 ls
+aws s3 ls
 ```
+
+- Never run `awsl` or `saml2aws` yourself, and never wrap AWS calls in `zsh -ic`. Login prompts for a password and hangs a non-interactive shell.
+- Sessions last 1h. On `ExpiredToken`, `Unable to locate credentials`, or `security token ... invalid`: stop, ask me to run `! awsl`, then retry once.
+
+### MySQL (public / stagePublic Aurora)
+
+Use the 8.0 client — the default Homebrew `mysql` (9.x) lacks the `mysql_native_password` plugin these servers need.
+
+```bash
+M=/opt/homebrew/opt/mysql-client@8.0/bin/mysql
+$M --defaults-group-suffix=_public      -e "SELECT 1;"   # prod, user readonly, no default DB
+$M --defaults-group-suffix=_stagePublic -e "SELECT 1;"   # stage, DB stagePublicDigmsDB
+```
+
+- Host/user/db live in `~/.my.cnf`; passwords live in `~/.mylogin.cnf` (via `mysql_config_editor`). Never print, decode, or copy the passwords.
+- `stagePublic` uses an admin user — read-only queries unless I explicitly ask for writes.
+- `_stageGeneral` / `_general` are not set up yet (placeholder creds, need an SSH tunnel).
 
 ## 7. Memory
 
@@ -78,7 +95,7 @@ Route the file mechanics through the `mem-ops` subagent: `*mr` delegates wholesa
 
 ## 8. Communication Style
 
-- Brevity is the soul of wit. Be concise and to the point. 
+- If I ask for an explanation, ALWAYS include a small, atomic example. Keep it short. 
 
 ### Output Style
 

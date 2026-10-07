@@ -1,5 +1,8 @@
 {
-  "env": {},
+  "env": {
+    "AWS_PROFILE": "saml",
+    "AWS_REGION": "us-west-2"
+  },
   "permissions": {
     "allow": [
       "Bash(cat:*)",
@@ -100,14 +103,6 @@
     ]
   },
   "model": "opus",
-  "sandbox": {
-    "network": {
-      "allowedDomains": [
-        "45.76.0.220",
-        "vultr"
-      ]
-    }
-  },
   "hooks": {
     "SessionStart": [
       {
@@ -129,8 +124,21 @@
   "enabledPlugins": {
     "typescript-lsp@claude-plugins-official": false
   },
+  "sandbox": {
+    "network": {
+      "allowedDomains": [
+        "45.76.0.220",
+        "vultr"
+      ]
+    }
+  },
   "alwaysThinkingEnabled": true,
   "effortLevel": "high",
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "high"
+    }
+  },
   "awaySummaryEnabled": false,
   "tui": "fullscreen",
   "voice": {
@@ -139,7 +147,6 @@
   },
   "skipDangerousModePermissionPrompt": true,
   "editorMode": "vim",
-  "mcpServers": {},
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
   "voiceEnabled": false
