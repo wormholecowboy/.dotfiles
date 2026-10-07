@@ -167,20 +167,18 @@ split_vertical = "prefix+%"
 # agents = ""     # e.g. "alt" makes alt+1..9 focus agent rows directly
 
 # lazygit for the current pane's repo (tmux prefix+g)
+# Reason: pane, not popup — popups take all input, so prefix bindings die
+# while lazygit is open. The pane zooms itself to keep the full-screen feel.
 [[keys.command]]
 key = "prefix+g"
-type = "popup"
-command = "lazygit"
-width = "100%"
-height = "100%"
+type = "pane"
+command = 'herdr pane zoom --on "$HERDR_PANE_ID"; lazygit'
 
 # pick a worktree/repo, open it in lazygit (tmux prefix+G)
 [[keys.command]]
 key = "prefix+shift+g"
-type = "popup"
-command = "~/scripts/tmux-lazygit-picker.sh"
-width = "95%"
-height = "95%"
+type = "pane"
+command = 'herdr pane zoom --on "$HERDR_PANE_ID"; ~/scripts/tmux-lazygit-picker.sh'
 
 # blank nvim pane for prompting (tmux prefix+P)
 [[keys.command]]
