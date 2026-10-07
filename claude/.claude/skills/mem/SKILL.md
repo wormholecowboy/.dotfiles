@@ -210,8 +210,10 @@ Artifacts) for what we are discussing; add pointer in long.md `## reference`.
    f. Confirm to user: paths written + one-line summary of what was captured.
 3. **Else** — resume from existing memory:
    a. Read `[root]/.mem/long.md` and `[root]/.mem/queue.md` if present.
-   b. Find most recent daily: glob `[root]/.mem/daily_mem/????-??-??.md`,
-      sort desc, pick top. Read it. (Legacy layout: offer migration first.)
+   b. Find most recent daily:
+      `command ls -1 [root]/.mem/daily_mem/ | command grep -E '^[0-9]{4}-[0-9]{2}-[0-9]{2}\.md$' | sort -r | head -1`
+      (`command` bypasses shell aliases; a long-format `ls` sorts on the wrong
+      column). Read it. (Legacy layout: offer migration first.)
    c. If `long.md` has `## ops`: adopt as active standing instructions for the
       session and list them in the summary.
    d. Present terse summary: focus, blocked (if set), open qs w/ ages, top
