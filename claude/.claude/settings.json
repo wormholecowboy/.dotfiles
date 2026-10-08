@@ -149,5 +149,39 @@
   "editorMode": "vim",
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
-  "voiceEnabled": false
+  "autoMode": {
+    "soft_deny": [
+      "$defaults",
+      "Bash(aws s3 rm:*) in this repo/project — mass or prod-bucket deletion risk given lv-digms-quorum-data/lv-draconian-data-dungeon usage",
+      "Writes/applies touching jenkins/prod/Jenkinsfile or draconian-data-dungeon/prod/** (Terraform under prod/, event_bridge.tf glue-job audit list)",
+      "MySQL writes against `_public` (prod) defaults-group-suffix — readonly expected unless explicitly requested"
+    ],
+    "environment": [
+      "### Org-wide",
+      "**Organization**: None configured",
+      "**Cloud provider(s)**: AWS",
+      "**Repository visibility**: unable to verify — origin is bitbucket.org, not github.com, so the gh-based check could not run; assume private unless told otherwise",
+      "**Internal sharing / snippet hosting**: None configured — treat public paste/gist services as outside the trust boundary",
+      "**Secrets management**: `~/.my.cnf` / `~/.mylogin.cnf` (MySQL creds, local to dev machine) and AWS creds exported via local `awsl` alias — never print, decode, or copy these",
+      "**Default / protected branches**: default branch `glue-master` for bitbucket.org:aridevelopment/draconian-data-dungeon.git — protection status not queryable (non-GitHub host)",
+      "**CI/CD deploy targets**: None configured",
+      "**Network posture**: None configured",
+      "**Host containment**: None configured — assume Claude Code runs on an ordinary developer machine with open internet",
+      "**Source control**: All repos in `~/things/myc/`",
+      "**Trusted internal domains**: None configured",
+      "**Key internal services**: MySQL Aurora instances referenced via `~/.my.cnf` groups `_public` (prod, readonly) and `_stagePublic` (stage, admin user — read-only queries unless writes explicitly requested); `_stageGeneral`/`_general` not yet set up",
+      "**Internal package registry**: None configured",
+      "**Sensitive data locations & audiences**: `client_secrets.*` (gitignored, likely OAuth/API client secrets); MySQL password files `~/.mylogin.cnf`; files under `jenkins/prod/Jenkinsfile`; RDS data pulled from Quorum/AEM/Google Ads/Google Analytics/Google Search Console/Repman sources — share only with audiences cleared at the [named+specifics] bar",
+      "**Data retention / declassification**: None configured",
+      "**Sensitive remote targets**: any namespace/host/container with `prod`/`production` as a whole word or segment — includes `jenkins/prod/Jenkinsfile` and the `_public` (prod) MySQL group",
+      "**Protected deployment namespaces / environments**: None configured — fall back to the Sensitive remote targets heuristic",
+      "**Protected IaC scopes**: IAM, RBAC, networking, quota, node-pool resources, and `draconian-data-dungeon/prod/data_ingest/lambda/failed_glue_job_notification/event_bridge.tf` and other Terraform under `prod/`",
+      "### User-specific",
+      "**Primary use of Claude Code**: software development",
+      "**Org-specific CLIs**: `awsl` (local alias exporting AWS credentials into shell), `tfswitch` (Terraform version switch)",
+      "routine under ~/things/myc/ prefix treated as this user's own code checkouts"
+    ]
+  },
+  "voiceEnabled": true,
+  "mcpServers": {}
 }
