@@ -3,6 +3,8 @@
 - [claude-hooks] Stop hook block = top-level `{"decision":"block","reason":"…"}`; `stop_hook_active` not listed in hooks reference
 - [claude-hooks] PostToolUse Bash `tool_response` shape undocumented — capture real payload before parsing
 - [claude-hooks] `claude -p --resume <id>` on a session open elsewhere interleaves into one transcript; open TUI never sees it → can't push into a live session. Channels can (research preview: `notifications/claude/channel`, `--dangerously-load-development-channels server:<name>`; Team/Enterprise orgs need `channelsEnabled`)
+- [claude] Claude Code Bash tool replays zsh config via shell snapshot; $CLAUDECODE=1 set — guard aliases/options on it (f20e1ff)
+- [aws] Claude uses AWS_PROFILE=saml + AWS_REGION=us-west-2 (settings env); saml2aws writes [saml] profile; profile has no region in ~/.aws/config (659f489)
 ## gotchas
 - [nvim] always update `lua/wormholecowboy/core/keymaps.lua` when adding/editing keybindings anywhere in the config
 - [claude-hooks] hook exit code 2 = blocking error, and Go panics exit 2 → Go hook handlers must recover and exit 0
@@ -10,4 +12,5 @@
 ## arch
 - [ernie] source + spec + memory in ~/things/myc/ernie (its own .mem/); dotfiles holds only Claude-side pieces (hooks in claude/.claude/settings.json, ernie skill, mem/gtg/handoff edits, install.txt entry)
 ## reference
+- [claude] Claude Code improvement plan → .mem/artifacts/plan_claude-code-improvements.md
 - [ernie] spec + build plan → ~/things/myc/ernie/.mem/artifacts/ (spec_ernie.md, plan_ernie_build.md)
