@@ -110,8 +110,6 @@ Route the file mechanics through the `mem-ops` subagent: `*mr` delegates wholesa
 
 Delegate to a subagent when the work would flood my context with material I don't need to keep — broad searches, multi-file reads, research, reviews, debugging. I keep the conclusion, not the file dumps.
 
-**When NOT to:** a subagent can't see my uncommitted context, can't ask me follow-ups, and adds latency. For a single lookup where I already know the file/symbol, or anything needing back-and-forth, do it inline.
-
 **Parallelize:** independent tasks go out in ONE message (multiple tool calls) so they run concurrently. Don't serialize what doesn't depend.
 
 **Pick the right agent:** `Explore` for read-only search, `Plan` for strategy, `debugger`/`code-reviewer`/`security-reviewer` for their domains. Only fall back to `general-purpose` when nothing fits.

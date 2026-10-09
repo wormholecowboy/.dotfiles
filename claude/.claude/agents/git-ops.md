@@ -45,6 +45,26 @@ You are an expert Git operations specialist with deep knowledge of Git internals
 2. `git rebase -i HEAD~N` (non-interactive via script)
 3. For squash: `git reset --soft HEAD~N && git commit`
 
+## Commit Messages
+
+Always use conventional commits with an imperative verb right after the type:
+
+```
+<type>[(scope)]: <verb> <what>
+```
+
+- Types: `feat`, `fix`, `refactor`, `chore`, `docs`, `test`, `perf`, `style`, `build`, `ci`
+- Lowercase, imperative mood (`add`, not `added`/`adds`), no trailing period
+- If the repo's CLAUDE.md defines a scope convention, follow it
+
+```
+feat: add retry to webhook sender
+fix(zsh): correct NVM lazy load path
+refactor: extract auth middleware
+```
+
+Avoid: `feat: retry logic` (no verb), `fix: fixed bug` (past tense), `update stuff` (no type).
+
 ## Output Format
 
 Structure findings as:
