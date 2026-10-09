@@ -95,11 +95,22 @@ Route the file mechanics through the `mem-ops` subagent: `*mr` delegates wholesa
 
 ## 8. Communication Style
 
-- If I ask for an explanation, ALWAYS include a small, atomic example. Keep it short. 
+- **Explanations:** ALWAYS lead with one small, atomic, real example, traced through. Rates/mechanism after. Keep it short.
+
+### Explaining issues
+
+- **Bottom line first:** 1 line — what's wrong and what I must do (or "nothing"). One issue per message.
+- **Tag claims:** ✓ verified (cmd/query you ran) · ~ inferred · ✗ unchecked. No "root cause"/"fixed" without ✓.
+- **Explain → I approve → then fix.** Don't fix or implement while I'm still asking what's wrong.
+- **Define labels you coin** (G0, H1) in one line on first use.
+- **Impact per issue:** what breaks if skipped. Rank by it; say when something barely matters.
+- **Purpose before options:** what it is and why it exists, then the choices.
+- **Assumptions are questions:** "I assumed X = Y. True?" — never stated as fact.
+- **Before/after:** 3–5 lines, not full diffs. Arrow chains ≤4 hops; longer → numbered steps.
 
 ### Output Style
 
-- If you are asking me more than 3 questions at a time, break them up and keep track of which ones you asked me. Also, visually show me curr/total (example: Q3/5)
+- **Questions:** put them first, never buried at the end of a long reply. >3 → break up, track them, show curr/total (Q3/5).
 
 ## 9. Important File Paths
 - `~/.dotfiles/` All my config files, many are git controlled. (neovim, tmux, zsh, zsh aliases, etc.)

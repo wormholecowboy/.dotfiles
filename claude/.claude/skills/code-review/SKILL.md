@@ -2,6 +2,7 @@
 name: code-review
 description: Performs a technical code review of recently changed files for bugs, security issues, and standards compliance, then writes a report. Use before committing, as a pre-commit quality gate. Optionally scoped to a specific commit, range, or file.
 argument-hint: "[commit | commit-range | file/dir path] (default: uncommitted changes)"
+effot: max
 ---
 
 # Code Review
