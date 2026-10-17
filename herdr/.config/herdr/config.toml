@@ -167,20 +167,18 @@ split_vertical = "prefix+%"
 # agents = ""     # e.g. "alt" makes alt+1..9 focus agent rows directly
 
 # lazygit for the current pane's repo (tmux prefix+g)
+# Reason: pane, not popup — popups take all input, so prefix bindings die
+# while lazygit is open. The pane zooms itself to keep the full-screen feel.
 [[keys.command]]
 key = "prefix+g"
-type = "popup"
-command = "lazygit"
-width = "90%"
-height = "90%"
+type = "pane"
+command = 'herdr pane zoom --on "$HERDR_PANE_ID"; lazygit'
 
 # pick a worktree/repo, open it in lazygit (tmux prefix+G)
 [[keys.command]]
 key = "prefix+shift+g"
-type = "popup"
-command = "~/scripts/tmux-lazygit-picker.sh"
-width = "95%"
-height = "95%"
+type = "pane"
+command = 'herdr pane zoom --on "$HERDR_PANE_ID"; ~/scripts/tmux-lazygit-picker.sh'
 
 # blank nvim pane for prompting (tmux prefix+P)
 [[keys.command]]
@@ -217,7 +215,7 @@ command = "vim-herdr-navigation.right"
 [[keys.command]]
 key = "prefix+o"
 type = "popup"
-command = '''herdr workspace list | jq -r '.result.workspaces[] | "\(.workspace_id)\t\(.label)"' | fzf --reverse --delimiter="\t" --with-nth=2 --header="Switch Workspace" | cut -f1 | xargs -I {} herdr workspace focus {}'''
+command = '''json=$(herdr workspace list); current=$(printf '%s' "$json" | jq -r '.result.workspaces[] | select(.focused) | .label'); printf '%s' "$json" | jq -r '.result.workspaces[] | "\(.workspace_id)\t\(.label)"' | fzf --reverse --delimiter="\t" --with-nth=2 --header="CURR: [$current]" | cut -f1 | xargs -I {} herdr workspace focus {}'''
 width = "20%"
 height = "60%"
 
@@ -310,6 +308,17 @@ confirm_close = false
 # Hide the tab row when a workspace has exactly one tab.
 # New tabs can still be created with the configured keybinding.
 # hide_tab_bar_when_single_tab = false
+
+# Outer terminal window title. Tokens: {hostname} {workspace} {tab} {pane} {terminal_title}
+window_title = "{workspace}: {tab}"
+
+# Right-aligned tab bar status. No {workspace} token exists here, so a
+# command entry polls the socket API for the focused workspace label.
+tab_bar_right = [
+  { type = "command", command = "~/scripts/herdr-workspace-status.sh", interval_seconds = 2, timeout_seconds = 2 },
+  { type = "zoom" },
+]
+tab_bar_right_separator = " · "
 
 # Agent panel ordering: "spaces" (grouped by space) or "priority" (attention queue).
 # "workspaces" is accepted as an alias for "spaces".

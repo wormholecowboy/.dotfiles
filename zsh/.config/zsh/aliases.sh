@@ -80,3 +80,10 @@ alias claudelv="CLAUDE_CONFIG_DIR=~/.claude-lead-venture claude"
 
 # Ash sandbox - isolated Claude session with network restrictions
 alias ash-sandbox="~/things/myc/ash/main/tools/ccli/claude-sandbox.sh"
+
+# Reason: Claude Code's Bash tool replays this shell config. Pretty-printing aliases
+# and zsh's `=cmd` / no-match-glob errors break the commands it pipes and chains.
+if [[ -n $CLAUDECODE ]]; then
+  unalias ls cat 2>/dev/null
+  setopt no_equals no_nomatch
+fi

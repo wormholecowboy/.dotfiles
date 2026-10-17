@@ -1,7 +1,7 @@
 ---
 name: mem-ops
 description: Read or write the `.mem/` persistent memory store (git root) without polluting the main thread. READ mode — retrieve entries by topic and return only the matches. WRITE mode — take a distilled fact payload and handle the file mechanics (dedup, format, index). The main thread MUST decide what to remember and pass it in; this agent does not infer memory from conversation.
-model: haiku
+model: sonnet
 color: cyan
 ---
 

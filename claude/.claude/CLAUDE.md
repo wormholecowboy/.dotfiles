@@ -10,6 +10,8 @@ CRITICAL: Always check the cwd when performing file operations. Make sure you ar
 - **Explicit Variable Naming** Prefer more explicit, descriptive variable names, if the variable represents something specific. 
 - **Refactoring** If you need to refactor something, refactor and then stop for my review BEFORE continuing with feature add.
 - **Method Names** Avoid prepending with `_`.
+- **Break long conditionals one branch/predicate per line** (all languages — SQL, JS, Python, Go, Terraform, ...): once a multi-branch conditional or multi-predicate boolean runs long (~100+ chars, or 3+ branches/predicates), split it — each `WHEN`/`ELSE`/`END`, `case`, `if`/`elif`/`else`, and each `AND`/`OR`/`&&`/`||` predicate on its own line, indented one level under its opener. Short ones stay inline — `isTrue ? runFunc() : otherThing()` is one line, not three. Applies equally to machine-generated SQL/config I check in (e.g. Presto view DDL dumps) — reformat before committing.
+- Prefer guard clauses over deeply nested if/else
 
 ## 2. Refactors / Moving Code
 - **Prefer `Edit` over `Write`** when relocating existing code. `Edit` preserves bytes exactly; `Write` retypes from memory and can introduce drift (extra blank lines, stripped whitespace, dropped lines).
@@ -40,6 +42,7 @@ Infer meaning from shorthand. Ask if unsure.
 `*mr <topic>`=read memory by topic (mem skill)
 `*op`=update/create repo operating instructions in long.md (mem skill)
 `*bu`=give me an answer in bullet points only
+`*sub <task>`=delegate the task to the best-fit subagent (see Subagents section). The subagent MUST be given full context to do the job effectively, and MUST return all relevant information so the main agent retains what it needs in its own context.
 
 ## 5. Server/Process Startup
 
@@ -61,11 +64,28 @@ Use `tfswitch` to use another version of terrafom, if needed.
 
 ### AWS CLI
 
-You don't have the AWS credentials exported in your environment, so bare `aws ...` commands fail with permission errors. Prepend `awsl; ` to any AWS CLI command and it will work — `awsl` is an alias to a script that exports the AWS variables into the current shell.
+Run `aws ...` directly. `AWS_PROFILE=saml` and `AWS_REGION` are set in settings `env`, and the CLI reads the credentials that `saml2aws` saves to `~/.aws/credentials`.
 
 ```bash
-awsl; aws s3 ls
+aws s3 ls
 ```
+
+- Never run `awsl` or `saml2aws` yourself, and never wrap AWS calls in `zsh -ic`. Login prompts for a password and hangs a non-interactive shell.
+- Sessions last 1h. On `ExpiredToken`, `Unable to locate credentials`, or `security token ... invalid`: stop, ask me to run `! awsl`, then retry once.
+
+### MySQL (public / stagePublic Aurora)
+
+Use the 8.0 client — the default Homebrew `mysql` (9.x) lacks the `mysql_native_password` plugin these servers need.
+
+```bash
+M=/opt/homebrew/opt/mysql-client@8.0/bin/mysql
+$M --defaults-group-suffix=_public      -e "SELECT 1;"   # prod, user readonly, no default DB
+$M --defaults-group-suffix=_stagePublic -e "SELECT 1;"   # stage, DB stagePublicDigmsDB
+```
+
+- Host/user/db live in `~/.my.cnf`; passwords live in `~/.mylogin.cnf` (via `mysql_config_editor`). Never print, decode, or copy the passwords.
+- `stagePublic` uses an admin user — read-only queries unless I explicitly ask for writes.
+- `_stageGeneral` / `_general` are not set up yet (placeholder creds, need an SSH tunnel).
 
 ## 7. Memory
 
@@ -75,11 +95,22 @@ Route the file mechanics through the `mem-ops` subagent: `*mr` delegates wholesa
 
 ## 8. Communication Style
 
-- Brevity is the soul of wit. Be concise and to the point. 
+- **Explanations:** ALWAYS lead with one small, atomic, real example, traced through. Rates/mechanism after. Keep it short.
+
+### Explaining issues
+
+- **Bottom line first:** 1 line — what's wrong and what I must do (or "nothing"). One issue per message.
+- **Tag claims:** ✓ verified (cmd/query you ran) · ~ inferred · ✗ unchecked. No "root cause"/"fixed" without ✓.
+- **Explain → I approve → then fix.** Don't fix or implement while I'm still asking what's wrong.
+- **Define labels you coin** (G0, H1) in one line on first use.
+- **Impact per issue:** what breaks if skipped. Rank by it; say when something barely matters.
+- **Purpose before options:** what it is and why it exists, then the choices.
+- **Assumptions are questions:** "I assumed X = Y. True?" — never stated as fact.
+- **Before/after:** 3–5 lines, not full diffs. Arrow chains ≤4 hops; longer → numbered steps.
 
 ### Output Style
 
-- If you are asking me more than 3 questions at a time, break them up and keep track of which ones you asked me. Also, visually show me curr/total (example: Q3/5)
+- **Questions:** put them first, never buried at the end of a long reply. >3 → break up, track them, show curr/total (Q3/5).
 
 ## 9. Important File Paths
 - `~/.dotfiles/` All my config files, many are git controlled. (neovim, tmux, zsh, zsh aliases, etc.)
@@ -89,8 +120,6 @@ Route the file mechanics through the `mem-ops` subagent: `*mr` delegates wholesa
 ## 10. Subagents
 
 Delegate to a subagent when the work would flood my context with material I don't need to keep — broad searches, multi-file reads, research, reviews, debugging. I keep the conclusion, not the file dumps.
-
-**When NOT to:** a subagent can't see my uncommitted context, can't ask me follow-ups, and adds latency. For a single lookup where I already know the file/symbol, or anything needing back-and-forth, do it inline.
 
 **Parallelize:** independent tasks go out in ONE message (multiple tool calls) so they run concurrently. Don't serialize what doesn't depend.
 
