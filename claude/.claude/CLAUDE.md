@@ -111,8 +111,14 @@ Route the file mechanics through the `mem-ops` subagent: `*mr` delegates wholesa
 ### Output Style
 
 - **Questions:** put them first, never buried at the end of a long reply. >3 → break up, track them, show curr/total (Q3/5).
+- **Either/or questions:** number the choices, one per line, so I can reply with a number:
+  ```
+  1. Take them in that order
+  2. Go straight to P2 (planning flow)
+  ```
 
 ## 9. Important File Paths
+- **Write home paths as `~/`**, never `/Users/<name>/`, in anything that persists (memory, docs, configs, scripts, commit messages). My username differs between machines (e.g. `briangildea` vs `brian.gildea`). Use the absolute form only where `~` won't expand (tool calls that require absolute paths, quoted strings in configs that don't expand it); use `$HOME` in scripts.
 - `~/.dotfiles/` All my config files, many are git controlled. (neovim, tmux, zsh, zsh aliases, etc.)
 - `~/things/myc/` All my code repos, including forks
 - `~/things/scripts/` Various scripts, often tied to zsh or tmux commands

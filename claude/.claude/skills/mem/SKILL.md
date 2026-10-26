@@ -102,7 +102,7 @@ blocked: <reason>
 ## wip
 - [topic] item
 ## files
-- /abs/path:line
+- ~/path:line
 ## done
 - [topic] item
 ```
@@ -234,5 +234,5 @@ needed. Sort by filename desc. Don't auto-load all — only what's relevant.
 - **≤2 lines per bullet in daily/queue.** If an entry wants more, that's the
   signal it's an artifact — write `artifacts/<prefix>_<topic>.md`, leave a
   one-line pointer.
-- File refs as absolute paths with line numbers: `/abs/path:line`.
+- File refs with line numbers, home as `~`: `~/path:line`. Full absolute path only outside home (e.g. `/etc/…`, `/opt/…`).
 - Drop articles, hedging, filler.
