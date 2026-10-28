@@ -8,6 +8,7 @@ export XDG_CONFIG_HOME=~/.config
 
 # Variables
 export CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR=1
+export BD_DISABLE_METRICS=1 DO_NOT_TRACK=1 DOLT_METRICS_DISABLED=1
 
 # LF highlighting
 # export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"

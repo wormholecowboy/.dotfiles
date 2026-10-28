@@ -1,13 +1,32 @@
 ---
 name: mem
 description: >
-  Persistent memory at `.mem/` (git root). Triggers: `*um` (update), `*mr <topic>` (read by topic), `*op` (update repo operating instructions), `*ar` (create artifact), `/mem` (resume; init from convo if missing), or "update/read memory".
+  Persistent memory at `.mem/` (git root), or directly in a non-git folder holding `long.md`. Triggers: `*um` (update), `*mr <topic>` (read by topic), `*op` (update repo operating instructions), `*ar` (create artifact), `/mem` (resume; init from convo if missing), or "update/read memory".
 ---
 
 # Memory System
 
-Persistent file-based memory at `.mem/` (git root). Terse, machine-targeted.
-Replaces the older `.state/` system.
+Persistent file-based memory at `.mem/` (git root), or directly in a non-git
+folder (bare mode). Terse, machine-targeted. Replaces the older `.state/` system.
+
+## Root
+
+Every trigger starts by resolving `[mem]`, the folder that holds the memory files:
+
+- **Git repo** (`git rev-parse --show-toplevel 2>/dev/null` succeeds) →
+  `[mem]` = `<toplevel>/.mem`.
+- **No git repo** → *bare mode*: `[mem]` = the current folder. Same layout, no
+  `.mem/` wrapper (`./long.md`, `./queue.md`, `./daily_mem/`, ...). Meant for
+  throwaway folders whose job is memory; start one with `mkmem <dir>` (zsh).
+- Bare mode and no `./long.md` → not a memory folder yet. Ask "Set up memory
+  in `<cwd>`?" before writing anything.
+
+Bare-mode differences:
+- Pointers written into memory files drop the `.mem/` prefix
+  (`artifacts/<file>.md`, not `.mem/artifacts/<file>.md`).
+- Daily frontmatter: `branch: none`.
+- Other files in the folder are the user's working files, not memory — never
+  treat them as legacy topic files to migrate.
 
 ## Layout
 
@@ -34,7 +53,7 @@ rewrite pointers. Never silently mix layouts.
 
 - When the session produces a concrete, agreed/"locked" enumerated artifact
   (numbered list, schema, spec, decision table, plan), persist it IN FULL to
-  `.mem/artifacts/<prefix>_<topic>.md` **proactively** during `*um` and `/mem`
+  `[mem]/artifacts/<prefix>_<topic>.md` **proactively** during `*um` and `/mem`
   init — do not compress it to a one-liner in the daily and do not wait to be
   asked.
 - Every artifact takes exactly one prefix: `plan_` / `spec_` / `ref_`. If
@@ -66,7 +85,7 @@ rewrite pointers. Never silently mix layouts.
 
 Skip empty sections.
 
-`## ops` = standing operating instructions for this repo/worktree — carry them
+`## ops` = standing operating instructions for this repo/worktree/folder — carry them
 out EVERY session here, unprompted. Numbered when order matters, bullets when
 not. Whenever `long.md` is loaded (`/mem`, `*mr`, or any read), apply ops
 immediately as active instructions, not background context.
@@ -131,7 +150,7 @@ primary tag. Enables grep retrieval across all files.
 ## Delegation
 
 Offload the file mechanics to the `mem-ops` subagent to keep the main
-thread clean:
+thread clean. Always pass the resolved `[mem]` path in its prompt.
 
 - `*mr` → delegate wholesale (READ mode). Pure retrieval; pass the topic,
   get back matched entries.
@@ -148,10 +167,10 @@ thread clean:
 
 Main thread distills the payload, then `mem-ops` (WRITE mode) executes:
 
-1. `git rev-parse --show-toplevel` → `[root]`
-2. `mkdir -p [root]/.mem/daily_mem [root]/.mem/artifacts` if missing. If legacy
+1. Resolve `[mem]` (see Root).
+2. `mkdir -p [mem]/daily_mem [mem]/artifacts` if missing. If legacy
    layout detected, surface it — offer migration, don't mix.
-3. Today's daily: `[root]/.mem/daily_mem/$(date +%Y-%m-%d).md`. Read if
+3. Today's daily: `[mem]/daily_mem/$(date +%Y-%m-%d).md`. Read if
    present; merge new wip/files/done — don't blindly append duplicates.
 4. queue.md: merge new next/qs (new qs get `(asked YYYY-MM-DD)`); DELETE
    resolved items in the same pass (resolution discipline above); bump
@@ -171,9 +190,9 @@ Main thread distills the payload, then `mem-ops` (WRITE mode) executes:
 
 Delegate to `mem-ops` (READ mode) with the topic; it runs:
 
-1. Read `[root]/.mem/tags.md` — resolve topic to the right tag(s).
-2. Read `[root]/.mem/long.md` if present.
-3. `grep -rn "\[<tag>\]" [root]/.mem/` — load matching chunks only (covers
+1. Read `[mem]/tags.md` — resolve topic to the right tag(s).
+2. Read `[mem]/long.md` if present.
+3. `grep -rn --include='*.md' "\[<tag>\]" [mem]/` — load matching chunks only (covers
    queue.md, dailies, artifact pointers).
 4. Present matched entries grouped by source file. Cheaper than full read.
 
@@ -182,8 +201,8 @@ Delegate to `mem-ops` (READ mode) with the topic; it runs:
 Main thread distills the instruction(s) — imperative, `[topic]`-tagged,
 numbered if user implies order — then `mem-ops` (WRITE mode) executes:
 
-1. `git rev-parse --show-toplevel` → `[root]`; `mkdir -p [root]/.mem` if missing.
-2. Read `[root]/.mem/long.md` if present; create if not.
+1. Resolve `[mem]` (see Root); `mkdir -p [mem]` if missing.
+2. Read `[mem]/long.md` if present; create if not.
 3. Merge into `## ops` (create section at TOP of long.md if missing):
    update/replace an existing instruction it supersedes rather than append a
    duplicate; preserve numbering order, renumber if inserting.
@@ -193,14 +212,16 @@ Ops live ONLY in long.md — never in dailies or queue.
 
 ### `*ar` — create artifact
 
-Create `.mem/artifacts/<prefix>_<topic>.md` (pick `plan_`/`spec_`/`ref_`; see
+Create `[mem]/artifacts/<prefix>_<topic>.md` (pick `plan_`/`spec_`/`ref_`; see
 Artifacts) for what we are discussing; add pointer in long.md `## reference`.
 
 ### `/mem` — resume / init
 
-1. `git rev-parse --show-toplevel` → `[root]`
-2. **If `[root]/.mem/` does not exist** — initialize from current conversation:
-   a. `mkdir -p [root]/.mem/daily_mem [root]/.mem/artifacts`
+1. Resolve `[mem]` (see Root).
+2. **If no store yet** — git repo: `[mem]` doesn't exist; bare mode: `long.md`
+   missing (ask first, see Root) or empty (made by `mkmem`) — initialize from
+   current conversation:
+   a. `mkdir -p [mem]/daily_mem [mem]/artifacts`
    b. Write `long.md` populated from convo (ops/goals/learnings/gotchas/arch).
       Skip empty sections. Tag every entry `[topic]`.
    c. Write `queue.md` (next/qs from convo) and `tags.md` (tags used).
@@ -209,9 +230,9 @@ Artifacts) for what we are discussing; add pointer in long.md `## reference`.
    e. Persist any locked deliverables as artifacts (see Artifacts).
    f. Confirm to user: paths written + one-line summary of what was captured.
 3. **Else** — resume from existing memory:
-   a. Read `[root]/.mem/long.md` and `[root]/.mem/queue.md` if present.
+   a. Read `[mem]/long.md` and `[mem]/queue.md` if present.
    b. Find most recent daily:
-      `command ls -1 [root]/.mem/daily_mem/ | command grep -E '^[0-9]{4}-[0-9]{2}-[0-9]{2}\.md$' | sort -r | head -1`
+      `command ls -1 [mem]/daily_mem/ | command grep -E '^[0-9]{4}-[0-9]{2}-[0-9]{2}\.md$' | sort -r | head -1`
       (`command` bypasses shell aliases; a long-format `ls` sorts on the wrong
       column). Read it. (Legacy layout: offer migration first.)
    c. If `long.md` has `## ops`: adopt as active standing instructions for the

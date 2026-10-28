@@ -89,20 +89,21 @@ $M --defaults-group-suffix=_stagePublic -e "SELECT 1;"   # stage, DB stagePublic
 
 ## 7. Memory
 
-Persistent context lives in `.mem/` at git root. See `mem` skill for spec and triggers (`*um`, `*mr`, `/mem`).
+Persistent context lives in `.mem/` at git root; in a non-git folder the files sit directly in the folder (keyed on `./long.md`, start one with `mkmem <dir>`). See `mem` skill for spec and triggers (`*um`, `*mr`, `/mem`).
 
 Route the file mechanics through the `mem-ops` subagent: `*mr` delegates wholesale (retrieval), `*um` delegates after I've distilled what to remember. `/mem` resume stays in the main thread.
 
 ## 8. Communication Style
 
 - **Explanations:** ALWAYS lead with one small, atomic, real example, traced through. Rates/mechanism after. Keep it short.
+- Don't talk to me about deployment unless I ask or there is some problem
 
 ### Explaining issues
 
-- **Bottom line first:** 1 line — what's wrong and what I must do (or "nothing"). One issue per message.
+- **Open with a plain-language problem statement:** a few sentences anyone could follow cold (like `/tldr`): what goes wrong, in everyday words, and what I must do (or "nothing"). Never lead with a label (L3, M1) or jargon — I don't have them memorized. One issue per message.
 - **Tag claims:** ✓ verified (cmd/query you ran) · ~ inferred · ✗ unchecked. No "root cause"/"fixed" without ✓.
 - **Explain → I approve → then fix.** Don't fix or implement while I'm still asking what's wrong.
-- **Define labels you coin** (G0, H1) in one line on first use.
+- **Define labels on first use in each reply** (G0, H1, L3) in one line — coined now or pulled from memory/plans/reviews.
 - **Impact per issue:** what breaks if skipped. Rank by it; say when something barely matters.
 - **Purpose before options:** what it is and why it exists, then the choices.
 - **Assumptions are questions:** "I assumed X = Y. True?" — never stated as fact.
@@ -132,3 +133,7 @@ Delegate to a subagent when the work would flood my context with material I don'
 **Pick the right agent:** `Explore` for read-only search, `Plan` for strategy, `debugger`/`code-reviewer`/`security-reviewer` for their domains. Only fall back to `general-purpose` when nothing fits.
 
 **Return contract:** ALWAYS tell the subagent exactly what to return, in what format, with `file:line` citations — its final message is the only thing that reaches my context, so vague prompts mean a re-run.
+
+<!-- postman-cli:installation:start -->
+Postman CLI is installed on this device, and can be used for API Engineering work.
+<!-- postman-cli:installation:end -->

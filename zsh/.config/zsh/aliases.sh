@@ -78,6 +78,18 @@ alias claudep="CLAUDE_CONFIG_DIR=~/.claude-personal claude"
 alias clauder="CLAUDE_CONFIG_DIR=~/.claude-rebar claude"
 alias claudelv="CLAUDE_CONFIG_DIR=~/.claude-lead-venture claude"
 
+# Reason: the mem skill keeps memory directly in a non-git folder, keyed on ./long.md.
+# Inside a git repo it uses <repo>/.mem instead, so a bare long.md there would be ignored.
+mkmem() {
+  local mem_dir="${1:-.}"
+  mkdir -p "$mem_dir" && cd "$mem_dir" || return 1
+  if git rev-parse --show-toplevel &>/dev/null; then
+    echo "mkmem: $PWD is inside a git repo; run /mem there instead" >&2
+    return 1
+  fi
+  touch long.md
+}
+
 # Ash sandbox - isolated Claude session with network restrictions
 alias ash-sandbox="~/things/myc/ash/main/tools/ccli/claude-sandbox.sh"
 
