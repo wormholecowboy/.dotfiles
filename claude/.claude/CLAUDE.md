@@ -43,6 +43,7 @@ Infer meaning from shorthand. Ask if unsure.
 `*op`=update/create repo operating instructions in long.md (mem skill)
 `*bu`=give me an answer in bullet points only
 `*sub <task>`=delegate the task to the best-fit subagent (see Subagents section). The subagent MUST be given full context to do the job effectively, and MUST return all relevant information so the main agent retains what it needs in its own context.
+`*one`=give me questions or problems one at a time
 
 ## 5. Server/Process Startup
 
@@ -111,7 +112,7 @@ Route the file mechanics through the `mem-ops` subagent: `*mr` delegates wholesa
 
 ### Output Style
 
-- **Questions:** put them first, never buried at the end of a long reply. >3 → break up, track them, show curr/total (Q3/5).
+- **Questions:** ONLY ASK ME ONE QUESTION AT A TIME!! I hate getting bombarded with a ton of questions at once. Always label them with a priority, so I can choose to skip "barely matters" if I want to. 
 - **Either/or questions:** number the choices, one per line, so I can reply with a number:
   ```
   1. Take them in that order
