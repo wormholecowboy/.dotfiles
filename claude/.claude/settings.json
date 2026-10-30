@@ -64,7 +64,6 @@
       "Bash(bd ready:*)",
       "Bash(bd set-state:*)",
       "Bash(bd comment:*)",
-      "Bash(bd dep:*)",
       "Bash(bd gate create:*)"
     ],
     "deny": [
@@ -118,7 +117,10 @@
       "Bash(bd create:*)",
       "Bash(bd metrics:*)",
       "Bash(bd dolt push:*)",
-      "Bash(bd sync:*)"
+      "Bash(bd sync:*)",
+      "Bash(bd dep remove:*)",
+      "Bash(bd dep rm:*)",
+      "Bash(bd dep add:*)"
     ],
     "ask": [
       "Bash(ernie init:*)"

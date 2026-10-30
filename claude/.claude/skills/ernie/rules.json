@@ -6,7 +6,6 @@
     "Bash(bd ready:*)",
     "Bash(bd set-state:*)",
     "Bash(bd comment:*)",
-    "Bash(bd dep:*)",
     "Bash(bd gate create:*)"
   ],
   "ask": [
@@ -18,6 +17,9 @@
     "Bash(ernie session-sync:*)",
     "Edit(**/.ernie/mem/**/items.jsonl)",
     "Bash(bd gate resolve:*)",
+    "Bash(bd dep remove:*)",
+    "Bash(bd dep rm:*)",
+    "Bash(bd dep add:*)",
     "Bash(bd close:*)",
     "Bash(bd update:*)",
     "Bash(bd create:*)",
