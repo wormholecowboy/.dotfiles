@@ -57,7 +57,15 @@
       "Read(*)",
       "Search(*)",
       "Web Search(*)",
-      "mcp__context7"
+      "mcp__context7",
+      "Bash(ernie:*)",
+      "Bash(bd show:*)",
+      "Bash(bd list:*)",
+      "Bash(bd ready:*)",
+      "Bash(bd set-state:*)",
+      "Bash(bd comment:*)",
+      "Bash(bd dep:*)",
+      "Bash(bd gate create:*)"
     ],
     "deny": [
       "Bash(curl:*)",
@@ -99,7 +107,21 @@
       "Bash(aws athena start-query-execution*VACUUM*)",
       "Bash(aws athena start-query-execution*vacuum*)",
       "Read(./.env)",
-      "Read(./secrets/**)"
+      "Read(./secrets/**)",
+      "Bash(ernie serve:*)",
+      "Bash(ernie hook:*)",
+      "Bash(ernie session-sync:*)",
+      "Edit(**/.ernie/mem/**/items.jsonl)",
+      "Bash(bd gate resolve:*)",
+      "Bash(bd close:*)",
+      "Bash(bd update:*)",
+      "Bash(bd create:*)",
+      "Bash(bd metrics:*)",
+      "Bash(bd dolt push:*)",
+      "Bash(bd sync:*)"
+    ],
+    "ask": [
+      "Bash(ernie init:*)"
     ]
   },
   "model": "opus",
@@ -112,6 +134,84 @@
             "type": "command",
             "command": "bash \"$HOME/.claude/hooks/herdr-agent-state.sh\" session",
             "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "startup|resume|clear|compact|fork",
+        "hooks": [
+          {
+            "type": "command",
+            "timeout": 10,
+            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "timeout": 5,
+            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true"
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "timeout": 5,
+            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "timeout": 5,
+            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "timeout": 5,
+            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "timeout": 5,
+            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "timeout": 5,
+            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true"
           }
         ]
       }
