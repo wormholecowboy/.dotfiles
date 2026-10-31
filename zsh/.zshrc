@@ -8,6 +8,7 @@ export XDG_CONFIG_HOME=~/.config
 
 # Variables
 export CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR=1
+export BD_DISABLE_METRICS=1 DO_NOT_TRACK=1 DOLT_METRICS_DISABLED=1
 
 # LF highlighting
 # export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
@@ -73,9 +74,7 @@ export _ZO_FZF_OPTS="--scheme=path --tiebreak=end,chunk,index --bind=ctrl-z:igno
 export PATH="$PATH:/opt/stylua"
 export PATH="$PATH:/usr/local/lf"
 export PATH="$PATH:/usr/local/go/bin"
-export PATH="$PATH:/home/brian/bin"
 export PATH="$PATH:/snap/bin"
-export PATH="$PATH:/home/brian/.local/bin"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/bin"
 export PATH="/Users/briangildea/go/bin:$PATH"

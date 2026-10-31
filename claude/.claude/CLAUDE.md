@@ -43,6 +43,7 @@ Infer meaning from shorthand. Ask if unsure.
 `*op`=update/create repo operating instructions in long.md (mem skill)
 `*bu`=give me an answer in bullet points only
 `*sub <task>`=delegate the task to the best-fit subagent (see Subagents section). The subagent MUST be given full context to do the job effectively, and MUST return all relevant information so the main agent retains what it needs in its own context.
+`*one`=give me questions or problems one at a time
 
 ## 5. Server/Process Startup
 
@@ -89,20 +90,21 @@ $M --defaults-group-suffix=_stagePublic -e "SELECT 1;"   # stage, DB stagePublic
 
 ## 7. Memory
 
-Persistent context lives in `.mem/` at git root. See `mem` skill for spec and triggers (`*um`, `*mr`, `/mem`).
+Persistent context lives in `.mem/` at git root; in a non-git folder the files sit directly in the folder (keyed on `./long.md`, start one with `mkmem <dir>`). See `mem` skill for spec and triggers (`*um`, `*mr`, `/mem`).
 
 Route the file mechanics through the `mem-ops` subagent: `*mr` delegates wholesale (retrieval), `*um` delegates after I've distilled what to remember. `/mem` resume stays in the main thread.
 
 ## 8. Communication Style
 
 - **Explanations:** ALWAYS lead with one small, atomic, real example, traced through. Rates/mechanism after. Keep it short.
+- Don't talk to me about deployment unless I ask or there is some problem
 
 ### Explaining issues
 
-- **Bottom line first:** 1 line — what's wrong and what I must do (or "nothing"). One issue per message.
+- **Open with a plain-language problem statement:** a few sentences anyone could follow cold (like `/tldr`): what goes wrong, in everyday words, and what I must do (or "nothing"). Never lead with a label (L3, M1) or jargon — I don't have them memorized. One issue per message.
 - **Tag claims:** ✓ verified (cmd/query you ran) · ~ inferred · ✗ unchecked. No "root cause"/"fixed" without ✓.
 - **Explain → I approve → then fix.** Don't fix or implement while I'm still asking what's wrong.
-- **Define labels you coin** (G0, H1) in one line on first use.
+- **Define labels on first use in each reply** (G0, H1, L3) in one line — coined now or pulled from memory/plans/reviews.
 - **Impact per issue:** what breaks if skipped. Rank by it; say when something barely matters.
 - **Purpose before options:** what it is and why it exists, then the choices.
 - **Assumptions are questions:** "I assumed X = Y. True?" — never stated as fact.
@@ -110,9 +112,15 @@ Route the file mechanics through the `mem-ops` subagent: `*mr` delegates wholesa
 
 ### Output Style
 
-- **Questions:** put them first, never buried at the end of a long reply. >3 → break up, track them, show curr/total (Q3/5).
+- **Questions:** ONLY ASK ME ONE QUESTION AT A TIME!! I hate getting bombarded with a ton of questions at once. Always label them with a priority, so I can choose to skip "barely matters" if I want to. 
+- **Either/or questions:** number the choices, one per line, so I can reply with a number:
+  ```
+  1. Take them in that order
+  2. Go straight to P2 (planning flow)
+  ```
 
 ## 9. Important File Paths
+- **Write home paths as `~/`**, never `/Users/<name>/`, in anything that persists (memory, docs, configs, scripts, commit messages). My username differs between machines (e.g. `briangildea` vs `brian.gildea`). Use the absolute form only where `~` won't expand (tool calls that require absolute paths, quoted strings in configs that don't expand it); use `$HOME` in scripts.
 - `~/.dotfiles/` All my config files, many are git controlled. (neovim, tmux, zsh, zsh aliases, etc.)
 - `~/things/myc/` All my code repos, including forks
 - `~/things/scripts/` Various scripts, often tied to zsh or tmux commands
@@ -126,3 +134,7 @@ Delegate to a subagent when the work would flood my context with material I don'
 **Pick the right agent:** `Explore` for read-only search, `Plan` for strategy, `debugger`/`code-reviewer`/`security-reviewer` for their domains. Only fall back to `general-purpose` when nothing fits.
 
 **Return contract:** ALWAYS tell the subagent exactly what to return, in what format, with `file:line` citations — its final message is the only thing that reaches my context, so vague prompts mean a re-run.
+
+<!-- postman-cli:installation:start -->
+Postman CLI is installed on this device, and can be used for API Engineering work.
+<!-- postman-cli:installation:end -->

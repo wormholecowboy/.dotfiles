@@ -1,0 +1,30 @@
+{
+  "allow": [
+    "Bash(ernie:*)",
+    "Bash(bd show:*)",
+    "Bash(bd list:*)",
+    "Bash(bd ready:*)",
+    "Bash(bd set-state:*)",
+    "Bash(bd comment:*)",
+    "Bash(bd gate create:*)"
+  ],
+  "ask": [
+    "Bash(ernie init:*)"
+  ],
+  "deny": [
+    "Bash(ernie serve:*)",
+    "Bash(ernie hook:*)",
+    "Bash(ernie session-sync:*)",
+    "Edit(**/.ernie/mem/**/items.jsonl)",
+    "Bash(bd gate resolve:*)",
+    "Bash(bd dep remove:*)",
+    "Bash(bd dep rm:*)",
+    "Bash(bd dep add:*)",
+    "Bash(bd close:*)",
+    "Bash(bd update:*)",
+    "Bash(bd create:*)",
+    "Bash(bd metrics:*)",
+    "Bash(bd dolt push:*)",
+    "Bash(bd sync:*)"
+  ]
+}

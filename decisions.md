@@ -1,5 +1,15 @@
 # Decisions
 
+## 2026-10-21: mem skill bare mode — memory in non-git folders
+
+**Problem:** The `mem` skill and `mem-ops` agent found the memory folder with `git rev-parse --show-toplevel`, which fails in a plain folder. Quick throwaway memory folders (e.g. `OneDrive/temp/mems/<topic>`) had no defined home, so each session improvised.
+
+**Changes made:**
+1. `claude/.claude/skills/mem/SKILL.md`: new Root section resolves `[mem]` — git repo → `<toplevel>/.mem`; no repo → the current folder itself ("bare mode", same layout without the `.mem/` wrapper). Bare mode with no `./long.md` asks before setting up, so `/mem` in a random folder can't scatter files. All trigger steps now use `[mem]/...`.
+2. `claude/.claude/agents/mem-ops.md`: same root rule (prefers a path passed in its prompt), and brought in line with the skill's current layout — `queue.md` holds next/qs (dailies no longer carry them forward), `artifacts/<prefix>_<topic>.md`, `tags.md` upkeep, `blocked` instead of `status`.
+3. `zsh/.config/zsh/aliases.sh`: `mkmem [dir]` creates/enters the folder and touches `long.md` so `/mem` treats it as a memory folder; refuses inside a git repo.
+4. `claude/.claude/CLAUDE.md` §7: one-line mention of bare mode.
+
 ## 2026-08-01: vim-herdr-navigation moved to lazy.nvim (nvim side) — dropping the `~/things/myc` clone
 
 **Problem:** The nvim keymaps were loaded by `dofile`-ing `~/things/myc/vim-herdr-navigation/editor/nvim.lua`. That clone isn't carried by dotfiles sync, so on machines without it `<C-h/j/k/l>` didn't map at all and tmux pass-through into nvim broke (bare tmux panes fine, dead inside nvim).
