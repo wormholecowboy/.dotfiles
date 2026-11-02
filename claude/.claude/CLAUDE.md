@@ -38,9 +38,9 @@ Infer meaning from shorthand. Ask if unsure.
 `mem`=memory
 `convo`=conversation
 `*sa`=give a short answer
-`*um`=update memory (mem skill)
-`*mr <topic>`=read memory by topic (mem skill)
-`*op`=update/create repo operating instructions in long.md (mem skill)
+`*um`=update memory (ernie skill where ernie is on, else mem skill)
+`*mr <topic>`=read memory by topic (ernie skill where ernie is on, else mem skill)
+`*op`=update/create repo operating instructions in long.md (ernie skill where ernie is on, else mem skill)
 `*bu`=give me an answer in bullet points only
 `*sub <task>`=delegate the task to the best-fit subagent (see Subagents section). The subagent MUST be given full context to do the job effectively, and MUST return all relevant information so the main agent retains what it needs in its own context.
 `*one`=give me questions or problems one at a time
@@ -90,9 +90,11 @@ $M --defaults-group-suffix=_stagePublic -e "SELECT 1;"   # stage, DB stagePublic
 
 ## 7. Memory
 
-Persistent context lives in `.mem/` at git root; in a non-git folder the files sit directly in the folder (keyed on `./long.md`, start one with `mkmem <dir>`). See `mem` skill for spec and triggers (`*um`, `*mr`, `/mem`).
+**Where ernie is on** (an `ernie ·` session header, or `ernie where` prints `state on`): memory lives at `.ernie/mem/<branch>/`, ernie writes it, and the SessionStart dump replaces `/mem`. See the `ernie` skill for the triggers.
 
-Route the file mechanics through the `mem-ops` subagent: `*mr` delegates wholesale (retrieval), `*um` delegates after I've distilled what to remember. `/mem` resume stays in the main thread.
+**Elsewhere:** persistent context lives in `.mem/` at git root; in a non-git folder the files sit directly in the folder (keyed on `./long.md`, start one with `mkmem <dir>`). See `mem` skill for spec and triggers (`*um`, `*mr`, `/mem`). Route the file mechanics through the `mem-ops` subagent: `*mr` delegates wholesale (retrieval), `*um` delegates after I've distilled what to remember. `/mem` resume stays in the main thread.
+
+**Old `.mem/` folders** move by hand when I next work there: I run `ernie init`, then `ernie mem import` and its `queue.md` table.
 
 ## 8. Communication Style
 

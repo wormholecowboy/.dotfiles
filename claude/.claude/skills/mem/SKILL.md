@@ -1,7 +1,7 @@
 ---
 name: mem
 description: >
-  Persistent memory at `.mem/` (git root), or directly in a non-git folder holding `long.md`. Triggers: `*um` (update), `*mr <topic>` (read by topic), `*op` (update repo operating instructions), `*ar` (create artifact), `/mem` (resume; init from convo if missing), or "update/read memory".
+  Persistent memory at `.mem/` (git root), or directly in a non-git folder holding `long.md`. Triggers: `*um` (update), `*mr <topic>` (read by topic), `*op` (update repo operating instructions), `*ar` (create artifact), `/mem` (resume; init from convo if missing), or "update/read memory". Only where ernie isn't on; where it is (an `ernie ·` session header, or `ernie where` prints `state on`), the `ernie` skill owns these triggers.
 ---
 
 # Memory System
@@ -13,6 +13,10 @@ folder (bare mode). Terse, machine-targeted. Replaces the older `.state/` system
 
 Every trigger starts by resolving `[mem]`, the folder that holds the memory files:
 
+- **ernie on here** (the session started with an `ernie ·` header, or
+  `ernie where` prints `state on`) → stop: this skill doesn't run here. Say
+  so in one line and use the `ernie` skill for the trigger; memory lives at
+  `.ernie/mem/<branch>/`.
 - **Git repo** (`git rev-parse --show-toplevel 2>/dev/null` succeeds) →
   `[mem]` = `<toplevel>/.mem`.
 - **No git repo** → *bare mode*: `[mem]` = the current folder. Same layout, no
