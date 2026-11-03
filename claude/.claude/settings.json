@@ -144,8 +144,8 @@
         "hooks": [
           {
             "type": "command",
-            "timeout": 10,
-            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true"
+            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true",
+            "timeout": 10
           }
         ]
       }
@@ -156,8 +156,8 @@
         "hooks": [
           {
             "type": "command",
-            "timeout": 5,
-            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true"
+            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true",
+            "timeout": 5
           }
         ]
       }
@@ -168,8 +168,8 @@
         "hooks": [
           {
             "type": "command",
-            "timeout": 5,
-            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true"
+            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true",
+            "timeout": 5
           }
         ]
       }
@@ -179,8 +179,8 @@
         "hooks": [
           {
             "type": "command",
-            "timeout": 5,
-            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true"
+            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true",
+            "timeout": 5
           }
         ]
       }
@@ -190,8 +190,8 @@
         "hooks": [
           {
             "type": "command",
-            "timeout": 5,
-            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true"
+            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true",
+            "timeout": 5
           }
         ]
       }
@@ -201,8 +201,8 @@
         "hooks": [
           {
             "type": "command",
-            "timeout": 5,
-            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true"
+            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true",
+            "timeout": 5
           }
         ]
       }
@@ -212,8 +212,8 @@
         "hooks": [
           {
             "type": "command",
-            "timeout": 5,
-            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true"
+            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true",
+            "timeout": 5
           }
         ]
       }
