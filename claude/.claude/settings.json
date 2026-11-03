@@ -224,7 +224,8 @@
     "command": "~/.dotfiles/claude/.claude/statusline-command.sh"
   },
   "enabledPlugins": {
-    "typescript-lsp@claude-plugins-official": false
+    "typescript-lsp@claude-plugins-official": false,
+    "postman@claude-plugins-official": true
   },
   "sandbox": {
     "network": {
