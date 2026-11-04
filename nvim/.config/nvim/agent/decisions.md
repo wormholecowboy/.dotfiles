@@ -1,3 +1,21 @@
+# 2026-11-03
+
+## 2026-11-03: E382 on save in OneDrive files — smart `<leader>w`
+
+**Problem:** Saving `today.md` (in a OneDrive-synced folder under `~/Library/CloudStorage/`) showed "WARNING: The file has been changed since reading it!!!", then E382 on later saves.
+
+**Root cause (two parts):**
+- OneDrive replaces the file a few seconds after every write (new inode) and re-stamps mtime with lost sub-microsecond precision (e.g. `.676677743` → `.676677703`). Content is identical, but Neovim compares mtime to the nanosecond, so the next `:w` warns and prompts y/n. Verified by polling `stat` across saves.
+- After that y/n dialog, ui2 (enabled by tiny-cmdline) routes the following "written" message to its `[Pager]` float and moves the cursor into it (`runtime/lua/vim/_core/ui2/messages.lua` — `ui.cmd.expand > 0` → `'pager'` → `enter_pager()`). The pager is `buftype=nofile`, so the next `:w` fails with E382.
+
+**Fix:**
+- `autocommands.lua` — `BufReadPost`/`BufWritePost` store `vim.b.disk_content_hash` (sha256 of the file on disk).
+- `keymaps.lua` `<leader>w` — closes the pager first if focused; if disk content still matches the stored hash, uses `write!` (skips the timestamp check), otherwise plain `write` so a real external edit still warns.
+
+**Not covered:** typing `:w` manually still hits the warning/pager path.
+
+**Verified:** luacheck clean; tmux session tests — mtime-only touch saves silently, real external content change still warns, `<leader>w` from inside `[Pager]` writes the real buffer.
+
 # 2026-09-10
 
 ## 2026-09-10: Added tiny-cmdline.nvim

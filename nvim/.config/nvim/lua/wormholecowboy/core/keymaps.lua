@@ -177,7 +177,24 @@ keymap("n", "<leader>up", "<cmd>edit $HOME/pnotes<cr>", { silent = true, desc = 
 -- keymap("n", "<leader>uw", "`[v`]:lua removeReturnCharacters()<cr>", opts) --remove windows return carriage for WSL
 keymap("n", "<leader>ud", "<cmd>r !date '+\\%Y-\\%m-\\%d'<CR>", { silent = true, desc = "insert date" })
 
-keymap("n", "<leader>w", ":w<cr>", opts) --save
+keymap("n", "<leader>w", function()
+  -- Reason: ui2 can leave the cursor in its [Pager] float after a prompt; save the real buffer instead
+  if vim.bo.filetype == "pager" then
+    vim.cmd("wincmd c")
+  end
+
+  local path = vim.api.nvim_buf_get_name(0)
+  local saved_hash = vim.b.disk_content_hash
+  if saved_hash == nil or vim.fn.filereadable(path) == 0 then
+    vim.cmd("write")
+    return
+  end
+
+  -- Disk content unchanged since our last read/write means only the mtime moved
+  -- (see disk_content_hash autocmd), so skip the timestamp check
+  local disk_hash = vim.fn.sha256(table.concat(vim.fn.readfile(path, "b"), "\n"))
+  vim.cmd(disk_hash == saved_hash and "write!" or "write")
+end, { silent = true, desc = "save (ignores sync-client mtime re-stamps)" })
 keymap("n", "<leader>c", ":bp|bd#<cr>", opts) --close split buffer
 keymap("n", "<leader>A", ":%y+<cr>", opts) --select all
 keymap("n", "gP", "`[v`]", opts) --select last paste

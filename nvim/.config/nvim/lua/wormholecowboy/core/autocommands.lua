@@ -161,6 +161,21 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
   command = "checktime",
 })
 
+-- Reason: sync clients (OneDrive) re-stamp files after upload with a slightly different
+-- mtime, so Neovim warns "changed since reading" on the next save. Remembering what we
+-- last read/wrote lets <leader>w tell a re-stamp (same content) from a real external edit.
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost" }, {
+  group = augroup,
+  desc = "Remember hash of file content on disk",
+  callback = function(args)
+    local path = vim.api.nvim_buf_get_name(args.buf)
+    if vim.bo[args.buf].buftype ~= "" or vim.fn.filereadable(path) == 0 then
+      return
+    end
+    vim.b[args.buf].disk_content_hash = vim.fn.sha256(table.concat(vim.fn.readfile(path, "b"), "\n"))
+  end,
+})
+
 -- vim.diagnostic.config({virtual_text = false, underline = true})
 -- this will disable lsp diagnostics
 --
