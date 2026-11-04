@@ -73,18 +73,22 @@ aws s3 ls
 - Never run `awsl` or `saml2aws` yourself, and never wrap AWS calls in `zsh -ic`. Login prompts for a password and hangs a non-interactive shell.
 - Sessions last 1h. On `ExpiredToken`, `Unable to locate credentials`, or `security token ... invalid`: stop, ask me to run `! awsl`, then retry once.
 
-### MySQL (public / stagePublic Aurora)
+### MySQL (reporting data pond / public Aurora)
 
 Use the 8.0 client — the default Homebrew `mysql` (9.x) lacks the `mysql_native_password` plugin these servers need.
 
+The reporting data pond is the reporting database. Public / stagePublic still run but are being deprecated — default to the pond for reporting data; use public only for data not yet moved.
+
 ```bash
 M=/opt/homebrew/opt/mysql-client@8.0/bin/mysql
-$M --defaults-group-suffix=_public      -e "SELECT 1;"   # prod, user readonly, no default DB
-$M --defaults-group-suffix=_stagePublic -e "SELECT 1;"   # stage, DB stagePublicDigmsDB
+$M --defaults-group-suffix=_reporting-data-pond-prod    -e "SELECT 1;"   # prod, read-only
+$M --defaults-group-suffix=_reporting-data-pond-nonprod -e "SELECT 1;"   # nonprod, admin
+$M --defaults-group-suffix=_public      -e "SELECT 1;"   # deprecated: prod, read-only
+$M --defaults-group-suffix=_stagePublic -e "SELECT 1;"   # deprecated: stage, admin
 ```
 
-- Host/user/db live in `~/.my.cnf`; passwords live in `~/.mylogin.cnf` (via `mysql_config_editor`). Never print, decode, or copy the passwords.
-- `stagePublic` uses an admin user — read-only queries unless I explicitly ask for writes.
+- Host/user/db live in `~/.my.cnf`; passwords live in `~/.mylogin.cnf` (via `mysql_config_editor`, login-path = the full group name, e.g. `client_reporting-data-pond-prod`). Never print, decode, or copy the passwords.
+- `reporting-data-pond-nonprod` and `stagePublic` use admin users — read-only queries unless I explicitly ask for writes.
 - `_stageGeneral` / `_general` are not set up yet (placeholder creds, need an SSH tunnel).
 
 ## 7. Memory
