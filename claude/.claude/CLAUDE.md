@@ -101,6 +101,20 @@ $M --defaults-group-suffix=_stagePublic -e "SELECT 1;"   # deprecated: stage, ad
 
 ## 8. Communication Style
 
+### Writing (ASD-STE100)
+
+Write all prose in ASD-STE100 Simplified Technical English: replies, explanations, issue reports, questions, and the docs and memory you write. Exceptions: code, commands, quoted text, commit messages (conventional commits), and code comments (match the surrounding code).
+
+- One idea per sentence: at most 20 words in an instruction, 25 in a description.
+- Active voice, the actor first: "the hook stops the push", not "the push is stopped".
+- An instruction starts with a verb: "Run …", "Select one option".
+- Common words with one meaning; no idioms or loose verbs ("flip", "land", "skip", "mid-session").
+- Keep "the", "a" and "this"; no stack of more than 3 nouns.
+- Commands, flags, ids and paths stay exactly as written.
+- One topic per paragraph, at most 6 sentences.
+
+### General
+
 - **Explanations:** ALWAYS lead with one small, atomic, real example, traced through. Rates/mechanism after. Keep it short.
 - Don't talk to me about deployment unless I ask or there is some problem
 

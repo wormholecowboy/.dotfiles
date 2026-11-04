@@ -1,5 +1,13 @@
 # Decisions
 
+## 2026-11-04: Claude writes prose in ASD-STE100
+
+**Problem:** Claude's replies used long sentences, passive voice and loose verbs. The ernie repo already had STE rules in its `CLAUDE.local.md` block, but other repos had none.
+
+**Changes made:**
+- `claude/.claude/CLAUDE.md` §8: new "Writing (ASD-STE100)" subsection with the seven STE rules from ernie's block. STE covers all prose Claude writes (replies, questions, docs, memory). Code, commands, quoted text, commit messages and code comments keep their own rules. The existing §8 bullets moved under "General".
+- The file loads only in Claude Code, so claude.ai chat is not affected. In ernie repos the rules repeat ernie's block; the repeat does no harm.
+
 ## 2026-10-21: mem skill bare mode — memory in non-git folders
 
 **Problem:** The `mem` skill and `mem-ops` agent found the memory folder with `git rev-parse --show-toplevel`, which fails in a plain folder. Quick throwaway memory folders (e.g. `OneDrive/temp/mems/<topic>`) had no defined home, so each session improvised.
