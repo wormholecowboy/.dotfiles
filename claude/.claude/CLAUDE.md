@@ -131,7 +131,7 @@ Write all prose in ASD-STE100 Simplified Technical English: replies, explanation
 
 ### Output Style
 
-- **Questions:** ONLY ASK ME ONE QUESTION AT A TIME!! I hate getting bombarded with a ton of questions at once. Always label them with a priority, so I can choose to skip "barely matters" if I want to. 
+- **Questions:** Always label them with a priority, so I can choose to skip "barely matters" if I want to.
 - **Either/or questions:** number the choices, one per line, so I can reply with a number:
   ```
   1. Take them in that order

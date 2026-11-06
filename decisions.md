@@ -1,5 +1,12 @@
 # Decisions
 
+## 2026-11-04: Claude may ask several questions at once
+
+**Problem:** The "one question at a time" rule made a planning session slow. ernie's page now lists the questions in order, so several open questions are easy to answer.
+
+**Changes made:**
+- `claude/.claude/CLAUDE.md` §8 Output Style: removed the one-question-at-a-time rule. The priority label on each question stays. `*one` still asks for one question at a time.
+
 ## 2026-11-04: Claude writes prose in ASD-STE100
 
 **Problem:** Claude's replies used long sentences, passive voice and loose verbs. The ernie repo already had STE rules in its `CLAUDE.local.md` block, but other repos had none.
