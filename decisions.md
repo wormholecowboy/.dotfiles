@@ -1,5 +1,14 @@
 # Decisions
 
+## 2026-11-13: mem skill — `./.mem/` in non-git working folders
+
+**Problem:** Bare mode put memory files loose in any non-git folder. In a working folder like `~/Desktop`, `long.md`, `artifacts/` and the rest mixed with the user's own files.
+
+**Changes made:**
+1. `claude/.claude/skills/mem/SKILL.md` Root: bare mode (flat files) now applies only when `./long.md` exists, i.e. folders made by `mkmem`. Any other non-git folder uses `./.mem/`, and `/mem` asks before it creates one.
+2. `claude/.claude/agents/mem-ops.md` and `claude/.claude/CLAUDE.md` §7: same rule.
+3. `~/Desktop`: moved the memory files into `~/Desktop/.mem/`; `~/Desktop/CLAUDE.md` names the location.
+
 ## 2026-11-04: Claude may ask several questions at once
 
 **Problem:** The "one question at a time" rule made a planning session slow. ernie's page now lists the questions in order, so several open questions are easy to answer.

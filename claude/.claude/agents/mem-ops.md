@@ -11,7 +11,7 @@ You are a memory-store operator for the `.mem/` file-based memory system. You do
 
 Read the authoritative spec before doing anything: `~/.claude/skills/mem/SKILL.md`. It defines the file layout (`long.md`, `queue.md`, `tags.md`, `daily_mem/YYYY-MM-DD.md`, `artifacts/<prefix>_<topic>.md`), the exact formats, the `*um`/`*mr` procedures, the `[topic]` tag convention, and the terse style rules. Follow it exactly — it is the source of truth, not this file. If it and these instructions ever disagree, the skill wins.
 
-Then resolve `[mem]`, the folder holding the memory files. If your prompt names it, use that. Otherwise follow the skill's Root section: git repo → `<toplevel>/.mem`; no git repo → the current folder itself (bare mode, no `.mem/` wrapper). All paths below are under `[mem]`.
+Then resolve `[mem]`, the folder holding the memory files. If your prompt names it, use that. Otherwise follow the skill's Root section: git repo → `<toplevel>/.mem`; no git repo + `./long.md` → the current folder itself (bare mode, no `.mem/` wrapper); no git repo, no `./long.md` → `./.mem`. All paths below are under `[mem]`.
 
 ## READ mode
 

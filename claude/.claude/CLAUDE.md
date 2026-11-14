@@ -95,7 +95,7 @@ $M --defaults-group-suffix=_stagePublic -e "SELECT 1;"   # deprecated: stage, ad
 
 **Where ernie is on** (an `ernie ·` session header, or `ernie where` prints `state on`): memory lives at `.ernie/mem/<branch>/`, ernie writes it, and the SessionStart dump replaces `/mem`. See the `ernie` skill for the triggers.
 
-**Elsewhere:** persistent context lives in `.mem/` at git root; in a non-git folder the files sit directly in the folder (keyed on `./long.md`, start one with `mkmem <dir>`). See `mem` skill for spec and triggers (`*um`, `*mr`, `/mem`). Route the file mechanics through the `mem-ops` subagent: `*mr` delegates wholesale (retrieval), `*um` delegates after I've distilled what to remember. `/mem` resume stays in the main thread.
+**Elsewhere:** persistent context lives in `.mem/` at git root; in a non-git folder they live in `./.mem/`, except in a memory-only folder made by `mkmem <dir>`, where the files sit directly in the folder (keyed on `./long.md`). See `mem` skill for spec and triggers (`*um`, `*mr`, `/mem`). Route the file mechanics through the `mem-ops` subagent: `*mr` delegates wholesale (retrieval), `*um` delegates after I've distilled what to remember. `/mem` resume stays in the main thread.
 
 **Old `.mem/` folders** move by hand when I next work there: I run `ernie init`, then `ernie mem import` and its `queue.md` table.
 

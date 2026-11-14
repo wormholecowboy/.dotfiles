@@ -19,16 +19,18 @@ Every trigger starts by resolving `[mem]`, the folder that holds the memory file
   `.ernie/mem/<branch>/`.
 - **Git repo** (`git rev-parse --show-toplevel 2>/dev/null` succeeds) →
   `[mem]` = `<toplevel>/.mem`.
-- **No git repo** → *bare mode*: `[mem]` = the current folder. Same layout, no
-  `.mem/` wrapper (`./long.md`, `./queue.md`, `./daily_mem/`, ...). Meant for
-  throwaway folders whose job is memory; start one with `mkmem <dir>` (zsh).
-- Bare mode and no `./long.md` → not a memory folder yet. Ask "Set up memory
-  in `<cwd>`?" before writing anything.
+- **No git repo, `./long.md` present** → *bare mode*: `[mem]` = the current
+  folder. Same layout, no `.mem/` wrapper (`./long.md`, `./queue.md`,
+  `./daily_mem/`, ...). Only for throwaway folders whose job is memory; start
+  one with `mkmem <dir>` (zsh), which touches `long.md`.
+- **No git repo, no `./long.md`** → `[mem]` = `./.mem`, so memory stays out of
+  the user's working files (e.g. `~/Desktop`). No `./.mem/` yet → ask "Set up
+  memory in `<cwd>/.mem/`?" before writing anything.
 
 Bare-mode differences:
 - Pointers written into memory files drop the `.mem/` prefix
   (`artifacts/<file>.md`, not `.mem/artifacts/<file>.md`).
-- Daily frontmatter: `branch: none`.
+- Daily frontmatter: `branch: none` (same for `./.mem` outside a repo).
 - Other files in the folder are the user's working files, not memory — never
   treat them as legacy topic files to migrate.
 
@@ -222,8 +224,8 @@ Artifacts) for what we are discussing; add pointer in long.md `## reference`.
 ### `/mem` — resume / init
 
 1. Resolve `[mem]` (see Root).
-2. **If no store yet** — git repo: `[mem]` doesn't exist; bare mode: `long.md`
-   missing (ask first, see Root) or empty (made by `mkmem`) — initialize from
+2. **If no store yet** — `[mem]` doesn't exist (no repo: ask first, see Root),
+   or bare mode with an empty `long.md` (made by `mkmem`) — initialize from
    current conversation:
    a. `mkdir -p [mem]/daily_mem [mem]/artifacts`
    b. Write `long.md` populated from convo (ops/goals/learnings/gotchas/arch).
