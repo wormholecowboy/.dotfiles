@@ -7,3 +7,4 @@
 - [athena] AWS Athena query tooling/guards
 - [aws] AWS auth/profile/roles
 - [settings] Claude settings.json content/permissions
+- [herdr] herdr terminal workspace manager trial vs tmux

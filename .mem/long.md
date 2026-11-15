@@ -9,6 +9,7 @@
 - [nvim] always update `lua/wormholecowboy/core/keymaps.lua` when adding/editing keybindings anywhere in the config
 - [claude-hooks] hook exit code 2 = blocking error, and Go panics exit 2 → Go hook handlers must recover and exit 0
 - [claude-hooks] dotfiles hooks calling tools built in ~/things/myc must guard on the binary (`[ -x … ] && … || true`); ~/things/myc isn't synced by dotfiles, missing binary = hook error every tool call
+- [herdr] herdr ctrl+hjkl plugin link points at lazy clone `~/.local/share/nvim/lazy/vim-herdr-navigation`; nvim no longer uses it → `:Lazy clean`/`:Lazy sync` deletes it and breaks herdr nav. Fine once herdr removed.
 ## arch
 - [ernie] source + spec + memory in ~/things/myc/ernie (its own .mem/); dotfiles holds only Claude-side pieces (hooks in claude/.claude/settings.json, ernie skill, mem/gtg/handoff edits, install.txt entry)
 ## reference
