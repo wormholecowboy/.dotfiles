@@ -133,6 +133,7 @@ Write all prose in ASD-STE100 Simplified Technical English: replies, explanation
 
 - **Questions:** Always label them with a priority, so I can choose to skip "barely matters" if I want to.
 - **Either/or questions:** number the choices, one per line, so I can reply with a number:
+- Always keep track of how many questions are left and show me the total as a denominator. 
   ```
   1. Take them in that order
   2. Go straight to P2 (planning flow)
