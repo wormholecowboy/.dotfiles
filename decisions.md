@@ -8,6 +8,12 @@
 1. `claude/.claude/skills/mem/SKILL.md` Root: bare mode (flat files) now applies only when `./long.md` exists, i.e. folders made by `mkmem`. Any other non-git folder uses `./.mem/`, and `/mem` asks before it creates one.
 2. `claude/.claude/agents/mem-ops.md` and `claude/.claude/CLAUDE.md` §7: same rule.
 3. `~/Desktop`: moved the memory files into `~/Desktop/.mem/`; `~/Desktop/CLAUDE.md` names the location.
+## 2026-11-12: Claude gives every reply-able item a unique handle
+
+**Problem:** Claude used the priority label (`P1`, `P2`) as the only label on questions. Two questions with the same priority had no handle I could use to reply to one of them.
+
+**Changes made:**
+- `claude/.claude/CLAUDE.md` §8 Output Style: new "Handles" bullet. Each question, issue, finding or option gets a unique handle (`Q1`, `Q2` ...), skipped only when there is one item. The "Questions" bullet now shows the format `**Q1 (P1):** ...`.
 
 ## 2026-11-04: Claude may ask several questions at once
 

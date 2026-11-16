@@ -245,7 +245,7 @@
   "awaySummaryEnabled": false,
   "tui": "fullscreen",
   "voice": {
-    "enabled": false,
+    "enabled": true,
     "mode": "hold"
   },
   "skipDangerousModePermissionPrompt": true,

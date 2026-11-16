@@ -131,7 +131,8 @@ Write all prose in ASD-STE100 Simplified Technical English: replies, explanation
 
 ### Output Style
 
-- **Questions:** Always label them with a priority, so I can choose to skip "barely matters" if I want to.
+- **Handles:** Give every item I might reply to a unique handle: questions `Q1`, `Q2`; issues, findings and options likewise. Handles run on across the reply and never repeat. Skip only when there is exactly one item. A priority label is not a handle — two questions can share `P2`.
+- **Questions:** Always label them with a priority, so I can choose to skip "barely matters" if I want to. Format: `**Q1 (P1):** ...`.
 - **Either/or questions:** number the choices, one per line, so I can reply with a number:
 - Always keep track of how many questions are left and show me the total as a denominator. 
   ```
