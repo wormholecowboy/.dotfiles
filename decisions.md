@@ -1,5 +1,14 @@
 # Decisions
 
+## 2026-11-16: tmux lazygit opens in a zoomed split, not a popup
+
+**Problem:** A tmux popup takes all keyboard input. While lazygit was open in the popup, `prefix+L` (`switch-client -l`) went to lazygit, so tmux did not go to the last session. `man tmux` (3.8) has no option to let prefix bindings work inside a popup. herdr had the same problem (see `herdr/.config/herdr/compromises.md`).
+
+**Changes made:**
+- `tmux/.tmux.conf`: `prefix+g` and `prefix+G` now use `split-window -Z -c "#{pane_current_path}"` in place of `display-popup`. lazygit opens full screen in a zoomed pane, and the pane closes when lazygit exits.
+
+**Trade-off:** lazygit no longer floats over the panes. If you go to another session, lazygit stays open in the zoomed pane.
+
 ## 2026-11-13: mem skill — `./.mem/` in non-git working folders
 
 **Problem:** Bare mode put memory files loose in any non-git folder. In a working folder like `~/Desktop`, `long.md`, `artifacts/` and the rest mixed with the user's own files.
