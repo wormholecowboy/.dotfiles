@@ -6,6 +6,8 @@
 
 BASTION_INSTANCE_ID="i-09c35b10cc0f38b96"
 SSH_LOCAL_PORT="2222"
+# Session Manager closes a tunnel after 20 minutes with no traffic
+KEEPALIVE_INTERVAL_SECONDS=300
 
 # Format: alias|remote-host|remote-port|local-port
 DATABASES=(
@@ -68,6 +70,7 @@ EOM
   fi
 
   local -a tunnel_pids=()
+  local -a tunnel_local_ports=()
   local line selected_alias db_alias host remote_port local_port params
   while IFS= read -r line; do
     selected_alias="${line%% *}"
@@ -82,6 +85,7 @@ EOM
         --document-name AWS-StartPortForwardingSession \
         --parameters "{\"portNumber\":[\"22\"],\"localPortNumber\":[\"${SSH_LOCAL_PORT}\"]}" &
       tunnel_pids+=($!)
+      tunnel_local_ports+=("$SSH_LOCAL_PORT")
       echo "SSH tunnel on localhost:${SSH_LOCAL_PORT} (pid $!)"
       echo "  ssh -p ${SSH_LOCAL_PORT} ec2-user@localhost"
       echo "  scp -P ${SSH_LOCAL_PORT} file.txt ec2-user@localhost:/tmp/"
@@ -105,12 +109,26 @@ EOM
         --document-name AWS-StartPortForwardingSessionToRemoteHost \
         --parameters "$params" &
       tunnel_pids+=($!)
+      tunnel_local_ports+=("$local_port")
       echo "Tunnel to ${db_alias} on localhost:${local_port} (pid $!)"
     done
   done <<<"$chosen"
 
   if [[ ${#tunnel_pids[@]} -gt 0 ]]; then
-    echo "Tunnels are up. Ctrl+C closes them all."
+    # Reason: an open but quiet DB connection sends nothing, so a short TCP
+    # connect through each tunnel is what resets the idle timer
+    local -a tunnel_job_pids=("${tunnel_pids[@]}")
+    (
+      while kill -0 "${tunnel_job_pids[@]}" 2>/dev/null; do
+        sleep "$KEEPALIVE_INTERVAL_SECONDS"
+        for local_port in "${tunnel_local_ports[@]}"; do
+          nc -z -w 5 localhost "$local_port" >/dev/null 2>&1
+        done
+      done
+    ) &
+    tunnel_pids+=($!)
+
+    echo "Tunnels are up (keepalive every ${KEEPALIVE_INTERVAL_SECONDS}s). Ctrl+C closes them all."
     trap 'kill "${tunnel_pids[@]}" 2>/dev/null' INT TERM
     wait
     trap - INT TERM
