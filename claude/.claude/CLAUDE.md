@@ -87,6 +87,10 @@ The reporting data pond is the reporting database. Public / stagePublic still ru
 
 - Use this to read my emails and teams messages and cloud docs
 
+### Postman MCP
+
+- Use this to update Postman routes
+
 
 ```bash
 M=/opt/homebrew/opt/mysql-client@8.0/bin/mysql
