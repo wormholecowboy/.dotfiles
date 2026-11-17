@@ -126,7 +126,7 @@
       "Bash(ernie init:*)"
     ]
   },
-  "model": "opus",
+  "model": "opus[1m]",
   "hooks": {
     "SessionStart": [
       {
@@ -194,6 +194,14 @@
             "timeout": 5
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "osascript -e 'display notification \"Claude is waiting for your input\" with title \"Claude Code\" sound name \"Glass\"'"
+          }
+        ]
       }
     ],
     "Notification": [
@@ -225,7 +233,25 @@
   },
   "enabledPlugins": {
     "typescript-lsp@claude-plugins-official": false,
-    "postman@claude-plugins-official": true
+    "postman@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "sdd@LeadVenture-plugins": true,
+    "context7@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true,
+    "pr-review-toolkit@claude-plugins-official": true,
+    "commit-commands@claude-plugins-official": true,
+    "security-guidance@claude-plugins-official": true,
+    "claude-md-management@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
+    "skill-creator@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "LeadVenture-plugins": {
+      "source": {
+        "source": "git",
+        "url": "https://lvrdgit01.leadventure.dev/LeadVenture/lv-claude-plugins.git"
+      }
+    }
   },
   "sandbox": {
     "network": {
@@ -243,7 +269,7 @@
     }
   },
   "awaySummaryEnabled": false,
-  "tui": "fullscreen",
+  "tui": "default",
   "voice": {
     "enabled": true,
     "mode": "hold"
