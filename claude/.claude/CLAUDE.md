@@ -79,6 +79,15 @@ Use the 8.0 client — the default Homebrew `mysql` (9.x) lacks the `mysql_nativ
 
 The reporting data pond is the reporting database. Public / stagePublic still run but are being deprecated — default to the pond for reporting data; use public only for data not yet moved.
 
+### Atlassian MCP
+
+- Use this for reading Jira tickets, Confluence docs, and Bitbuckets branches and PRs
+
+### Microsoft MCP
+
+- Use this to read my emails and teams messages and cloud docs
+
+
 ```bash
 M=/opt/homebrew/opt/mysql-client@8.0/bin/mysql
 $M --defaults-group-suffix=_reporting-data-pond-prod    -e "SELECT 1;"   # prod, read-only
