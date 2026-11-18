@@ -25,6 +25,8 @@ Decisions already made:
 
 ## Report only — plugins and synced skills
 
+**Status 2026-11-18:** PL1–PL15 are resolved. 5c9ecc2 disabled superpowers, sdd, code-review, pr-review-toolkit, commit-commands, security-guidance, claude-md-management, frontend-design and skill-creator. 6d760f0 removed the own `code-reviewer` agent and `code-review` skill. Only one Snyk MCP is left.
+
 | ID | Location | Finding | Conf | What you can do |
 |---|---|---|---|---|
 | PL1 | `superpowers/7.0.2/skills/using-superpowers/SKILL.md:10-50` | It is injected every session: "even a 1% chance … ABSOLUTELY MUST … YOU DO NOT HAVE A CHOICE", plus a 12-row "Red Flags" table. On Opus 5.5 it makes process skills fire on simple questions. | H | File upstream, or add a `CLAUDE.md` override: "Invoke a skill only when it clearly fits." |

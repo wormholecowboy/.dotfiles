@@ -8,3 +8,4 @@
 - [aws] AWS auth/profile/roles
 - [settings] Claude settings.json content/permissions
 - [herdr] herdr terminal workspace manager trial vs tmux
+- [review] code review tooling (native /code-review, /cr skill)

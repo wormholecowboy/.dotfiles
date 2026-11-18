@@ -7,7 +7,11 @@
 - [aws] Claude uses AWS_PROFILE=saml + AWS_REGION=us-west-2 (settings env); saml2aws writes [saml] profile; profile has no region in ~/.aws/config (659f489)
 - [settings] `syncClaudeAiSkills: false` in user settings stops the claude.ai skill sync; the next launch moves synced skills to ~/.claude/skills/.trash/. A folder deleted by hand comes back on the next sync (docs, 77a2fe3).
 - [claude] Skill frontmatter honors `effort:` (Claude Code 2.1.311 loader); a misspelled key is ignored silently.
+- [review] Native /code-review runs as a forked background agent and returns a JSON findings block. It accepts a PR number, branch or path. It does not accept a commit SHA or range (probe 2026-11-18).
+- [review] Native /code-review default scope = `@{upstream}...HEAD` (or `main...HEAD`) plus uncommitted changes.
+- [review] /code-review `high` runs 8 finder angles inline with no subagents. Only `max` starts reviewer subagents; `max` inside a wrapper agent is untested.
 ## gotchas
+- [claude] A user skill with the same name as a native skill (e.g. `code-review`) hides the native one. Name custom skills differently.
 - [nvim] always update `lua/wormholecowboy/core/keymaps.lua` when adding/editing keybindings anywhere in the config
 - [claude-hooks] hook exit code 2 = blocking error, and Go panics exit 2 → Go hook handlers must recover and exit 0
 - [claude-hooks] dotfiles hooks calling tools built in ~/things/myc must guard on the binary (`[ -x … ] && … || true`); ~/things/myc isn't synced by dotfiles, missing binary = hook error every tool call
@@ -18,5 +22,6 @@
 - [mem] The mem skill runs *um, *mr and *op in the main thread; there is no memory subagent (c974ee3).
 ## reference
 - [claude] Claude Code improvement plan → .mem/artifacts/plan_claude-code-improvements.md
+- [review] /cr skill: N rounds of native /code-review in fresh agents → ~/.dotfiles/claude/.claude/skills/cr/SKILL.md (182e2bf)
 - [claude] Prompt audit open items (flags, plugin findings) → .mem/artifacts/ref_prompt-audit.md
 - [ernie] spec + build plan → ~/things/myc/ernie/.mem/artifacts/ (spec_ernie.md, plan_ernie_build.md)
