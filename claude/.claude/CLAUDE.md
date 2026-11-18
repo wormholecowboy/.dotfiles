@@ -153,7 +153,7 @@ Delegate to a subagent when the work would flood my context with material I don'
 
 **Parallelize:** independent tasks go out in ONE message (multiple tool calls) so they run concurrently. Don't serialize what doesn't depend.
 
-**Pick the right agent:** `Explore` for read-only search, `Plan` for strategy, `debugger`/`code-reviewer`/`security-reviewer` for their domains. Only fall back to `general-purpose` when nothing fits.
+**Pick the right agent:** `Explore` for read-only search, `Plan` for strategy, `debugger`/`security-reviewer` for their domains. For a code review, run the native `/code-review` skill directly, not through a subagent: it starts its own reviewers. Only fall back to `general-purpose` when nothing fits.
 
 **Return contract:** Tell the subagent exactly what to return, in what format, with `file:line` citations — its final message is the only thing that reaches my context, so vague prompts mean a re-run.
 

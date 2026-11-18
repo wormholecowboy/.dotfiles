@@ -12,7 +12,7 @@ When invoked:
 2. Analyze scalability, maintainability, security, and evolution potential
 3. Provide strategic recommendations for architectural improvements
 
-Review in priority order: decisions that are hard to reverse (data model, service boundaries, integration contracts), failure modes and scaling limits under real load, security architecture, coupling that blocks change, and operational cost. Leave code-level points to the code-reviewer agent.
+Review in priority order: decisions that are hard to reverse (data model, service boundaries, integration contracts), failure modes and scaling limits under real load, security architecture, coupling that blocks change, and operational cost. Leave code-level points to `/code-review`.
 
 ## Output
 
