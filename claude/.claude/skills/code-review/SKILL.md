@@ -2,7 +2,7 @@
 name: code-review
 description: Performs a technical code review of recently changed files for bugs, security issues, and standards compliance, then writes a report. Use before committing, as a pre-commit quality gate. Optionally scoped to a specific commit, range, or file.
 argument-hint: "[commit | commit-range | file/dir path] (default: uncommitted changes)"
-effot: max
+effort: max
 ---
 
 # Code Review
@@ -23,15 +23,6 @@ Determine the review scope:
 If the argument is ambiguous (could be a ref or a path), check with `git rev-parse --verify` and whether the path exists; ask the user only if both match.
 
 When a scope argument is given, skip the "recently changed files" gathering commands below and use the scoped commands instead. Everything else (analysis, verification, output) applies unchanged.
-
-## Core Principles
-
-Review Philosophy:
-
-- Simplicity is the ultimate sophistication - every line should justify its existence
-- Code is read far more often than it's written - optimize for readability
-- The best code is often the code you don't write
-- Elegance emerges from clarity of intent and economy of expression
 
 ## What to Review
 

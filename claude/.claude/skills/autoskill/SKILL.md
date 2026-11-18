@@ -1,7 +1,6 @@
 ---
 name: autoskill
 description: Analyze coding sessions to detect corrections and preferences, then propose targeted improvements to Skills used in the session. Use this skill when the user asks to "learn from this session", "update skills", or "remember this pattern". Extracts durable preferences and codifies them into the appropriate skill files.
-license: Complete terms in LICENSE.txt
 ---
 
 This skill analyzes coding sessions to extract durable preferences from corrections and approvals, then proposes targeted updates to Skills that were active during the session. It acts as a learning mechanism across sessions, ensuring Claude improves based on feedback.
@@ -122,7 +121,7 @@ Wait for explicit approval before editing any file.
 
 When approved:
 1. Edit the target file with minimal, focused changes
-2. If git is available, commit with message: `chore(autoskill): [brief description]`
+2. Commit only if the user asks, using the repo's commit message format
 3. Report what was changed
 
 ## Constraints

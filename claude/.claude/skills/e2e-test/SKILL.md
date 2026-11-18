@@ -62,7 +62,7 @@ If installation fails, stop with:
 
 ## Phase 1: Parallel Research
 
-Launch **three sub-agents simultaneously** using the Task tool. All three run in parallel.
+Launch **three sub-agents** in one message so they run in parallel.
 
 ### Sub-agent 1: Application Structure & User Journeys
 
@@ -155,7 +155,7 @@ For each step in a user journey:
 5. **Analyze the screenshot** — use the Read tool to view the screenshot image. Check for visual correctness, UX issues, broken layouts, missing content, error states
 6. Check `agent-browser console` and `agent-browser errors` periodically for JavaScript issues
 
-Be thorough. Go through EVERY interaction, EVERY form field, EVERY button. The goal is that by the time this finishes, every part of the UI has been exercised and screenshotted.
+Cover every interaction, form field and button: by the end, every part of the UI has been exercised and screenshotted.
 
 ### 4b. Database Validation
 

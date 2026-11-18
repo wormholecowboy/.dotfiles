@@ -5,16 +5,15 @@ description: >
   styled pages. Use when the user invokes /visual-explainer, or proactively when about to
   render a complex table (4+ rows or 3+ columns) or diagram as ASCII. Auto-selects the best
   visualization type based on conversation context: diagrams, slides, diff reviews, project
-  recaps, or knowledge organizers. Triggers: "visualize", "diagram", "visual", "show me",
-  "make a slide deck", "recap this project", "organize this", or any context where a visual
-  HTML page would communicate better than terminal text.
+  recaps, or knowledge organizers. Use when the user asks to visualize, diagram, recap, or
+  organize content, or asks for a slide deck.
 ---
 
 # Visual Explainer
 
 Generate self-contained HTML files for diagrams, visualizations, slides, and organized knowledge. Auto-open in browser. Never fall back to ASCII art when this skill is loaded.
 
-**Proactive table rendering.** When about to present tabular data as ASCII (4+ rows or 3+ columns), generate HTML instead. Don't wait for the user to ask.
+**Proactive table rendering.** When about to present tabular data as ASCII (4+ rows or 3+ columns), generate HTML instead.
 
 **Output directory:** `/tmp/visual-explainer/` (create with `mkdir -p` before writing).
 **Open after writing:** `open /tmp/visual-explainer/<filename>.html`
@@ -37,10 +36,10 @@ If ambiguous, prefer Knowledge Organizer — it handles the widest range of cont
 
 Before generating any HTML, read `./references/patterns.md` for CSS patterns, Mermaid theming, typography, and interactive features. Apply these patterns — don't reinvent them.
 
-Pick a distinctive aesthetic each time. Vary fonts and palette. Choose from these directions:
-- **Blueprint** — technical drawing feel, subtle grid, deep slate/blue, monospace labels
+Pick a distinctive aesthetic each time. Vary fonts and palette. Avoid the stock defaults: cream backgrounds, italic accent words in headlines, numbered "01/02/03" section labels, monospace labels, pill-shaped buttons. Choose from these directions:
+- **Blueprint** — technical drawing feel, subtle grid, deep slate/blue, condensed sans labels
 - **Editorial** — serif headlines, generous whitespace, muted earth tones
-- **Paper/ink** — warm cream background, terracotta/sage accents, informal
+- **Paper/ink** — off-white newsprint background, terracotta/sage accents, informal
 - **Terminal** — green/amber on dark, monospace, CRT feel
 - **IDE-inspired** — borrow real schemes: Dracula, Nord, Catppuccin, Solarized, Gruvbox
 
@@ -68,7 +67,7 @@ Generate a magazine-quality HTML slide deck. **Only when explicitly requested.**
 4. Add IntersectionObserver for cinematic entrance animations with staggered child reveals
 5. Include navigation: progress bar, nav dots, slide counter, arrow key support
 6. Typography scale 2-3x larger than scrollable pages: 48-120px display, 28-48px headings
-7. Target 18-25 slides. Every piece of source content must appear — don't drop content for aesthetics
+7. Size the deck to the content. Every piece of source content must appear — don't drop content for aesthetics
 8. Write to `/tmp/visual-explainer/slides-<topic>.html`, open in browser
 
 **Slide types:** Title, Section Divider, Content, Split, Diagram, Dashboard, Table, Code, Quote, Full-Bleed.

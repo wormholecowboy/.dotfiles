@@ -61,9 +61,9 @@ approach, and any specific instructions or constraints.
 | Field | Required | Description |
 |-------|----------|-------------|
 | `name` | Yes | Lowercase with hyphens (e.g., `code-reviewer`) |
-| `description` | Yes | When to invoke. Include "proactively" or "MUST BE USED" to encourage automatic delegation |
+| `description` | Yes | When to invoke: name the tasks it handles. Add "use proactively" only if it under-triggers in practice |
 | `tools` | No | Comma-separated list. Inherits all tools if omitted |
-| `model` | No | `sonnet`, `opus`, `haiku`, or `inherit`. Default: `sonnet` |
+| `model` | No | A model alias (e.g. `sonnet`, `opus`, `haiku`) or `inherit`. If omitted, it inherits the main session's model unless a default subagent model is configured |
 | `permissionMode` | No | `default`, `acceptEdits`, `bypassPermissions`, `plan` |
 | `skills` | No | Comma-separated skill names to auto-load |
 
@@ -95,18 +95,18 @@ See `references/examples.md` for complete working examples.
 - `WebSearch` - Web searches
 
 **Other:**
-- `Skill` - Execute skills
-- `SlashCommand` - Run slash commands
-
-**NOT Available:** `Task` (prevents nested agent spawning)
+- `Skill` - Execute skills and slash commands
+- `Agent` - Spawn another subagent (leave it out of `tools` to block nesting)
 
 ## Built-In Subagents
 
-| Agent | Model | Tools | Purpose |
-|-------|-------|-------|---------|
-| general-purpose | Sonnet | All | Complex multi-step tasks |
-| Plan | Sonnet | Read, Glob, Grep, Bash (read-only) | Codebase research in plan mode |
-| Explore | Haiku | Glob, Grep, Read, Bash (read-only) | Fast codebase searching |
+| Agent | Tools | Purpose |
+|-------|-------|---------|
+| general-purpose | All | Complex multi-step tasks |
+| Plan | Read-only (no Edit/Write/Agent) | Design implementation plans |
+| Explore | Read-only (no Edit/Write/Agent) | Broad codebase searches |
+
+Other built-ins exist (e.g. `claude-code-guide`); the set changes between releases.
 
 ## Invocation Methods
 

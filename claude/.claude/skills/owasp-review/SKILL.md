@@ -1,3 +1,8 @@
+---
+name: owasp-review
+description: In-depth security audit against the OWASP Top 10 (Web/API) and the OWASP Top 10 for LLM apps, loading only the check files that match the code. Use when the user runs /owasp-review, or asks for an OWASP, pre-release, full-repo, or LLM/agent security audit. For a fast PR-gate check, use the security-reviewer subagent.
+argument-hint: "[--deep | --focus=<category> | <path>...] [--fix]"
+---
 # OWASP Security Review
 
 In-depth security audit based on OWASP Top 10 (Web/API) and OWASP Top 10 for LLMs. Modular architecture loads only relevant checks based on detected code patterns.
@@ -138,11 +143,11 @@ Located in `./checks/`:
 
 ## Integration with Existing Tools
 
-This skill complements `/brian:validation:security-review`:
-- `security-review` = Fast PR check, false-positive filtering
+This skill complements the `security-reviewer` subagent:
+- `security-reviewer` = Fast PR check, false-positive filtering
 - `owasp-review` = In-depth audit, educational, full patterns
 
-Use `security-review` for CI/PR gates. Use `owasp-review` for:
+Use `security-reviewer` for CI/PR gates. Use `owasp-review` for:
 - Pre-release audits
 - Learning secure patterns
 - Full repo health checks

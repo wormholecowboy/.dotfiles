@@ -72,7 +72,7 @@ Organize as bullet lists under clear headers, in this order:
 Sources reviewed: <list of URLs fetched, with last-updated dates if found>
 
 ## 🚩 Red Flags Summary
-- <the 3-8 most damning findings, most severe first, one line each>
+- <the most damning findings, most severe first, one line each>
 
 ## Data Collected
 - ...
@@ -98,8 +98,11 @@ Sources reviewed: <list of URLs fetched, with last-updated dates if found>
 ## Legal Recourse
 - ...
 
+## Breach History
+- ...
+
 ## Verdict
-<2-3 sentence blunt take: how bad is this, relative to typical industry practice>
+<short blunt take: how bad is this, relative to typical industry practice>
 ```
 
 Every bullet should be a fact traceable to the fetched text, not speculation. Where

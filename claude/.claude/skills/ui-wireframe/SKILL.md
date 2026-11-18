@@ -5,8 +5,6 @@ description: >
   opens them in the browser for instant visual feedback, and supports iterative refinement.
   Use when the user wants to: plan a UI layout, sketch a wireframe, prototype page structure,
   compare layout options, design a user flow, mock up a screen, or visualize a component arrangement.
-  Triggers: "wireframe", "mock up", "sketch a UI", "plan the layout", "prototype", "UI wireframe",
-  "what should this page look like", "design this screen".
 ---
 
 # UI Wireframe Skill

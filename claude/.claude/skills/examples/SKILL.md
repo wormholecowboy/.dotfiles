@@ -1,5 +1,5 @@
 ---
-name: example(s)
+name: examples
 description: Create simple examples and put in file
 disable-model-invocation: true
 ---

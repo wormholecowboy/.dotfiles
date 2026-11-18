@@ -31,7 +31,7 @@ Execute the skill's `*um` procedure with that payload:
 - Merge wip/files/done into today's daily — don't append duplicates. Update frontmatter (`branch`, `focus`; `blocked` only when blocked).
 - Promote to `long.md` only if the payload is flagged durable (learning/gotcha/goal/arch).
 - If the payload is a locked enumerated artifact (spec, schema, numbered list, decision table), persist it IN FULL to `[mem]/artifacts/<prefix>_<topic>.md` (`plan_`/`spec_`/`ref_`) and leave only a pointer.
-- Tag every entry `[topic]`: reuse a tag from `tags.md`, or mint one and index it there in the same pass. Fragments, not sentences.
+- Tag every entry `[topic]`: reuse a tag from `tags.md`, or mint one and index it there in the same pass. Short sentences, one idea each.
 
 ## Return contract
 

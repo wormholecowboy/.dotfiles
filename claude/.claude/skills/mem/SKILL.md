@@ -7,7 +7,7 @@ description: >
 # Memory System
 
 Persistent file-based memory at `.mem/` (git root), or directly in a non-git
-folder (bare mode). Terse, machine-targeted. Replaces the older `.state/` system.
+folder (bare mode). Terse, machine-targeted.
 
 ## Root
 
@@ -54,10 +54,9 @@ rewrite pointers. Never silently mix layouts.
 ## Artifacts (don't lossy-compress deliverables)
 
 - When the session produces a concrete, agreed/"locked" enumerated artifact
-  (numbered list, schema, spec, decision table, plan), persist it IN FULL to
-  `[mem]/artifacts/<prefix>_<topic>.md` **proactively** during `*um` and `/mem`
-  init — do not compress it to a one-liner in the daily and do not wait to be
-  asked.
+  (numbered list, schema, spec, decision table, plan), persist it in full to
+  `[mem]/artifacts/<prefix>_<topic>.md` during `*um` and `/mem` init, without
+  being asked. Do not compress it to a one-liner in the daily.
 - Every artifact takes exactly one prefix: `plan_` / `spec_` / `ref_`. If
   nothing fits, it's `ref_`. No new prefixes until two real artifacts demand
   one.
@@ -88,7 +87,7 @@ rewrite pointers. Never silently mix layouts.
 Skip empty sections.
 
 `## ops` = standing operating instructions for this repo/worktree/folder — carry them
-out EVERY session here, unprompted. Numbered when order matters, bullets when
+out every session here, unprompted. Numbered when order matters, bullets when
 not. Whenever `long.md` is loaded (`/mem`, `*mr`, or any read), apply ops
 immediately as active instructions, not background context.
 
@@ -252,10 +251,10 @@ needed. Sort by filename desc. Don't auto-load all — only what's relevant.
 
 ## Style rules
 
-- Entries are fragments not sentences.
+- Entries are short ASD-STE100 sentences (CLAUDE.md §8), one idea each.
 - One bullet = one item. No prose paragraphs.
 - **≤2 lines per bullet in daily/queue.** If an entry wants more, that's the
   signal it's an artifact — write `artifacts/<prefix>_<topic>.md`, leave a
   one-line pointer.
 - File refs with line numbers, home as `~`: `~/path:line`. Full absolute path only outside home (e.g. `/etc/…`, `/opt/…`).
-- Drop articles, hedging, filler.
+- Drop hedging and filler; keep articles.

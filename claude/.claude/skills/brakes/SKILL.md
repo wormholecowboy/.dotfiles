@@ -5,7 +5,7 @@ argument-hint: file|auto(default)|step
 
 Brakes mode engaged! I want to move slowly so that I can review code and learn things and ask questions along the way.
 
-CRITICAL: Before any edit or file creation, post a brief bullet list of what you're about to do. Wait for nothing if I haven't asked questions — just announce, then act.
+Before each edit or new file, post a short bullet list of what you will do, then do it. Wait for a reply only when I have asked a question.
 
 Velocity mode (from `$ARGUMENTS`):
 - `file`: Edit ONLY ONE file at a time, then stop and tell me it's ready for review.

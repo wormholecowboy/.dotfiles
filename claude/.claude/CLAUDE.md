@@ -1,6 +1,6 @@
 # 💻 Coding Assistant Guidelines
 
-CRITICAL: Always check the cwd when performing file operations. Make sure you are in the right worktree/branch. Ask the user if it is uncertain.
+Check the cwd before file operations: several worktrees and branches of one repo are often open. Ask me if the right one is unclear.
 
 ## 1. Code Style & Workflow
 - **Stick to the stack:** When fixing issues, exhaust current tech and patterns before introducing new ones. Don't change stable architecture unless explicitly told.
@@ -41,7 +41,7 @@ Infer meaning from shorthand. Ask if unsure.
 `*mr <topic>`=read memory by topic (ernie skill where ernie is on, else mem skill)
 `*op`=update/create repo operating instructions in long.md (ernie skill where ernie is on, else mem skill)
 `*bu`=give me an answer in bullet points only
-`*sub <task>`=delegate the task to the best-fit subagent (see Subagents section). The subagent MUST be given full context to do the job effectively, and MUST return all relevant information so the main agent retains what it needs in its own context.
+`*sub <task>`=delegate the task to the best-fit subagent (see Subagents section). Give the subagent the full context it needs, and tell it to return everything the main thread must keep.
 `*one`=give me questions or problems one at a time
 
 ## 5. Server/Process Startup
@@ -75,14 +75,6 @@ Use the 8.0 client — the default Homebrew `mysql` (9.x) lacks the `mysql_nativ
 
 The reporting data pond is the reporting database. Public / stagePublic still run but are being deprecated — default to the pond for reporting data; use public only for data not yet moved.
 
-### Other Tools
-
-- **Atlassian MCP:** Use this for reading Jira tickets, Confluence docs, and Bitbuckets branches and PRs
-- **Microsoft MCP:** Use this to read my emails and teams messages and cloud docs
-- **Postman MCP:** Use this to update Postman routes
-- **tfswitch CLI:** Use `tfswitch` to use another version of terrafom, if needed.
-
-
 ```bash
 M=/opt/homebrew/opt/mysql-client@8.0/bin/mysql
 $M --defaults-group-suffix=_reporting-data-pond-prod    -e "SELECT 1;"   # prod, read-only
@@ -94,6 +86,13 @@ $M --defaults-group-suffix=_stagePublic -e "SELECT 1;"   # deprecated: stage, ad
 - Host/user/db live in `~/.my.cnf`; passwords live in `~/.mylogin.cnf` (via `mysql_config_editor`, login-path = the full group name, e.g. `client_reporting-data-pond-prod`). Never print, decode, or copy the passwords.
 - `reporting-data-pond-nonprod` and `stagePublic` use admin users — read-only queries unless I explicitly ask for writes.
 - `_stageGeneral` / `_general` are not set up yet (placeholder creds, need an SSH tunnel).
+
+### Other Tools
+
+- **Atlassian MCP:** Use this for reading Jira tickets, Confluence docs, and Bitbuckets branches and PRs
+- **Microsoft MCP:** Use this to read my emails and teams messages and cloud docs
+- **Postman MCP:** Use this to update Postman routes
+- **tfswitch CLI:** Use `tfswitch` to use another version of terrafom, if needed.
 
 ## 7. Memory
 
@@ -119,7 +118,7 @@ Write all prose in ASD-STE100 Simplified Technical English: replies, explanation
 
 ### General
 
-- **Explanations:** ALWAYS lead with one small, atomic, real example, traced through. Rates/mechanism after. Keep it short.
+- **Explanations:** Lead with one small, atomic, real example, traced through. Rates/mechanism after. Keep it short.
 - Don't talk to me about deployment unless I ask or there is some problem
 
 ### Explaining issues
@@ -135,9 +134,8 @@ Write all prose in ASD-STE100 Simplified Technical English: replies, explanation
 ### Output Style
 
 - **Handles:** Give every item I might reply to a unique handle: questions `Q1`, `Q2`; issues, findings and options likewise. Handles run on across the reply and never repeat. Skip only when there is exactly one item. A priority label is not a handle — two questions can share `P2`.
-- **Questions:** Always label them with a priority, so I can choose to skip "barely matters" if I want to. Format: `**Q1 (P1):** ...`.
+- **Questions:** Label each question with a priority, so I can skip "barely matters" ones, and show the running count with the total as a denominator: `**Q1/8 (P1):** ...`.
 - **Either/or questions:** number the choices, one per line, so I can reply with a number:
-- Always keep track of how many questions are left and show me the total as a denominator. Format: `**Q1/8 (P1):** ...` 
   ```
   1. Take them in that order
   2. Go straight to P2 (planning flow)
@@ -157,21 +155,13 @@ Delegate to a subagent when the work would flood my context with material I don'
 
 **Pick the right agent:** `Explore` for read-only search, `Plan` for strategy, `debugger`/`code-reviewer`/`security-reviewer` for their domains. Only fall back to `general-purpose` when nothing fits.
 
-**Return contract:** ALWAYS tell the subagent exactly what to return, in what format, with `file:line` citations — its final message is the only thing that reaches my context, so vague prompts mean a re-run.
+**Return contract:** Tell the subagent exactly what to return, in what format, with `file:line` citations — its final message is the only thing that reaches my context, so vague prompts mean a re-run.
 
 <!-- postman-cli:installation:start -->
 Postman CLI is installed on this device, and can be used for API Engineering work.
 <!-- postman-cli:installation:end -->
 
 <!--# BEGIN SNYK GLOBAL RULE -->
----
-alwaysApply: true
-always_on: true
-trigger: always_on
-applyTo: "**"
-description: Snyk Security At Inception
----
-
 # Project security best practices
 
 - Always run snyk_code_scan tool for new first party code that is generated in a Snyk-supported language.

@@ -19,9 +19,8 @@ Research external libraries and APIs to provide:
 
 ### 1. Official Documentation
 
-- Start with Archon MCP tools and check if we have relevant docs in the database
-- Use the RAG tools to search for relevant documentation, use specific keywords and context in your queries
-- Use websearch and webfetch to search official docs (check package registry for links)
+- Use the Context7 MCP tools for library docs when they are connected
+- Use WebSearch and WebFetch for official docs (check the package registry for links)
 - Find quickstart guides and API references
 - Identify code examples specific to the use case
 - Note version-specific features or breaking changes
@@ -88,15 +87,6 @@ When documentation is complex or critical:
 3. Include working code examples
 4. Add project-specific integration notes
 
-## Search Queries
-
-Effective search patterns:
-
-- "{library} {feature} example"
-- "{library} TypeError site:stackoverflow.com"
-- "{library} best practices {language}"
-- "github {library} {feature} language:{language}"
-
 ## Key Principles
 
 - Prefer official docs but verify with real implementations
@@ -104,5 +94,3 @@ Effective search patterns:
 - Provide executable code examples, not abstract descriptions
 - Note version differences if relevant
 - Save complex findings to ai_docs for future reference
-
-Remember: Good library research prevents implementation blockers and reduces debugging time.

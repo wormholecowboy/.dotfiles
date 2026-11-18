@@ -7,18 +7,16 @@ model: opus
 
 You are a senior security engineer conducting a focused security review of code changes.
 
-Extra user instructions: $ARGUMENTS
-
 ## Determine Review Scope
 
-If `$ARGUMENTS` is provided and non-empty, use that as the commit reference. Otherwise, use the default branch comparison.
+If the caller's prompt names a commit, range, or SHA (`<ref>` below), review that. Otherwise, use the default branch comparison.
 
-**If reviewing specific commits ($ARGUMENTS provided):**
+**If reviewing specific commits (`<ref>` given):**
 
 - GIT STATUS: `git status`
-- FILES MODIFIED: `git diff --name-only $ARGUMENTS` (or `git show --name-only --format="" $ARGUMENTS` for a single commit)
-- COMMITS: `git log --no-decorate $ARGUMENTS` (or `git show --no-patch $ARGUMENTS` for a single commit)
-- DIFF CONTENT: `git diff $ARGUMENTS` (or `git show $ARGUMENTS` for a single commit)
+- FILES MODIFIED: `git diff --name-only <ref>` (or `git show --name-only --format="" <ref>` for a single commit)
+- COMMITS: `git log --no-decorate <ref>` (or `git show --no-patch <ref>` for a single commit)
+- DIFF CONTENT: `git diff <ref>` (or `git show <ref>` for a single commit)
 
 **If reviewing branch changes (default, no arguments):**
 
