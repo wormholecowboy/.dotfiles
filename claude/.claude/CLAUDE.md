@@ -3,12 +3,8 @@
 Check the cwd before file operations: several worktrees and branches of one repo are often open. Ask me if the right one is unclear.
 
 ## 1. Code Style & Workflow
-- **Stick to the stack:** When fixing issues, exhaust current tech and patterns before introducing new ones. Don't change stable architecture unless explicitly told.
-- **Scoped changes:** Only modify code directly relevant to the request. Think through impacts on related code.
 - **Comments:** Only for non-obvious code. Use `# Reason:` for complex logic explaining *why*. No ticket/story numbers or conversation-specific labels (e.g. "Option B", "the new approach", "per our discussion") — keep comments generalized to the repo long-term.
-- **Safety:** Confirm paths/modules exist. Ask before overwriting `.env`. Only use verified packages.
 - **Explicit Variable Naming** Prefer more explicit, descriptive variable names, if the variable represents something specific. 
-- **Refactoring** If you need to refactor something, refactor and then stop for my review BEFORE continuing with feature add.
 - **Method Names** Avoid prepending with `_`.
 - **Break long conditionals one branch/predicate per line** (all languages — SQL, JS, Python, Go, Terraform, ...): once a multi-branch conditional or multi-predicate boolean runs long (~100+ chars, or 3+ branches/predicates), split it — each `WHEN`/`ELSE`/`END`, `case`, `if`/`elif`/`else`, and each `AND`/`OR`/`&&`/`||` predicate on its own line, indented one level under its opener. Short ones stay inline — `isTrue ? runFunc() : otherThing()` is one line, not three. Applies equally to machine-generated SQL/config I check in (e.g. Presto view DDL dumps) — reformat before committing.
 - Prefer guard clauses over deeply nested if/else
