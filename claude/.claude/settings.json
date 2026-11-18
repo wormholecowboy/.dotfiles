@@ -312,5 +312,6 @@
     ]
   },
   "voiceEnabled": true,
-  "mcpServers": {}
+  "mcpServers": {},
+  "syncClaudeAiSkills": false
 }

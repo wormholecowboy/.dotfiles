@@ -124,9 +124,8 @@ Write all prose in ASD-STE100 Simplified Technical English: replies, explanation
 
 ### Explaining issues
 
-- **Open with a plain-language problem statement:** a few sentences anyone could follow cold (like `/tldr`): what goes wrong, in everyday words, and what I must do (or "nothing"). Never lead with a label (L3, M1) or jargon — I don't have them memorized. One issue per message.
+- **Open with a plain-language problem statement:** a few sentences anyone could follow cold (like `/tldr`): what goes wrong, in everyday words, and what I must do (or "nothing"). Never lead with a label (L3, M1) or jargon — I don't have them memorized.
 - **Tag claims:** ✓ verified (cmd/query you ran) · ~ inferred · ✗ unchecked. No "root cause"/"fixed" without ✓.
-- **Explain → I approve → then fix.** Don't fix or implement while I'm still asking what's wrong.
 - **Define labels on first use in each reply** (G0, H1, L3) in one line — coined now or pulled from memory/plans/reviews.
 - **Impact per issue:** what breaks if skipped. Rank by it; say when something barely matters.
 - **Purpose before options:** what it is and why it exists, then the choices.
