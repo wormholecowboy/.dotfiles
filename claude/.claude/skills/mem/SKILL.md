@@ -148,25 +148,11 @@ primary tag. Enables grep retrieval across all files.
   question.
 - Flat: no hierarchy, no counts — both rot.
 
-## Delegation
-
-Offload the file mechanics to the `mem-ops` subagent to keep the main
-thread clean. Always pass the resolved `[mem]` path in its prompt.
-
-- `*mr` → delegate wholesale (READ mode). Pure retrieval; pass the topic,
-  get back matched entries.
-- `*um` → main thread decides WHAT to remember (fact + why + `[topic]`
-  tags + focus + resolutions). Hand that distilled payload to `mem-ops`
-  (WRITE mode); it runs the procedure below. Never make the subagent infer
-  memory from the conversation — it can't see it.
-- `/mem` full resume → stays in the main thread (conversational, needs
-  live context). Do NOT delegate.
-
 ## Triggers
 
 ### `*um` — update memory
 
-Main thread distills the payload, then `mem-ops` (WRITE mode) executes:
+Decide what to remember (fact + why + `[topic]` tags + focus + resolutions), then:
 
 1. Resolve `[mem]` (see Root).
 2. `mkdir -p [mem]/daily_mem [mem]/artifacts` if missing. If legacy
@@ -189,7 +175,7 @@ Main thread distills the payload, then `mem-ops` (WRITE mode) executes:
 
 ### `*mr <topic>` — read memory by topic
 
-Delegate to `mem-ops` (READ mode) with the topic; it runs:
+Steps:
 
 1. Read `[mem]/tags.md` — resolve topic to the right tag(s).
 2. Read `[mem]/long.md` if present.
@@ -199,8 +185,8 @@ Delegate to `mem-ops` (READ mode) with the topic; it runs:
 
 ### `*op` — update/create operating instructions
 
-Main thread distills the instruction(s) — imperative, `[topic]`-tagged,
-numbered if user implies order — then `mem-ops` (WRITE mode) executes:
+Write the instruction(s) — imperative, `[topic]`-tagged, numbered if the
+user implies order — then:
 
 1. Resolve `[mem]` (see Root); `mkdir -p [mem]` if missing.
 2. Read `[mem]/long.md` if present; create if not.
