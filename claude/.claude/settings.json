@@ -59,13 +59,7 @@
       "Search(*)",
       "Web Search(*)",
       "mcp__context7",
-      "Bash(ernie:*)",
-      "Bash(bd show:*)",
-      "Bash(bd list:*)",
-      "Bash(bd ready:*)",
-      "Bash(bd set-state:*)",
-      "Bash(bd comment:*)",
-      "Bash(bd gate create:*)"
+      "Bash(ernie:*)"
     ],
     "deny": [
       "Bash(curl:*)",
@@ -111,17 +105,7 @@
       "Bash(ernie serve:*)",
       "Bash(ernie hook:*)",
       "Bash(ernie session-sync:*)",
-      "Edit(**/.ernie/mem/**/items.jsonl)",
-      "Bash(bd gate resolve:*)",
-      "Bash(bd close:*)",
-      "Bash(bd update:*)",
-      "Bash(bd create:*)",
-      "Bash(bd metrics:*)",
-      "Bash(bd dolt push:*)",
-      "Bash(bd sync:*)",
-      "Bash(bd dep remove:*)",
-      "Bash(bd dep rm:*)",
-      "Bash(bd dep add:*)"
+      "Edit(**/.ernie/mem/**/items.jsonl)"
     ],
     "ask": [
       "Bash(ernie init:*)"
@@ -145,8 +129,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true",
-            "timeout": 10
+            "timeout": 10,
+            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true"
           }
         ]
       }
@@ -157,8 +141,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true",
-            "timeout": 5
+            "timeout": 5,
+            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true"
           }
         ]
       }
@@ -169,8 +153,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true",
-            "timeout": 5
+            "timeout": 5,
+            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true"
           }
         ]
       }
@@ -180,8 +164,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true",
-            "timeout": 5
+            "timeout": 5,
+            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true"
           }
         ]
       }
@@ -191,8 +175,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true",
-            "timeout": 5
+            "timeout": 5,
+            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true"
           }
         ]
       },
@@ -210,8 +194,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true",
-            "timeout": 5
+            "timeout": 5,
+            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true"
           }
         ]
       }
@@ -221,8 +205,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true",
-            "timeout": 5
+            "timeout": 5,
+            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true"
           }
         ]
       }
