@@ -55,7 +55,6 @@
       "Bash(uv add:*)",
       "Bash(uv pip list:*)",
       "Find(*)",
-      "Read(*)",
       "Search(*)",
       "Web Search(*)",
       "mcp__context7",
