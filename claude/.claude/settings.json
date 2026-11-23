@@ -129,8 +129,17 @@
         "hooks": [
           {
             "type": "command",
-            "timeout": 10,
-            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true"
+            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/bin/sh -c 'rex __internal session-start --agent claude --feature-session-naming=false 2>/dev/null || true'",
+            "timeout": 5
           }
         ]
       }
@@ -141,8 +150,8 @@
         "hooks": [
           {
             "type": "command",
-            "timeout": 5,
-            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true"
+            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true",
+            "timeout": 5
           }
         ]
       }
@@ -153,8 +162,8 @@
         "hooks": [
           {
             "type": "command",
-            "timeout": 5,
-            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true"
+            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true",
+            "timeout": 5
           }
         ]
       }
@@ -164,8 +173,8 @@
         "hooks": [
           {
             "type": "command",
-            "timeout": 5,
-            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true"
+            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true",
+            "timeout": 5
           }
         ]
       }
@@ -175,27 +184,19 @@
         "hooks": [
           {
             "type": "command",
-            "timeout": 5,
-            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true"
+            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true",
+            "timeout": 5
           }
         ]
       },
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "osascript -e 'display notification \"Claude is waiting for your input\" with title \"Claude Code\" sound name \"Glass\"'"
-          }
-        ]
-      }
     ],
     "Notification": [
       {
         "hooks": [
           {
             "type": "command",
-            "timeout": 5,
-            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true"
+            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true",
+            "timeout": 5
           }
         ]
       }
@@ -205,8 +206,8 @@
         "hooks": [
           {
             "type": "command",
-            "timeout": 5,
-            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true"
+            "command": "[ -x \"$HOME/.local/bin/ernie\" ] && \"$HOME/.local/bin/ernie\" hook || true",
+            "timeout": 5
           }
         ]
       }
@@ -228,7 +229,9 @@
     "security-guidance@claude-plugins-official": false,
     "claude-md-management@claude-plugins-official": false,
     "frontend-design@claude-plugins-official": false,
-    "skill-creator@claude-plugins-official": false
+    "skill-creator@claude-plugins-official": false,
+    "frontend-design@anthropic-plugin-directory": true,
+    "exa-deep-research@anthropic-plugin-directory": true
   },
   "extraKnownMarketplaces": {
     "LeadVenture-plugins": {
