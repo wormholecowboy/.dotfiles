@@ -144,6 +144,17 @@ Write all prose in ASD-STE100 Simplified Technical English: replies, explanation
 - `~/things/myc/` All my code repos, including forks
 - `~/things/scripts/` Various scripts, often tied to zsh or tmux commands
 
+## Machines
+
+A SessionStart hook prints `Machine hostname: <name>`. Find the name in this table to know which machine this session runs on. If the name is not in the table, ask me which machine it is.
+
+| Hostname | Machine |
+|---|---|
+| `bmm.local` | Mac mini |
+| `lvus-…` (TODO: confirm) | Work computer |
+| TODO | Laptop |
+| `vultr` | Cloud machine |
+
 ## 10. Subagents
 
 Delegate to a subagent when the work would flood my context with material I don't need to keep — broad searches, multi-file reads, research, reviews, debugging. I keep the conclusion, not the file dumps.
