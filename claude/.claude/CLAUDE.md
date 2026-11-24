@@ -39,6 +39,7 @@ Infer meaning from shorthand. Ask if unsure.
 `*bu`=give me an answer in bullet points only
 `*sub <task>`=delegate the task to the best-fit subagent (see Subagents section). Give the subagent the full context it needs, and tell it to return everything the main thread must keep.
 `*one`=give me questions or problems one at a time
+`*cap`=commit and push
 
 ## 5. Server/Process Startup
 
