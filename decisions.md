@@ -1,5 +1,16 @@
 # Decisions
 
+## 2026-11-23: pre-commit hook scans for secrets and PII
+
+**Problem:** Nothing stopped a commit that added an API key, a private key, a `.env` file, or personal data. No scanner (gitleaks, trufflehog) is installed.
+
+**Changes made:**
+- `githooks/scan-secrets.sh`: a scanner that uses only bash, awk and grep. It checks only the lines that the staged diff adds, so old content does not block a new commit. It looks for key and token formats, hardcoded secret assignments, credentials in URLs, SSNs, card numbers and email addresses. It also blocks sensitive file names (`.env`, `id_rsa`, `*.pem`, ...). `--all` scans every tracked file and only reports.
+- `githooks/pre-commit`: runs the scanner.
+- This repo: `git config core.hooksPath githooks` (local config, not tracked). Run it again after a fresh clone.
+
+**Trade-off:** Regex rules give false positives. Add `secret-scan:allow` to a line to allow it, or run `git commit --no-verify`.
+
 ## 2026-11-16: tmux lazygit opens in a zoomed split, not a popup
 
 **Problem:** A tmux popup takes all keyboard input. While lazygit was open in the popup, `prefix+L` (`switch-client -l`) went to lazygit, so tmux did not go to the last session. `man tmux` (3.8) has no option to let prefix bindings work inside a popup. herdr had the same problem (see `herdr/.config/herdr/compromises.md`).

@@ -55,17 +55,10 @@
       "Bash(uv add:*)",
       "Bash(uv pip list:*)",
       "Find(*)",
-      "Read(*)",
       "Search(*)",
       "Web Search(*)",
       "mcp__context7",
-      "Bash(ernie:*)",
-      "Bash(bd show:*)",
-      "Bash(bd list:*)",
-      "Bash(bd ready:*)",
-      "Bash(bd set-state:*)",
-      "Bash(bd comment:*)",
-      "Bash(bd gate create:*)"
+      "Bash(ernie:*)"
     ],
     "deny": [
       "Bash(curl:*)",
@@ -111,17 +104,7 @@
       "Bash(ernie serve:*)",
       "Bash(ernie hook:*)",
       "Bash(ernie session-sync:*)",
-      "Edit(**/.ernie/mem/**/items.jsonl)",
-      "Bash(bd gate resolve:*)",
-      "Bash(bd close:*)",
-      "Bash(bd update:*)",
-      "Bash(bd create:*)",
-      "Bash(bd metrics:*)",
-      "Bash(bd dolt push:*)",
-      "Bash(bd sync:*)",
-      "Bash(bd dep remove:*)",
-      "Bash(bd dep rm:*)",
-      "Bash(bd dep add:*)"
+      "Edit(**/.ernie/mem/**/items.jsonl)"
     ],
     "ask": [
       "Bash(ernie init:*)"
@@ -155,6 +138,16 @@
           {
             "type": "command",
             "command": "/bin/sh -c 'rex __internal session-start --agent claude --feature-session-naming=false 2>/dev/null || true'",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"Machine hostname: $(hostname). Match it in the Machines section of ~/.claude/CLAUDE.md.\"",
             "timeout": 5
           }
         ]
@@ -204,14 +197,6 @@
             "timeout": 5
           }
         ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "osascript -e 'display notification \"Claude is waiting for your input\" with title \"Claude Code\" sound name \"Glass\"'"
-          }
-        ]
       }
     ],
     "Notification": [
@@ -253,7 +238,9 @@
     "security-guidance@claude-plugins-official": false,
     "claude-md-management@claude-plugins-official": false,
     "frontend-design@claude-plugins-official": false,
-    "skill-creator@claude-plugins-official": false
+    "skill-creator@claude-plugins-official": false,
+    "frontend-design@anthropic-plugin-directory": true,
+    "exa-deep-research@anthropic-plugin-directory": true
   },
   "extraKnownMarketplaces": {
     "LeadVenture-plugins": {

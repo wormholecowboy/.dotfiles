@@ -1,5 +1,5 @@
 # Custom zsh prompt (replaces starship)
-# Colors: path=#FFA825 (orange), git branch=green, brackets=white
+# Colors: hostname=cyan, path=#FFA825 (orange), git branch=green, brackets=white
 
 autoload -Uz vcs_info
 precmd() { vcs_info }
@@ -17,7 +17,7 @@ precmd() {
   print
 }
 
-# Prompt: path (orange) + git branch + newline + prompt char
-# %~ = path, %(?..X) = show X on error
-PROMPT='%F{#FFA825}%5~%f ${vcs_info_msg_0_}
+# Prompt: hostname (cyan) + path (orange) + git branch + newline + prompt char
+# %m = short hostname, %~ = path, %(?..X) = show X on error
+PROMPT='%F{cyan}%m%f %F{#FFA825}%5~%f ${vcs_info_msg_0_}
 %(?.%F{white}❯%f.%F{red}X%f) '

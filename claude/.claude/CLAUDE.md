@@ -39,6 +39,7 @@ Infer meaning from shorthand. Ask if unsure.
 `*bu`=give me an answer in bullet points only
 `*sub <task>`=delegate the task to the best-fit subagent (see Subagents section). Give the subagent the full context it needs, and tell it to return everything the main thread must keep.
 `*one`=give me questions or problems one at a time
+`*cap`=commit and push
 
 ## 5. Server/Process Startup
 
@@ -142,6 +143,17 @@ Write all prose in ASD-STE100 Simplified Technical English: replies, explanation
 - `~/.dotfiles/` All my config files, many are git controlled. (neovim, tmux, zsh, zsh aliases, etc.)
 - `~/things/myc/` All my code repos, including forks
 - `~/things/scripts/` Various scripts, often tied to zsh or tmux commands
+
+## Machines
+
+A SessionStart hook prints `Machine hostname: <name>`. Find the name in this table to know which machine this session runs on. If the name is not in the table, ask me which machine it is.
+
+| Hostname | Machine |
+|---|---|
+| `bmm.local` | Mac mini |
+| `lvus-…` (TODO: confirm) | Work computer |
+| TODO | Laptop |
+| `vultr` | Cloud machine |
 
 ## 10. Subagents
 

@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Block commits that add secrets, keys, or PII.
+exec "$(dirname "$0")/scan-secrets.sh"

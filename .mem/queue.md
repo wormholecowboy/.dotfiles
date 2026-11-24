@@ -1,7 +1,8 @@
 ---
-updated: 2026-11-18
+updated: 2026-11-23
 ---
 ## next
+- [settings] On the work machine, move the work info from claude/.claude/settings.json to ~/.claude/settings.local.json (the repo is PUBLIC): the `autoMode` block, the LeadVenture marketplace URL and the VPS IP `45.76.0.220`. Then rewrite the git history (`git filter-repo`) and force-push by hand.
 - [claude] Claude Code fixes backlog (#2,#4–#10 + runners-up) → .mem/artifacts/plan_claude-code-improvements.md
 - [mem] .mem writes lossy: add a Stop-hook auto-commit and make dailies append-only (plan #2; git-track and main-thread writes are done)
 - [ernie] Create the new ernie skill, then update the ernie routing in ~/.claude/CLAUDE.md §4 and §7. The mem skill no longer steps aside where ernie is on.
