@@ -1,6 +1,5 @@
-
 {
-  "lastChangelogVersion": "0.80.3",
+  "lastChangelogVersion": "0.81.1",
   "theme": "dark",
   "defaultProvider": "lmstudio",
   "defaultModel": "google/gemma-4-12b-qat",
