@@ -152,7 +152,7 @@ A SessionStart hook prints `Machine hostname: <name>`. Find the name in this tab
 |---|---|
 | `bmm.local` | Mac mini |
 | `lvus-…` (TODO: confirm) | Work computer |
-| TODO | Laptop |
+| `Brians-Laptop.local` | Laptop |
 | `vultr` | Cloud machine |
 
 ## 10. Subagents
