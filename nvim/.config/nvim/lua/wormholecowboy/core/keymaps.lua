@@ -10,8 +10,6 @@
 -- │ [b / ]b      │ move buffer left / right                                 │
 -- │ [d / ]d      │ prev / next diagnostic                                   │
 -- │ [c / ]c      │ prev / next git change                                   │
--- │ [t / ]t      │ prev / next failed test                                  │
--- │ { / }        │ prev / next aerial symbol                                │
 -- └──────────────┴──────────────────────────────────────────────────────────┘
 --
 -- ┌─────────────────────────────────────────────────────────────────────────┐
@@ -39,19 +37,8 @@
 -- │ e            │ file explorer (oil.nvim)                                 │
 -- │ i            │ toggle indent lines                                      │
 -- │ m            │ markdown preview                                         │
--- │ t            │ toggle aerial (code outline)                             │
 -- │ w            │ write (save)                                             │
 -- │ z            │ zen mode                                                 │
--- ├──────────────┼──────────────────────────────────────────────────────────┤
--- │ a            │ +ai (99.lua, local 99)                                   │
--- │   v          │   replace visual selection w/ AI (visual mode)           │
--- │   V          │   vibe (AI session → quickfix)                           │
--- │   s          │   search (AI codebase Q&A)                               │
--- │   o          │   reopen last result                                     │
--- │   t          │   tutorial                                               │
--- │   m          │   select model                                           │
--- │   p          │   select provider                                        │
--- │   x          │   stop all in-flight requests                            │
 -- ├──────────────┼──────────────────────────────────────────────────────────┤
 -- │ g            │ +git                                                     │
 -- │   g          │   neogit status                                          │
@@ -104,27 +91,10 @@
 -- └──────────────┴──────────────────────────────────────────────────────────┘
 --
 -- ┌─────────────────────────────────────────────────────────────────────────┐
--- │ HARPOON (comma prefix)                                                  │
--- ├──────────────┬──────────────────────────────────────────────────────────┤
--- │ ,            │ harpoon commands (see harpoon.lua)                       │
--- │ <C-h>        │ harpoon list                                             │
--- └──────────────┴──────────────────────────────────────────────────────────┘
---
--- ┌─────────────────────────────────────────────────────────────────────────┐
 -- │ FUNCTION KEYS                                                           │
 -- ├──────────────┬──────────────────────────────────────────────────────────┤
 -- │ F1           │ help                                                     │
 -- │ F2           │ rename                                                   │
--- │ F3           │ +test (neotest.lua)                                      │
--- │   n          │   nearest test                                           │
--- │   f          │   file tests                                             │
--- │   p          │   project tests                                          │
--- │   l          │   last test                                              │
--- │   s          │   toggle summary                                         │
--- │   o          │   output window                                          │
--- │   O          │   output panel                                           │
--- │   x          │   stop tests                                             │
--- │   w          │   watch file                                             │
 -- │ F6           │ format code (conform.lua)                                │
 -- │ F7           │ trouble diagnostics (trouble.lua)                        │
 -- │ F8           │ lint (nvim-lint.lua)                                     │
@@ -198,7 +168,6 @@ end, { silent = true, desc = "save (ignores sync-client mtime re-stamps)" })
 keymap("n", "<leader>c", ":bp|bd#<cr>", opts) --close split buffer
 keymap("n", "<leader>A", ":%y+<cr>", opts) --select all
 keymap("n", "gP", "`[v`]", opts) --select last paste
--- keymap("n", "<leader>q", "<cmd>lua require('cmp').setup.buffer { enabled = false }<cr>", opts) --quiet
 -- keymap("n", "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])  --dumb rename
 
 keymap("n", "<leader>o", "o<Esc>k", opts)

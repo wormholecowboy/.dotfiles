@@ -1,17 +1,10 @@
 return {
 	"neovim/nvim-lspconfig",
 	event = { "BufReadPre", "BufNewFile" },
-	dependencies = {
-		"hrsh7th/cmp-nvim-lsp",
-	},
 	config = function()
-		-- Get capabilities from cmp_nvim_lsp for autocompletion
-		local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
 		-- Server configurations (Neovim 0.11+ vim.lsp.config API)
 		-- These are merged with defaults when servers are enabled
 		vim.lsp.config("basedpyright", {
-			capabilities = capabilities,
 			settings = {
 				basedpyright = {
 					disableOrganizeImports = true,
@@ -23,7 +16,6 @@ return {
 		})
 
 		vim.lsp.config("lua_ls", {
-			capabilities = capabilities,
 			settings = {
 				Lua = {
 					runtime = { version = "LuaJIT" },
@@ -35,7 +27,6 @@ return {
 		})
 
 		vim.lsp.config("ts_ls", {
-			capabilities = capabilities,
 			-- Workaround for vim.fs.root bug in Neovim 0.12-dev
 			root_dir = function(bufnr, on_dir)
 				local root_markers = { "package.json", "tsconfig.json", "jsconfig.json", ".git" }
@@ -43,10 +34,9 @@ return {
 				on_dir(root or vim.fn.getcwd())
 			end,
 		})
-		vim.lsp.config("bashls", { capabilities = capabilities })
-		vim.lsp.config("terraformls", { capabilities = capabilities })
+		vim.lsp.config("bashls", {})
+		vim.lsp.config("terraformls", {})
 		vim.lsp.config("gopls", {
-			capabilities = capabilities,
 			settings = {
 				gopls = {
 					analyses = { unusedparams = true, shadow = true },

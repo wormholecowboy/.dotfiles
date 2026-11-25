@@ -1,40 +1,27 @@
 return {
 	"hrsh7th/nvim-cmp",
+	enabled = false,
 	event = "InsertEnter",
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-buffer",
 		"hrsh7th/cmp-path",
 		"hrsh7th/cmp-cmdline",
-		"L3MON4D3/LuaSnip",
 		"onsails/lspkind.nvim",
-		{ "roobert/tailwindcss-colorizer-cmp.nvim", config = true },
 		"folke/lazydev.nvim",
 	},
 	config = function()
 		local cmp = require("cmp")
 		local lspkind = require("lspkind")
 		lspkind.init({})
-		local tailwind_formatter = require("tailwindcss-colorizer-cmp").formatter
-
-		-- get luasnip loading logs
-		-- require("luasnip").log.set_loglevel("info")
-		-- :lua require("luasnip").log.open()
 
 		cmp.setup({
-			snippet = {
-				expand = function(args)
-					require("luasnip").lsp_expand(args.body)
-				end,
-			},
 			-- cmp.config is a valid nvim-cmp API (lua_ls may show false warning)
 			---@diagnostic disable-next-line: undefined-field
 			sources = cmp.config.sources({
 				{ name = "lazydev", group_index = 0 }, -- set group index to 0 to skip loading LuaLS completions
 				{ name = "nvim_lsp" },
-				{ name = "luasnip" },
 				{ name = "buffer", keyword_length = 3 },
-				{ name = "npm", keyword_length = 4 },
 				{ name = "path" },
 			}),
 			completion = {
@@ -75,12 +62,10 @@ return {
 						nvim_lua = "lua",
 						path = "path",
 						buffer = "buf",
-						luasnip = "snip",
 						treesitter = "",
 						zsh = "",
 						codieum = "󰚩",
 					},
-					before = tailwind_formatter,
 				}),
 			},
 		})

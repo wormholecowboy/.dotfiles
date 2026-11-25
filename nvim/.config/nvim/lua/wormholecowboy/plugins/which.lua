@@ -38,7 +38,6 @@ return {
     },
     spec = {
       -- Groups only - individual keys get desc from their plugin keys spec
-      { "<leader>a", group = "ai" },
       { "<leader>g", group = "git" },
       { "<leader>gc", group = "create" },
       { "<leader>h", group = "hunks" },
@@ -48,8 +47,6 @@ return {
       { "<leader>sg", group = "git search" },
       { "<leader>u", group = "user" },
       { "<leader>uw", group = "workspace" },
-      { "<F3>", group = "test" },
-      { ",", group = "harpoon" },
       { "[", group = "prev" },
       { "]", group = "next" },
 
