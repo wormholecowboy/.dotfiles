@@ -1,5 +1,9 @@
+local plugin_dir = vim.fn.expand("$HOME/things/myc/99/master")
+
 return {
-	dir = vim.fn.expand("$HOME/things/myc/99/master"),
+	dir = plugin_dir,
+	-- Reason: the local checkout only exists on some machines; without this, lazy opens its install UI on every startup.
+	cond = vim.fn.isdirectory(plugin_dir) == 1,
 	keys = {
 		{
 			"<leader>av",
