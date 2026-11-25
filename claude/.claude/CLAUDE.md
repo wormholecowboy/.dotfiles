@@ -137,6 +137,7 @@ Write all prose in ASD-STE100 Simplified Technical English: replies, explanation
   1. Take them in that order
   2. Go straight to P2 (planning flow)
   ```
+- **Question feedback (temporary):** when a task ends and this session asked me 3 or more questions, add one last line: `Rate this session's questions? /qfb`. Offer it once per session.
 
 ## 9. Important File Paths
 - **Write home paths as `~/`**, never `/Users/<name>/`, in anything that persists (memory, docs, configs, scripts, commit messages). My username differs between machines (e.g. `briangildea` vs `brian.gildea`). Use the absolute form only where `~` won't expand (tool calls that require absolute paths, quoted strings in configs that don't expand it); use `$HOME` in scripts.
